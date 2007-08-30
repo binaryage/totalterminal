@@ -1,0 +1,29 @@
+{
+    IBClasses = (
+        {CLASS = NDHotKeyControl; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {
+            ACTIONS = {set = id; }; 
+            CLASS = QSHotKeyField; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {setButton = NSButton; }; 
+            SUPERCLASS = NSTextField; 
+        }, 
+        {
+            ACTIONS = {
+                chooseFile = id; 
+                inspect = id; 
+                setFade = id; 
+                setHotKey = id; 
+                setSlide = id; 
+                showAboutBox = id; 
+                showPrefs = id; 
+                toggleVisor = id; 
+            }; 
+            CLASS = VisorController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {aboutWindow = NSWindow; prefsWindow = NSWindow; statusMenu = NSMenu; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}
