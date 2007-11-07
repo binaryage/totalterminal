@@ -10,6 +10,7 @@
 @class TermController;
 @class TermDefaults;
 @class InspectorController;
+@class TTProfileManager;
 #import "NDHotKeyEvent.h"
 @interface VisorController : NSObject {
 	NSStatusItem *statusItem;

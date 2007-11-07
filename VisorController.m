@@ -58,6 +58,10 @@ int		fadeTime=0.1; // 30000
 - (id) init {
 	self = [super init];
 	if (self != nil) {
+    NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
+    //NSLog(@"defaults %@",defaults);
+    [[NSUserDefaults standardUserDefaults]registerDefaults:defaults];
+    
 		hotkey=nil;
 		[NSBundle loadNibNamed:@"Visor" owner:self];
 
@@ -176,7 +180,7 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 	
 	NSScreen *screen=[NSScreen mainScreen];
 	NSRect screenRect=[screen frame];
-	screenRect.size.height-=22; // Ignore menu area
+	screenRect.size.height-=21; // Ignore menu area
 	
 	NSWindow *window=[[self controller] window];
 	NSRect showFrame=screenRect; // Shown Frame
@@ -185,7 +189,7 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 	showFrame=[window frame]; // respect the existing height
 	showFrame.size.width=screenRect.size.width;//make it the full screen width
 		[window setFrame:showFrame display:NO];
-		[controller updateSize]; // Fit terminal to correct size
+	//	[controller updateSize]; // Fit terminal to correct size
 		
 		showFrame=[[controller window]frame];
 		showFrame.origin.x+=NSMidX(screenRect)-NSMidX(showFrame); // center horizontally
@@ -259,16 +263,11 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 	
 	
 	int windowHeightDelta = 500;
-	
-	
-		
-		
 	// added drp
 	// if we dont have to animate, dont really bother.
 	if(![[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseSlide"] && ![[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"])
 		DURATION=0.1;
 	
-	NSLog(@"duration %f",DURATION);
 	while (DURATION>(t=-[date timeIntervalSinceNow])) {
 		float f=t/DURATION;
 		
@@ -326,8 +325,8 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 }
 
 - (void)saveDefaults{	
-	NSDictionary *defaults=[[controller defaults]dictionaryRepresentation];
-	[[NSUserDefaults standardUserDefaults]setObject:defaults forKey:VisorTerminalDefaults];
+//	NSDictionary *defaults=[[controller defaults]dictionaryRepresentation];
+//	[[NSUserDefaults standardUserDefaults]setObject:defaults forKey:VisorTerminalDefaults];
 	//NSLog(@"defaults:%@",defaults);
 }
 - (void)resignMain:(id)sender{
@@ -366,44 +365,42 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 }
 - (void)createController{
 	// Create window controller
-	if (!controller){
-		NSDictionary *defaultsDictionary=[[NSUserDefaults standardUserDefaults]dictionaryForKey:VisorTerminalDefaults];
-		TermDefaults *defaults=nil;
-		
-		if (defaultsDictionary)
-			defaults=[[[TermDefaults alloc]initWithDictionary:defaultsDictionary]autorelease];
+	if (!controller){     
+    id profile = [[TTProfileManager sharedProfileManager] profileWithName:@"Visor"];
+   
 		BOOL sizeWindow=NO;
-		if (!defaults){
-			defaults=[TermDefaults defaultsFromDB];
-			sizeWindow=YES;
-		}
-		controller=[[VisorTermController alloc]initWithDefaults:defaults];
-		[controller setDelegate:self];
+
+    NSDisableScreenUpdates();
+    controller = [NSApp newWindowControllerWithProfile:profile];
+    [[controller window] orderOut:nil];
+    NSEnableScreenUpdates();
+
+
+	//	[controller setDelegate:self];
 		NSWindow *oldWin=[controller window];
 		NSView *contentView=[oldWin contentView];
 		[[contentView retain]autorelease];
 		[oldWin setContentView:nil];
-		
-		NS_DURING
-			NSView *scroller=[[[controller termView] subviews]objectAtIndex:1];
-			//NSLog(@"subview %@ %@",subview,);
-			NSRect rect=[scroller frame];
-			
-			rect.size.height+=rect.origin.y+1;
-			rect.origin.y=0;
-			[scroller setFrame:rect];
-		NS_HANDLER
-			;
-		NS_ENDHANDLER
+		NSLog(@"contentView %@", [controller tabView]);
+//		NS_DURING
+//			NSView *scroller=[[[controller tabView] subviews]objectAtIndex:1];
+//			NSRect rect=[scroller frame];
+//			
+//			rect.size.height+=rect.origin.y+1;
+//			rect.origin.y=0;
+//			[scroller setFrame:rect];
+//		NS_HANDLER
+//			;
+//		NS_ENDHANDLER
 		
 		// Create a new borderless window
 		NSWindow *newWin=[[VisorWindow alloc]initWithContentRect:[oldWin frame] styleMask:NSBorderlessWindowMask|NSNonactivatingPanelMask backing:NSBackingStoreBuffered defer:NO];
 		[newWin setDelegate:controller];
-		[newWin setInitialFirstResponder:[[controller termView]mainSubview]];
+//		[newWin setInitialFirstResponder:[[controller termView]mainSubview]];
 		[newWin setContentView:contentView];		
 		[newWin setLevel:NSFloatingWindowLevel];
 		[newWin setOpaque:NO];
-		[newWin setBackgroundColor:[NSColor whiteColor]];
+		[newWin setBackgroundColor:[NSColor lightGrayColor]];
 		[controller setWindow:newWin];
 		[[NSNotificationCenter defaultCenter]addObserver:self
 												selector:@selector(resignMain:)
@@ -414,9 +411,15 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 													name:NSWindowDidResignKeyNotification
 												  object:newWin];
 		[[NSNotificationCenter defaultCenter]addObserver:self
-												selector:@selector(becomeKey:)
-													name:NSWindowDidBecomeKeyNotification
-												  object:newWin];
+                                            selector:@selector(becomeKey:)
+                                                name:NSWindowDidBecomeKeyNotification
+                                              object:newWin];
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(resized:)
+                                                name:NSWindowDidResizeNotification
+                                              object:newWin];
+    
+    
 		[newWin setOpaque:NO];
 		
 		
@@ -445,6 +448,12 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 		[[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"VisorUseBackgroundAnimation"];
 	}
 }
+- (void)resized:(NSNotification *)notif {
+  if (backgroundWindow) {
+    [backgroundWindow setFrame:[[controller window] frame] display:YES]; 
+  }
+}
+
 
 - (NSWindow *)backgroundWindow{
 	if (!backgroundWindow){
