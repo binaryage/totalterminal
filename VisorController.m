@@ -189,7 +189,7 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 	showFrame=[window frame]; // respect the existing height
 	showFrame.size.width=screenRect.size.width;//make it the full screen width
 		[window setFrame:showFrame display:NO];
-	//	[controller updateSize]; // Fit terminal to correct size
+//  [[controller tabView] resizeWindowToAccountForTabsBeingDisplayed:nil]; // Fit terminal to correct size
 		
 		showFrame=[[controller window]frame];
 		showFrame.origin.x+=NSMidX(screenRect)-NSMidX(showFrame); // center horizontally
