@@ -46,7 +46,7 @@
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF630370AF2F00C91783 /* Visor_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor_Prefix.pch; sourceTree = "<group>"; };
 		7F0146280A3E63C6006AF239 /* Visor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Visor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F01462A0A3E63C6006AF239 /* Visor.app-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Visor.app-Info.plist"; sourceTree = "<group>"; };
+		7F01462A0A3E63C6006AF239 /* Visor.app-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Visor.app-Info.plist"; sourceTree = "<group>"; };
 		7F01465A0A3E64A0006AF239 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7F0146660A3E64DA006AF239 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		7F01469F0A3E6571006AF239 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -56,7 +56,7 @@
 		7F612A9E0A2FA1F8002DAB1F /* VisorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorController.h; sourceTree = "<group>"; };
 		7F612A9F0A2FA1F8002DAB1F /* VisorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorController.m; sourceTree = "<group>"; };
 		7F628E310A421F9800EDA11B /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
-		7F849AA60A457DE100963040 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Defaults.plist; sourceTree = "<group>"; };
+		7F849AA60A457DE100963040 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		7FB9C2520A2FA9FD0076695A /* VisorWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorWindow.h; sourceTree = "<group>"; };
 		7FB9C2530A2FA9FD0076695A /* VisorWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorWindow.m; sourceTree = "<group>"; };
 		7FB9C2B20A2FB37A0076695A /* TerminalDump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalDump.h; sourceTree = "<group>"; };
@@ -68,11 +68,11 @@
 		7FC7F74A0A3BBCAA00B52344 /* QSHotKeyEditor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSHotKeyEditor.h; sourceTree = "<group>"; };
 		7FC7F74B0A3BBCAA00B52344 /* QSHotKeyEditor.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyEditor.m; sourceTree = "<group>"; };
 		7FC7F7640A3BBED200B52344 /* VisorLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VisorLarge.png; sourceTree = "<group>"; };
-		7FE1E5970A38C38B00344393 /* Visor.qtz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Visor.qtz; sourceTree = "<group>"; };
+		7FE1E5970A38C38B00344393 /* Visor.qtz */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Visor.qtz; sourceTree = "<group>"; };
 		7FE1E5990A38C3A600344393 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		7FE1E5BA0A38C3C400344393 /* QuartzComposer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzComposer.framework; path = /System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/QuartzComposer.framework; sourceTree = "<absolute>"; };
 		8D5B49B6048680CD000E48DA /* Visor.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Visor.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
