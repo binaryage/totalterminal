@@ -17,6 +17,10 @@
 	<true/>
 		<key>VisorShowStatusItem</key>
 	<true/>
+	<key>VisorHideOnEscape</key>
+	<false/>
+	<key>VisorTransparency</key>
+	<real>1.0</real>
 	
 </dict>
 </plist>
