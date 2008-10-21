@@ -218,6 +218,9 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 		[self slideWindows:1];
 		[window invalidateShadow];
 		
+		[window setAlphaValue:
+				[[NSUserDefaults standardUserDefaults]
+					floatForKey:@"VisorTransparency"]];
 		
 		//	[controller setNeedsDisplay];	
 }
@@ -262,6 +265,9 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 	// added drp
 	float DURATION=[[NSUserDefaults standardUserDefaults]floatForKey:@"VisorAnimationSpeed"];
 	
+	// The final alpha for the visor window
+	float finalAlpha = [[NSUserDefaults standardUserDefaults]
+			floatForKey:@"VisorTransparency"];
 	
 	int windowHeightDelta = 500;
 	// added drp
@@ -280,14 +286,14 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 		if ([[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"])
 		{
 			if (backgroundWindow)
-				CGSSetWindowAlpha(cgs, wids[1], 1.0f-(f*1.1)); //background fades faster
-			CGSSetWindowAlpha(cgs, wids[0], 1.0f-f);
+				CGSSetWindowAlpha(cgs, wids[1], finalAlpha-(f*1.1)); //background fades faster
+			CGSSetWindowAlpha(cgs, wids[0], finalAlpha-f);
 		}
 		else
 		{
 			if (backgroundWindow)
-				CGSSetWindowAlpha(cgs, wids[1], 1);
-			CGSSetWindowAlpha(cgs, wids[0], 1);
+				CGSSetWindowAlpha(cgs, wids[1], finalAlpha);
+			CGSSetWindowAlpha(cgs, wids[0], finalAlpha);
 			
 		}
 		
