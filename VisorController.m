@@ -220,9 +220,7 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 		[self slideWindows:1];
 		[window invalidateShadow];
 		
-		if([controller respondsToSelector:@selector(selectedTabController)])
-			[window makeFirstResponder:
-					[[controller selectedTabController] view]];
+		[window makeFirstResponder:[[controller selectedTabController] view]];
 		
 		//	[controller setNeedsDisplay];	
 }
