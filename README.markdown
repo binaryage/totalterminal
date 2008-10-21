@@ -21,4 +21,3 @@ The most current version is available for download [here](http://pixelshed.net/v
 Stuff I am planing to fix:
 
 * Initial focus. (Issue 20)
-* UIs für die properties.
