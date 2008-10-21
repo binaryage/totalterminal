@@ -82,6 +82,7 @@ int		fadeTime=0.1; // 30000
 
 		
 		[self enableHotKey];
+		[self initEscapeKey];
 		
 		// Watch for hotkey changes
 		[[NSUserDefaultsController sharedUserDefaultsController]addObserver:self
@@ -177,6 +178,7 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 
 
 - (void)showWindow{
+	[self maybeEnableEscapeKey:YES];
 	
 	NSScreen *screen=[NSScreen mainScreen];
 	NSRect screenRect=[screen frame];
@@ -232,6 +234,8 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 //#define DURATION 0.333f
 
 -(void)hideWindow{
+	[self maybeEnableEscapeKey:NO];
+	
  	NSWindow *window=[[self controller] window];
 	NSScreen *screen=[NSScreen mainScreen];
 	NSRect screenRect=[screen frame];	
@@ -532,6 +536,18 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 		[hotkey setEnabled:YES];	
 		[hotkey retain];
 	}
+}
+- (void)initEscapeKey
+{
+	escapeKey=(QSHotKeyEvent *)[QSHotKeyEvent hotKeyWithKeyCode:53 character:0 modifierFlags:0];
+	[escapeKey setTarget:self selectorReleased:(SEL)0 selectorPressed:@selector(toggleVisor:)];
+	[escapeKey setEnabled:NO];	
+	[escapeKey retain];
+}
+- (void)maybeEnableEscapeKey:(BOOL)pEnable
+{
+	if([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorHideOnEscape"])
+		[escapeKey setEnabled:pEnable];
 }
 - (TermController *)controller {
 	

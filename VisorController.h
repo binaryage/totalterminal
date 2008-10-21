@@ -21,6 +21,7 @@
 	IBOutlet NSWindow *aboutWindow;
 		
 	NDHotKeyEvent *hotkey;
+	NDHotKeyEvent *escapeKey;
 	InspectorController *inspector;
 }
 - (TermController *)controller;
@@ -36,6 +37,8 @@
 - (void)hideWindow;
 - (void)showWindow;
 - (void)enableHotKey;
+- (void)initEscapeKey;
+- (void)maybeEnableEscapeKey:(BOOL)enable;
 - (void)activateStatusMenu;
 - (NSWindow *)backgroundWindow;
 - (void) setBackgroundWindow: (NSWindow *) newBackgroundWindow;
