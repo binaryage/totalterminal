@@ -216,6 +216,7 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 		[window setLevel:NSMainMenuWindowLevel-1];
 		
 		[self slideWindows:1];
+		[window invalidateShadow];
 		
 		
 		//	[controller setNeedsDisplay];	
