@@ -14,3 +14,11 @@ Please see the [original website](http://code.google.com/p/blacktree-visor/) for
 ## Download
 
 The most current version is available for download [here](http://pixelshed.net/visor-builds/).
+
+
+## TODO
+
+Stuff I am planing to fix:
+
+* Initial focus. (Issue 20)
+* UIs für die properties.
