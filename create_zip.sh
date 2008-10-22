@@ -4,7 +4,7 @@
 
 
 GIT_REV=`git rev-parse --short=4 HEAD`
-VERSION=1.5r$GIT_REV
+VERSION=1.5-$GIT_REV
 
 
 rm -f Visor.*.zip
