@@ -4,14 +4,14 @@ In a nutshell: "Visor provides a systemwide terminal window accessible via a hot
 
 This is my fork of the project, as I wanted to have some additional features and some bugs fixed.  Currently this is what is different from the original:
 
-* Fixed the "White Line Bug" (Issue 16)
+* Fixed the "White Line Bug" ([Issue 16](http://code.google.com/p/blacktree-visor/issues/detail?id=16))
 * Added the option to hide Visor on Escape press.
   Press Shift+Escape, if you need a "Escape" in the Terminal.
-* If you start Visor you get now initial focus. (Issue 20)
+* If you start Visor you get now initial focus. ([Issue 20](http://code.google.com/p/blacktree-visor/issues/detail?id=20))
 
 Please see the [original website](http://code.google.com/p/blacktree-visor/) for more information, the issue tracker and so on.
 
 
 ## Download
 
-The most current version is available for download [here](http://pixelshed.net/visor-builds/).
+Usable builds including this fixes are available for download [here](http://pixelshed.net/visor-builds/).
