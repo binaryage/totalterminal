@@ -57,6 +57,7 @@ int		fadeTime=0.1; // 30000
 
 - (id) init {
 	self = [super init];
+  previouslyActiveApp = nil;
 	if (self != nil) {
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     //NSLog(@"defaults %@",defaults);
@@ -180,6 +181,16 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 - (void)showWindow{
 	[self maybeEnableEscapeKey:YES];
 	
+  NSDictionary *activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
+  if (previouslyActiveApp) {
+      [previouslyActiveApp release];
+      previouslyActiveApp = nil;
+  }
+  if ([[activeAppDict objectForKey:@"NSApplicationBundleIdentifier"] compare:@"com.apple.Terminal"]) {
+      previouslyActiveApp = [[NSString alloc] initWithString:[activeAppDict objectForKey:@"NSApplicationPath"]];
+  }
+  [NSApp activateIgnoringOtherApps:YES];
+  
 	NSScreen *screen=[NSScreen mainScreen];
 	NSRect screenRect=[screen frame];
 	screenRect.size.height-=21; // Ignore menu area
@@ -233,6 +244,17 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 
 -(void)hideWindow{
 	[self maybeEnableEscapeKey:NO];
+	
+	if (previouslyActiveApp) {
+        NSDictionary *scriptError = [[NSDictionary alloc] init]; 
+        NSString *scriptSource = [NSString stringWithFormat: @"tell application \"%@\" to activate ", previouslyActiveApp]; 
+        NSAppleScript *appleScript = [[NSAppleScript alloc] initWithSource:scriptSource]; 
+        [appleScript executeAndReturnError: &scriptError];
+        [appleScript release];
+        [scriptError release];
+        [previouslyActiveApp release];
+        previouslyActiveApp = nil;
+	}
 	
  	NSWindow *window=[[self controller] window];
 	NSScreen *screen=[NSScreen mainScreen];

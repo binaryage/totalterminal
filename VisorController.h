@@ -23,6 +23,7 @@
 	NDHotKeyEvent *hotkey;
 	NDHotKeyEvent *escapeKey;
 	InspectorController *inspector;
+  NSString* previouslyActiveApp;
 }
 - (TermController *)controller;
 - (void)setController:(TermController *)value;
