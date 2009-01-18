@@ -380,52 +380,31 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
     [[controller window] orderOut:nil];
     NSEnableScreenUpdates();
 
-
-	//	[controller setDelegate:self];
-		NSWindow *oldWin=[controller window];
-		NSView *contentView=[oldWin contentView];
-		[[contentView retain]autorelease];
-		[oldWin setContentView:nil];
-		NSLog(@"contentView %@", [controller tabView]);
-//		NS_DURING
-//			NSView *scroller=[[[controller tabView] subviews]objectAtIndex:1];
-//			NSRect rect=[scroller frame];
-//			
-//			rect.size.height+=rect.origin.y+1;
-//			rect.origin.y=0;
-//			[scroller setFrame:rect];
-//		NS_HANDLER
-//			;
-//		NS_ENDHANDLER
-		
-		// Create a new borderless window
-		NSWindow *newWin=[[VisorWindow alloc]initWithContentRect:[oldWin frame] styleMask:NSBorderlessWindowMask|NSNonactivatingPanelMask backing:NSBackingStoreBuffered defer:NO];
-		[newWin setDelegate:controller];
-//		[newWin setInitialFirstResponder:[[controller termView]mainSubview]];
-		[newWin setContentView:contentView];		
-		[newWin setLevel:NSFloatingWindowLevel];
-		[newWin setOpaque:NO];
-		[newWin setBackgroundColor:[NSColor lightGrayColor]];
-		[controller setWindow:newWin];
+		NSWindow *win=[controller window];
+		[win setDelegate:controller];
+		[win setLevel:NSFloatingWindowLevel];
+		[win setOpaque:NO];
+		[win setBackgroundColor:[NSColor lightGrayColor]];
+		[controller setWindow:win];
 		[[NSNotificationCenter defaultCenter]addObserver:self
 												selector:@selector(resignMain:)
 													name:NSWindowDidResignMainNotification
-												  object:newWin];
+												  object:win];
 		[[NSNotificationCenter defaultCenter]addObserver:self
 												selector:@selector(resignKey:)
 													name:NSWindowDidResignKeyNotification
-												  object:newWin];
+												  object:win];
 		[[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(becomeKey:)
                                                 name:NSWindowDidBecomeKeyNotification
-                                              object:newWin];
+                                              object:win];
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(resized:)
                                                 name:NSWindowDidResizeNotification
-                                              object:newWin];
+                                              object:win];
     
     
-		[newWin setOpaque:NO];
+		[win setOpaque:NO];
 		
 		
 		if (sizeWindow){
@@ -437,7 +416,7 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 			NSRect showFrame=screenRect; // Shown Frame
 			showFrame.origin.y+=NSHeight(screenRect)/2;
 			showFrame.size.height=NSHeight(screenRect)/2;
-			[newWin setFrame:showFrame display:NO];
+			[win setFrame:showFrame display:NO];
 		}
 	}	
 }
