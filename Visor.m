@@ -115,6 +115,8 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:window];
     [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window];
     [dnc addObserver:self selector:@selector(resized:) name:NSWindowDidResizeNotification object:window];
+    
+    needPlacement = true;
 }
 
 - (BOOL)validateMenuItem:(id <NSMenuItem>)menuItem {
@@ -337,13 +339,16 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
 - (void)becomeMain:(id)sender {
     NSLog(@"becomeMain %@", sender);
-    [self resetWindowPlace:window];
+    if (needPlacement) {
+        NSLog(@"... needPlacement");
+        [self resetWindowPlace:window];
+        needPlacement = false;
+    }
 }
 
 - (void)resized:(NSNotification *)notif {
     NSLog(@"resized %@", notif);
     [self adoptScreenWidth:window];
-    [self resetWindowPlace:window];
     [self saveDefaults];
 }
 

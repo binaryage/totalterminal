@@ -21,6 +21,7 @@
     NDHotKeyEvent* escapeKey;
     NSString* previouslyActiveApp;
     BOOL hidden;
+    BOOL needPlacement;
 }
 - (BOOL)status;
 - (void)adoptTerminal:(NSWindow*)window;
