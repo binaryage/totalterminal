@@ -12,7 +12,6 @@
 @class TTProfileManager;
 @interface Visor : NSObject {
     NSWindow* window; // the one visorized terminal window (may be nil)
-    NSWindow* background; // background window for quartz animations (will be nil if not enabled in settings!)
     NSStatusItem* statusItem;
     IBOutlet NSWindow* prefsWindow;
     IBOutlet NSMenu* statusMenu;
@@ -36,7 +35,5 @@
 - (void)initEscapeKey;
 - (void)maybeEnableEscapeKey:(BOOL)enable;
 - (void)activateStatusMenu;
-- (NSWindow*)background;
-- (void) setBackground: (NSWindow*)newBackground;
 - (void)saveDefaults;
 @end

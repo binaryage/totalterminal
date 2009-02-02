@@ -3,18 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>IBFramework Version</key>
-	<string>670</string>
+	<string>677</string>
 	<key>IBLastKnownRelativeProjectPath</key>
 	<string>Visor.xcodeproj</string>
 	<key>IBOldestOS</key>
 	<integer>5</integer>
 	<key>IBOpenObjects</key>
 	<array>
-		<integer>157</integer>
+		<integer>188</integer>
 		<integer>15</integer>
+		<integer>5</integer>
 	</array>
 	<key>IBSystem Version</key>
-	<string>9F33</string>
+	<string>9G55</string>
 	<key>targetFramework</key>
 	<string>IBCocoaFramework</string>
 </dict>
