@@ -21,6 +21,8 @@
     NSString* previouslyActiveApp;
     BOOL hidden;
     BOOL needPlacement;
+    NSImage* activeIcon;
+    NSImage* inactiveIcon;
 }
 - (BOOL)status;
 - (void)adoptTerminal:(NSWindow*)window;
@@ -36,4 +38,5 @@
 - (void)maybeEnableEscapeKey:(BOOL)enable;
 - (void)activateStatusMenu;
 - (void)saveDefaults;
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item;
 @end

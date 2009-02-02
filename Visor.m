@@ -50,6 +50,11 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 #endif
     NSLog(@"init");
     
+    NSString* imagePath1=[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorActive"];
+    activeIcon=[[NSImage alloc]initWithContentsOfFile:imagePath1];
+    NSString* imagePath2=[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorInactive"];
+    inactiveIcon=[[NSImage alloc]initWithContentsOfFile:imagePath2];
+    
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
 
@@ -81,7 +86,6 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     
     // watch for hotkey changes
     [udc addObserver:self forKeyPath:@"values.VisorHotKey" options:nil context:nil];
-    [udc addObserver:self forKeyPath:@"values.VisorBackgroundAnimationFile" options:nil context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorUseFade" options:nil context:nil];                                                           
     [udc addObserver:self forKeyPath:@"values.VisorUseSlide" options:nil context:nil];               
     [udc addObserver:self forKeyPath:@"values.VisorAnimationSpeed" options:nil context:nil];
@@ -110,17 +114,11 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:window];
     [dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:window];
     [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window];
-    [dnc addObserver:self selector:@selector(resized:) name:NSWindowDidResizeNotification object:window];
+    [dnc addObserver:self selector:@selector(didResize:) name:NSWindowDidResizeNotification object:window];
+    [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window];
     
     needPlacement = true;
-}
-
-- (BOOL)validateMenuItem:(id <NSMenuItem>)menuItem {
-    if ([menuItem action]==@selector(toggleVisor:)){
-        [menuItem setKeyEquivalent:stringForCharacter([hotkey keyCode],[hotkey character])];
-        [menuItem setKeyEquivalentModifierMask:[hotkey modifierFlags]];
-    }
-    return YES;
+    [self updateStatusMenu];
 }
 
 - (IBAction)showPrefs:(id)sender {
@@ -136,16 +134,20 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [aboutWindow makeKeyAndOrderFront:nil];
 }
 
+- (BOOL)validateMenuItem:(id <NSMenuItem>)menuItem {
+    if ([menuItem action]==@selector(toggleVisor:)){
+        [menuItem setKeyEquivalent:stringForCharacter([hotkey keyCode],[hotkey character])];
+        [menuItem setKeyEquivalentModifierMask:[hotkey modifierFlags]];
+        return [self status];
+    }
+    return YES;
+}
+
 - (void)activateStatusMenu {
     NSLog(@"activateStatusMenu");
     NSStatusBar *bar = [NSStatusBar systemStatusBar];
     statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
     [statusItem retain];
-    
-    // Set Icon
-    NSString *imagePath=[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"Visor"];
-    NSImage *image=[[[NSImage alloc]initWithContentsOfFile:imagePath]autorelease];
-    [statusItem setImage:image];
     
     [statusItem setHighlightMode:YES];
     [statusItem setTarget:self];
@@ -153,10 +155,26 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [statusItem setDoubleAction:@selector(toggleVisor:)];
     
     [statusItem setMenu:statusMenu];
+    [self updateStatusMenu];
+}
+
+- (void)updateStatusMenu {
+    NSLog(@"updateStatusMenu");
+    // update icon
+    BOOL status = [self status];
+    if (status)
+        [statusItem setImage:activeIcon];
+    else
+        [statusItem setImage:inactiveIcon];
 }
 
 - (IBAction)toggleVisor:(id)sender {
     NSLog(@"toggleVisor %@", sender);
+    if (!window) {
+        NSLog(@"visor is sleeping");
+        NSBeep();
+        return;
+    }
     if (hidden){
         [self showWindow];
     }else{
@@ -282,12 +300,6 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [window setAlphaValue:1.0]; // NSWindow caches these values, so let it know
 }
 
-// callback for a closed shell
-- (void)shell:(id)shell childDidExitWithStatus:(int)status {
-    [self hideWindow];
-    [self setController:nil];
-}
-
 - (void)saveDefaults {   
 //  NSDictionary *defaults=[[controller defaults]dictionaryRepresentation];
 //  [[NSUserDefaults standardUserDefaults]setObject:defaults forKey:VisorTerminalDefaults];
@@ -317,10 +329,16 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     }
 }
 
-- (void)resized:(NSNotification *)notif {
-    NSLog(@"resized %@", notif);
+- (void)didResize:(id)sender {
+    NSLog(@"didResize %@", sender);
     [self adoptScreenWidth:window];
     [self saveDefaults];
+}
+
+- (void)willClose:(id)sender {
+    NSLog(@"willClose %@", sender);
+    window = nil;
+    [self updateStatusMenu];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -333,7 +351,6 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
         }
     } else {
         [self enableHotKey];
-        [self setBackground:nil];
     }
 }
 

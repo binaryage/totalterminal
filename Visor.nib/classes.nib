@@ -6,6 +6,14 @@
 	<array>
 		<dict>
 			<key>CLASS</key>
+			<string>NSMenuItem</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
 			<string>NSObject</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
@@ -35,6 +43,42 @@
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>chooseFile</key>
+				<string>id</string>
+				<key>inspect</key>
+				<string>id</string>
+				<key>setFade</key>
+				<string>id</string>
+				<key>setHotKey</key>
+				<string>id</string>
+				<key>setSlide</key>
+				<string>id</string>
+				<key>showAboutBox</key>
+				<string>id</string>
+				<key>showPrefs</key>
+				<string>id</string>
+				<key>toggleVisor</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>Visor</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>aboutWindow</key>
+				<string>NSWindow</string>
+				<key>prefsWindow</key>
+				<string>NSWindow</string>
+				<key>statusMenu</key>
+				<string>NSMenu</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
 		</dict>
 	</array>
 	<key>IBVersion</key>
