@@ -116,6 +116,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window];
     [dnc addObserver:self selector:@selector(didResize:) name:NSWindowDidResizeNotification object:window];
     [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window];
+    [dnc addObserver:self selector:@selector(willBeginSheet:) name:NSWindowWillBeginSheetNotification object:window];
     
     needPlacement = true;
     [self updateStatusMenu];
@@ -195,7 +196,8 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 - (void)placeWindow:(id)window offset:(float)offset {
     NSScreen* screen=[NSScreen mainScreen];
     NSRect screenRect=[screen frame];
-    screenRect.size.height-=21; // ignore menu area
+    // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
+    screenRect.size.height-=22; // ignore menu area
     NSRect frame=screenRect; // shown Frame
     frame=[window frame]; // respect the existing height
     frame.origin.y=NSMaxY(screenRect)-round(offset*NSHeight(frame)); // move above top of screen
@@ -339,6 +341,10 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     NSLog(@"willClose %@", sender);
     window = nil;
     [self updateStatusMenu];
+}
+
+- (void)willBeginSheet:(id)sender {
+    NSLog(@"willBeginSheet %@", sender);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

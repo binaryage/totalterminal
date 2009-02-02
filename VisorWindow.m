@@ -16,7 +16,7 @@
                    backing: (NSBackingStoreType) bufferingType
                      defer: (BOOL) flag
 {
-    NSLog(@"Creating new terminal window");
+    NSLog(@"Creating a new terminal window");
     Visor* visor = [Visor sharedInstance];
     BOOL shouldBeVisorized = ![visor status];
     if (shouldBeVisorized) {

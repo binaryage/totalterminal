@@ -34,6 +34,7 @@
 		D68AA7020F371C810094AA92 /* Visor.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* Visor.m */; };
 		D68AA7C60F37310E0094AA92 /* VisorActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D68AA7C50F37310E0094AA92 /* VisorActive.png */; };
 		D68AA7CA0F3731EC0094AA92 /* VisorInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = D68AA7C90F3731EC0094AA92 /* VisorInactive.png */; };
+		D68AA80C0F374F230094AA92 /* VisorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA80B0F374F230094AA92 /* VisorWindowController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,8 @@
 		D68AA7010F371C810094AA92 /* Visor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Visor.m; sourceTree = "<group>"; };
 		D68AA7C50F37310E0094AA92 /* VisorActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VisorActive.png; sourceTree = "<group>"; };
 		D68AA7C90F3731EC0094AA92 /* VisorInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VisorInactive.png; sourceTree = "<group>"; };
+		D68AA80A0F374F230094AA92 /* VisorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorWindowController.h; sourceTree = "<group>"; };
+		D68AA80B0F374F230094AA92 /* VisorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorWindowController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +137,8 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D68AA80A0F374F230094AA92 /* VisorWindowController.h */,
+				D68AA80B0F374F230094AA92 /* VisorWindowController.m */,
 				D68AA7000F371C810094AA92 /* Visor.h */,
 				D68AA7010F371C810094AA92 /* Visor.m */,
 				7FB9C2B50A2FB4280076695A /* NDHotKeyEvent.h */,
@@ -315,6 +320,7 @@
 				7FC7F74D0A3BBCAA00B52344 /* QSHotKeyEditor.m in Sources */,
 				7F01465B0A3E64A0006AF239 /* main.m in Sources */,
 				D68AA7020F371C810094AA92 /* Visor.m in Sources */,
+				D68AA80C0F374F230094AA92 /* VisorWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
