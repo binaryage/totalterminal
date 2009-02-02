@@ -10,7 +10,6 @@
 #import "NDHotKeyEvent.h"
 @class TermController;
 @class TermDefaults;
-@class InspectorController;
 @class TTProfileManager;
 @interface VisorController : NSObject {
     NSStatusItem *statusItem;
@@ -19,10 +18,8 @@
     IBOutlet NSWindow *prefsWindow;
     IBOutlet NSMenu *statusMenu;
     IBOutlet NSWindow *aboutWindow;
-        
     NDHotKeyEvent *hotkey;
     NDHotKeyEvent *escapeKey;
-    InspectorController *inspector;
     NSString* previouslyActiveApp;
     BOOL hidden;
 }

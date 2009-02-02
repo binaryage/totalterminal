@@ -15,28 +15,7 @@
 
 #define VisorTerminalDefaults @"VisorTerminal" 
 
-bool    useSlide=true;
-bool    useFade=true;
-int     fadeTime=0.1; // 30000
-
-NSString* stringForCharacter( const unsigned short aKeyCode, unichar aCharacter );
-
-@interface InspectorController : NSWindowController {
-    @public
-    TermController *termController;
-    NSPopUpButton *popUpButton;
-    NSTabView *tabView;
-    id bufferInspector;
-    id colorInspector;
-    id displayInspector;
-    id emulationInspector;
-    id processesInspector;
-    id shellInspector;
-    id windowInspector;
-    id keyMappingInspector;
-}
-+ (InspectorController *)sharedInspectorController;
-@end
+NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
 @implementation VisorController
 
@@ -94,6 +73,7 @@ NSString* stringForCharacter( const unsigned short aKeyCode, unichar aCharacter 
     [udc addObserver:self forKeyPath:@"values.VisorAnimationSpeed" options:nil context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorShowStatusItem" options:nil context:nil];
     
+    [self controller]; // calls createController
     if ([ud boolForKey:@"VisorUseBackgroundAnimation"]) {
         [self backgroundWindow];
     }
@@ -102,25 +82,22 @@ NSString* stringForCharacter( const unsigned short aKeyCode, unichar aCharacter 
 
 - (void)createController {
     if (controller) return;
-    id profile = [[TTProfileManager sharedProfileManager] profileWithName:@"Visor"];
-    NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
 
     NSDisableScreenUpdates();
+    NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
+    id profile = [[TTProfileManager sharedProfileManager] profileWithName:@"Visor"];
     controller = [NSApp newWindowControllerWithProfile:profile];
-    [[controller window] orderOut:nil];
-    NSEnableScreenUpdates();
 
     NSWindow *window=[controller window];
-    [window setDelegate:controller];
     [window setLevel:NSFloatingWindowLevel];
     [window setOpaque:NO];
-    [window setBackgroundColor:[NSColor lightGrayColor]];
-    [controller setWindow:window];
+    [self placeWindowOffScreen:window];
+
     [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window];
     [dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:window];
     [dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:window];
     [dnc addObserver:self selector:@selector(resized:) name:NSWindowDidResizeNotification object:window];
-    [window setOpaque:NO];
+    NSEnableScreenUpdates();
 }
 
 - (BOOL)validateMenuItem:(id <NSMenuItem>)menuItem {
@@ -169,10 +146,9 @@ NSString* stringForCharacter( const unsigned short aKeyCode, unichar aCharacter 
     }
 }
 
-- (void)placeWindowOffScreen {
+- (void)placeWindowOffScreen:(id)window {
     BOOL useBackground = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseBackgroundAnimation"];
     NSScreen *screen=[NSScreen mainScreen];
-    NSWindow *window=[[self controller] window];
     NSRect screenRect=[screen frame];
     screenRect.size.height-=21; // ignore menu area
     NSRect showFrame=screenRect; // shown Frame
@@ -211,7 +187,7 @@ NSString* stringForCharacter( const unsigned short aKeyCode, unichar aCharacter 
     NSWindow *window=[[self controller] window];
     [window makeKeyAndOrderFront:self];
     [window makeFirstResponder:[[controller selectedTabController] view]];
-    [self placeWindowOffScreen];
+    [self placeWindowOffScreen:window];
     [window setHasShadow:YES];
     [self slideWindows:1];
     [window invalidateShadow];
@@ -447,7 +423,7 @@ NSString* stringForCharacter( const unsigned short aKeyCode, unichar aCharacter 
         [escapeKey setEnabled:pEnable];
 }
 
-- (TermController *)controller {
+- (TermController*)controller {
     if (!controller)[self createController];
     return [[controller retain] autorelease];
 }
