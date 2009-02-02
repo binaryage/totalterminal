@@ -23,6 +23,7 @@
     BOOL needPlacement;
     NSImage* activeIcon;
     NSImage* inactiveIcon;
+    NSScreen* cachedScreen;
 }
 - (BOOL)status;
 - (void)adoptTerminal:(NSWindow*)window;
@@ -39,4 +40,8 @@
 - (void)activateStatusMenu;
 - (void)saveDefaults;
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item;
+@end
+
+@interface VisorScreenTransformer: NSValueTransformer {
+}
 @end

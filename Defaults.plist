@@ -19,6 +19,7 @@
 	<true/>
 	<key>VisorHideOnEscape</key>
 	<false/>
-	
+	<key>VisorScreen</key>
+	<integer>0</integer>
 </dict>
 </plist>

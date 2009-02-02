@@ -71,9 +71,12 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     if (![ud objectForKey:@"VisorShowStatusItem"]) {
         [ud setBool:YES forKey:@"VisorShowStatusItem"];
     }
+    if (![ud objectForKey:@"VisorScreen"]) {
+        [ud setInteger:0 forKey:@"VisorScreen"]; // use main screen by default
+    }
     
     // add the "Visor Preferences..." item to the Terminal menu
-    id <NSMenuItem> prefsMenuItem = [[statusMenu itemAtIndex:[statusMenu numberOfItems] - 1] copy];
+    id <NSMenuItem> prefsMenuItem = [[statusMenu itemAtIndex:2] copy];
     [[[[NSApp mainMenu] itemAtIndex:0] submenu] insertItem:prefsMenuItem atIndex:3];
     [prefsMenuItem release];
     
@@ -90,6 +93,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [udc addObserver:self forKeyPath:@"values.VisorUseSlide" options:nil context:nil];               
     [udc addObserver:self forKeyPath:@"values.VisorAnimationSpeed" options:nil context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorShowStatusItem" options:nil context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorScreen" options:nil context:nil];
     return self;
 }
 
@@ -161,6 +165,8 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
 - (void)updateStatusMenu {
     NSLog(@"updateStatusMenu");
+    if (!statusItem) return;
+    
     // update icon
     BOOL status = [self status];
     if (status)
@@ -172,14 +178,14 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 - (IBAction)toggleVisor:(id)sender {
     NSLog(@"toggleVisor %@", sender);
     if (!window) {
-        NSLog(@"visor is sleeping");
+        NSLog(@"visor is detached");
         NSBeep();
         return;
     }
     if (hidden){
-        [self showWindow];
+        [self showWindow:false];
     }else{
-        [self hideWindow];
+        [self hideWindow:false];
     }
 }
 
@@ -187,28 +193,44 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     float offset = 1.0f;
     if (hidden) offset = 0.0f;
     NSLog(@"resetWindowPlace %@ %f", window, offset);
+    [self cacheScreen];
     [self placeWindow:window offset:offset];
     [self adoptScreenWidth:window];
+}
+
+- (void)cacheScreen {
+    int screenIndex = [[NSUserDefaults standardUserDefaults]integerForKey:@"VisorScreen"];
+    if (screenIndex==0) {
+        cachedScreen = [NSScreen mainScreen];
+        NSLog(@"Cached main screen %@", cachedScreen);
+        return;
+    }
+    screenIndex--;
+    NSArray* screens = [NSScreen screens];
+    if (screenIndex>0 && screenIndex<[screens count]) {
+        cachedScreen=[screens objectAtIndex:screenIndex];
+    } else {
+        cachedScreen=[screens objectAtIndex:0];
+    }
+    NSLog(@"Cached screen %d %@", screenIndex, cachedScreen);
 }
 
 // offset==0.0 means window is "hidden" above top screen edge
 // offset==1.0 means window is visible right under top screen edge
 - (void)placeWindow:(id)window offset:(float)offset {
-    NSScreen* screen=[NSScreen mainScreen];
+    NSScreen* screen=cachedScreen;
     NSRect screenRect=[screen frame];
-    // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
-    screenRect.size.height-=22; // ignore menu area
-    NSRect frame=screenRect; // shown Frame
-    frame=[window frame]; // respect the existing height
+    if (screen == [[NSScreen screens] objectAtIndex: 0]) // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
+        screenRect.size.height-=22; // ignore menu area
+    NSRect frame=[window frame]; // respect the existing height
     frame.origin.y=NSMaxY(screenRect)-round(offset*NSHeight(frame)); // move above top of screen
     [window setFrame:frame display:NO];
 }
 
 - (void)adoptScreenWidth:(id)window {
-    NSScreen* screen=[NSScreen mainScreen];
+    NSScreen* screen=cachedScreen;
     NSRect screenRect=[screen frame];
-    NSRect frame=screenRect; // shown Frame
-    frame=[window frame]; // respect the existing height
+    NSRect frame=[window frame]; // respect the existing height
     frame.size.width=screenRect.size.width; // make it the full screen width
     frame.origin.x+=NSMidX(screenRect)-NSMidX(frame); // center horizontally
     [window setFrame:frame display:NO];
@@ -237,26 +259,27 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     previouslyActiveApp = nil;
 }
 
-- (void)showWindow {
+- (void)showWindow:(BOOL)fast {
     if (!hidden) return;
     hidden = false;
+    [self cacheScreen]; // performs screen pointer caching at this point
     [self storePreviouslyActiveApp];
     [NSApp activateIgnoringOtherApps:YES];
     [self maybeEnableEscapeKey:YES];
     [window makeKeyAndOrderFront:self];
     [window setHasShadow:YES];
     [self adoptScreenWidth:window];
-    [self slideWindows:1];
+    [self slideWindows:1 fast:fast];
     [window invalidateShadow];
 }
 
--(void)hideWindow {
+-(void)hideWindow:(BOOL)fast {
     if (hidden) return;
     hidden = true;
-    [self maybeEnableEscapeKey:NO];
     [self restorePreviouslyActiveApp];
+    [self maybeEnableEscapeKey:NO];
     [self saveDefaults];
-    [self slideWindows:0];
+    [self slideWindows:0 fast:fast];
     [window setHasShadow:NO];
     [window invalidateShadow];
 }
@@ -266,35 +289,37 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 #define SLIDE_DIRECTION(d,x) (d?(x):1.0f-(x))
 #define ALPHA_DIRECTION(d,x) (d?1.0f-(x):(x))
 
-- (void)slideWindows:(BOOL)direction { // true == down
+- (void)slideWindows:(BOOL)direction fast:(bool)fast { // true == down
     NSAutoreleasePool* pool=[[NSAutoreleasePool alloc]init];
 
-    BOOL doSlide = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseSlide"];
-    BOOL doFade = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"];
-    float animSpeed = [[NSUserDefaults standardUserDefaults]floatForKey:@"VisorAnimationSpeed"];
+    if (!fast) {
+        BOOL doSlide = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseSlide"];
+        BOOL doFade = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"];
+        float animSpeed = [[NSUserDefaults standardUserDefaults]floatForKey:@"VisorAnimationSpeed"];
 
-    // animation loop
-    if (doFade || doSlide) {
-        if (!doSlide && direction) {
-            float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(1));
-            [self placeWindow:window offset:offset];
-        }
-        NSTimeInterval t;
-        NSDate* date=[NSDate date];
-        while (animSpeed>(t=-[date timeIntervalSinceNow])) {
-            float k=t/animSpeed;
-            if (doSlide) {
-                float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(k));
+        // animation loop
+        if (doFade || doSlide) {
+            if (!doSlide && direction) {
+                float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(1));
                 [self placeWindow:window offset:offset];
             }
-            if (doFade) {
-                float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(k));
-                [window setAlphaValue:alpha];
+            NSTimeInterval t;
+            NSDate* date=[NSDate date];
+            while (animSpeed>(t=-[date timeIntervalSinceNow])) {
+                float k=t/animSpeed;
+                if (doSlide) {
+                    float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(k));
+                    [self placeWindow:window offset:offset];
+                }
+                if (doFade) {
+                    float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(k));
+                    [window setAlphaValue:alpha];
+                }
+                usleep(5000); // 5ms
             }
-            usleep(5000); // 5ms
         }
     }
-
+    
     // apply final state
     float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(1));
     [self placeWindow:window offset:offset];
@@ -310,7 +335,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 - (void)resignMain:(id)sender {
     NSLog(@"resignMain %@", sender);
     if (!hidden){
-        [self hideWindow];  
+        [self hideWindow:false];  
     }
 }
 
@@ -333,12 +358,14 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
 - (void)didResize:(id)sender {
     NSLog(@"didResize %@", sender);
+    [self cacheScreen];
     [self adoptScreenWidth:window];
     [self saveDefaults];
 }
 
 - (void)willClose:(id)sender {
     NSLog(@"willClose %@", sender);
+    [self hideWindow:true];
     window = nil;
     [self updateStatusMenu];
 }
@@ -385,6 +412,48 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 - (void)maybeEnableEscapeKey:(BOOL)pEnable {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorHideOnEscape"])
         [escapeKey setEnabled:pEnable];
+}
+
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
+    NSLog(@"numberOfItemsInComboBox %@", aComboBox);
+    return [[NSScreen screens] count]+1;
+}
+
+- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index{
+    NSLog(@"comboBox %@, objectValueForItemAtIndex %d", aComboBox, index);
+    VisorScreenTransformer* transformer = [[VisorScreenTransformer alloc] init];
+    id res = [transformer transformedValue:[NSNumber numberWithInteger:index]];
+    [transformer release];
+    return res;
+}
+@end
+
+@implementation VisorScreenTransformer
+
++ (Class)transformedValueClass {
+    NSLog(@"transformedValueClass");
+    return [NSNumber class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    NSLog(@"allowsReverseTransformation");
+    return YES;
+}
+
+- (id)transformedValue:(id)value {
+    NSLog(@"transformedValue %@", value);
+    if ([value integerValue]==0) {
+        return @"Main Screen";
+    }
+    return [NSString stringWithFormat: @"Screen %d", [value integerValue]-1];
+}
+
+- (id)reverseTransformedValue:(id)value {
+    NSLog(@"reverseTransformedValue %@", value);
+    if ([value hasPrefix:@"Screen"]) {
+        return [NSNumber numberWithInteger:[[value substringFromIndex:6] integerValue]+1];
+    }
+    return [NSNumber numberWithInteger:0];
 }
 
 @end
