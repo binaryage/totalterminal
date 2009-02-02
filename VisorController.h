@@ -22,6 +22,7 @@
     NDHotKeyEvent *escapeKey;
     NSString* previouslyActiveApp;
     BOOL hidden;
+    float lastSlideOffset;
 }
 - (TermController *)controller;
 - (void)setController:(TermController *)value;
