@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "NDHotKeyEvent.h"
-@class TermController;
 @class TermDefaults;
 @class TTProfileManager;
 @interface Visor : NSObject {

@@ -13,7 +13,6 @@
 		7F01466F0A3E6527006AF239 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9C2B60A2FB4280076695A /* NDHotKeyEvent.m */; };
 		7F0146700A3E6528006AF239 /* NDHotKeyEvent_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC7F7490A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m */; };
 		7F0146710A3E6529006AF239 /* QSHotKeyEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC7F74B0A3BBCAA00B52344 /* QSHotKeyEditor.m */; };
-		7F0146730A3E652B006AF239 /* VisorTermController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E4A400A3C42640070336A /* VisorTermController.m */; };
 		7F0146740A3E652C006AF239 /* VisorWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9C2530A2FA9FD0076695A /* VisorWindow.m */; };
 		7F01467A0A3E6546006AF239 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FE1E5990A38C3A600344393 /* QuartzCore.framework */; };
 		7F01467B0A3E6546006AF239 /* QuartzComposer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FE1E5BA0A38C3C400344393 /* QuartzComposer.framework */; };
@@ -22,7 +21,6 @@
 		7F01477D0A3E6748006AF239 /* Visor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2C9CD60A386BA900CFE3DD /* Visor.png */; };
 		7F01477E0A3E674B006AF239 /* VisorLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC7F7640A3BBED200B52344 /* VisorLarge.png */; };
 		7F2C9CD70A386BA900CFE3DD /* Visor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2C9CD60A386BA900CFE3DD /* Visor.png */; };
-		7F4E4A410A3C42640070336A /* VisorTermController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E4A400A3C42640070336A /* VisorTermController.m */; };
 		7F849AA70A457DE100963040 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F849AA60A457DE100963040 /* Defaults.plist */; };
 		7F849AAC0A457E2200963040 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F849AA60A457DE100963040 /* Defaults.plist */; };
 		7FB9C2540A2FA9FD0076695A /* VisorWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9C2530A2FA9FD0076695A /* VisorWindow.m */; };
@@ -45,18 +43,13 @@
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF630370AF2F00C91783 /* Visor_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor_Prefix.pch; sourceTree = "<group>"; };
 		7F0146280A3E63C6006AF239 /* Visor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Visor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F01462A0A3E63C6006AF239 /* Visor.app-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Visor.app-Info.plist"; sourceTree = "<group>"; };
 		7F01465A0A3E64A0006AF239 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7F0146660A3E64DA006AF239 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		7F01469F0A3E6571006AF239 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		7F2C9CD60A386BA900CFE3DD /* Visor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Visor.png; sourceTree = "<group>"; };
-		7F4E4A3F0A3C42640070336A /* VisorTermController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorTermController.h; sourceTree = "<group>"; };
-		7F4E4A400A3C42640070336A /* VisorTermController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorTermController.m; sourceTree = "<group>"; };
-		7F628E310A421F9800EDA11B /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
 		7F849AA60A457DE100963040 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		7FB9C2520A2FA9FD0076695A /* VisorWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorWindow.h; sourceTree = "<group>"; };
 		7FB9C2530A2FA9FD0076695A /* VisorWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorWindow.m; sourceTree = "<group>"; };
-		7FB9C2B20A2FB37A0076695A /* TerminalDump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalDump.h; sourceTree = "<group>"; };
 		7FB9C2B50A2FB4280076695A /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent.h; sourceTree = "<group>"; };
 		7FB9C2B60A2FB4280076695A /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
 		7FC7F63A0A3BB3AA00B52344 /* Visor.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Visor.nib; sourceTree = "<group>"; };
@@ -109,7 +102,6 @@
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
-				7F01462A0A3E63C6006AF239 /* Visor.app-Info.plist */,
 			);
 			name = Visor;
 			sourceTree = "<group>";
@@ -150,9 +142,6 @@
 				7FC7F7490A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m */,
 				7FC7F74A0A3BBCAA00B52344 /* QSHotKeyEditor.h */,
 				7FC7F74B0A3BBCAA00B52344 /* QSHotKeyEditor.m */,
-				7FB9C2B20A2FB37A0076695A /* TerminalDump.h */,
-				7F4E4A3F0A3C42640070336A /* VisorTermController.h */,
-				7F4E4A400A3C42640070336A /* VisorTermController.m */,
 				7FB9C2520A2FA9FD0076695A /* VisorWindow.h */,
 				7FB9C2530A2FA9FD0076695A /* VisorWindow.m */,
 			);
@@ -190,7 +179,6 @@
 		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7F628E310A421F9800EDA11B /* CGSPrivate.h */,
 				32DBCF630370AF2F00C91783 /* Visor_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -313,7 +301,6 @@
 				7F01466F0A3E6527006AF239 /* NDHotKeyEvent.m in Sources */,
 				7F0146700A3E6528006AF239 /* NDHotKeyEvent_QSMods.m in Sources */,
 				7F0146710A3E6529006AF239 /* QSHotKeyEditor.m in Sources */,
-				7F0146730A3E652B006AF239 /* VisorTermController.m in Sources */,
 				7F0146740A3E652C006AF239 /* VisorWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,7 +313,6 @@
 				7FB9C2B70A2FB4280076695A /* NDHotKeyEvent.m in Sources */,
 				7FC7F74C0A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m in Sources */,
 				7FC7F74D0A3BBCAA00B52344 /* QSHotKeyEditor.m in Sources */,
-				7F4E4A410A3C42640070336A /* VisorTermController.m in Sources */,
 				7F01465B0A3E64A0006AF239 /* main.m in Sources */,
 				D68AA7020F371C810094AA92 /* Visor.m in Sources */,
 			);
