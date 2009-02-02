@@ -7,24 +7,24 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "NDHotKeyEvent.h"
 @class TermController;
 @class TermDefaults;
 @class InspectorController;
 @class TTProfileManager;
-#import "NDHotKeyEvent.h"
 @interface VisorController : NSObject {
-	NSStatusItem *statusItem;
-	TermController *controller;
-	NSWindow *backgroundWindow;
-	IBOutlet NSWindow *prefsWindow;
-	IBOutlet NSMenu *statusMenu;
-	IBOutlet NSWindow *aboutWindow;
-		
-	NDHotKeyEvent *hotkey;
-	NDHotKeyEvent *escapeKey;
-	InspectorController *inspector;
-  NSString* previouslyActiveApp;
-  BOOL hidden;
+    NSStatusItem *statusItem;
+    TermController *controller;
+    NSWindow *backgroundWindow;
+    IBOutlet NSWindow *prefsWindow;
+    IBOutlet NSMenu *statusMenu;
+    IBOutlet NSWindow *aboutWindow;
+        
+    NDHotKeyEvent *hotkey;
+    NDHotKeyEvent *escapeKey;
+    InspectorController *inspector;
+    NSString* previouslyActiveApp;
+    BOOL hidden;
 }
 - (TermController *)controller;
 - (void)setController:(TermController *)value;
@@ -32,10 +32,7 @@
 - (IBAction)toggleVisor:(id)sender;
 - (IBAction)setHotKey:(id)sender;
 - (IBAction)chooseFile:(id)sender;
-
-// added drp
 - (IBAction)showAboutBox:(id)sender;
-
 - (void)hideWindow;
 - (void)showWindow;
 - (void)enableHotKey;
