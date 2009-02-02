@@ -24,6 +24,7 @@
 	NDHotKeyEvent *escapeKey;
 	InspectorController *inspector;
   NSString* previouslyActiveApp;
+  BOOL hidden;
 }
 - (TermController *)controller;
 - (void)setController:(TermController *)value;

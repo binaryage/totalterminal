@@ -58,6 +58,7 @@ int		fadeTime=0.1; // 30000
 - (id) init {
 	self = [super init];
   previouslyActiveApp = nil;
+  hidden = true;
 	if (self != nil) {
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     //NSLog(@"defaults %@",defaults);
@@ -169,7 +170,7 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 
 - (IBAction)toggleVisor:(id)sender{
 	// Hide or show as needed
-	if (![[[self controller] window]isVisible]){
+	if (hidden){
 		[self showWindow];
 	}else{
 		[self hideWindow];
@@ -179,6 +180,8 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 
 
 - (void)showWindow{
+  if (!hidden) return;
+  hidden = false;
 	[self maybeEnableEscapeKey:YES];
 	
   NSDictionary *activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
@@ -206,9 +209,9 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 		
 		showFrame=[[controller window]frame];
 		showFrame.origin.x+=NSMidX(screenRect)-NSMidX(showFrame); // center horizontally
-		showFrame.origin.y=NSMaxY(screenRect)-NSHeight(showFrame); // align to top of screen
+    showFrame.origin.y=NSMaxY(screenRect); //-NSHeight(showFrame); // align to top of screen
 		
-		[window setAlphaValue:0.0];
+		//[window setAlphaValue:0.0];
 		
 		[window makeKeyAndOrderFront:self];
 		
@@ -219,7 +222,7 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 			[self backgroundWindow];
 			[[backgroundWindow contentView]startRendering];
 			[backgroundWindow setFrame:showFrame display:YES];
-			[backgroundWindow setAlphaValue:0.0];
+			//[backgroundWindow setAlphaValue:0.0];
 			[backgroundWindow orderFront:nil];
 			[backgroundWindow setLevel:NSMainMenuWindowLevel-2];	
 		}else{
@@ -228,12 +231,11 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 		
 		[window setLevel:NSMainMenuWindowLevel-1];
 		
-		[self slideWindows:1];
-		[window invalidateShadow];
-		
 		[window makeFirstResponder:[[controller selectedTabController] view]];
 		
-		//	[controller setNeedsDisplay];	
+  	[window setHasShadow:YES];
+		[self slideWindows:1];
+		[window invalidateShadow];
 }
 
 - (void)didEndSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
@@ -243,8 +245,10 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 //#define DURATION 0.333f
 
 -(void)hideWindow{
+  if (hidden) return;
+  hidden = true;
 	[self maybeEnableEscapeKey:NO];
-	
+
 	if (previouslyActiveApp) {
         NSDictionary *scriptError = [[NSDictionary alloc] init]; 
         NSString *scriptSource = [NSString stringWithFormat: @"tell application \"%@\" to activate ", previouslyActiveApp]; 
@@ -265,6 +269,7 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 																		  //	[window setLevel:NSFloatingWindowLevel];
 	[self saveDefaults];
 	[self slideWindows:0];
+	[window setHasShadow:NO];
 	
 	//	[NSThread detachNewThreadSelector:@selector(slideOutWindows) toTarget:self withObject:nil];
 	[[backgroundWindow contentView]stopRendering];
@@ -294,13 +299,11 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 	// if we dont have to animate, dont really bother.
 	if(![[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseSlide"] && ![[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"])
 		DURATION=0.1;
-	
+
 	while (DURATION>(t=-[date timeIntervalSinceNow])) {
 		float f=t/DURATION;
 		
-		if (show) f=1.0f-f;
-		//	NSLog(@"f %f",f);
-		newTransforms[0]=newTransforms[1]=CGAffineTransformTranslate(transform,0,sin(M_PI_2*f)*(windowHeight));
+		newTransforms[0]=newTransforms[1]=CGAffineTransformTranslate(transform,0,(show?-1:1)*sin(M_PI_2*f)*(windowHeight));
 		
 		// added drp do we fade in or not?
 		if ([[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"])
@@ -323,26 +326,17 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 			CGSSetWindowTransforms(cgs, wids, newTransforms, windowCount); 
 		}
 		
-		[backgroundWindow display];
+		//[backgroundWindow display];
 		usleep(5000);
 	}
 	
 	
-	if (!show){// Hide the windows
-		[window orderOut:self];
-		[backgroundWindow orderOut:nil];
-		
-	}
-	//restore values
-	newTransforms[0]=newTransforms[1]=transform;
+	newTransforms[0]=newTransforms[1]=CGAffineTransformTranslate(transform,0,(show?-1:1)*(windowHeight));
 	CGSSetWindowTransforms(cgs, wids, newTransforms, windowCount); 
-	CGSSetWindowAlpha(cgs, wids[1], 1);
-	CGSSetWindowAlpha(cgs, wids[0], 1);
-	
-	[window setAlphaValue:1.0];	// NSWindow caches these values, so let it know
-	[backgroundWindow setAlphaValue:1.0];
-	
-	
+  CGSSetWindowAlpha(cgs, wids[1], 1);
+  CGSSetWindowAlpha(cgs, wids[0], 1);
+  [window setAlphaValue:1.0];  // NSWindow caches these values, so let it know
+  [backgroundWindow setAlphaValue:1.0];
 }
 
 // Callback for a closed shell
@@ -357,8 +351,8 @@ NSString 	* stringForCharacter( const unsigned short aKeyCode, unichar aCharacte
 	//NSLog(@"defaults:%@",defaults);
 }
 - (void)resignMain:(id)sender{
-	if ([[controller window]isVisible]){
-		[self toggleVisor:nil];	
+	if (!hidden){
+		[self hideWindow];	
 	}
 }
 
