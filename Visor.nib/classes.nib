@@ -25,7 +25,7 @@
 				<string>id</string>
 			</dict>
 			<key>CLASS</key>
-			<string>VisorController</string>
+			<string>Visor</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>OUTLETS</key>

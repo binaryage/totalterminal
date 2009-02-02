@@ -1,5 +1,5 @@
 //
-//  VisorController.h
+//  Visor.h
 //  Visor
 //
 //  Created by Nicholas Jitkoff on 6/1/06.
@@ -11,21 +11,20 @@
 @class TermController;
 @class TermDefaults;
 @class TTProfileManager;
-@interface VisorController : NSObject {
-    NSStatusItem *statusItem;
-    TermController *controller;
-    NSWindow *backgroundWindow;
-    IBOutlet NSWindow *prefsWindow;
-    IBOutlet NSMenu *statusMenu;
-    IBOutlet NSWindow *aboutWindow;
-    NDHotKeyEvent *hotkey;
-    NDHotKeyEvent *escapeKey;
+@interface Visor : NSObject {
+    NSWindow* window; // the one visorized terminal window (may be nil)
+    NSWindow* background; // background window for quartz animations (will be nil if not enabled in settings!)
+    NSStatusItem* statusItem;
+    IBOutlet NSWindow* prefsWindow;
+    IBOutlet NSMenu* statusMenu;
+    IBOutlet NSWindow* aboutWindow;
+    NDHotKeyEvent* hotkey;
+    NDHotKeyEvent* escapeKey;
     NSString* previouslyActiveApp;
     BOOL hidden;
-    float lastSlideOffset;
 }
-- (TermController *)controller;
-- (void)setController:(TermController *)value;
+- (BOOL)status;
+- (void)adoptTerminal:(NSWindow*)window;
 - (IBAction)showPrefs:(id)sender;
 - (IBAction)toggleVisor:(id)sender;
 - (IBAction)setHotKey:(id)sender;
@@ -37,8 +36,7 @@
 - (void)initEscapeKey;
 - (void)maybeEnableEscapeKey:(BOOL)enable;
 - (void)activateStatusMenu;
-- (NSWindow *)backgroundWindow;
-- (void) setBackgroundWindow: (NSWindow *) newBackgroundWindow;
+- (NSWindow*)background;
+- (void) setBackground: (NSWindow*)newBackground;
 - (void)saveDefaults;
-- (IBAction)inspect:(id)sender;
 @end

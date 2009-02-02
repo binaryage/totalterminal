@@ -37,7 +37,7 @@
 		</array>
 	</dict>
 	<key>NSPrincipalClass</key>
-	<string>VisorController</string>
+	<string>Visor</string>
 	<key>SIMBLTargetApplications</key>
 	<array>
 		<dict>

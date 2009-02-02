@@ -1,5 +1,5 @@
 //
-//  VisorController.m
+//  Visor.m
 //  Visor
 //
 //  Created by Nicholas Jitkoff on 6/1/06.
@@ -8,7 +8,7 @@
 
 #define DEBUG_LOG_PATH "/Users/darwin/code/visor/Debug.log"
 
-#import "VisorController.h"
+#import "Visor.h"
 #import "VisorWindow.h"
 #import "NDHotKeyEvent_QSMods.h"
 #import "VisorTermController.h"
@@ -18,26 +18,25 @@
 
 NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
-@implementation VisorController
+@implementation Visor
 
-+ (VisorController*) sharedInstance {
-    static VisorController* plugin = nil;
++ (Visor*) sharedInstance {
+    static Visor* plugin = nil;
     if (plugin == nil)
-        plugin = [[VisorController alloc] init];
+        plugin = [[Visor alloc] init];
     return plugin;
 }
 
 + (void) install {
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [[NSUserDefaults standardUserDefaults]registerDefaults:defaults];
-    [VisorController sharedInstance];
+    [Visor sharedInstance];
 }
 
 // for SIMBL debugging
 // http://www.atomicbird.com/blog/2007/07/code-quickie-redirect-nslog
 - (void) redirectLog {
     // set permissions for our NSLog file
-    NSBeep();
     umask(022);
     // send stderr to our file
     FILE *newStderr = freopen(DEBUG_LOG_PATH, "w", stderr);
@@ -50,6 +49,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 #ifdef _DEBUG_MODE
     [self redirectLog];
 #endif
+    NSLog(@"init");
     
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
@@ -73,7 +73,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [[[[NSApp mainMenu] itemAtIndex:0] submenu] insertItem:prefsMenuItem atIndex:3];
     [prefsMenuItem release];
     
-    if ([ud  boolForKey:@"VisorShowStatusItem"]) {
+    if ([ud boolForKey:@"VisorShowStatusItem"]) {
         [self activateStatusMenu];
     }
     
@@ -88,33 +88,34 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [udc addObserver:self forKeyPath:@"values.VisorAnimationSpeed" options:nil context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorShowStatusItem" options:nil context:nil];
     
-    [self controller]; // calls createController
     if ([ud boolForKey:@"VisorUseBackgroundAnimation"]) {
-        [self backgroundWindow];
+        [self background];
     }
     return self;
 }
 
-- (void)createController {
-    if (controller) return;
+- (BOOL)status {
+    return !!window;
+}
 
-    NSDisableScreenUpdates();
-    NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
-    id profile = [[TTProfileManager sharedProfileManager] profileWithName:@"Visor"];
-    controller = [NSApp newWindowControllerWithProfile:profile];
+- (void)adoptTerminal:(id)win {
+    NSLog(@"createController window=%@", win);
 
-    NSWindow *window=[controller window];
-    [window setLevel:NSFloatingWindowLevel];
-    [window setOpaque:NO];
+    if (window) {
+        NSLog(@"createController called when old window existed");
+    }
+    window = win;
+    
     [window setLevel:NSMainMenuWindowLevel-1];
-    [self resetWindowPlace:window];
+    [window setOpaque:NO];
     [window setHasShadow:NO];
-
+    
+    NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
     [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window];
     [dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:window];
     [dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:window];
+    [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window];
     [dnc addObserver:self selector:@selector(resized:) name:NSWindowDidResizeNotification object:window];
-    NSEnableScreenUpdates();
 }
 
 - (BOOL)validateMenuItem:(id <NSMenuItem>)menuItem {
@@ -132,12 +133,14 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 }
  
 - (IBAction)showAboutBox:(id)sender {
+    NSLog(@"showAboutBox");
     [NSApp activateIgnoringOtherApps:YES];
     [aboutWindow center];
     [aboutWindow makeKeyAndOrderFront:nil];
 }
 
 - (void)activateStatusMenu {
+    NSLog(@"activateStatusMenu");
     NSStatusBar *bar = [NSStatusBar systemStatusBar];
     statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
     [statusItem retain];
@@ -156,6 +159,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 }
 
 - (IBAction)toggleVisor:(id)sender {
+    NSLog(@"toggleVisor %@", sender);
     if (hidden){
         [self showWindow];
     }else{
@@ -166,7 +170,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 - (void)resetWindowPlace:(id)window {
     float offset = 1.0f;
     if (hidden) offset = 0.0f;
-    NSLog(@"offf %f", offset);
+    NSLog(@"resetWindowPlace %@ %f", window, offset);
     [self placeWindow:window offset:offset];
     [self adoptScreenWidth:window];
 }
@@ -180,7 +184,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     NSRect frame=screenRect; // shown Frame
     frame=[window frame]; // respect the existing height
     frame.origin.y=NSMaxY(screenRect)-round(offset*NSHeight(frame)); // move above top of screen
-    [window setFrame:frame display:NO];
+    [window setFrame:frame display:YES];
     [self updateBackgroundFrame];
 }
 
@@ -198,11 +202,10 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 - (void)updateBackgroundFrame {
     BOOL useBackground = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseBackgroundAnimation"];
     if (useBackground) {
-        [self backgroundWindow];
-        NSWindow* window = [controller window];
-        [backgroundWindow setFrame:[window frame] display:YES];
+        [self background];
+        [background setFrame:[window frame] display:YES];
     } else {
-        [self setBackgroundWindow:nil];
+        [self setBackground:nil];
     }
 }
 
@@ -235,18 +238,15 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [self storePreviouslyActiveApp];
     [self maybeEnableEscapeKey:YES];
     [NSApp activateIgnoringOtherApps:YES];
-    NSWindow *window=[controller window];
     [window makeKeyAndOrderFront:self];
-    [window makeFirstResponder:[[controller selectedTabController] view]];
+//    [window makeFirstResponder:[[controller selectedTabController] view]];
     [window setHasShadow:YES];
-    if (backgroundWindow) {
-        [[backgroundWindow contentView]startRendering];
+    if (background) {
+        [[background contentView]startRendering];
     }
+    [self adoptScreenWidth:window];
     [self slideWindows:1];
     [window invalidateShadow];
-}
-
-- (void)didEndSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
 }
 
 -(void)hideWindow {
@@ -254,7 +254,6 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     hidden = true;
     [self maybeEnableEscapeKey:NO];
     [self restorePreviouslyActiveApp];
-    NSWindow *window=[[self controller] window];
     NSScreen *screen=[NSScreen mainScreen];
     NSRect screenRect=[screen frame];   
     NSRect showFrame=screenRect; // Shown Frame
@@ -263,8 +262,8 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [self slideWindows:0];
     [window setHasShadow:NO];
     [window invalidateShadow];
-    if (backgroundWindow) {
-        [[backgroundWindow contentView]stopRendering];
+    if (background) {
+        [[background contentView]stopRendering];
     }
 }
 
@@ -275,7 +274,6 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
 - (void)slideWindows:(BOOL)direction { // true == down
     NSAutoreleasePool* pool=[[NSAutoreleasePool alloc]init];
-    NSWindow* window=[controller window];
 
     BOOL doSlide = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseSlide"];
     BOOL doFade = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"];
@@ -297,7 +295,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
             }
             if (doFade) {
                 float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(k));
-                if (backgroundWindow) [backgroundWindow setAlphaValue:alpha];
+                if (background) [background setAlphaValue:alpha];
                 [window setAlphaValue:alpha];
             }
             usleep(5000); // 5ms
@@ -308,11 +306,11 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(1));
     [self placeWindow:window offset:offset];
     // always set final alpha to 1, for case off-screen window gets onto the screen somehow (imagine display resize?)
-    if (backgroundWindow) [backgroundWindow setAlphaValue:1.0]; // NSWindow caches these values, so let it know
+    if (background) [background setAlphaValue:1.0]; // NSWindow caches these values, so let it know
     [window setAlphaValue:1.0]; // NSWindow caches these values, so let it know
 }
 
-// Callback for a closed shell
+// callback for a closed shell
 - (void)shell:(id)shell childDidExitWithStatus:(int)status {
     [self hideWindow];
     [self setController:nil];
@@ -324,62 +322,48 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 }
 
 - (void)resignMain:(id)sender {
+    NSLog(@"resignMain %@", sender);
     if (!hidden){
         [self hideWindow];  
     }
 }
 
 - (void)resignKey:(id)sender {
-    if ([[controller window]isVisible]){
-        [[controller window]setLevel:NSFloatingWindowLevel];
-        [backgroundWindow setLevel:NSFloatingWindowLevel-1];
-    }
+    NSLog(@"resignKey %@", sender);
 }
 
 - (void)becomeKey:(id)sender {
-    if ([[controller window]isVisible]){
-        [[controller window]setLevel:NSMainMenuWindowLevel-1];
-        [backgroundWindow setLevel:NSMainMenuWindowLevel-2];
-    }
+    NSLog(@"becomeKey %@", sender);
 }
 
-- (IBAction)chooseFile:(id)sender {
-    NSOpenPanel *panel=[NSOpenPanel openPanel];
-    [panel setTitle:@"Select a Quartz Composer (qtz) file"];
-    if ([panel runModalForTypes:[NSArray arrayWithObject:@"qtz"]]){
-        NSString *path=[panel filename];
-        path=[path stringByAbbreviatingWithTildeInPath];
-        [[NSUserDefaults standardUserDefaults]setObject:path forKey:@"VisorBackgroundAnimationFile"];
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"VisorUseBackgroundAnimation"];
-    }
-}
-
-- (void)windowResized {
-    [self adoptScreenWidth:[controller window]];
-    [self saveDefaults];
+- (void)becomeMain:(id)sender {
+    NSLog(@"becomeMain %@", sender);
+    [self resetWindowPlace:window];
 }
 
 - (void)resized:(NSNotification *)notif {
-    [self adoptScreenWidth:[controller window]];
+    NSLog(@"resized %@", notif);
+    [self adoptScreenWidth:window];
+    [self resetWindowPlace:window];
     [self saveDefaults];
 }
 
-- (NSWindow *)backgroundWindow {
-    if (backgroundWindow) return [[backgroundWindow retain] autorelease];
+- (NSWindow *)background {
+    if (background) return [[background retain] autorelease];
 
-    backgroundWindow = [[[NSWindow class] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-    [backgroundWindow orderFront:nil];
-    [backgroundWindow setLevel:NSMainMenuWindowLevel-2];    
-    [backgroundWindow setIgnoresMouseEvents:YES];
-    [backgroundWindow setBackgroundColor: [NSColor blueColor]];
-    [backgroundWindow setOpaque:NO];
-    [backgroundWindow setHasShadow:NO];
-    [backgroundWindow setReleasedWhenClosed:YES];
-    [backgroundWindow setLevel:NSFloatingWindowLevel];
-    [backgroundWindow setHasShadow:NO];
+    background = [[[NSWindow class] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+    [background orderFront:nil];
+    [background setLevel:NSMainMenuWindowLevel-2];    
+    [background setIgnoresMouseEvents:YES];
+    [background setBackgroundColor: [NSColor blueColor]];
+    [background setOpaque:NO];
+    [background setHasShadow:NO];
+    [background setReleasedWhenClosed:YES];
+    [background setLevel:NSFloatingWindowLevel];
+    [background setHasShadow:NO];
     QCView *content=[[[QCView alloc]init]autorelease];
     
-    [backgroundWindow setContentView:content];
+    [background setContentView:content];
     
     NSString *path=[[NSUserDefaults standardUserDefaults]stringForKey:@"VisorBackgroundAnimationFile"];
     path=[path stringByStandardizingPath];
@@ -397,13 +381,13 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [content startRendering];
     [content setMaxRenderingFrameRate:15.0];
 
-    return [[backgroundWindow retain] autorelease];
+    return [[background retain] autorelease];
 }
 
-- (void) setBackgroundWindow: (NSWindow *) newBackgroundWindow {
-    if (backgroundWindow != newBackgroundWindow) {
-        [backgroundWindow release];
-        backgroundWindow = [newBackgroundWindow retain];
+- (void) setBackground: (NSWindow *) newBackgroundWindow {
+    if (background != newBackgroundWindow) {
+        [background release];
+        background = [newBackgroundWindow retain];
     }
 }
 
@@ -417,7 +401,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
         }
     } else {
         [self enableHotKey];
-        [self setBackgroundWindow:nil];
+        [self setBackground:nil];
     }
 }
 
@@ -448,15 +432,15 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
         [escapeKey setEnabled:pEnable];
 }
 
-- (TermController*)controller {
-    if (!controller)[self createController];
-    return [[controller retain] autorelease];
-}
-
-- (void)setController:(TermController *)value {
-    if (controller==value) return;
-    [controller release];
-    controller = [value retain];
+- (IBAction)chooseFile:(id)sender {
+    NSOpenPanel *panel=[NSOpenPanel openPanel];
+    [panel setTitle:@"Select a Quartz Composer (qtz) file"];
+    if ([panel runModalForTypes:[NSArray arrayWithObject:@"qtz"]]){
+        NSString *path=[panel filename];
+        path=[path stringByAbbreviatingWithTildeInPath];
+        [[NSUserDefaults standardUserDefaults]setObject:path forKey:@"VisorBackgroundAnimationFile"];
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"VisorUseBackgroundAnimation"];
+    }
 }
 
 @end

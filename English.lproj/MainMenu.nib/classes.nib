@@ -3,7 +3,7 @@
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
             ACTIONS = {chooseFile = id; setHotKey = id; showPrefs = id; toggleVisor = id; }; 
-            CLASS = VisorController; 
+            CLASS = Visor; 
             LANGUAGE = ObjC; 
             OUTLETS = {prefsWindow = NSWindow; statusMenu = NSMenu; }; 
             SUPERCLASS = NSObject; 

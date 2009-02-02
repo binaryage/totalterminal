@@ -7,23 +7,26 @@
 //
 
 #import "VisorWindow.h"
+#import "Visor.h"
 
-BOOL firstTime = YES;
-
-@implementation TTWindow (VisorController)
+@implementation TTWindow (Visor)
 
 - (id) initWithContentRect: (NSRect) contentRect
                  styleMask: (unsigned int) aStyle
                    backing: (NSBackingStoreType) bufferingType
                      defer: (BOOL) flag
 {
-    if (firstTime) {
-        firstTime = NO;
-        aStyle =  NSBorderlessWindowMask|NSNonactivatingPanelMask;
+    NSLog(@"Creating new terminal window");
+    Visor* visor = [Visor sharedInstance];
+    BOOL shouldBeVisorized = ![visor status];
+    if (shouldBeVisorized) {
+        aStyle =  NSBorderlessWindowMask;
         bufferingType = NSBackingStoreBuffered;
-        flag = NO;
     }
-    self = [super initWithContentRect: contentRect styleMask: aStyle backing: bufferingType defer: flag];
+    self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
+    if (shouldBeVisorized) {
+        [visor adoptTerminal:self];
+    }
     return self;
 }
 

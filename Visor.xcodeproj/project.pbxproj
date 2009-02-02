@@ -13,7 +13,6 @@
 		7F01466F0A3E6527006AF239 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9C2B60A2FB4280076695A /* NDHotKeyEvent.m */; };
 		7F0146700A3E6528006AF239 /* NDHotKeyEvent_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC7F7490A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m */; };
 		7F0146710A3E6529006AF239 /* QSHotKeyEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC7F74B0A3BBCAA00B52344 /* QSHotKeyEditor.m */; };
-		7F0146720A3E6529006AF239 /* VisorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F612A9F0A2FA1F8002DAB1F /* VisorController.m */; };
 		7F0146730A3E652B006AF239 /* VisorTermController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E4A400A3C42640070336A /* VisorTermController.m */; };
 		7F0146740A3E652C006AF239 /* VisorWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9C2530A2FA9FD0076695A /* VisorWindow.m */; };
 		7F01467A0A3E6546006AF239 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FE1E5990A38C3A600344393 /* QuartzCore.framework */; };
@@ -24,7 +23,6 @@
 		7F01477E0A3E674B006AF239 /* VisorLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC7F7640A3BBED200B52344 /* VisorLarge.png */; };
 		7F2C9CD70A386BA900CFE3DD /* Visor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2C9CD60A386BA900CFE3DD /* Visor.png */; };
 		7F4E4A410A3C42640070336A /* VisorTermController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E4A400A3C42640070336A /* VisorTermController.m */; };
-		7F612AA00A2FA1F8002DAB1F /* VisorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F612A9F0A2FA1F8002DAB1F /* VisorController.m */; };
 		7F849AA70A457DE100963040 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F849AA60A457DE100963040 /* Defaults.plist */; };
 		7F849AAC0A457E2200963040 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F849AA60A457DE100963040 /* Defaults.plist */; };
 		7FB9C2540A2FA9FD0076695A /* VisorWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9C2530A2FA9FD0076695A /* VisorWindow.m */; };
@@ -37,6 +35,7 @@
 		7FE1E5BD0A38C3C400344393 /* QuartzComposer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FE1E5BA0A38C3C400344393 /* QuartzComposer.framework */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		D68AA7020F371C810094AA92 /* Visor.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* Visor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,8 +52,6 @@
 		7F2C9CD60A386BA900CFE3DD /* Visor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Visor.png; sourceTree = "<group>"; };
 		7F4E4A3F0A3C42640070336A /* VisorTermController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorTermController.h; sourceTree = "<group>"; };
 		7F4E4A400A3C42640070336A /* VisorTermController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorTermController.m; sourceTree = "<group>"; };
-		7F612A9E0A2FA1F8002DAB1F /* VisorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorController.h; sourceTree = "<group>"; };
-		7F612A9F0A2FA1F8002DAB1F /* VisorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorController.m; sourceTree = "<group>"; };
 		7F628E310A421F9800EDA11B /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
 		7F849AA60A457DE100963040 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		7FB9C2520A2FA9FD0076695A /* VisorWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorWindow.h; sourceTree = "<group>"; };
@@ -74,6 +71,8 @@
 		8D5B49B6048680CD000E48DA /* Visor.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Visor.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		D68AA7000F371C810094AA92 /* Visor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor.h; sourceTree = "<group>"; };
+		D68AA7010F371C810094AA92 /* Visor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Visor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +142,8 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D68AA7000F371C810094AA92 /* Visor.h */,
+				D68AA7010F371C810094AA92 /* Visor.m */,
 				7FB9C2B50A2FB4280076695A /* NDHotKeyEvent.h */,
 				7FB9C2B60A2FB4280076695A /* NDHotKeyEvent.m */,
 				7FC7F7480A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.h */,
@@ -154,8 +155,6 @@
 				7F4E4A400A3C42640070336A /* VisorTermController.m */,
 				7FB9C2520A2FA9FD0076695A /* VisorWindow.h */,
 				7FB9C2530A2FA9FD0076695A /* VisorWindow.m */,
-				7F612A9E0A2FA1F8002DAB1F /* VisorController.h */,
-				7F612A9F0A2FA1F8002DAB1F /* VisorController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -314,7 +313,6 @@
 				7F01466F0A3E6527006AF239 /* NDHotKeyEvent.m in Sources */,
 				7F0146700A3E6528006AF239 /* NDHotKeyEvent_QSMods.m in Sources */,
 				7F0146710A3E6529006AF239 /* QSHotKeyEditor.m in Sources */,
-				7F0146720A3E6529006AF239 /* VisorController.m in Sources */,
 				7F0146730A3E652B006AF239 /* VisorTermController.m in Sources */,
 				7F0146740A3E652C006AF239 /* VisorWindow.m in Sources */,
 			);
@@ -324,13 +322,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F612AA00A2FA1F8002DAB1F /* VisorController.m in Sources */,
 				7FB9C2540A2FA9FD0076695A /* VisorWindow.m in Sources */,
 				7FB9C2B70A2FB4280076695A /* NDHotKeyEvent.m in Sources */,
 				7FC7F74C0A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m in Sources */,
 				7FC7F74D0A3BBCAA00B52344 /* QSHotKeyEditor.m in Sources */,
 				7F4E4A410A3C42640070336A /* VisorTermController.m in Sources */,
 				7F01465B0A3E64A0006AF239 /* main.m in Sources */,
+				D68AA7020F371C810094AA92 /* Visor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
