@@ -2,21 +2,38 @@
 
 Visor for OSX provides a systemwide terminal window accessible via a hot-key, much like the consoles found in games such as Quake.
 
-![screenshot][http://github.com/darwin/visor/tree/master/support/screenshot.png?raw=true]
+![screenshot](http://github.com/darwin/visor/blob/master/support/screenshot.png?raw=true)
 
 ## Latest release
 
-[Visor 1.6](TODO link)
+**[Visor 1.6](TODO link)**
 
 Tested on OSX 10.5.6 Leopard.
 
 ## Installation
 
+  * [Install SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)
+  * Place Visor.bundle in ~/Library/Application Support/SIMBL/Plugins
+  * (Re)launch Terminal.app - You should now see the Visor menu item ![icon](http://github.com/darwin/visor/blob/master/src/VisorActive.png?raw=true)
+  * Configure your keyboard trigger by selecting the Visor menu item -> preferences and editing your keyboard hot-key
+
+You can now trigger Visor with your hotkey from any application to get an instant terminal session. 
+
+To hide Visor, you can either:
+
+  * re-trigger with your key-combo
+  * optionally you can click off of the Visor window
+  * or you can also enable "Visor hiding on Esc" in preferences
+  * use the logout key-combo (control+d) to close the Visor window
+  * type "exit" in running shell to close it
+
+## Installation from sources
+
 Prerequisities:
 
-  * ruby
-  * zip/unzip
+  * ruby + rubygems
   * XCode 3.0
+  * zip/unzip
 
 ### Installation
 
@@ -36,9 +53,9 @@ Prerequisities:
 # History
 
 * v1.6 (03.02.2009)
-  * first GitHub release: packaged pending changes from github forks
+  * first GitHub release == packaged pending changes from GitHub forks
 
-## original Visor 1.5 brought to you by [BlackTree](http://blacktree.com)
+## original Visor 1.5 brought to you by [BlackTree](http://blacktree.com), kudos man!
 
 Please see the [original website](http://code.google.com/p/blacktree-visor/) for more information, the issue tracker and so on.
 
@@ -49,7 +66,7 @@ Please see the [original website](http://code.google.com/p/blacktree-visor/) for
   Press Shift+Escape, if you need a "Escape" in the Terminal.
 * If you start Visor you get now initial focus. ([Issue 20](http://code.google.com/p/blacktree-visor/issues/detail?id=20))
 
-## additional fixes by Antonin
+## additional fixes by Darwin
 
 * Build infrastructure
 * It is possible to specify on which screen visor will appear - see preferences ([Issue 15](http://code.google.com/p/blacktree-visor/issues/detail?id=15))
