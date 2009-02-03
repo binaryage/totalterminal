@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.5a1</string>
+	<string>**VERSION**</string>
 	<key>GoogleML</key>
 	<dict>
 		<key>TargetApplications</key>
