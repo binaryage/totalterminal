@@ -6,7 +6,7 @@ Visor for OSX provides a systemwide terminal window accessible via a hot-key, mu
 
 ## Latest release
 
-**[Visor 1.6](TODO link)**
+**[Visor 1.6](http://dl.getdropbox.com/u/559047/Visor/Visor-1.6-2a6ec8.zip)**
 
 Tested on OSX 10.5.6 Leopard.
 
