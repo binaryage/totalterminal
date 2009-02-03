@@ -4,7 +4,6 @@ src/Visor.xcodeproj/*.pbxuser
 src/Visor.xcodeproj/*.tm_build_errors
 .DS_Store
 *.log
-*.pch
 releases
 tmp
 Thumbs.db*
