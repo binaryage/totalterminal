@@ -7,3 +7,4 @@ src/Visor.xcodeproj/*.tm_build_errors
 *.pch
 releases
 tmp
+Thumbs.db*
