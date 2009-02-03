@@ -13,6 +13,7 @@ This is my fork of the project, as I wanted to have some additional features and
 
 ## fixes by Antonin
 
+* It is possible to specify on which screen visor will appear - see preferences ([Issue 15](http://code.google.com/p/blacktree-visor/issues/detail?id=15))
 * Visor exits gratefully without locking UI ([Issue 50](http://code.google.com/p/blacktree-visor/issues/detail?id=50))
 * Visor becomes inactive when you close visor-ed terminal window or exit it's shell (fixes [Issue 10](http://code.google.com/p/blacktree-visor/issues/detail?id=10))
 * When inactive, Visor eats next coming terminal window (right click terminal.app icon and select "new window")
