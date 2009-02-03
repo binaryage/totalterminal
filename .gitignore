@@ -1,6 +1,7 @@
-build/*
-Visor.xcodeproj/*.mode1v3
-Visor.xcodeproj/*.pbxuser
-Visor.xcodeproj/*.tm_build_errors
+src/build/*
+src/Visor.xcodeproj/*.mode1v3
+src/Visor.xcodeproj/*.pbxuser
+src/Visor.xcodeproj/*.tm_build_errors
 .DS_Store
 *.log
+*.pch
