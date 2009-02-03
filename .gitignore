@@ -6,3 +6,4 @@ src/Visor.xcodeproj/*.tm_build_errors
 *.log
 *.pch
 releases
+tmp

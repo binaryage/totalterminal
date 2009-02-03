@@ -12,6 +12,7 @@ RELEASE_DIR = File.join(ROOT_DIR, 'releases')
 VISOR_XIB = File.join(TMP_DIR, 'Visor.xib')
 INFO_PLIST = File.join(TMP_DIR, 'Info.plist')
 SIMBL_PLUGINS_DIR = File.expand_path(File.join('~', 'Library', 'Application Support', 'SIMBL', 'Plugins'))
+PUBLISH_FOLDER = File.expand_path(File.join("~", "Dropbox", "Public", "Visor"))
 
 # http://kpumuk.info/ruby-on-rails/colorizing-console-ruby-script-output/
 begin
@@ -122,6 +123,12 @@ task :clean do
   `rm -rf "#{TMP_DIR}"`
 end
 
+desc "removes all releases"
+task :purge do
+  puts "#{cmd_color('Removing')} #{dir_color(RELEASE_DIR)}"
+  `rm -rf "#{RELEASE_DIR}"`
+end
+
 desc "installs newest release into ~/Library/Application Support/SIMBL/Plugins"
 task :install do
   die("first build release> rake release version=1.6") unless File.exists? RELEASE_DIR
@@ -140,6 +147,14 @@ task :install do
     puts "mv \"#{VISOR_BUNDLE}\" \"#{SIMBL_PLUGINS_DIR}/\""
     die("problem in moving to SIMBL plugins. Do you have SIMBL installed? Do you have rigths?") unless system("mv \"#{VISOR_BUNDLE}\" \"#{SIMBL_PLUGINS_DIR}\"")
     puts blue("Done!")+" "+red("Restart Terminal.app")
+  end
+end
+
+desc "copies releases/*.zip over to my dropbox visor folder"
+task :publish do
+  puts "#{cmd_color('Publishing into')} #{dir_color(PUBLISH_FOLDER)}"
+  Dir.chdir(RELEASE_DIR) do
+    `cp *.zip "#{PUBLISH_FOLDER}"`
   end
 end
 
