@@ -114,7 +114,7 @@ task :release do
   Dir.chdir(BUILD_RELEASE_DIR) do
     unless system("zip -r \"#{result}\" Visor.bundle") then puts red('need zip on command line (download http://www.info-zip.org/Zip.html)') end;
   end
-  Rake::Task["clean"].execute
+  Rake::Task["clean"].execute nil
 end
 
 desc "removes intermediate build files"
