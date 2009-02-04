@@ -141,6 +141,10 @@ task :install do
     puts "#{cmd_color('Picked (latest)')} #{file_color(zip)}"
     `rm -rf \"#{VISOR_BUNDLE}\"` # for sure
     puts "#{cmd_color('Unzipping into')} #{dir_color(SIMBL_PLUGINS_DIR)}"
+    if not File.exists?(SIMBL_PLUGINS_DIR)
+      puts "no plugins directory found; mkdiring it."
+      Dir.mkdir "#{SIMBL_PLUGINS_DIR}"
+    end
     die("problem in unzipping") unless system("unzip \"#{zip}\"")
     dest = File.join(SIMBL_PLUGINS_DIR, VISOR_BUNDLE)
     `rm -rf \"#{dest}\"` if File.exists? dest
