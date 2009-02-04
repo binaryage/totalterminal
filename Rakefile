@@ -11,7 +11,8 @@ BUILD_RELEASE_PATH = File.join(BUILD_RELEASE_DIR, VISOR_BUNDLE)
 RELEASE_DIR = File.join(ROOT_DIR, 'releases')
 VISOR_XIB = File.join(TMP_DIR, 'Visor.xib')
 INFO_PLIST = File.join(TMP_DIR, 'Info.plist')
-SIMBL_PLUGINS_DIR = File.expand_path(File.join('~', 'Library', 'Application Support', 'SIMBL', 'Plugins'))
+SIMBL_DIR = File.expand_path(File.join('~', 'Library', 'Application Support', 'SIMBL'))
+SIMBL_PLUGINS_DIR = File.expand_path(File.join(SIMBL_DIR, 'Plugins'))
 PUBLISH_FOLDER = File.expand_path(File.join("~", "Dropbox", "Public", "Visor"))
 
 # http://kpumuk.info/ruby-on-rails/colorizing-console-ruby-script-output/
@@ -141,10 +142,8 @@ task :install do
     puts "#{cmd_color('Picked (latest)')} #{file_color(zip)}"
     `rm -rf \"#{VISOR_BUNDLE}\"` # for sure
     puts "#{cmd_color('Unzipping into')} #{dir_color(SIMBL_PLUGINS_DIR)}"
-    if not File.exists?(SIMBL_PLUGINS_DIR)
-      puts "no plugins directory found; mkdiring it."
-      Dir.mkdir "#{SIMBL_PLUGINS_DIR}"
-    end
+    Dir.mkdir "#{SIMBL_DIR}" unless File.exists?(SIMBL_DIR)
+    Dir.mkdir "#{SIMBL_PLUGINS_DIR}" unless File.exists?(SIMBL_PLUGINS_DIR)
     die("problem in unzipping") unless system("unzip \"#{zip}\"")
     dest = File.join(SIMBL_PLUGINS_DIR, VISOR_BUNDLE)
     `rm -rf \"#{dest}\"` if File.exists? dest
