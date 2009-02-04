@@ -145,7 +145,7 @@ task :install do
     dest = File.join(SIMBL_PLUGINS_DIR, VISOR_BUNDLE)
     `rm -rf \"#{dest}\"` if File.exists? dest
     puts "mv \"#{VISOR_BUNDLE}\" \"#{SIMBL_PLUGINS_DIR}/\""
-    die("problem in moving to SIMBL plugins. Do you have SIMBL installed? Do you have rigths?") unless system("mv \"#{VISOR_BUNDLE}\" \"#{SIMBL_PLUGINS_DIR}\"")
+    die("problem in moving to SIMBL plugins. Do you have SIMBL installed? Do you have rights?") unless system("mv \"#{VISOR_BUNDLE}\" \"#{SIMBL_PLUGINS_DIR}\"")
     puts blue("Done!")+" "+red("Restart Terminal.app")
   end
 end
