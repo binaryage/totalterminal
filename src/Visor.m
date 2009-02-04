@@ -271,6 +271,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [self adoptScreenWidth:window];
     [self slideWindows:1 fast:fast];
     [window invalidateShadow];
+    [window update];
 }
 
 -(void)hideWindow:(BOOL)fast {
@@ -282,6 +283,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [self slideWindows:0 fast:fast];
     [window setHasShadow:NO];
     [window invalidateShadow];
+    [window update];
 }
 
 #define SLIDE_EASING(x) sin(M_PI_2*(x))
