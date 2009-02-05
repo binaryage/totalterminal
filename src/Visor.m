@@ -32,17 +32,21 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 @implementation Visor
 
-+ (Visor*) sharedInstance {
++ (Visor*)sharedInstance {
     static Visor* plugin = nil;
     if (plugin == nil)
         plugin = [[Visor alloc] init];
     return plugin;
 }
 
-+ (void) install {
++ (void)install {
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [[NSUserDefaults standardUserDefaults]registerDefaults:defaults];
     [Visor sharedInstance];
+}
+
+- (BOOL)status {
+    return !!window;
 }
 
 // for SIMBL debugging
@@ -114,15 +118,11 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     return self;
 }
 
-- (BOOL)status {
-    return !!window;
-}
-
 - (void)adoptTerminal:(id)win {
-    NSLog(@"createController window=%@", win);
+    NSLog(@"adoptTerminal window=%@", win);
 
     if (window) {
-        NSLog(@"createController called when old window existed");
+        NSLog(@"adoptTerminal called when old window existed");
     }
     window = win;
     
@@ -139,55 +139,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     
     needPlacement = true;
     [self updateStatusMenu];
-}
-
-- (IBAction)showPrefs:(id)sender {
-    [NSApp activateIgnoringOtherApps:YES];
-    [prefsWindow center];
-    [prefsWindow makeKeyAndOrderFront:nil];
-}
- 
-- (IBAction)showAboutBox:(id)sender {
-    NSLog(@"showAboutBox");
-    [NSApp activateIgnoringOtherApps:YES];
-    [aboutWindow center];
-    [aboutWindow makeKeyAndOrderFront:nil];
-}
-
-- (BOOL)validateMenuItem:(id <NSMenuItem>)menuItem {
-    if ([menuItem action]==@selector(toggleVisor:)){
-        [menuItem setKeyEquivalent:stringForCharacter([hotkey keyCode],[hotkey character])];
-        [menuItem setKeyEquivalentModifierMask:[hotkey modifierFlags]];
-        return [self status];
-    }
-    return YES;
-}
-
-- (void)activateStatusMenu {
-    NSLog(@"activateStatusMenu");
-    NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
-    [statusItem retain];
-    
-    [statusItem setHighlightMode:YES];
-    [statusItem setTarget:self];
-    [statusItem setAction:@selector(toggleVisor:)];
-    [statusItem setDoubleAction:@selector(toggleVisor:)];
-    
-    [statusItem setMenu:statusMenu];
-    [self updateStatusMenu];
-}
-
-- (void)updateStatusMenu {
-    NSLog(@"updateStatusMenu");
-    if (!statusItem) return;
-    
-    // update icon
-    BOOL status = [self status];
-    if (status)
-        [statusItem setImage:activeIcon];
-    else
-        [statusItem setImage:inactiveIcon];
 }
 
 - (IBAction)toggleVisor:(id)sender {
@@ -428,6 +379,28 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [escapeKey setEnabled:pEnable];
 }
 
+- (IBAction)showPrefs:(id)sender {
+    [NSApp activateIgnoringOtherApps:YES];
+    [prefsWindow center];
+    [prefsWindow makeKeyAndOrderFront:nil];
+}
+ 
+- (IBAction)showAboutBox:(id)sender {
+    NSLog(@"showAboutBox");
+    [NSApp activateIgnoringOtherApps:YES];
+    [aboutWindow center];
+    [aboutWindow makeKeyAndOrderFront:nil];
+}
+
+- (BOOL)validateMenuItem:(id <NSMenuItem>)menuItem {
+    if ([menuItem action]==@selector(toggleVisor:)){
+        [menuItem setKeyEquivalent:stringForCharacter([hotkey keyCode],[hotkey character])];
+        [menuItem setKeyEquivalentModifierMask:[hotkey modifierFlags]];
+        return [self status];
+    }
+    return YES;
+}
+
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
     NSLog(@"numberOfItemsInComboBox %@", aComboBox);
     return [[NSScreen screens] count]+1;
@@ -439,6 +412,33 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     id res = [transformer transformedValue:[NSNumber numberWithInteger:index]];
     [transformer release];
     return res;
+}
+
+- (void)activateStatusMenu {
+    NSLog(@"activateStatusMenu");
+    NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
+    [statusItem retain];
+    
+    [statusItem setHighlightMode:YES];
+    [statusItem setTarget:self];
+    [statusItem setAction:@selector(toggleVisor:)];
+    [statusItem setDoubleAction:@selector(toggleVisor:)];
+    
+    [statusItem setMenu:statusMenu];
+    [self updateStatusMenu];
+}
+
+- (void)updateStatusMenu {
+    NSLog(@"updateStatusMenu");
+    if (!statusItem) return;
+    
+    // update icon
+    BOOL status = [self status];
+    if (status)
+        [statusItem setImage:activeIcon];
+    else
+        [statusItem setImage:inactiveIcon];
 }
 
 @end
