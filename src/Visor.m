@@ -132,12 +132,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     
     NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
     [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window];
-    [dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:window];
-    [dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:window];
     [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window];
     [dnc addObserver:self selector:@selector(didResize:) name:NSWindowDidResizeNotification object:window];
     [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window];
-    [dnc addObserver:self selector:@selector(willBeginSheet:) name:NSWindowWillBeginSheetNotification object:window];
     [dnc addObserver:self selector:@selector(didChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
     
     needPlacement = true;
@@ -363,16 +360,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [self hideVisor:false];  
     }
 }
-
-- (void)resignKey:(id)sender {
-    NSLog(@"resignKey %@", sender);
-}
-
-- (void)becomeKey:(id)sender {
-    NSLog(@"becomeKey %@", sender);
-}
-
-
 - (void)becomeMain:(id)sender {
     NSLog(@"becomeMain %@", sender);
     if (needPlacement) {
@@ -399,10 +386,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [self hideVisor:true];
     window = nil;
     [self updateStatusMenu];
-}
-
-- (void)willBeginSheet:(id)sender {
-    NSLog(@"willBeginSheet %@", sender);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
