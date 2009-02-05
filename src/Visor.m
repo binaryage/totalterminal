@@ -383,7 +383,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 - (void)willClose:(id)sender {
     NSLog(@"willClose %@", sender);
-    [self hideVisor:true];
+    [self makeVisorInvisible]; // prevent gray background
     window = nil;
     [self updateStatusMenu];
 }
