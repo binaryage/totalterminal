@@ -250,7 +250,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     hidden = true;
     [self restorePreviouslyActiveApp];
     [self maybeEnableEscapeKey:NO];
-    [self saveDefaults];
     [self slideWindows:0 fast:fast];
     [window setHasShadow:NO];
     [window invalidateShadow];
@@ -300,11 +299,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [window setAlphaValue:1.0]; // NSWindow caches these values, so let it know
 }
 
-- (void)saveDefaults {   
-//  NSDictionary *defaults=[[controller defaults]dictionaryRepresentation];
-//  [[NSUserDefaults standardUserDefaults]setObject:defaults forKey:VisorTerminalDefaults];
-}
-
 - (void)resignMain:(id)sender {
     NSLog(@"resignMain %@", sender);
     if (!hidden){
@@ -329,7 +323,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     NSLog(@"didResize %@", sender);
     [self cacheScreen];
     [self adoptScreenWidth:window];
-    [self saveDefaults];
 }
 
 - (void)willClose:(id)sender {
