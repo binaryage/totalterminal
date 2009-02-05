@@ -32,9 +32,9 @@
 - (IBAction)setHotKey:(id)sender;
 - (IBAction)chooseFile:(id)sender;
 - (IBAction)showAboutBox:(id)sender;
-- (void)hideWindow;
-- (void)showWindow;
-- (void)hide;
+- (void)hideVisor;
+- (void)showVisor;
+- (void)makeVisorInvisible;
 - (void)enableHotKey;
 - (void)initEscapeKey;
 - (void)maybeEnableEscapeKey:(BOOL)enable;

@@ -22,7 +22,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         // need to hide visor window to prevent displaying it randomly after resolution change takes place
         // correct visor placement is restored again in didChangeScreenScreenParameters
         Visor* visor = [Visor sharedInstance];
-        [visor hide]; 
+        [visor makeVisorInvisible]; 
     } else {
         NSLog(@"Display config changed: %d, flags=%x", display, flags);
         // I was unable to use this place to restore correct visor placement here
@@ -201,9 +201,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         return;
     }
     if (hidden){
-        [self showWindow:false];
+        [self showVisor:false];
     }else{
-        [self hideWindow:false];
+        [self hideVisor:false];
     }
 }
 
@@ -278,7 +278,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     previouslyActiveApp = nil;
 }
 
-- (void)showWindow:(BOOL)fast {
+- (void)showVisor:(BOOL)fast {
     if (!hidden) return;
     hidden = false;
     [self cacheScreen]; // performs screen pointer caching at this point
@@ -293,11 +293,11 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [window update];
 }
 
--(void)hide {
+-(void)makeVisorInvisible {
     [window orderOut:nil];
 }
 
--(void)hideWindow:(BOOL)fast {
+-(void)hideVisor:(BOOL)fast {
     if (hidden) return;
     hidden = true;
     [self restorePreviouslyActiveApp];
@@ -360,7 +360,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)resignMain:(id)sender {
     NSLog(@"resignMain %@", sender);
     if (!hidden){
-        [self hideWindow:false];  
+        [self hideVisor:false];  
     }
 }
 
@@ -396,7 +396,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 - (void)willClose:(id)sender {
     NSLog(@"willClose %@", sender);
-    [self hideWindow:true];
+    [self hideVisor:true];
     window = nil;
     [self updateStatusMenu];
 }
