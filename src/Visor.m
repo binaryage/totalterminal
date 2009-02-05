@@ -11,7 +11,6 @@
 #import "Visor.h"
 #import "VisorWindow.h"
 #import "NDHotKeyEvent_QSMods.h"
-#import <QuartzComposer/QuartzComposer.h>
 
 #define VisorTerminalDefaults @"VisorTerminal"
 
