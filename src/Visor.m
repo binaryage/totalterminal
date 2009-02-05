@@ -16,6 +16,20 @@
 
 NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
+void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo) {
+    if (flags & kCGDisplayBeginConfigurationFlag) {
+        NSLog(@"Will change display config: %d, flags=%x", display, flags);
+        // need to hide visor window to prevent displaying it randomly after resolution change takes place
+        // correct visor placement is restored again in didChangeScreenScreenParameters
+        Visor* visor = [Visor sharedInstance];
+        [visor hide]; 
+    } else {
+        NSLog(@"Display config changed: %d, flags=%x", display, flags);
+        // I was unable to use this place to restore correct visor placement here
+        // NSScreen:frame has still old value at this point
+    }
+}
+
 @implementation Visor
 
 + (Visor*) sharedInstance {
@@ -93,6 +107,10 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [udc addObserver:self forKeyPath:@"values.VisorAnimationSpeed" options:nil context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorShowStatusItem" options:nil context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorScreen" options:nil context:nil];
+
+    // get notified of resolution change
+    CGDisplayRegisterReconfigurationCallback(displayReconfigurationCallback, self);
+    
     return self;
 }
 
@@ -120,6 +138,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [dnc addObserver:self selector:@selector(didResize:) name:NSWindowDidResizeNotification object:window];
     [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window];
     [dnc addObserver:self selector:@selector(willBeginSheet:) name:NSWindowWillBeginSheetNotification object:window];
+    [dnc addObserver:self selector:@selector(didChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
     
     needPlacement = true;
     [self updateStatusMenu];
@@ -188,10 +207,11 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     }
 }
 
-- (void)resetWindowPlace:(id)window {
+- (void)resetWindowPlacement {
+    if (!window) return;
     float offset = 1.0f;
     if (hidden) offset = 0.0f;
-    NSLog(@"resetWindowPlace %@ %f", window, offset);
+    NSLog(@"resetWindowPlacement %@ %f", window, offset);
     [self cacheScreen];
     [self placeWindow:window offset:offset];
     [self adoptScreenWidth:window];
@@ -273,6 +293,10 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [window update];
 }
 
+-(void)hide {
+    [window orderOut:nil];
+}
+
 -(void)hideWindow:(BOOL)fast {
     if (hidden) return;
     hidden = true;
@@ -348,13 +372,19 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     NSLog(@"becomeKey %@", sender);
 }
 
+
 - (void)becomeMain:(id)sender {
     NSLog(@"becomeMain %@", sender);
     if (needPlacement) {
         NSLog(@"... needPlacement");
-        [self resetWindowPlace:window];
+        [self resetWindowPlacement];
         needPlacement = false;
     }
+}
+
+- (void)didChangeScreenScreenParameters:(id)sender {
+    NSLog(@"didChangeScreenScreenParameters %@", sender);
+    [self resetWindowPlacement];
 }
 
 - (void)didResize:(id)sender {
@@ -427,6 +457,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     [transformer release];
     return res;
 }
+
 @end
 
 @implementation VisorScreenTransformer

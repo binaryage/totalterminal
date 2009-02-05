@@ -34,6 +34,7 @@
 - (IBAction)showAboutBox:(id)sender;
 - (void)hideWindow;
 - (void)showWindow;
+- (void)hide;
 - (void)enableHotKey;
 - (void)initEscapeKey;
 - (void)maybeEnableEscapeKey:(BOOL)enable;
