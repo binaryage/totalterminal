@@ -189,15 +189,15 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     NSRect screenRect=[screen frame];
     if (screen == [[NSScreen screens] objectAtIndex: 0]) // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
         screenRect.size.height-=22; // ignore menu area
-    NSRect frame=[window frame]; // respect the existing height
-    frame.origin.y=NSMaxY(screenRect)-round(offset*NSHeight(frame)); // move above top of screen
+    NSRect frame=[window frame];
+    frame.origin.y=NSMaxY(screenRect)-round(offset*NSHeight(frame));
     [window setFrame:frame display:NO];
 }
 
 - (void)adoptScreenWidth:(id)window {
     NSScreen* screen=cachedScreen;
     NSRect screenRect=[screen frame];
-    NSRect frame=[window frame]; // respect the existing height
+    NSRect frame=[window frame];
     frame.size.width=screenRect.size.width; // make it the full screen width
     frame.origin.x+=NSMidX(screenRect)-NSMidX(frame); // center horizontally
     [window setFrame:frame display:NO];
@@ -310,6 +310,11 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     if (needPlacement) {
         NSLog(@"... needPlacement");
         [self resetWindowPlacement];
+        if (window) {
+            [window setHasShadow:NO];
+            [window invalidateShadow];
+            [window update];
+        }
         needPlacement = false;
     }
 }
