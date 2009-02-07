@@ -64,7 +64,7 @@ Feel free to fork and contribute.
 > Go to Terminal.app preferences -> Window -> Rows
 
 #### How can I change a width of Visor?
-> Not possible. Visor always take whole screen width.
+> Not possible. Visor always takes whole screen width.
 
 #### Is it possible to show Visor only on secondary monitor?
 > Go to Visor preferences -> Screen
@@ -73,7 +73,7 @@ Feel free to fork and contribute.
 > Go to Spaces preferences -> configure Terminal.app to be visible on every screen. Note there seems to be a bug, because this works only after Terminal.app is running and you have Screen 0 in Visor preferences. See [Issue 52](http://code.google.com/p/blacktree-visor/issues/detail?id=52) for more info.
 
 #### I want to keep different preferences for Visor and other (classic) terminal windows. What is the best way how manage it?
-> Well, Terminal.app has preference sets called profiles and you can run new terminal windows with different profiles. Original version of Visor took "VisorTerminal" profile if it was available. This was removed in latest version. Simply use Terminal.app ways how to start terminal window with preferred profile like you normally would. Visor doesn't touch your profile or has special logic how to pick one.
+> Well, Terminal.app has preference sets called profiles and you can run new terminal windows with different profiles. Original version of Visor took "VisorTerminal" profile if it was available. This was removed in latest version. Simply use Terminal.app ways how to start terminal window with preferred profile like you normally would. Visor doesn't touch your profile neither has special logic how to pick one.
 
 
 ## History
