@@ -80,7 +80,7 @@ Feel free to fork and contribute.
 
 * **v1.7** (to be released)
   * [[Darwin][darwin]] Visor plays nicely when screen resolution changes
-  * [[Darwin][darwin]] Fixed extra shadow under menu-bar
+  * [[Pumpkin][pumpkin]] Fixed extra shadow under menu-bar
 
 * **v1.6** (03.02.2009)
   * [[Darwin][darwin]] Build infrastructure
@@ -129,3 +129,4 @@ Please see the [original website](http://code.google.com/p/blacktree-visor/) for
 
 [darwin]: http://github.com/darwin
 [torsten]: http://github.com/torsten
+[pumpkin]: http://github.com/pumpkin
