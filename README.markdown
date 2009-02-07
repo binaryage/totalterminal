@@ -4,8 +4,6 @@ Visor for OSX provides a systemwide terminal window accessible via a hot-key, mu
 
 ![screenshot](http://github.com/darwin/visor/blob/master/support/screenshot.png?raw=true)
 
-## Latest release
-
 ## **[Download Visor 1.6 (precompiled binary)](http://dl.getdropbox.com/u/559047/Visor/Visor-1.6-2a6ec8.zip)** 
 Tested on OSX 10.5.6 Leopard
 
@@ -80,11 +78,11 @@ Feel free to fork and contribute.
 
 ## History
 
-* v1.7 (to be released)
+* **v1.7** (to be released)
   * [[Darwin][darwin]] Visor plays nicely when screen resolution changes
   * [[Darwin][darwin]] Fixed extra shadow under menu-bar
 
-* v1.6 (03.02.2009)
+* **v1.6** (03.02.2009)
   * [[Darwin][darwin]] Build infrastructure
   * [[Darwin][darwin]] It is possible to specify on which screen visor will appear - see preferences ([Issue 15](http://code.google.com/p/blacktree-visor/issues/detail?id=15))
   * [[Darwin][darwin]] Visor exits gratefully without locking UI ([Issue 50](http://code.google.com/p/blacktree-visor/issues/detail?id=50))
@@ -98,13 +96,13 @@ Feel free to fork and contribute.
   * [[Torsten][torsten]] Added the option to hide Visor on Escape press. Press Shift+Escape, if you need a "Escape" in the Terminal.
   * [[Torsten][torsten]] If you start Visor you get now initial focus. ([Issue 20](http://code.google.com/p/blacktree-visor/issues/detail?id=20))
 
-* v1.5a1
+* **v1.5a1**
   * Leopard Support
 
-* v1.2.1
+* **v1.2.1**
   * Fixed Choose File button
 
-* v1.2 :
+* **v1.2**
   * Added Animation Speed Preferences
   * Added Transition Preferences for Slide and Fade (both optional)
   * Menu Item is optional
@@ -113,12 +111,12 @@ Feel free to fork and contribute.
   * New icon
   * No longer forked code - one version.
   
-* v1.1 (drparallax's unsupported version?)
+* **v1.1** (drparallax's unsupported version?)
   * Dismissing visor now 'slides up'
   * Options for animation
   * New icon
 
-* v1.0:
+* **v1.0**
   * Initial release
 
 ## Original Visor 1.5 brought to you by [BlackTree](http://blacktree.com), kudos man!
