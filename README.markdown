@@ -40,14 +40,6 @@ To hide Visor, you can either:
     rake release version=1.7
     rake install
 
-### Publishing
-    
-    cd visor
-    git tag -a v1.7 -m "Release 1.7"
-    git push --tags
-    rake release version=1.7
-    rake publish
-
 Feel free to fork and contribute.
 
 ## FAQ
