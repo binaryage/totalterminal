@@ -187,10 +187,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)placeWindow:(id)window offset:(float)offset {
     NSScreen* screen=cachedScreen;
     NSRect screenRect=[screen frame];
-    if (screen == [[NSScreen screens] objectAtIndex: 0]) // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
-        screenRect.size.height-=22; // ignore menu area
     NSRect frame=[window frame];
-    frame.origin.y=NSMaxY(screenRect)-round(offset*NSHeight(frame));
+    int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
+    if (screen == [[NSScreen screens] objectAtIndex: 0]) shift = 22; // menu area
+    frame.origin.y=NSMaxY(screenRect)-round(offset*(NSHeight(frame)+shift));
     [window setFrame:frame display:NO];
 }
 
@@ -296,7 +296,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(1));
     [self placeWindow:window offset:offset];
     // always set final alpha to 1, for case off-screen window gets onto the screen somehow (imagine display resize?)
-    [window setAlphaValue:1.0]; // NSWindow caches these values, so let it know
+    [window setAlphaValue:1.0];
 }
 
 - (void)resignMain:(id)sender {
