@@ -55,7 +55,7 @@ Feel free to fork and contribute.
 > Visor is just a light-weight wrapper of Terminal.app (SIMBL). You should be able to use all Terminal.app features with Visor.
 
 #### My Visor menu-bar icon is dimmed out. My hot-key doesn't work and just beeps. What's wrong?
-> There can be only one visor-ed terminal window in the system. If you close this terminal window (for example CMD+D or typing exit in shell), Visor gets into disabled state you are describing. Just open a new terminal window and it gets visor-ed again. You can do it for example by clicking on Terminal.app icon in Dock.
+> There can be only one visor-ed terminal window in the system. If you close this terminal window (for example Control+D or typing exit in shell), Visor gets into disabled state you are describing. Just open a new terminal window and it gets visor-ed again. You can do it for example by clicking on Terminal.app icon in Dock.
 
 #### How can I open a new terminal window the old way as a classic OSX window?
 > If there is a visor-ed terminal window (Visor menu-bar icon is active) every new terminal window opens as a classic OSX window. In other words, open at least two terminal windows. Second one will be classic for sure.
@@ -70,7 +70,7 @@ Feel free to fork and contribute.
 > Go to Visor preferences -> Screen
 
 #### Is it possible to see Visor on every space?
-> Go to Spaces preferences -> configure Terminal.app to be visible on every screen. Note there seems to be a bug, because this works only after Terminal.app is running and you have Screen 0 in Visor preferences. See [Issue 52](http://code.google.com/p/blacktree-visor/issues/detail?id=52) for more info.
+> Visor 1.6 does not respect spaces settings ([Issue 52](http://code.google.com/p/blacktree-visor/issues/detail?id=52)). Visor 1.7 forces it's window to be visible on every space. You may disable it in Visor preferences. Note: spaces configuration about Terminal.app doesn't apply to visor-ed terminal window, it is effective only for other (classic) terminal windows.
 
 #### I want to keep different preferences for Visor and other (classic) terminal windows. What is the best way how manage it?
 > Well, Terminal.app has preference sets called profiles and you can run new terminal windows with different profiles. Original version of Visor took "VisorTerminal" profile if it was available. This was removed in latest version. Simply use Terminal.app ways how to start terminal window with preferred profile like you normally would. Visor doesn't touch your profile neither has special logic how to pick one.
@@ -79,6 +79,8 @@ Feel free to fork and contribute.
 ## History
 
 * **v1.7** (to be released)
+  * [[Darwin][darwin]] By default Visor appears on every space. You may disable it in Visor preferences.
+  * [[Darwin][darwin]] Visor is correctly hidden in fullscreen mode.
   * [[Darwin][darwin]] Visor plays nicely when screen resolution changes
   * [[Pumpkin][pumpkin]] Fixed extra shadow under menu-bar
 
