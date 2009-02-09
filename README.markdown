@@ -79,6 +79,7 @@ Feel free to fork and contribute.
   * [[Darwin][darwin]] Visor is correctly hidden in fullscreen mode.
   * [[Darwin][darwin]] Visor plays nicely when screen resolution changes.
   * [[Pumpkin][pumpkin]] Fixed extra shadow under menu-bar.
+  * [[Blinks][blinks]] Fixed rake install task for case there is no SIMBL plugins directory.
 
 * **v1.6** (03.02.2009)
   * [[Darwin][darwin]] Build infrastructure.
@@ -128,3 +129,4 @@ Please see the [original website](http://code.google.com/p/blacktree-visor/) for
 [darwin]: http://github.com/darwin
 [torsten]: http://github.com/torsten
 [pumpkin]: http://github.com/pumpkin
+[blinks]: http://github.com/blinks
