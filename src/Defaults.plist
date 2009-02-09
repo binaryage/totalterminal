@@ -21,5 +21,7 @@
 	<false/>
 	<key>VisorScreen</key>
 	<integer>0</integer>
+	<key>VisorOnEverySpace</key>
+	<true/>
 </dict>
 </plist>

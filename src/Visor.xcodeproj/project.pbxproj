@@ -26,6 +26,7 @@
 		7FC7F7650A3BBED200B52344 /* VisorLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC7F7640A3BBED200B52344 /* VisorLarge.png */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		D6701C2B0F40376F00900D77 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6701C2A0F40376F00900D77 /* QuartzCore.framework */; };
 		D68AA7020F371C810094AA92 /* Visor.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* Visor.m */; };
 		D68AA7C60F37310E0094AA92 /* VisorActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D68AA7C50F37310E0094AA92 /* VisorActive.png */; };
 		D68AA7CA0F3731EC0094AA92 /* VisorInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = D68AA7C90F3731EC0094AA92 /* VisorInactive.png */; };
@@ -55,6 +56,7 @@
 		8D5B49B6048680CD000E48DA /* Visor.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Visor.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		D6701C2A0F40376F00900D77 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		D68AA7000F371C810094AA92 /* Visor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor.h; sourceTree = "<group>"; };
 		D68AA7010F371C810094AA92 /* Visor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Visor.m; sourceTree = "<group>"; };
 		D68AA7C50F37310E0094AA92 /* VisorActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VisorActive.png; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+				D6701C2B0F40376F00900D77 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +105,7 @@
 		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D6701C2A0F40376F00900D77 /* QuartzCore.framework */,
 				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
 				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
 			);

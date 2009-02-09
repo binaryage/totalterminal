@@ -11,6 +11,8 @@
 #import "Visor.h"
 #import "VisorWindow.h"
 #import "NDHotKeyEvent_QSMods.h"
+#import "CGSPrivate.h"
+//#import "Expose.h"
 
 #define VisorTerminalDefaults @"VisorTerminal"
 
@@ -91,6 +93,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     if (![ud objectForKey:@"VisorScreen"]) {
         [ud setInteger:0 forKey:@"VisorScreen"]; // use main screen by default
     }
+    if (![ud objectForKey:@"VisorOnEverySpace"]) {
+        [ud setBool:YES forKey:@"VisorOnEverySpace"];
+    }
     
     // add the "Visor Preferences..." item to the Terminal menu
     id <NSMenuItem> prefsMenuItem = [[statusMenu itemAtIndex:2] copy];
@@ -118,9 +123,26 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     return self;
 }
 
+// credit: http://tonyarnold.com/entries/fixing-an-annoying-expose-bug-with-nswindows/
+- (OSStatus)setupExposeTags {
+    CGSConnection cid;
+    CGSWindow wid;
+    CGSWindowTag tags[2];
+    bool showOnEverySpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorOnEverySpace"];
+    
+    wid = [window windowNumber];
+    cid = _CGSDefaultConnection();
+    tags[0] = CGSTagSticky;
+    tags[1] = 0;
+    
+    if (showOnEverySpace)
+        return CGSSetWindowTags(cid, wid, tags, 32);
+    else 
+        return CGSClearWindowTags(cid, wid, tags, 32);
+}
+
 - (void)adoptTerminal:(id)win {
     NSLog(@"adoptTerminal window=%@", win);
-
     if (window) {
         NSLog(@"adoptTerminal called when old window existed");
     }
@@ -128,10 +150,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     
     [window setLevel:NSMainMenuWindowLevel-1];
     [window setOpaque:NO];
-    [window setHasShadow:NO];
     
     NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
-    [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window];
+    [dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:window];
     [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window];
     [dnc addObserver:self selector:@selector(didResize:) name:NSWindowDidResizeNotification object:window];
     [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window];
@@ -229,6 +250,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)showVisor:(BOOL)fast {
     if (!hidden) return;
     hidden = false;
+    [self setupExposeTags];
     [self cacheScreen]; // performs screen pointer caching at this point
     [self storePreviouslyActiveApp];
     [NSApp activateIgnoringOtherApps:YES];
@@ -248,6 +270,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 -(void)hideVisor:(BOOL)fast {
     if (hidden) return;
     hidden = true;
+    [self setupExposeTags];
     [self restorePreviouslyActiveApp];
     [self maybeEnableEscapeKey:NO];
     [self slideWindows:0 fast:fast];
@@ -299,8 +322,8 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [window setAlphaValue:1.0];
 }
 
-- (void)resignMain:(id)sender {
-    NSLog(@"resignMain %@", sender);
+- (void)resignKey:(id)sender {
+    NSLog(@"resignKey %@", sender);
     if (!hidden){
         [self hideVisor:false];  
     }
