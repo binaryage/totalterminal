@@ -28,6 +28,7 @@ To hide Visor, you can either:
 
 ### Prerequisities:
 
+  * [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)
   * ruby + rubygems
   * XCode 3.0+
   * zip/unzip
@@ -75,30 +76,33 @@ Feel free to fork and contribute.
 #### I want to keep different preferences for Visor and other (classic) terminal windows. What is the best way how manage it?
 > Well, Terminal.app has preference sets called profiles and you can run new terminal windows with different profiles. Original version of Visor took "VisorTerminal" profile if it was available. This was removed in latest version. Simply use Terminal.app ways how to start terminal window with preferred profile like you normally would. Visor doesn't touch your profile neither has special logic how to pick one.
 
+## Articles about Visor
+
+  * Featured Project in **[Rebase #13](http://github.com/blog/346-github-rebase-13)**, thanks [qrush](http://github.com/qrush)!
 
 ## History
 
 * **v1.7** (to be released)
-  * [[Darwin][darwin]] By default Visor appears on every space. You may disable it in Visor preferences.
+  * [[Darwin][darwin]] Visor appears on every space by default. You may disable it in Visor preferences.
   * [[Darwin][darwin]] Visor is correctly hidden in fullscreen mode.
-  * [[Darwin][darwin]] Visor plays nicely when screen resolution changes
-  * [[Pumpkin][pumpkin]] Fixed extra shadow under menu-bar
+  * [[Darwin][darwin]] Visor plays nicely when screen resolution changes.
+  * [[Pumpkin][pumpkin]] Fixed extra shadow under menu-bar.
 
 * **v1.6** (03.02.2009)
-  * [[Darwin][darwin]] Build infrastructure
-  * [[Darwin][darwin]] It is possible to specify on which screen visor will appear - see preferences ([Issue 15](http://code.google.com/p/blacktree-visor/issues/detail?id=15))
-  * [[Darwin][darwin]] Visor exits gratefully without locking UI ([Issue 50](http://code.google.com/p/blacktree-visor/issues/detail?id=50))
-  * [[Darwin][darwin]] Visor becomes inactive when you close visor-ed terminal window or exit it's shell (fixes [Issue 10](http://code.google.com/p/blacktree-visor/issues/detail?id=10))
-  * [[Darwin][darwin]] When inactive, Visor eats next coming terminal window (right click terminal.app icon and select "new window")
-  * [[Darwin][darwin]] Re-implemented window sliding animation using standard NSWindow functions, should fix weird bugs with mouse cursor state
-  * [[Darwin][darwin]] Removed support for Quartz powered backgrounds (want simpler codebase!)
-  * [[Darwin][darwin]] Gentle terminal window hijacking (solves [Issue 5](http://code.google.com/p/blacktree-visor/issues/detail?id=5), [Issue 6](http://code.google.com/p/blacktree-visor/issues/detail?id=6) and related problems. What more? It properly enables [applescript automation in visor-ed terminal](http://onrails.org/articles/2007/11/28/scripting-the-leopard-terminal), which was my original motivation to get dirty with Visor internals)
+  * [[Darwin][darwin]] Build infrastructure.
+  * [[Darwin][darwin]] It is possible to specify on which screen visor will appear - see preferences ([Issue 15](http://code.google.com/p/blacktree-visor/issues/detail?id=15)).
+  * [[Darwin][darwin]] Visor exits gratefully without locking UI ([Issue 50](http://code.google.com/p/blacktree-visor/issues/detail?id=50)).
+  * [[Darwin][darwin]] Visor becomes inactive when you close visor-ed terminal window or exit it's shell (fixes [Issue 10](http://code.google.com/p/blacktree-visor/issues/detail?id=10)).
+  * [[Darwin][darwin]] When inactive, Visor eats next coming terminal window (right click terminal.app icon and select "new window").
+  * [[Darwin][darwin]] Re-implemented window sliding animation using standard NSWindow functions, should fix weird bugs with mouse cursor state.
+  * [[Darwin][darwin]] Removed support for Quartz powered backgrounds (want simpler codebase!).
+  * [[Darwin][darwin]] Gentle terminal window hijacking (solves [Issue 5](http://code.google.com/p/blacktree-visor/issues/detail?id=5), [Issue 6](http://code.google.com/p/blacktree-visor/issues/detail?id=6) and related problems. What more? It properly enables [applescript automation in visor-ed terminal](http://onrails.org/articles/2007/11/28/scripting-the-leopard-terminal), which was my original motivation to get dirty with Visor internals).
   * [[Darwin][darwin]] Whenever you open Visor window, it steals focus and you may start typing without touching mouse. Visor is a good guy and returns the focus back to original app when being hidden. I said ... don't touch that mouse!
-  * [[Torsten][torsten]] Fixed the "White Line Bug" ([Issue 16](http://code.google.com/p/blacktree-visor/issues/detail?id=16))
+  * [[Torsten][torsten]] Fixed the "White Line Bug" ([Issue 16](http://code.google.com/p/blacktree-visor/issues/detail?id=16)).
   * [[Torsten][torsten]] Added the option to hide Visor on Escape press. Press Shift+Escape, if you need a "Escape" in the Terminal.
-  * [[Torsten][torsten]] If you start Visor you get now initial focus. ([Issue 20](http://code.google.com/p/blacktree-visor/issues/detail?id=20))
+  * [[Torsten][torsten]] If you start Visor you get now initial focus. ([Issue 20](http://code.google.com/p/blacktree-visor/issues/detail?id=20)).
 
-* **v1.5a1**
+* **v1.5a1** (Nov 2007?)
   * Leopard Support
 
 * **v1.2.1**
