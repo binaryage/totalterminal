@@ -4,7 +4,7 @@ Visor for OSX provides a systemwide terminal window accessible via a hot-key, mu
 
 ![screenshot](http://github.com/darwin/visor/blob/master/support/screenshot.png?raw=true)
 
-## **[Download Visor 1.6 (precompiled binary)](http://dl.getdropbox.com/u/559047/Visor/Visor-1.6-2a6ec8.zip)** 
+## **[Download Visor 1.7 (precompiled binary)](http://dl.getdropbox.com/u/559047/Visor/Visor-1.7-ae75d3.zip)**
 Tested on OSX 10.5.6 Leopard
 
 ## Installation
@@ -37,7 +37,7 @@ To hide Visor, you can either:
 
     git clone git://github.com/darwin/visor.git
     cd visor
-    rake release version=1.7
+    rake release version=1.8
     rake install
 
 Feel free to fork and contribute.
@@ -74,7 +74,7 @@ Feel free to fork and contribute.
 
 ## History
 
-* **v1.7** (to be released)
+* **v1.7** (12.02.2009)
   * [[Darwin][darwin]] Visor appears on every space by default. You may disable it in Visor preferences.
   * [[Darwin][darwin]] Visor is correctly hidden in fullscreen mode.
   * [[Darwin][darwin]] Visor plays nicely when screen resolution changes.
