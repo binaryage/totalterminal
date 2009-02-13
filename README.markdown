@@ -72,6 +72,11 @@ Feel free to fork and contribute.
 
   * Featured Project in **[Rebase #13](http://github.com/blog/346-github-rebase-13)**, thanks [qrush](http://github.com/qrush)!
 
+## Known issues
+
+  * When you try to close terminal session with running background process, terminal.app asks you about confirmation. This sheet dialog may appear on different _space_ than you are currently switched on.
+
+
 ## History
 
 * **v1.7** (12.02.2009)
