@@ -21,6 +21,8 @@
     NSString* previouslyActiveApp;
     BOOL hidden;
     BOOL needPlacement;
+    BOOL isMain;
+    BOOL isKey;
     NSImage* activeIcon;
     NSImage* inactiveIcon;
     NSScreen* cachedScreen;

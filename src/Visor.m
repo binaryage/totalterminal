@@ -12,7 +12,6 @@
 #import "VisorWindow.h"
 #import "NDHotKeyEvent_QSMods.h"
 #import "CGSPrivate.h"
-//#import "Expose.h"
 
 #define VisorTerminalDefaults @"VisorTerminal"
 
@@ -79,6 +78,8 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
     previouslyActiveApp = nil;
     hidden = true;
+    isMain = false;
+    isKey = false;
 
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [ud registerDefaults:defaults];
@@ -124,13 +125,13 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 // credit: http://tonyarnold.com/entries/fixing-an-annoying-expose-bug-with-nswindows/
-- (OSStatus)setupExposeTags {
+- (OSStatus)setupExposeTags:(NSWindow*)win {
     CGSConnection cid;
     CGSWindow wid;
     CGSWindowTag tags[2];
     bool showOnEverySpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorOnEverySpace"];
     
-    wid = [window windowNumber];
+    wid = [win windowNumber];
     cid = _CGSDefaultConnection();
     tags[0] = CGSTagSticky;
     tags[1] = 0;
@@ -152,8 +153,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [window setOpaque:NO];
     
     NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
+    [dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:window];
     [dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:window];
     [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window];
+    [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window];
     [dnc addObserver:self selector:@selector(didResize:) name:NSWindowDidResizeNotification object:window];
     [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window];
     [dnc addObserver:self selector:@selector(didChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
@@ -250,7 +253,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)showVisor:(BOOL)fast {
     if (!hidden) return;
     hidden = false;
-    [self setupExposeTags];
+    [self setupExposeTags:window];
     [self cacheScreen]; // performs screen pointer caching at this point
     [self storePreviouslyActiveApp];
     [NSApp activateIgnoringOtherApps:YES];
@@ -258,6 +261,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [window makeKeyAndOrderFront:self];
     [window setHasShadow:YES];
     [self adoptScreenWidth:window];
+    [window update];
     [self slideWindows:1 fast:fast];
     [window invalidateShadow];
     [window update];
@@ -270,9 +274,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 -(void)hideVisor:(BOOL)fast {
     if (hidden) return;
     hidden = true;
-    [self setupExposeTags];
+    [self setupExposeTags:window];
     [self restorePreviouslyActiveApp];
     [self maybeEnableEscapeKey:NO];
+    [window update];
     [self slideWindows:0 fast:fast];
     [window setHasShadow:NO];
     [window invalidateShadow];
@@ -324,14 +329,31 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 - (void)resignKey:(id)sender {
     NSLog(@"resignKey %@", sender);
-    if (!hidden){
+    isKey = false;
+    if (!isMain && !isKey && !hidden){
         [self hideVisor:false];  
     }
 }
+
+- (void)resignMain:(id)sender {
+    NSLog(@"resignMain %@", sender);
+    isMain = false;
+    if (!isMain && !isKey && !hidden){
+        [self hideVisor:false];  
+    }
+}
+
+- (void)becomeKey:(id)sender {
+    NSLog(@"becomeKey %@", sender);
+    isKey = true;
+}
+
 - (void)becomeMain:(id)sender {
     NSLog(@"becomeMain %@", sender);
+    isMain = true;
     if (needPlacement) {
         NSLog(@"... needPlacement");
+        [self makeVisorInvisible]; // prevent gray background
         [self resetWindowPlacement];
         if (window) {
             [window setHasShadow:NO];
@@ -339,6 +361,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
             [window update];
         }
         needPlacement = false;
+    }
+    if (isMain && hidden) {
+        [self showVisor:false];
     }
 }
 

@@ -74,8 +74,7 @@ Feel free to fork and contribute.
 
 ## Known issues
 
-  * When you try to close terminal session with running background process, terminal.app asks you about confirmation. This sheet dialog may appear on different _space_ than you are currently switched on.
-
+  * Terminal.app crashes sometimes once or twice per day (investigating if it is Visor's fault)
 
 ## History
 

@@ -12,8 +12,17 @@
         // we expect that setCloseDialogExpected is called by Terminal.app once BEFORE window gets into "closing mode"
         // in this case we are able to open sheet before window starts closing and this works even for window with NSBorderlessWindowMask
         // it works like a magic, took me few hours to figure out this random stuff
+        Visor* visor = [Visor sharedInstance];
+        [visor showVisor:false];
         [self displayWindowCloseSheet:1];
     }
+}
+
+- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
+    NSLog(@"willPositionSheet");
+    Visor* visor = [Visor sharedInstance];
+    [visor setupExposeTags:sheet];
+    return rect;
 }
 
 @end
