@@ -213,7 +213,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     NSRect screenRect=[screen frame];
     NSRect frame=[window frame];
     int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
-    if (screen == [[NSScreen screens] objectAtIndex: 0]) shift = 22; // menu area
+    if (screen == [[NSScreen screens] objectAtIndex: 0]) shift = 21; // menu area
     frame.origin.y=NSMaxY(screenRect)-round(offset*(NSHeight(frame)+shift));
     [window setFrame:frame display:NO];
 }
