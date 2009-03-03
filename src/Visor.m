@@ -68,16 +68,16 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 #endif
     NSLog(@"init");
     
-    NSString* imagePath1=[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorActive"];
-    activeIcon=[[NSImage alloc]initWithContentsOfFile:imagePath1];
-    NSString* imagePath2=[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorInactive"];
-    inactiveIcon=[[NSImage alloc]initWithContentsOfFile:imagePath2];
+    activeIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorActive"]];
+    inactiveIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorInactive"]];
+    pinUpIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorPinUp"]];
+    pinDownIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorPinDown"]];
     
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
 
     previouslyActiveApp = nil;
-    hidden = true;
+    isHidden = true;
     isMain = false;
     isKey = false;
 
@@ -165,6 +165,32 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [self updateStatusMenu];
 }
 
+- (void)createPinButton {
+    NSLog(@"createPinButton");
+    NSRect windowFrame = [window frame];
+    pinButton = [[NSButton alloc] initWithFrame:NSMakeRect(windowFrame.size.width-20.-15.,windowFrame.size.height-20.,16.,16.)];
+    [pinButton setState:NSOffState];
+    [pinButton setButtonType: NSToggleButton];
+    [pinButton setImagePosition: NSImageOnly];
+    [pinButton setBordered: NO];
+    [pinButton setImage:pinUpIcon];
+    [pinButton setAlternateImage:pinDownIcon];
+    [pinButton setTarget:self];
+    [pinButton setAction:@selector(pinAction:)];
+    [[window contentView] addSubview:pinButton positioned:NSWindowAbove relativeTo:nil];  
+}
+
+- (void)updatePinButton {
+    NSLog(@"updatePinButton");
+    NSRect windowFrame = [window frame];
+    [pinButton setFrame:NSMakeRect(windowFrame.size.width-20.-15.,windowFrame.size.height-20.,16.,16.)];
+}
+
+- (IBAction)pinAction:(id)sender {
+    NSLog(@"pinAction %@", sender);
+    isPinned = !isPinned;
+}
+
 - (IBAction)toggleVisor:(id)sender {
     NSLog(@"toggleVisor %@", sender);
     if (!window) {
@@ -172,7 +198,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         NSBeep();
         return;
     }
-    if (hidden){
+    if (isHidden){
         [self showVisor:false];
     }else{
         [self hideVisor:false];
@@ -182,7 +208,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)resetWindowPlacement {
     if (!window) return;
     float offset = 1.0f;
-    if (hidden) offset = 0.0f;
+    if (isHidden) offset = 0.0f;
     NSLog(@"resetWindowPlacement %@ %f", window, offset);
     [self cacheScreen];
     [self placeWindow:window offset:offset];
@@ -251,8 +277,8 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)showVisor:(BOOL)fast {
-    if (!hidden) return;
-    hidden = false;
+    if (!isHidden) return;
+    isHidden = false;
     [self setupExposeTags:window];
     [self cacheScreen]; // performs screen pointer caching at this point
     [self storePreviouslyActiveApp];
@@ -272,8 +298,8 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 -(void)hideVisor:(BOOL)fast {
-    if (hidden) return;
-    hidden = true;
+    if (isHidden) return;
+    isHidden = true;
     [self setupExposeTags:window];
     [self restorePreviouslyActiveApp];
     [self maybeEnableEscapeKey:NO];
@@ -330,7 +356,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)resignKey:(id)sender {
     NSLog(@"resignKey %@", sender);
     isKey = false;
-    if (!isMain && !isKey && !hidden){
+    if (!isPinned && !isMain && !isKey && !isHidden){
         [self hideVisor:false];  
     }
 }
@@ -338,7 +364,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)resignMain:(id)sender {
     NSLog(@"resignMain %@", sender);
     isMain = false;
-    if (!isMain && !isKey && !hidden){
+    if (!isPinned && !isMain && !isKey && !isHidden){
         [self hideVisor:false];  
     }
 }
@@ -361,8 +387,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
             [window update];
         }
         needPlacement = false;
+        [self createPinButton];
     }
-    if (isMain && hidden) {
+    if (isMain && isHidden) {
         [self showVisor:false];
     }
 }
@@ -376,6 +403,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     NSLog(@"didResize %@", sender);
     [self cacheScreen];
     [self adoptScreenWidth:window];
+    [self updatePinButton];
 }
 
 - (void)willClose:(id)sender {

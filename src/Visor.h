@@ -19,13 +19,17 @@
     NDHotKeyEvent* hotkey;
     NDHotKeyEvent* escapeKey;
     NSString* previouslyActiveApp;
-    BOOL hidden;
+    BOOL isHidden;
     BOOL needPlacement;
     BOOL isMain;
     BOOL isKey;
+    BOOL isPinned;
     NSImage* activeIcon;
     NSImage* inactiveIcon;
+    NSImage* pinUpIcon;
+    NSImage* pinDownIcon;
     NSScreen* cachedScreen;
+    NSButton* pinButton;
 }
 - (BOOL)status;
 - (void)adoptTerminal:(NSWindow*)window;

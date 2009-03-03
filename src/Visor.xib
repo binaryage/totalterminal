@@ -674,10 +674,6 @@
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
 			</object>
 			<object class="NSUserDefaultsController" id="367619262">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>VisorOnEverySpace</string>
-				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 			<object class="NSMenu" id="935150787">
