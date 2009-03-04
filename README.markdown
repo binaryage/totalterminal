@@ -66,7 +66,7 @@ Feel free to fork and contribute.
 > Go to Visor Preferences -> Screen
 
 #### Is it possible to see Visor on every space?
-> Visor 1.6 does not respect spaces settings ([Issue 52](http://code.google.com/p/blacktree-visor/issues/detail?id=52)). Visor 1.7+ forces it's window to be visible on every space. You may disable it in Visor preferences. Note: spaces configuration about Terminal.app doesn't apply to visor-ed terminal window, it is effective only for other (classic) terminal windows.
+> Visor 1.6 does not respect spaces settings ([Issue 52](http://code.google.com/p/blacktree-visor/issues/detail?id=52)). Visor 1.7+ forces it's window to be visible on every space. You may disable it in Visor Preferences. Note: spaces configuration about Terminal.app doesn't apply to visor-ed terminal window, it is effective only for other (classic) terminal windows.
 
 #### I want to keep different preferences for Visor and other (classic) terminal windows. What is the best way how manage it?
 > Well, Terminal.app has preference sets called profiles and you can run new terminal windows with different profiles. Original version of Visor took "VisorTerminal" profile in case it was available. This was removed in latest version. Simply use Terminal.app ways how to start terminal window with preferred profile like you normally would. Visor doesn't touch your profile neither has special logic how to pick one.
@@ -84,7 +84,7 @@ Feel free to fork and contribute.
   * [[Darwin][darwin]] Custom build from sources is marked as "Custom", no need to specify version.
 
 * **v1.7** (12.02.2009)
-  * [[Darwin][darwin]] Visor appears on every space by default. You may disable it in Visor preferences.
+  * [[Darwin][darwin]] Visor appears on every space by default. You may disable it in Visor Preferences.
   * [[Darwin][darwin]] Visor is correctly hidden in fullscreen mode.
   * [[Darwin][darwin]] Visor plays nicely when screen resolution changes.
   * [[Pumpkin][pumpkin]] Fixed extra shadow under menu-bar.

@@ -152,12 +152,4 @@ task :install do
   end
 end
 
-desc "copies releases/*.zip over to my dropbox visor folder"
-task :publish do
-  puts "#{cmd_color('Publishing into')} #{dir_color(PUBLISH_FOLDER)}"
-  Dir.chdir(RELEASE_DIR) do
-    `cp *.zip "#{PUBLISH_FOLDER}"`
-  end
-end
-
 task :default => :release
