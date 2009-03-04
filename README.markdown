@@ -5,7 +5,7 @@ Visor for OSX provides a systemwide terminal window accessible via a hot-key, mu
 ![screenshot](http://github.com/darwin/visor/blob/master/support/screenshot.png?raw=true)
 
 ## **[Download Visor 1.7 (precompiled binary)](http://dl.getdropbox.com/u/559047/Visor/Visor-1.7-ae75d3.zip)**
-Tested on OSX 10.5.6 Leopard
+Tested on OSX 10.5.6 Leopard (Intel)
 
 ## Installation
 
@@ -37,7 +37,7 @@ To hide Visor, you can either:
 
     git clone git://github.com/darwin/visor.git
     cd visor
-    rake release version=1.8
+    rake
     rake install
 
 Feel free to fork and contribute.
@@ -63,7 +63,7 @@ Feel free to fork and contribute.
 > Go to Visor preferences -> Screen
 
 #### Is it possible to see Visor on every space?
-> Visor 1.6 does not respect spaces settings ([Issue 52](http://code.google.com/p/blacktree-visor/issues/detail?id=52)). Visor 1.7 forces it's window to be visible on every space. You may disable it in Visor preferences. Note: spaces configuration about Terminal.app doesn't apply to visor-ed terminal window, it is effective only for other (classic) terminal windows.
+> Visor 1.6 does not respect spaces settings ([Issue 52](http://code.google.com/p/blacktree-visor/issues/detail?id=52)). Visor 1.7+ forces it's window to be visible on every space. You may disable it in Visor preferences. Note: spaces configuration about Terminal.app doesn't apply to visor-ed terminal window, it is effective only for other (classic) terminal windows.
 
 #### I want to keep different preferences for Visor and other (classic) terminal windows. What is the best way how manage it?
 > Well, Terminal.app has preference sets called profiles and you can run new terminal windows with different profiles. Original version of Visor took "VisorTerminal" profile if it was available. This was removed in latest version. Simply use Terminal.app ways how to start terminal window with preferred profile like you normally would. Visor doesn't touch your profile neither has special logic how to pick one.
@@ -74,9 +74,14 @@ Feel free to fork and contribute.
 
 ## Known issues
 
-  * Terminal.app crashes sometimes once or twice per day (investigating if it is Visor's fault)
+  * Terminal.app crashes sometimes once or twice per day (investigating if it is Visor's fault). Anyone has similar issues?
 
 ## History
+
+* **v1.8** (to be released)
+  * [[Darwin][darwin]] Visor window can be pinned, so it doesn't auto-hide (see icon in the top-right window corner).
+  * [[Darwin][darwin]] Better behavior of confirmation sheets (Previously, sheet might appear on different space or might be hidden behind Visor window).
+  * [[Darwin][darwin]] Custom build from sources is marked as "Custom", no need to specify version.
 
 * **v1.7** (12.02.2009)
   * [[Darwin][darwin]] Visor appears on every space by default. You may disable it in Visor preferences.

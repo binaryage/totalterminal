@@ -45,7 +45,7 @@ def die(msg, status=1)
 end
 
 def version()
-  $version = ENV["version"]
+  $version = ENV["version"] || 'Custom'
 end
 
 def revision()
@@ -90,7 +90,6 @@ end
 
 desc "prepares release"
 task :release do
-  die("please specify release version like this > rake release version=1.6") unless ENV["version"]
   puts "#{cmd_color('Checking environment ...')}"
   dirty_repo_warning()
   version()
@@ -161,4 +160,4 @@ task :publish do
   end
 end
 
-task :default => :build
+task :default => :release
