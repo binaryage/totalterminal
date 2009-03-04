@@ -4,7 +4,7 @@ Visor for OSX provides a systemwide terminal window accessible via a hot-key, mu
 
 ![screenshot](http://github.com/darwin/visor/blob/master/support/screenshot.png?raw=true)
 
-## **[Download Visor 1.7 (precompiled binary)](http://dl.getdropbox.com/u/559047/Visor/Visor-1.7-ae75d3.zip)**
+## **[Download Visor 1.8 (precompiled binary)](http://cloud.github.com/downloads/darwin/visor/Visor-1.8-be994c.zip)**
 Tested on OSX 10.5.6 Leopard (Intel)
 
 ## Installation
@@ -77,7 +77,7 @@ Feel free to fork and contribute.
 
 ## History
 
-* **v1.8** (to be released)
+* **v1.8** (04.03.2009)
   * [[Darwin][darwin]+[Cglee][cglee]] Visor can be positioned to other screen edges. Also non-stretching mode is possible. See Position in Visor Preferences. 
   * [[Darwin][darwin]] Visor window can be pinned, so it doesn't auto-hide (see icon in the top-right window corner).
   * [[Darwin][darwin]] Better behavior of confirmation sheets (Previously, sheet might appear on different space or might be hidden behind Visor window).
