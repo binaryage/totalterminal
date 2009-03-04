@@ -15,12 +15,14 @@
 	<true/>
 	<key>VisorUseSlide</key>
 	<true/>
-		<key>VisorShowStatusItem</key>
+	<key>VisorShowStatusItem</key>
 	<true/>
 	<key>VisorHideOnEscape</key>
 	<false/>
 	<key>VisorScreen</key>
 	<integer>0</integer>
+	<key>VisorPosition</key>
+	<string>Top-Stretch</string>
 	<key>VisorOnEverySpace</key>
 	<true/>
 </dict>

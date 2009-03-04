@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "NDHotKeyEvent.h"
-@class TermDefaults;
 @class TTProfileManager;
+@class TTProfile;
 @interface Visor : NSObject {
     NSWindow* window; // the one visorized terminal window (may be nil)
     NSStatusItem* statusItem;
@@ -30,6 +30,7 @@
     NSImage* pinDownIcon;
     NSScreen* cachedScreen;
     NSButton* pinButton;
+    NSString* cachedPosition;
 }
 - (BOOL)status;
 - (void)adoptTerminal:(NSWindow*)window;

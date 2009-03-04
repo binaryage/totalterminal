@@ -51,34 +51,34 @@ Feel free to fork and contribute.
 > There can be only one visor-ed terminal window in the system. If you close this terminal window (for example Control+D or typing exit in shell), Visor gets into disabled state you are describing. Just open a new terminal window and it gets visor-ed again. You can do it for example by clicking on Terminal.app icon in Dock.
 
 #### How can I open a new terminal window the old way as a classic OSX window?
-> If there is a visor-ed terminal window (Visor menu-bar icon is active) every new terminal window opens as a classic OSX window. In other words, open at least two terminal windows. Second one will be classic for sure.
+> If there is a visor-ed terminal window (Visor menu-bar icon is active) every new terminal window gets opened as a classic OSX window. In other words, open at least two terminal windows. Second one will be classic for sure.
 
 #### How can I change a height of Visor?
 > Go to Terminal.app preferences -> Window -> Rows
 
+#### How can I stick Visor to left screen edge?
+> Look for "Position" option in Visor Preferences and pick "Left-Stretch" window placement.
+
 #### How can I change a width of Visor?
-> Not possible. Visor always takes whole screen width.
+> By default Visor window does stretch to full screen width. Set some non-stretching positioning for Visor window in Visor Preferences, then Go to Terminal.app preferences -> Window -> Columns.
 
 #### Is it possible to show Visor only on secondary monitor?
-> Go to Visor preferences -> Screen
+> Go to Visor Preferences -> Screen
 
 #### Is it possible to see Visor on every space?
 > Visor 1.6 does not respect spaces settings ([Issue 52](http://code.google.com/p/blacktree-visor/issues/detail?id=52)). Visor 1.7+ forces it's window to be visible on every space. You may disable it in Visor preferences. Note: spaces configuration about Terminal.app doesn't apply to visor-ed terminal window, it is effective only for other (classic) terminal windows.
 
 #### I want to keep different preferences for Visor and other (classic) terminal windows. What is the best way how manage it?
-> Well, Terminal.app has preference sets called profiles and you can run new terminal windows with different profiles. Original version of Visor took "VisorTerminal" profile if it was available. This was removed in latest version. Simply use Terminal.app ways how to start terminal window with preferred profile like you normally would. Visor doesn't touch your profile neither has special logic how to pick one.
+> Well, Terminal.app has preference sets called profiles and you can run new terminal windows with different profiles. Original version of Visor took "VisorTerminal" profile in case it was available. This was removed in latest version. Simply use Terminal.app ways how to start terminal window with preferred profile like you normally would. Visor doesn't touch your profile neither has special logic how to pick one.
 
 ## Articles about Visor
 
   * Featured Project in **[Rebase #13](http://github.com/blog/346-github-rebase-13)**, thanks [qrush](http://github.com/qrush)!
 
-## Known issues
-
-  * Terminal.app crashes sometimes once or twice per day (investigating if it is Visor's fault). Anyone has similar issues?
-
 ## History
 
 * **v1.8** (to be released)
+  * [[Darwin][darwin]+[Cglee][cglee]] Visor can be positioned to other screen edges. Also non-stretching mode is possible. See Position in Visor Preferences. 
   * [[Darwin][darwin]] Visor window can be pinned, so it doesn't auto-hide (see icon in the top-right window corner).
   * [[Darwin][darwin]] Better behavior of confirmation sheets (Previously, sheet might appear on different space or might be hidden behind Visor window).
   * [[Darwin][darwin]] Custom build from sources is marked as "Custom", no need to specify version.
@@ -139,3 +139,4 @@ Please see the [original website](http://code.google.com/p/blacktree-visor/) for
 [torsten]: http://github.com/torsten
 [pumpkin]: http://github.com/pumpkin
 [blinks]: http://github.com/blinks
+[cglee]: http://github.com/cglee
