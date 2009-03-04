@@ -2,7 +2,7 @@
 
 Visor for OSX provides a systemwide terminal window accessible via a hot-key, much like the consoles found in games such as Quake.
 
-![screenshot](http://github.com/darwin/visor/blob/master/support/screenshot.png?raw=true)
+![screenshot](http://cloud.github.com/downloads/darwin/visor/visor-screenshot-1.8.png)
 
 ## **[Download Visor 1.8 (precompiled binary)](http://cloud.github.com/downloads/darwin/visor/Visor-1.8-be994c.zip)**
 Tested on OSX 10.5.6 Leopard (Intel)
