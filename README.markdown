@@ -4,7 +4,7 @@ Visor for OSX provides a systemwide terminal window accessible via a hot-key, mu
 
 ![screenshot](http://cloud.github.com/downloads/darwin/visor/visor-screenshot-1.8.png)
 
-## **[Download Visor 1.8 (precompiled binary)](http://cloud.github.com/downloads/darwin/visor/Visor-1.8-be994c.zip)**
+## **[Download Visor 1.8.1 (precompiled binary)](http://cloud.github.com/downloads/darwin/visor/Visor-1.8.1-45209c.zip)**
 Tested on OSX 10.5.6 Leopard (Intel)
 
 ## Installation
