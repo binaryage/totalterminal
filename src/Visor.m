@@ -98,7 +98,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [ud setBool:YES forKey:@"VisorOnEverySpace"];
     }
     if (![ud objectForKey:@"VisorPosition"]) {
-        [ud setString:"Top-Stretch" forKey:@"VisorPosition"];
+        [ud setObject:@"Top-Stretch" forKey:@"VisorPosition"];
     }
     
     // add the "Visor Preferences..." item to the Terminal menu

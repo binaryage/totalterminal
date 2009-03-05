@@ -74,6 +74,11 @@ def patch(path, replacers)
   end
 end
 
+def sys(cmd)
+  puts "> " + yellow(cmd)
+  system(cmd)
+end
+
 desc "opens XCode project"
 task :open do 
   `open "#{XCODE_PROJECT}"`
@@ -98,6 +103,7 @@ task :release do
 
   puts "#{cmd_color('Copying sources to temporary directory ...')}"
   `cp -r "#{SRC_DIR}" "#{TMP_DIR}"`
+  `rm -rf "#{TMP_DIR}/build"` # this might cause troubles when doing from dev machine releases
 
   puts "#{cmd_color('Patching version info ...')}"
   patch(VISOR_XIB, [['**VERSION**', $version], ['**REVISION**', $short_revision]])
@@ -139,15 +145,14 @@ task :install do
     zip = files.split("\n")[0].strip
     die("unable to locate any zip file in #{RELEASE_DIR}") if (zip=="")
     puts "#{cmd_color('Picked (latest)')} #{file_color(zip)}"
-    `rm -rf \"#{VISOR_BUNDLE}\"` # for sure
+    sys("rm -rf \"#{VISOR_BUNDLE}\"") if File.exists? VISOR_BUNDLE # for sure
     puts "#{cmd_color('Unzipping into')} #{dir_color(SIMBL_PLUGINS_DIR)}"
     Dir.mkdir "#{SIMBL_DIR}" unless File.exists?(SIMBL_DIR)
     Dir.mkdir "#{SIMBL_PLUGINS_DIR}" unless File.exists?(SIMBL_PLUGINS_DIR)
     die("problem in unzipping") unless system("unzip \"#{zip}\"")
     dest = File.join(SIMBL_PLUGINS_DIR, VISOR_BUNDLE)
-    `rm -rf \"#{dest}\"` if File.exists? dest
-    puts "mv \"#{VISOR_BUNDLE}\" \"#{SIMBL_PLUGINS_DIR}/\""
-    die("problem in moving to SIMBL plugins. Do you have SIMBL installed? Do you have rights?") unless system("mv \"#{VISOR_BUNDLE}\" \"#{SIMBL_PLUGINS_DIR}\"")
+    sys("rm -rf \"#{dest}\"") if File.exists? dest
+    die("problem in moving to SIMBL plugins. Do you have SIMBL installed? Do you have rights?") unless sys("mv \"#{VISOR_BUNDLE}\" \"#{SIMBL_PLUGINS_DIR}\"")
     puts blue("Done!")+" "+red("Restart Terminal.app")
   end
 end

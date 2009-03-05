@@ -77,6 +77,10 @@ Feel free to fork and contribute.
 
 ## History
 
+* **v1.8.1** (05.03.2009)
+  * [[Darwin][darwin]] Fixed "[NSUserDefaults setString:ForKey:]" crash on startup (affected upgrading users from 1.7 to 1.8). Reported by [Kleinman][kleinman], thanks.
+  * [[Darwin][darwin]] Compilation from sources clears previous build folder (this could possibly make troubles for people developing Visor and then doing release [like me]).
+
 * **v1.8** (04.03.2009)
   * [[Darwin][darwin]+[Cglee][cglee]] Visor can be positioned to other screen edges. Also non-stretching mode is possible. See Position in Visor Preferences. 
   * [[Darwin][darwin]] Visor window can be pinned, so it doesn't auto-hide (see icon in the top-right window corner).
@@ -140,3 +144,4 @@ Please see the [original website](http://code.google.com/p/blacktree-visor/) for
 [pumpkin]: http://github.com/pumpkin
 [blinks]: http://github.com/blinks
 [cglee]: http://github.com/cglee
+[kleinman]: http://github.com/kleinman
