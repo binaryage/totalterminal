@@ -307,7 +307,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     }
     if ([position isEqualToString:@"Left-Stretch"]) {
         NSRect frame = [window frame];
-        frame.size.height = screenRect.size.height;
+        frame.size.height = screenRect.size.height - shift;
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
         [window setFrame:frame display:NO];
@@ -335,7 +335,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     }
     if ([position isEqualToString:@"Right-Stretch"]) {
         NSRect frame = [window frame];
-        frame.size.height = screenRect.size.height;
+        frame.size.height = screenRect.size.height - shift;
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
         [window setFrame:frame display:NO];
