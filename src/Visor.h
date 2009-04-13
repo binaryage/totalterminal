@@ -1,15 +1,9 @@
-//
-//  Visor.h
-//  Visor
-//
-//  Created by Nicholas Jitkoff on 6/1/06.
-//  Copyright 2006 __MyCompanyName__. All rights reserved.
-//
-
 #import <Cocoa/Cocoa.h>
-#import "NDHotKeyEvent.h"
+
 @class TTProfileManager;
 @class TTProfile;
+@class NDHotKeyEvent;
+
 @interface Visor : NSObject {
     NSWindow* window; // the one visorized terminal window (may be nil)
     NSStatusItem* statusItem;

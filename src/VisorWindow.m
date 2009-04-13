@@ -1,13 +1,4 @@
-//
-//  VisorWindow.m
-//  Visor
-//
-//  Created by Nicholas Jitkoff on 6/1/06.
-//  Copyright 2006 __MyCompanyName__. All rights reserved.
-//
-
 #import "Macros.h"
-
 #import "VisorWindow.h"
 #import "Visor.h"
 
