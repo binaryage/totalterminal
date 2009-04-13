@@ -29,9 +29,9 @@
 */
 
 // Internal CoreGraphics typedefs
-typedef int		CGSConnection;
-typedef int		CGSWindow;
-typedef int		CGSValue;
+typedef int     CGSConnection;
+typedef int     CGSWindow;
+typedef int     CGSValue;
 
 //// CONSTANTS ////
 
@@ -69,59 +69,59 @@ extern OSStatus CGSGetWindowWorkspace(const CGSConnection cid, const CGSWindow w
 extern OSStatus CGSSetWorkspace(const CGSConnection cid, int workspace);
 
 typedef enum {
-	CGSNone = 0,	// No transition effect.
-	CGSFade,		// Cross-fade.
-	CGSZoom,		// Zoom/fade towards us.
-	CGSReveal,		// Reveal new desktop under old.
-	CGSSlide,		// Slide old out and new in.
-	CGSWarpFade,	// Warp old and fade out revealing new.
-	CGSSwap,		// Swap desktops over graphically.
-	CGSCube,		// The well-known cube effect.
-	CGSWarpSwitch   // Warp old, switch and un-warp.
+    CGSNone = 0,    // No transition effect.
+    CGSFade,        // Cross-fade.
+    CGSZoom,        // Zoom/fade towards us.
+    CGSReveal,      // Reveal new desktop under old.
+    CGSSlide,       // Slide old out and new in.
+    CGSWarpFade,    // Warp old and fade out revealing new.
+    CGSSwap,        // Swap desktops over graphically.
+    CGSCube,        // The well-known cube effect.
+    CGSWarpSwitch   // Warp old, switch and un-warp.
 } CGSTransitionType;
 
 typedef enum {
-	CGSDown,				// Old desktop moves down.
-	CGSLeft,				// Old desktop moves left.
-	CGSRight,				// Old desktop moves right.
-	CGSInRight,				// CGSSwap: Old desktop moves into screen, 
-							//			new comes from right.
-	CGSBottomLeft = 5,		// CGSSwap: Old desktop moves to bl,
-							//			new comes from tr.
-	CGSBottomRight,			// Old desktop to br, New from tl.
-	CGSDownTopRight,		// CGSSwap: Old desktop moves down, new from tr.
-	CGSUp,					// Old desktop moves up.
-	CGSTopLeft,				// Old desktop moves tl.
-	
-	CGSTopRight,			// CGSSwap: old to tr. new from bl.
-	CGSUpBottomRight,		// CGSSwap: old desktop up, new from br.
-	CGSInBottom,			// CGSSwap: old in, new from bottom.
-	CGSLeftBottomRight,		// CGSSwap: old one moves left, new from br.
-	CGSRightBottomLeft,		// CGSSwap: old one moves right, new from bl.
-	CGSInBottomRight,		// CGSSwap: onl one in, new from br.
-	CGSInOut				// CGSSwap: old in, new out.
+    CGSDown,                // Old desktop moves down.
+    CGSLeft,                // Old desktop moves left.
+    CGSRight,               // Old desktop moves right.
+    CGSInRight,             // CGSSwap: Old desktop moves into screen, 
+                            //          new comes from right.
+    CGSBottomLeft = 5,      // CGSSwap: Old desktop moves to bl,
+                            //          new comes from tr.
+    CGSBottomRight,         // Old desktop to br, New from tl.
+    CGSDownTopRight,        // CGSSwap: Old desktop moves down, new from tr.
+    CGSUp,                  // Old desktop moves up.
+    CGSTopLeft,             // Old desktop moves tl.
+    
+    CGSTopRight,            // CGSSwap: old to tr. new from bl.
+    CGSUpBottomRight,       // CGSSwap: old desktop up, new from br.
+    CGSInBottom,            // CGSSwap: old in, new from bottom.
+    CGSLeftBottomRight,     // CGSSwap: old one moves left, new from br.
+    CGSRightBottomLeft,     // CGSSwap: old one moves right, new from bl.
+    CGSInBottomRight,       // CGSSwap: onl one in, new from br.
+    CGSInOut                // CGSSwap: old in, new out.
 } CGSTransitionOption;
 
 typedef enum {
-	CGSTagExposeFade	= 0x0002,   // Fade out when Expose activates.
-	CGSTagNoShadow		= 0x0008,   // No window shadow.
-	CGSTagTransparent   = 0x0200,   // Transparent to mouse clicks.
-	CGSTagSticky		= 0x0800,   // Appears on all workspaces.
+    CGSTagExposeFade    = 0x0002,   // Fade out when Expose activates.
+    CGSTagNoShadow      = 0x0008,   // No window shadow.
+    CGSTagTransparent   = 0x0200,   // Transparent to mouse clicks.
+    CGSTagSticky        = 0x0800,   // Appears on all workspaces.
 } CGSWindowTag;
 
 extern OSStatus CGSSetWorkspaceWithTransition(const CGSConnection cid,
-	int workspaceNumber, CGSTransitionType transition, CGSTransitionOption subtype, 
-	float time);
-	
+    int workspaceNumber, CGSTransitionType transition, CGSTransitionOption subtype, 
+    float time);
+    
 /* Get the default connection for the current process. */
 extern CGSConnection _CGSDefaultConnection(void);
 
 typedef struct {
-	uint32_t unknown1;
-	CGSTransitionType type;
-	CGSTransitionOption option;
-	CGSWindow wid; /* Can be 0 for full-screen */
-	float *backColour; /* Null for black otherwise pointer to 3 float array with RGB value */
+    uint32_t unknown1;
+    CGSTransitionType type;
+    CGSTransitionOption option;
+    CGSWindow wid; /* Can be 0 for full-screen */
+    float *backColour; /* Null for black otherwise pointer to 3 float array with RGB value */
 } CGSTransitionSpec;
 
 /* Transition handling. */
@@ -133,11 +133,11 @@ extern OSStatus CGSReleaseTransition(const CGSConnection cid, int transitionHand
 //array ot ints (size 2?). First entry holds window tags.
 // 0x0800 is sticky bit.
 extern OSStatus CGSGetWindowTags(const CGSConnection cid, const CGSWindow wid, 
-	CGSWindowTag *tags, int thirtyTwo);
+    CGSWindowTag *tags, int thirtyTwo);
 extern OSStatus CGSSetWindowTags(const CGSConnection cid, const CGSWindow wid, 
-	CGSWindowTag *tags, int thirtyTwo);
+    CGSWindowTag *tags, int thirtyTwo);
 extern OSStatus CGSClearWindowTags(const CGSConnection cid, const CGSWindow wid, 
-	CGSWindowTag *tags, int thirtyTwo);
+    CGSWindowTag *tags, int thirtyTwo);
 extern OSStatus CGSGetWindowEventMask(const CGSConnection cid, const CGSWindow wid, uint32_t *mask);
 extern OSStatus CGSSetWindowEventMask(const CGSConnection cid, const CGSWindow wid, uint32_t mask);
 
@@ -162,7 +162,7 @@ extern OSStatus CGSGetWindowLevel(const CGSConnection cid, CGSWindow wid,
         
 // Window ordering
 extern OSStatus CGSOrderWindow(const CGSConnection cid, const CGSWindow wid, 
-	CGSWindowOrderingMode place, CGSWindow relativeToWindowID /* can be NULL */);	
+    CGSWindowOrderingMode place, CGSWindow relativeToWindowID /* can be NULL */);   
 
 // Gets the screen rect for a window.
 extern OSStatus CGSGetScreenRectForWindow(const CGSConnection cid, CGSWindow wid, 
@@ -179,12 +179,12 @@ extern OSStatus CGSSetWindowTransforms(const CGSConnection cid, CGSWindow *wids,
 
 extern OSStatus CGSMoveWorkspaceWindows(const CGSConnection connection, int toWorkspace, int fromWorkspace);
 extern OSStatus CGSMoveWorkspaceWindowList(const CGSConnection connection, CGSWindow *wids, int count, 
-	int toWorkspace);
+    int toWorkspace);
 
 // extern OSStatus CGSConnectionGetPID(const CGSConnection cid, pid_t *pid, CGSConnection b);
 
 extern OSStatus CGSGetWindowProperty(const CGSConnection cid, CGSWindow wid, CGSValue key,
-	CGSValue *outValue);
+    CGSValue *outValue);
 
 //extern OSStatus CGSWindowAddRectToDirtyShape(const CGSConnection cid, const CGSWindow wid, CGRect *rect);
 extern OSStatus CGSUncoverWindow(const CGSConnection cid, const CGSWindow wid);

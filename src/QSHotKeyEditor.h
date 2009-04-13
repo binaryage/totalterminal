@@ -5,17 +5,17 @@
 
 @interface QSHotKeyControl : NSTextField
 {
-	//NSTextView* fieldEditor;
-	//	NSString* keyString;
-	//	NSMutableArray* observers;
-	//	BOOL isObservingFocus;
-	//	BOOL shouldSelectNextKeyView;
-	//	int isDiscarding;
-	//	
-	@private
-	unsigned short		keyCode;
-	unichar				character;
-	unsigned long		modifierFlags;
+    //NSTextView* fieldEditor;
+    //  NSString* keyString;
+    //  NSMutableArray* observers;
+    //  BOOL isObservingFocus;
+    //  BOOL shouldSelectNextKeyView;
+    //  int isDiscarding;
+    //  
+    @private
+    unsigned short      keyCode;
+    unichar             character;
+    unsigned long       modifierFlags;
 }
 //- (void)setKeyString:(NSString*)aKeyString;
 
@@ -23,9 +23,9 @@
 
 @interface QSHotKeyField : NSTextField
 {
-	IBOutlet NSButton *setButton;
-	@private
-	NSDictionary *hotKey;
+    IBOutlet NSButton *setButton;
+    @private
+    NSDictionary *hotKey;
 }
 - (IBAction)set:(id)sender;
 - (NSDictionary *)hotKey;
@@ -51,14 +51,14 @@
     BOOL mOperationModeEnabled;
     unsigned int mSavedHotKeyOperatingMode;
     BOOL validCombo;
-	
-//	unsigned short		keyCode;
-	unichar				character;
-	unsigned long		modifierFlags;
-	id					oldWindowDelegate;
-	BOOL				oldWindowDelegateHandledEvents;
-	NSButton *			cancelButton;
-	NSString *			defaultString;
+    
+//  unsigned short      keyCode;
+    unichar             character;
+    unsigned long       modifierFlags;
+    id                  oldWindowDelegate;
+    BOOL                oldWindowDelegateHandledEvents;
+    NSButton *          cancelButton;
+    NSString *          defaultString;
 }
 + (id)sharedInstance;
 - (void)_disableHotKeyOperationMode;

@@ -2,28 +2,28 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>VisorAnimationSpeed</key>
-	<real>0.29999999999999999</real>
-	<key>VisorHotKey</key>
-	<dict>
-		<key>keyCode</key>
-		<integer>122</integer>
-		<key>modifiers</key>
-		<integer>8651009</integer>
-	</dict>
-	<key>VisorUseFade</key>
-	<true/>
-	<key>VisorUseSlide</key>
-	<true/>
-	<key>VisorShowStatusItem</key>
-	<true/>
-	<key>VisorHideOnEscape</key>
-	<false/>
-	<key>VisorScreen</key>
-	<integer>0</integer>
-	<key>VisorPosition</key>
-	<string>Top-Stretch</string>
-	<key>VisorOnEverySpace</key>
-	<true/>
+    <key>VisorAnimationSpeed</key>
+    <real>0.29999999999999999</real>
+    <key>VisorHotKey</key>
+    <dict>
+        <key>keyCode</key>
+        <integer>122</integer>
+        <key>modifiers</key>
+        <integer>8651009</integer>
+    </dict>
+    <key>VisorUseFade</key>
+    <true/>
+    <key>VisorUseSlide</key>
+    <true/>
+    <key>VisorShowStatusItem</key>
+    <true/>
+    <key>VisorHideOnEscape</key>
+    <false/>
+    <key>VisorScreen</key>
+    <integer>0</integer>
+    <key>VisorPosition</key>
+    <string>Top-Stretch</string>
+    <key>VisorOnEverySpace</key>
+    <true/>
 </dict>
 </plist>
