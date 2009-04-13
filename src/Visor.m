@@ -277,6 +277,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     LOG(@"applyWindowPositioning %@", position);
     int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
     if (screen == [[NSScreen screens] objectAtIndex: 0]) shift = 21; // menu area
+    [self resetVisorWindowSize];
     if ([position isEqualToString:@"Top-Stretch"]) {
         NSRect frame = [window frame];
         frame.size.width = screenRect.size.width;
@@ -285,21 +286,18 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Top-Left"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Top-Right"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Top-Center"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x + (NSWidth(screenRect)-NSWidth(frame))/2;
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
@@ -313,21 +311,18 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Left-Top"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Left-Bottom"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y;
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Left-Center"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y + (NSHeight(screenRect)-NSHeight(frame))/2;
@@ -341,21 +336,18 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Right-Top"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Right-Bottom"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y;
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Right-Center"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y + (NSHeight(screenRect)-NSHeight(frame))/2;
@@ -369,21 +361,18 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Bottom-Left"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y;
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Bottom-Right"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y;
         [window setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Bottom-Center"]) {
-        [self resetVisorWindowSize];
         NSRect frame = [window frame];
         frame.origin.x = screenRect.origin.x + (NSWidth(screenRect)-NSWidth(frame))/2;
         frame.origin.y = screenRect.origin.y;
