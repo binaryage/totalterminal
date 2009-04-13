@@ -8,10 +8,15 @@
 
 #import "Macros.h"
 #import "CGSPrivate.h"
+#import <Cocoa/Cocoa.h>
 #import "Visor.h"
 #import "VisorWindow.h"
 #import "VisorScreenTransformer.h"
 #import "NDHotKeyEvent_QSMods.h"
+
+int main(int argc, char *argv[]) {
+    return NSApplicationMain(argc,  (const char **) argv);
+}
 
 NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
