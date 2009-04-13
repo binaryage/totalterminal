@@ -1,10 +1,9 @@
 #import "Macros.h"
 #import "CGSPrivate.h"
-#import <Cocoa/Cocoa.h>
+#import "NDHotKeyEvent_QSMods.h"
 #import "Visor.h"
 #import "VisorWindow.h"
 #import "VisorScreenTransformer.h"
-#import "NDHotKeyEvent_QSMods.h"
 
 int main(int argc, char *argv[]) {
     return NSApplicationMain(argc,  (const char **) argv);
@@ -51,7 +50,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     // set permissions for our LOG file
     umask(022);
     // send stderr to our file
-    FILE *newStderr = freopen(DEBUG_LOG_PATH, "w", stderr);
+    freopen(DEBUG_LOG_PATH, "w", stderr);
 }
 
 - (id) init {

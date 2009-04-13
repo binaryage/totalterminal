@@ -1,3 +1,6 @@
+#import "Macros.h"
+#import "VisorScreenTransformer.h"
+
 @implementation VisorScreenTransformer
 
 + (Class)transformedValueClass {

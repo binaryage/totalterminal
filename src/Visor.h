@@ -1,10 +1,10 @@
-#import <Cocoa/Cocoa.h>
+#import "VisorScreenTransformer.h"
 
 @class TTProfileManager;
 @class TTProfile;
 @class NDHotKeyEvent;
 
-@interface Visor : NSObject {
+@interface Visor: NSObject {
     NSWindow* window; // the one visorized terminal window (may be nil)
     NSStatusItem* statusItem;
     IBOutlet NSWindow* prefsWindow;
