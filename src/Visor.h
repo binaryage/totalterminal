@@ -49,7 +49,3 @@
 - (void)saveDefaults;
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item;
 @end
-
-@interface VisorScreenTransformer: NSValueTransformer {
-}
-@end
