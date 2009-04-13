@@ -1,15 +1,14 @@
-
-
-NSString * stringForModifiers( unsigned int aModifierFlags );
-
+#import "Macros.h"
 #import "QSHotKeyEditor.h"
 
 #import "NDHotKeyEvent.h"
 #import "NDHotKeyEvent_QSMods.h"
 
+NSString * stringForModifiers( unsigned int aModifierFlags );
+
 @implementation QSHotKeyCell
 - (NSText *)setUpFieldEditorAttributes:(NSText *)textObj{
-    NSLog(@"set up editor %@",textObj);
+    LOG(@"set up editor %@",textObj);
     id instance=[QSHotKeyFieldEditor sharedInstance];
     [super setUpFieldEditorAttributes:instance];
     return instance;
@@ -25,7 +24,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 }
 
 - (void)validateEditing{
-    NSLog(@"validate");
+    LOG(@"validate");
 }
 
 
@@ -40,10 +39,10 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
     [self setCell:[[[QSHotKeyCell alloc]init]autorelease]];
 }
 - (void)textDidEndEditing:(NSNotification*)aNotification{
-    NSLog(@"notif %@",aNotification);
+    LOG(@"notif %@",aNotification);
 }
 - (void)setStringValue:(NSString *)string{
-    NSLog(@"string %@",string);
+    LOG(@"string %@",string);
     //if ([thisTrigger objectForKey:@"keyCode"] &&[thisTrigger objectForKey:@"modifiers"]){
     //      QSHotKeyEvent *activationKey=(QSHotKeyEvent *)[QSHotKeyEvent getHotKeyForKeyCode:[[thisTrigger objectForKey:@"keyCode"] shortValue]
     //                                                                             character:0
@@ -146,7 +145,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 //  [self setSelectedRange:NSMakeRange(0,[string length])];
 //}
 - (void)setSelectedRange:(NSRange)charRange{
-    //NSLog(@"select %d %d '%@'",charRange.location,charRange.length,[self string]);    
+    //LOG(@"select %d %d '%@'",charRange.location,charRange.length,[self string]);    
     [super setSelectedRange:charRange];
 }
 - (BOOL)becomeFirstResponder{
@@ -193,7 +192,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
     if (keyCode == 48){
         characters=@"\t";
     }
-    //  NSLog(@"event %@",theEvent);
+    //  LOG(@"event %@",theEvent);
     if ([theEvent modifierFlags] & (NSCommandKeyMask|NSFunctionKeyMask|NSControlKeyMask|NSAlternateKeyMask)){
         NSDictionary *dict=[NSDictionary dictionaryWithObjectsAndKeys:
             [NSNumber numberWithUnsignedInt:modifiers],@"modifiers",
@@ -206,10 +205,10 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
                                                encoding:NSUTF8StringEncoding]autorelease];
         
         [self setString:string];
-        //NSLog(@"event %@ %x",theEvent,[theEvent modifierFlags] & (NSCommandKeyMask|NSFunctionKeyMask|NSControlKeyMask|NSAlternateKeyMask));
+        //LOG(@"event %@ %x",theEvent,[theEvent modifierFlags] & (NSCommandKeyMask|NSFunctionKeyMask|NSControlKeyMask|NSAlternateKeyMask));
         
     }else  if ([theEvent keyCode] == 53){
-        //if (VERBOSE) NSLog(@"Cancelling");
+        //if (VERBOSE) LOG(@"Cancelling");
         
         [self setString:@"Old"];
     }else  if ([theEvent keyCode] == 48){ //Tab
@@ -283,7 +282,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
    withKeyPath:[binding objectForKey:NSObservedKeyPathKey]
        options:[binding objectForKey:NSOptionsKey]];
 
-        //NSLog(@"binding %@ %@",[self infoForBinding:@"hotKey"],[[NSUserDefaultsController sharedUserDefaultsController]infoForBinding:@"values.QSActivationHotKey"]);
+        //LOG(@"binding %@ %@",[self infoForBinding:@"hotKey"],[[NSUserDefaultsController sharedUserDefaultsController]infoForBinding:@"values.QSActivationHotKey"]);
     
         
 //  [[[NSUserDefaultsController sharedUserDefaultsController]values]
@@ -312,7 +311,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 - (NSDictionary *)hotKey { return [[hotKey retain] autorelease]; }
 - (void)setHotKey:(NSDictionary *)newHotKey
 {
-    //NSLog(@"setHotKey: %@",newHotKey);
+    //LOG(@"setHotKey: %@",newHotKey);
     if (hotKey != newHotKey) {
         //[self willChangeValueForKey:@"value"];
         [hotKey release];
@@ -347,7 +346,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 
 
 - (void)timerFire:(NSTimer *)timer{
-//  NSLog(@"fire"); 
+//  LOG(@"fire"); 
     NSTimeInterval t=[[NSDate date]timeIntervalSinceReferenceDate];
     t=fmod(t,1.0);
     t=(sin(t*M_PI*2)+1)/2;
@@ -406,7 +405,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
             case NSFlagsChanged:
             {
                 NSString *newString=stringForModifiers([theEvent modifierFlags]);
-                NSLog(newString);
+                LOG(newString);
                 [self setStringValue:[newString length]?newString:@""]; 
                 [self display];
                 [setButton display];

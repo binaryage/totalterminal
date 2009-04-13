@@ -1,3 +1,4 @@
+#import "Macros.h"
 #import "Visor.h"
 #import "VisorWindowController.h"
 
@@ -19,7 +20,7 @@
 }
 
 - (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
-    NSLog(@"willPositionSheet");
+    LOG(@"willPositionSheet");
     Visor* visor = [Visor sharedInstance];
     [visor setupExposeTags:sheet];
     return rect;

@@ -6,6 +6,7 @@
  *  Copyright (c) 2002 Nathan Day. All rights reserved.
  */
 
+#import "Macros.h"
 #import "NDHotKeyEvent.h"
 
 @interface NDHotKeyEvent (Private)
@@ -83,7 +84,7 @@ struct HotKeyMappingEntry
                 }
                 else
                 {
-                    NSLog(@"Could not install Event handler");
+                    LOG(@"Could not install Event handler");
                 }
             }
         NDHotKeyEventUnlock;
@@ -279,7 +280,7 @@ struct HotKeyMappingEntry
     else
     {
         if( aModifierFlags == 0 )
-            NSLog(@"All hot keys must have at least one modifer key");
+            LOG(@"All hot keys must have at least one modifer key");
         
         [self release];
         self = nil;
@@ -417,7 +418,7 @@ struct HotKeyMappingEntry
 - (void)dealloc
 {
     if( UnregisterEventHotKey( reference ) != noErr )   // in lock from release
-        NSLog( @"Failed to unregister hot key %@", self );
+        LOG( @"Failed to unregister hot key %@", self );
     [super dealloc];
 }
 
@@ -447,7 +448,7 @@ struct HotKeyMappingEntry
         if( theResult )
             isEnabled.individual = aFlag;
         else
-            NSLog(@"%s failed ", aFlag ? "enable" : "disable" );
+            LOG(@"%s failed ", aFlag ? "enable" : "disable" );
     }
     else
         theResult = NO;
@@ -835,7 +836,7 @@ NSString * describeHashFunction( NSHashTable * aTable, const void * aHotKeyEntry
         if( theResult )
             isEnabled.collective = aFlag;
         else
-            NSLog(@"%s %@ failed", aFlag ? "enable" : "disable",self );
+            LOG(@"%s %@ failed", aFlag ? "enable" : "disable",self );
     }
     else
         theResult = NO;

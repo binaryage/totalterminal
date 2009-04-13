@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F01465B0A3E64A0006AF239 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F01465A0A3E64A0006AF239 /* main.m */; };
-		7F01465C0A3E64A9006AF239 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F01465A0A3E64A0006AF239 /* main.m */; };
+		7F01465B0A3E64A0006AF239 /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F01465A0A3E64A0006AF239 /* Main.m */; };
+		7F01465C0A3E64A9006AF239 /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F01465A0A3E64A0006AF239 /* Main.m */; };
 		7F01466B0A3E64DA006AF239 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F0146650A3E64DA006AF239 /* MainMenu.nib */; };
 		7F01466F0A3E6527006AF239 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9C2B60A2FB4280076695A /* NDHotKeyEvent.m */; };
 		7F0146700A3E6528006AF239 /* NDHotKeyEvent_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC7F7490A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m */; };
@@ -42,7 +42,7 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		7F0146280A3E63C6006AF239 /* Visor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Visor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F01465A0A3E64A0006AF239 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7F01465A0A3E64A0006AF239 /* Main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = Main.m; sourceTree = "<group>"; };
 		7F0146660A3E64DA006AF239 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		7F01469F0A3E6571006AF239 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		7F849AA60A457DE100963040 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 		7F2EC6BB0A4181080041F0D8 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				7F01465A0A3E64A0006AF239 /* main.m */,
+				7F01465A0A3E64A0006AF239 /* Main.m */,
 				7F0146650A3E64DA006AF239 /* MainMenu.nib */,
 			);
 			name = App;
@@ -302,7 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F01465C0A3E64A9006AF239 /* main.m in Sources */,
+				7F01465C0A3E64A9006AF239 /* Main.m in Sources */,
 				7F01466F0A3E6527006AF239 /* NDHotKeyEvent.m in Sources */,
 				7F0146700A3E6528006AF239 /* NDHotKeyEvent_QSMods.m in Sources */,
 				7F0146710A3E6529006AF239 /* QSHotKeyEditor.m in Sources */,
@@ -318,7 +318,7 @@
 				7FB9C2B70A2FB4280076695A /* NDHotKeyEvent.m in Sources */,
 				7FC7F74C0A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m in Sources */,
 				7FC7F74D0A3BBCAA00B52344 /* QSHotKeyEditor.m in Sources */,
-				7F01465B0A3E64A0006AF239 /* main.m in Sources */,
+				7F01465B0A3E64A0006AF239 /* Main.m in Sources */,
 				D68AA7020F371C810094AA92 /* Visor.m in Sources */,
 				D68AA80C0F374F230094AA92 /* VisorWindowController.m in Sources */,
 			);

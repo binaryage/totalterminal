@@ -6,26 +6,23 @@
 //  Copyright 2006 __MyCompanyName__. All rights reserved.
 //
 
-#define DEBUG_LOG_PATH "/Users/darwin/code/visor/Debug.log"
-
+#import "Macros.h"
 #import "Visor.h"
 #import "VisorWindow.h"
 #import "NDHotKeyEvent_QSMods.h"
 #import "CGSPrivate.h"
 
-#define VisorTerminalDefaults @"VisorTerminal"
-
 NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
 void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo) {
     if (flags & kCGDisplayBeginConfigurationFlag) {
-        NSLog(@"Will change display config: %d, flags=%x", display, flags);
+        LOG(@"Will change display config: %d, flags=%x", display, flags);
         // need to hide visor window to prevent displaying it randomly after resolution change takes place
         // correct visor placement is restored again in didChangeScreenScreenParameters
         Visor* visor = [Visor sharedInstance];
         [visor makeVisorInvisible]; 
     } else {
-        NSLog(@"Display config changed: %d, flags=%x", display, flags);
+        LOG(@"Display config changed: %d, flags=%x", display, flags);
         // I was unable to use this place to restore correct visor placement here
         // NSScreen:frame has still old value at this point
     }
@@ -53,7 +50,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 // for SIMBL debugging
 // http://www.atomicbird.com/blog/2007/07/code-quickie-redirect-nslog
 - (void) redirectLog {
-    // set permissions for our NSLog file
+    // set permissions for our LOG file
     umask(022);
     // send stderr to our file
     FILE *newStderr = freopen(DEBUG_LOG_PATH, "w", stderr);
@@ -66,7 +63,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 #ifdef _DEBUG_MODE
     [self redirectLog];
 #endif
-    NSLog(@"init");
+    LOG(@"init");
     
     activeIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorActive"]];
     inactiveIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorInactive"]];
@@ -147,9 +144,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)adoptTerminal:(id)win {
-    NSLog(@"adoptTerminal window=%@", win);
+    LOG(@"adoptTerminal window=%@", win);
     if (window) {
-        NSLog(@"adoptTerminal called when old window existed");
+        LOG(@"adoptTerminal called when old window existed");
     }
     window = win;
     
@@ -170,7 +167,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)createPinButton {
-    NSLog(@"createPinButton");
+    LOG(@"createPinButton");
     NSRect windowFrame = [window frame];
     pinButton = [[NSButton alloc] initWithFrame:NSMakeRect(windowFrame.size.width-20.-16.,windowFrame.size.height-20.,16.,16.)];
     [pinButton setState:NSOffState];
@@ -185,20 +182,20 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)updatePinButton {
-    NSLog(@"updatePinButton");
+    LOG(@"updatePinButton");
     NSRect windowFrame = [window frame];
     [pinButton setFrame:NSMakeRect(windowFrame.size.width-20.-16.,windowFrame.size.height-20.,16.,16.)];
 }
 
 - (IBAction)pinAction:(id)sender {
-    NSLog(@"pinAction %@", sender);
+    LOG(@"pinAction %@", sender);
     isPinned = !isPinned;
 }
 
 - (IBAction)toggleVisor:(id)sender {
-    NSLog(@"toggleVisor %@", sender);
+    LOG(@"toggleVisor %@", sender);
     if (!window) {
-        NSLog(@"visor is detached");
+        LOG(@"visor is detached");
         NSBeep();
         return;
     }
@@ -213,7 +210,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     if (!window) return;
     float offset = 1.0f;
     if (isHidden) offset = 0.0f;
-    NSLog(@"resetWindowPlacement %@ %f", window, offset);
+    LOG(@"resetWindowPlacement %@ %f", window, offset);
     [self cacheScreen];
     [self cachePosition];
     [self applyWindowPositioning:window];
@@ -228,7 +225,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     int screenIndex = [[NSUserDefaults standardUserDefaults]integerForKey:@"VisorScreen"];
     if (screenIndex==0) {
         cachedScreen = [NSScreen mainScreen];
-        NSLog(@"Cached main screen %@", cachedScreen);
+        LOG(@"Cached main screen %@", cachedScreen);
         return;
     }
     screenIndex--;
@@ -238,7 +235,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     } else {
         cachedScreen=[screens objectAtIndex:0];
     }
-    NSLog(@"Cached screen %d %@", screenIndex, cachedScreen);
+    LOG(@"Cached screen %d %@", screenIndex, cachedScreen);
 }
 
 // offset==0.0 means window is "hidden" above top screen edge
@@ -268,7 +265,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     // this is kind of a hack
     // I'm using scripting API to update main window geometry according to profile settings
     TTProfile* profile = [[TTProfileManager sharedProfileManager] startupProfile];
-    NSLog(@"resetWindowSize %@", profile);
+    LOG(@"resetWindowSize %@", profile);
     NSNumber* cols = [profile scriptNumberOfColumns];
     NSNumber* rows = [profile scriptNumberOfRows];
     [profile setScriptNumberOfColumns:cols];
@@ -280,7 +277,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     NSScreen* screen = cachedScreen;
     NSRect screenRect = [screen frame];
     NSString* position = [[NSUserDefaults standardUserDefaults] stringForKey:@"VisorPosition"];
-    NSLog(@"applyWindowPositioning %@", position);
+    LOG(@"applyWindowPositioning %@", position);
     int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
     if (screen == [[NSScreen screens] objectAtIndex: 0]) shift = 21; // menu area
     if ([position isEqualToString:@"Top-Stretch"]) {
@@ -497,7 +494,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)resignKey:(id)sender {
-    NSLog(@"resignKey %@", sender);
+    LOG(@"resignKey %@", sender);
     isKey = false;
     if (!isPinned && !isMain && !isKey && !isHidden){
         [self hideVisor:false];  
@@ -505,7 +502,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)resignMain:(id)sender {
-    NSLog(@"resignMain %@", sender);
+    LOG(@"resignMain %@", sender);
     isMain = false;
     if (!isPinned && !isMain && !isKey && !isHidden){
         [self hideVisor:false];  
@@ -513,15 +510,15 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)becomeKey:(id)sender {
-    NSLog(@"becomeKey %@", sender);
+    LOG(@"becomeKey %@", sender);
     isKey = true;
 }
 
 - (void)becomeMain:(id)sender {
-    NSLog(@"becomeMain %@", sender);
+    LOG(@"becomeMain %@", sender);
     isMain = true;
     if (needPlacement) {
-        NSLog(@"... needPlacement");
+        LOG(@"... needPlacement");
         [self makeVisorInvisible]; // prevent gray background
         [self resetWindowPlacement];
         if (window) {
@@ -538,12 +535,12 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)didChangeScreenScreenParameters:(id)sender {
-    NSLog(@"didChangeScreenScreenParameters %@", sender);
+    LOG(@"didChangeScreenScreenParameters %@", sender);
     [self resetWindowPlacement];
 }
 
 - (void)didResize:(id)sender {
-    NSLog(@"didResize %@", sender);
+    LOG(@"didResize %@", sender);
     [self cacheScreen];
     [self cachePosition];
     [self applyWindowPositioning:window];
@@ -551,7 +548,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)willClose:(id)sender {
-    NSLog(@"willClose %@", sender);
+    LOG(@"willClose %@", sender);
     [self makeVisorInvisible]; // prevent gray background
     window = nil;
     [self updateStatusMenu];
@@ -619,7 +616,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
  
 - (IBAction)showAboutBox:(id)sender {
-    NSLog(@"showAboutBox");
+    LOG(@"showAboutBox");
     [NSApp activateIgnoringOtherApps:YES];
     [aboutWindow center];
     [aboutWindow makeKeyAndOrderFront:nil];
@@ -635,12 +632,12 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
-    NSLog(@"numberOfItemsInComboBox %@", aComboBox);
+    LOG(@"numberOfItemsInComboBox %@", aComboBox);
     return [[NSScreen screens] count]+1;
 }
 
 - (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index{
-    NSLog(@"comboBox %@, objectValueForItemAtIndex %d", aComboBox, index);
+    LOG(@"comboBox %@, objectValueForItemAtIndex %d", aComboBox, index);
     VisorScreenTransformer* transformer = [[VisorScreenTransformer alloc] init];
     id res = [transformer transformedValue:[NSNumber numberWithInteger:index]];
     [transformer release];
@@ -648,7 +645,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)activateStatusMenu {
-    NSLog(@"activateStatusMenu");
+    LOG(@"activateStatusMenu");
     NSStatusBar *bar = [NSStatusBar systemStatusBar];
     statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
     [statusItem retain];
@@ -663,7 +660,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)updateStatusMenu {
-    NSLog(@"updateStatusMenu");
+    LOG(@"updateStatusMenu");
     if (!statusItem) return;
     
     // update icon
@@ -679,17 +676,17 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 @implementation VisorScreenTransformer
 
 + (Class)transformedValueClass {
-    NSLog(@"transformedValueClass");
+    LOG(@"transformedValueClass");
     return [NSNumber class];
 }
 
 + (BOOL)allowsReverseTransformation {
-    NSLog(@"allowsReverseTransformation");
+    LOG(@"allowsReverseTransformation");
     return YES;
 }
 
 - (id)transformedValue:(id)value {
-    NSLog(@"transformedValue %@", value);
+    LOG(@"transformedValue %@", value);
     if ([value integerValue]==0) {
         return @"Main Screen";
     }
@@ -697,7 +694,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (id)reverseTransformedValue:(id)value {
-    NSLog(@"reverseTransformedValue %@", value);
+    LOG(@"reverseTransformedValue %@", value);
     if ([value hasPrefix:@"Screen"]) {
         return [NSNumber numberWithInteger:[[value substringFromIndex:6] integerValue]+1];
     }

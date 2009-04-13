@@ -6,6 +6,8 @@
 //  Copyright 2006 __MyCompanyName__. All rights reserved.
 //
 
+#import "Macros.h"
+
 #import "VisorWindow.h"
 #import "Visor.h"
 
@@ -16,7 +18,7 @@
                    backing: (NSBackingStoreType) bufferingType
                      defer: (BOOL) flag
 {
-    NSLog(@"Creating a new terminal window");
+    LOG(@"Creating a new terminal window");
     Visor* visor = [Visor sharedInstance];
     BOOL shouldBeVisorized = ![visor status];
     if (shouldBeVisorized) {
