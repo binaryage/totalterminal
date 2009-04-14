@@ -83,6 +83,7 @@ Feel free to fork and contribute.
   * [[Darwin][darwin]] Added Full Screen mode into Positions in Preferences ([Issue 57](http://code.google.com/p/blacktree-visor/issues/detail?id=57)).
   * [[Darwin][darwin]] Debug messages are not logged into stderr in Release builds.
   * [[Darwin][darwin]] Visor restores focus of previous app only in case of hotkey or ESC key ([Issue 67](http://code.google.com/p/blacktree-visor/issues/detail?id=67)).
+  * [[Darwin][darwin]] Fixed Visor hanging when trying to return focus to a hanging application ([Issue 64](http://code.google.com/p/blacktree-visor/issues/detail?id=64)).
 
 * **v1.8.1** (05.03.2009)
   * [[Darwin][darwin]] Fixed "[NSUserDefaults setString:ForKey:]" crash on startup (affected upgrading users from 1.7 to 1.8). Reported by [Kleinman][kleinman], thanks.

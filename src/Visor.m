@@ -403,7 +403,8 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)restorePreviouslyActiveApp {
     if (!previouslyActiveApp) return;
     NSDictionary *scriptError = [[NSDictionary alloc] init]; 
-    NSString *scriptSource = [NSString stringWithFormat: @"tell application \"%@\" to activate ", previouslyActiveApp]; 
+    // see: http://lists.apple.com/archives/Applescript-users/2007/Mar/msg00265.html
+    NSString *scriptSource = [NSString stringWithFormat: @"tell application \"%@\"\nwith timeout of 1 seconds\nto activate\nend timeout\nend tell", previouslyActiveApp]; 
     NSAppleScript *appleScript = [[NSAppleScript alloc] initWithSource:scriptSource]; 
     [appleScript executeAndReturnError: &scriptError];
     [appleScript release];
