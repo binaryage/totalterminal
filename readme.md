@@ -85,6 +85,7 @@ Feel free to fork and contribute.
   * [[Darwin][darwin]] Visor restores focus of previous app only in case of closing with hotkey or ESC key ([Issue 67](http://code.google.com/p/blacktree-visor/issues/detail?id=67)).
   * [[Darwin][darwin]] Visor does not hang when trying to return focus to a hanging application ([Issue 64](http://code.google.com/p/blacktree-visor/issues/detail?id=64)).
   * [[Darwin][darwin]] Going to an empty space no more triggers visor terminal to appear ([Issue 58](http://code.google.com/p/blacktree-visor/issues/detail?id=58)).
+  * [[Darwin][darwin]] Menu item changes title to "Hide Visor" when Visor is opened ([Issue 43](http://code.google.com/p/blacktree-visor/issues/detail?id=43)).
 
 * **v1.8.1** (05.03.2009)
   * [[Darwin][darwin]] Fixed "[NSUserDefaults setString:ForKey:]" crash on startup (affected upgrading users from 1.7 to 1.8). Reported by [Kleinman][kleinman], thanks.

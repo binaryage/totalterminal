@@ -34,11 +34,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     return plugin;
 }
 
-- (void)applicationDidBecomeActive:(NSNotification *)aNotification {
-    // show your window here
-    LOG(@"aaa");
-}
-
 + (void)install {
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [[NSUserDefaults standardUserDefaults]registerDefaults:defaults];
@@ -421,6 +416,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)showVisor:(BOOL)fast {
     if (!isHidden) return;
     isHidden = false;
+    [self updateStatusMenu];
     [self cacheScreen]; // performs screen pointer caching at this point
     [self cachePosition];
     [self storePreviouslyActiveApp];
@@ -442,6 +438,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 -(void)hideVisor:(BOOL)fast {
     if (isHidden) return;
     isHidden = true;
+    [self updateStatusMenu];
     [self maybeEnableEscapeKey:NO];
     [window update];
     [self slideWindows:0 fast:fast];
@@ -660,6 +657,13 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)updateStatusMenu {
     LOG(@"updateStatusMenu");
     if (!statusItem) return;
+
+    // update first menu item
+    NSMenuItem* showItem = [statusMenu itemAtIndex:0];
+    if (isHidden)
+        [showItem setTitle:@"Show Visor"];
+    else
+        [showItem setTitle:@"Hide Visor"];
     
     // update icon
     BOOL status = [self status];
