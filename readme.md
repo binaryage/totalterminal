@@ -77,6 +77,9 @@ Feel free to fork and contribute.
 
 ## History
 
+* **v1.9.1** (14.04.2009)
+  * [[Darwin][darwin]] Fixed missing "Visor Preferences..." menu item (thanks [gestes](http://github.com/gestes)).
+
 * **v1.9** (14.04.2009)
   * [[Darwin][darwin]] Fixed bottom window is off-screen in left-stretch/right stretch mode ([Issue 60](http://code.google.com/p/blacktree-visor/issues/detail?id=60)).
   * [[Darwin][darwin]] Window size gets properly reset during switching Position in Preferences.
