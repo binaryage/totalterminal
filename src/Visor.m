@@ -196,9 +196,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         NSBeep();
         return;
     }
-    if (isHidden){
+    if (isHidden) {
         [self showVisor:false];
-    }else{
+    } else {
+        [self restorePreviouslyActiveApp];
         [self hideVisor:false];
     }
 }
@@ -435,7 +436,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 -(void)hideVisor:(BOOL)fast {
     if (isHidden) return;
     isHidden = true;
-    [self restorePreviouslyActiveApp];
     [self maybeEnableEscapeKey:NO];
     [window update];
     [self slideWindows:0 fast:fast];
