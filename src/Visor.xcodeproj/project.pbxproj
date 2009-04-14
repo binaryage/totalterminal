@@ -14,6 +14,7 @@
 		7FC7F74D0A3BBCAA00B52344 /* QSHotKeyEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC7F74B0A3BBCAA00B52344 /* QSHotKeyEditor.m */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		D600BAB30F94207800E76344 /* VisorApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D600BAB20F94207800E76344 /* VisorApplication.m */; };
 		D6248C0F0F94002800E6B44D /* VisorScreenTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6248C0E0F94002800E6B44D /* VisorScreenTransformer.m */; };
 		D6701C2B0F40376F00900D77 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6701C2A0F40376F00900D77 /* QuartzCore.framework */; };
 		D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391740F93EB3F0037E3BC /* VisorActive.png */; };
@@ -45,6 +46,8 @@
 		8D5B49B6048680CD000E48DA /* Visor.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Visor.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		D600BAB10F94207800E76344 /* VisorApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorApplication.h; sourceTree = "<group>"; };
+		D600BAB20F94207800E76344 /* VisorApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorApplication.m; sourceTree = "<group>"; };
 		D6248C0D0F94002800E6B44D /* VisorScreenTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorScreenTransformer.h; sourceTree = "<group>"; };
 		D6248C0E0F94002800E6B44D /* VisorScreenTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorScreenTransformer.m; sourceTree = "<group>"; };
 		D6701C2A0F40376F00900D77 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
@@ -116,6 +119,8 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D600BAB10F94207800E76344 /* VisorApplication.h */,
+				D600BAB20F94207800E76344 /* VisorApplication.m */,
 				D6248C0D0F94002800E6B44D /* VisorScreenTransformer.h */,
 				D6248C0E0F94002800E6B44D /* VisorScreenTransformer.m */,
 				D68AA80A0F374F230094AA92 /* VisorWindowController.h */,
@@ -262,6 +267,7 @@
 				D68AA7020F371C810094AA92 /* Visor.m in Sources */,
 				D68AA80C0F374F230094AA92 /* VisorWindowController.m in Sources */,
 				D6248C0F0F94002800E6B44D /* VisorScreenTransformer.m in Sources */,
+				D600BAB30F94207800E76344 /* VisorApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

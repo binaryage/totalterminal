@@ -34,6 +34,11 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     return plugin;
 }
 
+- (void)applicationDidBecomeActive:(NSNotification *)aNotification {
+    // show your window here
+    LOG(@"aaa");
+}
+
 + (void)install {
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [[NSUserDefaults standardUserDefaults]registerDefaults:defaults];
@@ -159,7 +164,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window];
     [dnc addObserver:self selector:@selector(didChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
     
-    needPlacement = true;
+    justLaunched = true;
     [self updateStatusMenu];
 }
 
@@ -263,7 +268,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     // this is kind of a hack
     // I'm using scripting API to update main window geometry according to profile settings
     TTProfile* profile = [[TTProfileManager sharedProfileManager] startupProfile];
-    LOG(@"resetWindowSize %@", profile);
+    LOG(@"resetWindowSize");
     NSNumber* cols = [profile scriptNumberOfColumns];
     NSNumber* rows = [profile scriptNumberOfRows];
     [profile setScriptNumberOfColumns:cols];
@@ -404,7 +409,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     if (!previouslyActiveApp) return;
     NSDictionary *scriptError = [[NSDictionary alloc] init]; 
     // see: http://lists.apple.com/archives/Applescript-users/2007/Mar/msg00265.html
-    NSString *scriptSource = [NSString stringWithFormat: @"tell application \"%@\"\nwith timeout of 1 seconds\nto activate\nend timeout\nend tell", previouslyActiveApp]; 
+    NSString *scriptSource = [NSString stringWithFormat: @"tell application \"%@\"\nwith timeout of 1 seconds\nactivate\nend timeout\nend tell", previouslyActiveApp]; 
     NSAppleScript *appleScript = [[NSAppleScript alloc] initWithSource:scriptSource]; 
     [appleScript executeAndReturnError: &scriptError];
     [appleScript release];
@@ -512,8 +517,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)becomeMain:(id)sender {
     LOG(@"becomeMain %@", sender);
     isMain = true;
-    if (needPlacement) {
-        LOG(@"... needPlacement");
+    if (justLaunched) {
+        justLaunched = false;
+        LOG(@"... justLaunched");
         [self makeVisorInvisible]; // prevent gray background
         [self resetWindowPlacement];
         if (window) {
@@ -521,10 +527,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
             [window invalidateShadow];
             [window update];
         }
-        needPlacement = false;
         [self createPinButton];
-    }
-    if (isMain && isHidden) {
         [self showVisor:false];
     }
 }

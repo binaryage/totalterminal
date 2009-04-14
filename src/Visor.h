@@ -14,7 +14,7 @@
     NDHotKeyEvent* escapeKey;
     NSString* previouslyActiveApp;
     BOOL isHidden;
-    BOOL needPlacement;
+    BOOL justLaunched;
     BOOL isMain;
     BOOL isKey;
     BOOL isPinned;

@@ -80,10 +80,11 @@ Feel free to fork and contribute.
 * **v1.9** (to be released)
   * [[Darwin][darwin]] Fixed bottom window is off-screen in left-stretch/right stretch mode ([Issue 60](http://code.google.com/p/blacktree-visor/issues/detail?id=60)).
   * [[Darwin][darwin]] Window size gets properly reset during switching Position in Preferences.
-  * [[Darwin][darwin]] Added Full Screen mode into Positions in Preferences ([Issue 57](http://code.google.com/p/blacktree-visor/issues/detail?id=57)).
-  * [[Darwin][darwin]] Debug messages are not logged into stderr in Release builds.
-  * [[Darwin][darwin]] Visor restores focus of previous app only in case of hotkey or ESC key ([Issue 67](http://code.google.com/p/blacktree-visor/issues/detail?id=67)).
-  * [[Darwin][darwin]] Fixed Visor hanging when trying to return focus to a hanging application ([Issue 64](http://code.google.com/p/blacktree-visor/issues/detail?id=64)).
+  * [[Darwin][darwin]] Added "Full Screen" option into Positions in Preferences ([Issue 57](http://code.google.com/p/blacktree-visor/issues/detail?id=57)).
+  * [[Darwin][darwin]] Debug messages are not being logged in Release builds.
+  * [[Darwin][darwin]] Visor restores focus of previous app only in case of closing with hotkey or ESC key ([Issue 67](http://code.google.com/p/blacktree-visor/issues/detail?id=67)).
+  * [[Darwin][darwin]] Visor does not hang when trying to return focus to a hanging application ([Issue 64](http://code.google.com/p/blacktree-visor/issues/detail?id=64)).
+  * [[Darwin][darwin]] Going to an empty space no more triggers visor terminal to appear ([Issue 58](http://code.google.com/p/blacktree-visor/issues/detail?id=58)).
 
 * **v1.8.1** (05.03.2009)
   * [[Darwin][darwin]] Fixed "[NSUserDefaults setString:ForKey:]" crash on startup (affected upgrading users from 1.7 to 1.8). Reported by [Kleinman][kleinman], thanks.
