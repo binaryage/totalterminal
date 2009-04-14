@@ -94,7 +94,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     }
     
     // add the "Visor Preferences..." item to the Terminal menu
-    id <NSMenuItem> prefsMenuItem = [[statusMenu itemAtIndex:2] copy];
+    id <NSMenuItem> prefsMenuItem = [[statusMenu itemAtIndex:3] copy];
     [[[[NSApp mainMenu] itemAtIndex:0] submenu] insertItem:prefsMenuItem atIndex:3];
     [prefsMenuItem release];
     
