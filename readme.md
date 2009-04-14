@@ -4,7 +4,7 @@ Visor for OSX provides a systemwide terminal window accessible via a hot-key, mu
 
 ![screenshot](http://cloud.github.com/downloads/darwin/visor/visor-screenshot-1.8.png)
 
-## **[Download Visor 1.8.1 (precompiled binary)](http://cloud.github.com/downloads/darwin/visor/Visor-1.8.1-45209c.zip)**
+## **[Download Visor 1.9 (precompiled binary)](http://cloud.github.com/downloads/darwin/visor/Visor-1.9-0b987b.zip)**
 Tested on OSX 10.5.6 Leopard (Intel)
 
 ## Installation
@@ -77,7 +77,7 @@ Feel free to fork and contribute.
 
 ## History
 
-* **v1.9** (to be released)
+* **v1.9** (14.04.2009)
   * [[Darwin][darwin]] Fixed bottom window is off-screen in left-stretch/right stretch mode ([Issue 60](http://code.google.com/p/blacktree-visor/issues/detail?id=60)).
   * [[Darwin][darwin]] Window size gets properly reset during switching Position in Preferences.
   * [[Darwin][darwin]] Added "Full Screen" option into Positions in Preferences ([Issue 57](http://code.google.com/p/blacktree-visor/issues/detail?id=57)).
