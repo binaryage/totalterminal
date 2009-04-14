@@ -78,51 +78,51 @@ Feel free to fork and contribute.
 ## History
 
 * **v1.9.1** (14.04.2009)
-  * [[Darwin][darwin]] Fixed missing "Visor Preferences..." menu item (thanks [gestes](http://github.com/gestes)).
+  * [[darwin][darwin]] Fixed missing "Visor Preferences..." menu item (thanks [gestes](http://github.com/gestes)).
 
 * **v1.9** (14.04.2009)
-  * [[Darwin][darwin]] Fixed bottom window is off-screen in left-stretch/right stretch mode ([Issue 60](http://code.google.com/p/blacktree-visor/issues/detail?id=60)).
-  * [[Darwin][darwin]] Window size gets properly reset during switching Position in Preferences.
-  * [[Darwin][darwin]] Added "Full Screen" option into Positions in Preferences ([Issue 57](http://code.google.com/p/blacktree-visor/issues/detail?id=57)).
-  * [[Darwin][darwin]] Debug messages are not being logged in Release builds.
-  * [[Darwin][darwin]] Visor restores focus of previous app only in case of closing with hotkey or ESC key ([Issue 67](http://code.google.com/p/blacktree-visor/issues/detail?id=67)).
-  * [[Darwin][darwin]] Visor does not hang when trying to return focus to a hanging application ([Issue 64](http://code.google.com/p/blacktree-visor/issues/detail?id=64)).
-  * [[Darwin][darwin]] Going to an empty space no more triggers visor terminal to appear ([Issue 58](http://code.google.com/p/blacktree-visor/issues/detail?id=58)).
-  * [[Darwin][darwin]] Menu item changes title to "Hide Visor" when Visor is opened ([Issue 43](http://code.google.com/p/blacktree-visor/issues/detail?id=43)).
-  * [[Darwin][darwin]] Fixed: Switching Space let Visor show and hide in an infinite loop ([Issue 61](http://code.google.com/p/blacktree-visor/issues/detail?id=61)).
-  * [[Darwin][darwin]] Removed option "Main Screen" from Preferences/Screen ([Issue 59](http://code.google.com/p/blacktree-visor/issues/detail?id=59)).
-  * [[Darwin][darwin]] Removed pin icon, toggle added under status menu ([Issue 56](http://code.google.com/p/blacktree-visor/issues/detail?id=56)).
+  * [[darwin][darwin]] Fixed bottom window is off-screen in left-stretch/right stretch mode ([Issue 60](http://code.google.com/p/blacktree-visor/issues/detail?id=60)).
+  * [[darwin][darwin]] Window size gets properly reset during switching Position in Preferences.
+  * [[darwin][darwin]] Added "Full Screen" option into Positions in Preferences ([Issue 57](http://code.google.com/p/blacktree-visor/issues/detail?id=57)).
+  * [[darwin][darwin]] Debug messages are not being logged in Release builds.
+  * [[darwin][darwin]] Visor restores focus of previous app only in case of closing with hotkey or ESC key ([Issue 67](http://code.google.com/p/blacktree-visor/issues/detail?id=67)).
+  * [[darwin][darwin]] Visor does not hang when trying to return focus to a hanging application ([Issue 64](http://code.google.com/p/blacktree-visor/issues/detail?id=64)).
+  * [[darwin][darwin]] Going to an empty space no more triggers visor terminal to appear ([Issue 58](http://code.google.com/p/blacktree-visor/issues/detail?id=58)).
+  * [[darwin][darwin]] Menu item changes title to "Hide Visor" when Visor is opened ([Issue 43](http://code.google.com/p/blacktree-visor/issues/detail?id=43)).
+  * [[darwin][darwin]] Fixed: Switching Space let Visor show and hide in an infinite loop ([Issue 61](http://code.google.com/p/blacktree-visor/issues/detail?id=61)).
+  * [[darwin][darwin]] Removed option "Main Screen" from Preferences/Screen ([Issue 59](http://code.google.com/p/blacktree-visor/issues/detail?id=59)).
+  * [[darwin][darwin]] Removed pin icon, toggle added under status menu ([Issue 56](http://code.google.com/p/blacktree-visor/issues/detail?id=56)).
 
 * **v1.8.1** (05.03.2009)
-  * [[Darwin][darwin]] Fixed "[NSUserDefaults setString:ForKey:]" crash on startup (affected upgrading users from 1.7 to 1.8). Reported by [Kleinman][kleinman], thanks.
-  * [[Darwin][darwin]] Compilation from sources clears previous build folder (this could possibly make troubles for people developing Visor and then doing release [like me]).
+  * [[darwin][darwin]] Fixed "[NSUserDefaults setString:ForKey:]" crash on startup (affected upgrading users from 1.7 to 1.8). Reported by [Kleinman][kleinman], thanks.
+  * [[darwin][darwin]] Compilation from sources clears previous build folder (this could possibly make troubles for people developing Visor and then doing release [like me]).
 
 * **v1.8** (04.03.2009)
-  * [[Darwin][darwin]+[Cglee][cglee]] Visor can be positioned to other screen edges. Also non-stretching mode is possible. See Position in Visor Preferences. 
-  * [[Darwin][darwin]] Visor window can be pinned, so it doesn't auto-hide (see icon in the top-right window corner).
-  * [[Darwin][darwin]] Better behavior of confirmation sheets (Previously, sheet might appear on different space or might be hidden behind Visor window).
-  * [[Darwin][darwin]] Custom build from sources is marked as "Custom", no need to specify version.
+  * [[darwin][darwin]+[cglee][cglee]] Visor can be positioned to other screen edges. Also non-stretching mode is possible. See Position in Visor Preferences. 
+  * [[darwin][darwin]] Visor window can be pinned, so it doesn't auto-hide (see icon in the top-right window corner).
+  * [[darwin][darwin]] Better behavior of confirmation sheets (Previously, sheet might appear on different space or might be hidden behind Visor window).
+  * [[darwin][darwin]] Custom build from sources is marked as "Custom", no need to specify version.
 
 * **v1.7** (12.02.2009)
-  * [[Darwin][darwin]] Visor appears on every space by default. You may disable it in Visor Preferences.
-  * [[Darwin][darwin]] Visor is correctly hidden in fullscreen mode.
-  * [[Darwin][darwin]] Visor plays nicely when screen resolution changes.
-  * [[Pumpkin][pumpkin]] Fixed extra shadow under menu-bar.
-  * [[Blinks][blinks]] Fixed rake install task for case there is no SIMBL plugins directory.
+  * [[darwin][darwin]] Visor appears on every space by default. You may disable it in Visor Preferences.
+  * [[darwin][darwin]] Visor is correctly hidden in fullscreen mode.
+  * [[darwin][darwin]] Visor plays nicely when screen resolution changes.
+  * [[pumpkin][pumpkin]] Fixed extra shadow under menu-bar.
+  * [[blinks][blinks]] Fixed rake install task for case there is no SIMBL plugins directory.
 
 * **v1.6** (03.02.2009)
-  * [[Darwin][darwin]] Build infrastructure.
-  * [[Darwin][darwin]] It is possible to specify on which screen visor will appear - see preferences ([Issue 15](http://code.google.com/p/blacktree-visor/issues/detail?id=15)).
-  * [[Darwin][darwin]] Visor exits gratefully without locking UI ([Issue 50](http://code.google.com/p/blacktree-visor/issues/detail?id=50)).
-  * [[Darwin][darwin]] Visor becomes inactive when you close visor-ed terminal window or exit it's shell (fixes [Issue 10](http://code.google.com/p/blacktree-visor/issues/detail?id=10)).
-  * [[Darwin][darwin]] When inactive, Visor eats next coming terminal window (right click terminal.app icon and select "new window").
-  * [[Darwin][darwin]] Re-implemented window sliding animation using standard NSWindow functions, should fix weird bugs with mouse cursor state.
-  * [[Darwin][darwin]] Removed support for Quartz powered backgrounds (want simpler codebase!).
-  * [[Darwin][darwin]] Gentle terminal window hijacking (solves [Issue 5](http://code.google.com/p/blacktree-visor/issues/detail?id=5), [Issue 6](http://code.google.com/p/blacktree-visor/issues/detail?id=6) and related problems. What more? It properly enables [applescript automation in visor-ed terminal](http://onrails.org/articles/2007/11/28/scripting-the-leopard-terminal), which was my original motivation to get dirty with Visor internals).
-  * [[Darwin][darwin]] Whenever you open Visor window, it steals focus and you may start typing without touching mouse. Visor is a good guy and returns the focus back to original app when being hidden. I said ... don't touch that mouse!
-  * [[Torsten][torsten]] Fixed the "White Line Bug" ([Issue 16](http://code.google.com/p/blacktree-visor/issues/detail?id=16)).
-  * [[Torsten][torsten]] Added the option to hide Visor on Escape press. Press Shift+Escape, if you need a "Escape" in the Terminal.
-  * [[Torsten][torsten]] If you start Visor you get now initial focus. ([Issue 20](http://code.google.com/p/blacktree-visor/issues/detail?id=20)).
+  * [[darwin][darwin]] Build infrastructure.
+  * [[darwin][darwin]] It is possible to specify on which screen visor will appear - see preferences ([Issue 15](http://code.google.com/p/blacktree-visor/issues/detail?id=15)).
+  * [[darwin][darwin]] Visor exits gratefully without locking UI ([Issue 50](http://code.google.com/p/blacktree-visor/issues/detail?id=50)).
+  * [[darwin][darwin]] Visor becomes inactive when you close visor-ed terminal window or exit it's shell (fixes [Issue 10](http://code.google.com/p/blacktree-visor/issues/detail?id=10)).
+  * [[darwin][darwin]] When inactive, Visor eats next coming terminal window (right click terminal.app icon and select "new window").
+  * [[darwin][darwin]] Re-implemented window sliding animation using standard NSWindow functions, should fix weird bugs with mouse cursor state.
+  * [[darwin][darwin]] Removed support for Quartz powered backgrounds (want simpler codebase!).
+  * [[darwin][darwin]] Gentle terminal window hijacking (solves [Issue 5](http://code.google.com/p/blacktree-visor/issues/detail?id=5), [Issue 6](http://code.google.com/p/blacktree-visor/issues/detail?id=6) and related problems. What more? It properly enables [applescript automation in visor-ed terminal](http://onrails.org/articles/2007/11/28/scripting-the-leopard-terminal), which was my original motivation to get dirty with Visor internals).
+  * [[darwin][darwin]] Whenever you open Visor window, it steals focus and you may start typing without touching mouse. Visor is a good guy and returns the focus back to original app when being hidden. I said ... don't touch that mouse!
+  * [[torsten][torsten]] Fixed the "White Line Bug" ([Issue 16](http://code.google.com/p/blacktree-visor/issues/detail?id=16)).
+  * [[torsten][torsten]] Added the option to hide Visor on Escape press. Press Shift+Escape, if you need a "Escape" in the Terminal.
+  * [[torsten][torsten]] If you start Visor you get now initial focus. ([Issue 20](http://code.google.com/p/blacktree-visor/issues/detail?id=20)).
 
 * **v1.5a1** (Nov 2007?)
   * Leopard Support
