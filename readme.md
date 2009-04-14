@@ -11,7 +11,7 @@ Tested on OSX 10.5.6 Leopard (Intel)
 
   * [Install SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)
   * Place Visor.bundle in ~/Library/Application Support/SIMBL/Plugins
-  * (Re)launch Terminal.app - You should now see the Visor menu item ![icon](http://github.com/darwin/visor/blob/master/src/VisorActive.png?raw=true)
+  * (Re)launch Terminal.app - You should now see the Visor menu item ![icon](http://github.com/darwin/visor/blob/master/src/res/VisorActive.png?raw=true)
   * Configure your keyboard trigger by selecting the Visor menu item -> preferences and editing your keyboard hot-key
 
 You can now trigger Visor with your hotkey from any application to get an instant terminal session. 
