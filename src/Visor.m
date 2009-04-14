@@ -94,9 +94,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     }
     
     // add the "Visor Preferences..." item to the Terminal menu
-    id <NSMenuItem> prefsMenuItem = [[statusMenu itemAtIndex:3] copy];
-    [[[[NSApp mainMenu] itemAtIndex:0] submenu] insertItem:prefsMenuItem atIndex:3];
-    [prefsMenuItem release];
+    NSMenuItem* prefsMenuItem = [statusMenu itemWithTitle:@"Visor Preferences..."];
+    NSMenuItem* copy = [prefsMenuItem copyWithZone:nil];
+    [[[[NSApp mainMenu] itemAtIndex:0] submenu] insertItem:copy atIndex:3];
+    [copy release];
     
     if ([ud boolForKey:@"VisorShowStatusItem"]) {
         [self activateStatusMenu];
@@ -106,13 +107,13 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [self initEscapeKey];
     
     // watch for hotkey changes
-    [udc addObserver:self forKeyPath:@"values.VisorHotKey" options:nil context:nil];
-    [udc addObserver:self forKeyPath:@"values.VisorUseFade" options:nil context:nil];                                                           
-    [udc addObserver:self forKeyPath:@"values.VisorUseSlide" options:nil context:nil];               
-    [udc addObserver:self forKeyPath:@"values.VisorAnimationSpeed" options:nil context:nil];
-    [udc addObserver:self forKeyPath:@"values.VisorShowStatusItem" options:nil context:nil];
-    [udc addObserver:self forKeyPath:@"values.VisorScreen" options:nil context:nil];
-    [udc addObserver:self forKeyPath:@"values.VisorPosition" options:nil context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorHotKey" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorUseFade" options:0 context:nil];                                                           
+    [udc addObserver:self forKeyPath:@"values.VisorUseSlide" options:0 context:nil];               
+    [udc addObserver:self forKeyPath:@"values.VisorAnimationSpeed" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorShowStatusItem" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorScreen" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorPosition" options:0 context:nil];
 
     // get notified of resolution change
     CGDisplayRegisterReconfigurationCallback(displayReconfigurationCallback, self);
@@ -207,10 +208,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 // offset==0.0 means window is "hidden" above top screen edge
 // offset==1.0 means window is visible right under top screen edge
-- (void)placeWindow:(id)window offset:(float)offset {
+- (void)placeWindow:(id)win offset:(float)offset {
     NSScreen* screen=cachedScreen;
     NSRect screenRect=[screen frame];
-    NSRect frame=[window frame];
+    NSRect frame=[win frame];
     int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
     if (screen == [[NSScreen screens] objectAtIndex: 0]) shift = 21; // menu area
     if ([cachedPosition hasPrefix:@"Top"]) {
@@ -225,7 +226,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     if ([cachedPosition hasPrefix:@"Bottom"]) {
         frame.origin.y = screenRect.origin.y - NSHeight(frame) + round(offset*NSHeight(frame));
     }
-    [window setFrame:frame display:NO];
+    [win setFrame:frame display:NO];
 }
 
 - (void)resetVisorWindowSize {
@@ -239,8 +240,8 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [profile setScriptNumberOfRows:rows];
 }
 
-- (void)applyWindowPositioning:(id)window {
-    [self setupExposeTags:window];
+- (void)applyWindowPositioning:(id)win {
+    [self setupExposeTags:win];
     NSScreen* screen = cachedScreen;
     NSRect screenRect = [screen frame];
     NSString* position = [[NSUserDefaults standardUserDefaults] stringForKey:@"VisorPosition"];
@@ -249,112 +250,112 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     if (screen == [[NSScreen screens] objectAtIndex: 0]) shift = 21; // menu area
     [self resetVisorWindowSize];
     if ([position isEqualToString:@"Top-Stretch"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.size.width = screenRect.size.width;
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Top-Left"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Top-Right"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Top-Center"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x + (NSWidth(screenRect)-NSWidth(frame))/2;
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Left-Stretch"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.size.height = screenRect.size.height - shift;
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Left-Top"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Left-Bottom"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Left-Center"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y + (NSHeight(screenRect)-NSHeight(frame))/2;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Right-Stretch"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.size.height = screenRect.size.height - shift;
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Right-Top"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Right-Bottom"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Right-Center"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y + (NSHeight(screenRect)-NSHeight(frame))/2;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Bottom-Stretch"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.size.width = screenRect.size.width;
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Bottom-Left"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Bottom-Right"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
         frame.origin.y = screenRect.origin.y;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Bottom-Center"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.origin.x = screenRect.origin.x + (NSWidth(screenRect)-NSWidth(frame))/2;
         frame.origin.y = screenRect.origin.y;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
     if ([position isEqualToString:@"Full Screen"]) {
-        NSRect frame = [window frame];
+        NSRect frame = [win frame];
         frame.size.width = screenRect.size.width;
         frame.size.height = screenRect.size.height - shift;
         frame.origin.x = screenRect.origin.x;
         frame.origin.y = screenRect.origin.y;
-        [window setFrame:frame display:NO];
+        [win setFrame:frame display:NO];
     }
 }
 
@@ -422,8 +423,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 #define ALPHA_DIRECTION(d,x) (d?1.0f-(x):(x))
 
 - (void)slideWindows:(BOOL)direction fast:(bool)fast { // true == down
-    NSAutoreleasePool* pool=[[NSAutoreleasePool alloc]init];
-
     if (!fast) {
         BOOL doSlide = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseSlide"];
         BOOL doFade = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"];
@@ -584,7 +583,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [aboutWindow makeKeyAndOrderFront:nil];
 }
 
-- (BOOL)validateMenuItem:(id <NSMenuItem>)menuItem {
+- (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
     if ([menuItem action]==@selector(toggleVisor:)){
         [menuItem setKeyEquivalent:stringForCharacter([hotkey keyCode],[hotkey character])];
         [menuItem setKeyEquivalentModifierMask:[hotkey modifierFlags]];
@@ -593,12 +592,12 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     return YES;
 }
 
-- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox*)aComboBox {
     LOG(@"numberOfItemsInComboBox %@", aComboBox);
     return [[NSScreen screens] count];
 }
 
-- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index{
+- (id)comboBox:(NSComboBox*)aComboBox objectValueForItemAtIndex:(NSInteger)index{
     LOG(@"comboBox %@, objectValueForItemAtIndex %d", aComboBox, index);
     VisorScreenTransformer* transformer = [[VisorScreenTransformer alloc] init];
     id res = [transformer transformedValue:[NSNumber numberWithInteger:index]];

@@ -26,21 +26,28 @@
     NSButton* pinButton;
     NSString* cachedPosition;
 }
++ (Visor*)sharedInstance;
 - (BOOL)status;
-- (void)adoptTerminal:(NSWindow*)window;
+- (void)adoptTerminal:(id)window;
 - (IBAction)showPrefs:(id)sender;
 - (IBAction)pinAction:(id)sender;
 - (IBAction)toggleVisor:(id)sender;
-- (IBAction)setHotKey:(id)sender;
-- (IBAction)chooseFile:(id)sender;
 - (IBAction)showAboutBox:(id)sender;
-- (void)hideVisor;
-- (void)showVisor;
+- (void)showVisor:(BOOL)fast;
+- (void)hideVisor:(BOOL)fast;
+- (void)slideWindows:(BOOL)direction fast:(bool)fast;
+- (void)restorePreviouslyActiveApp;
+- (void)storePreviouslyActiveApp;
+- (void)cacheScreen;
+- (void)cachePosition;
+- (void)resetWindowPlacement;
 - (void)makeVisorInvisible;
 - (void)enableHotKey;
 - (void)initEscapeKey;
 - (void)maybeEnableEscapeKey:(BOOL)enable;
 - (void)activateStatusMenu;
-- (void)saveDefaults;
-- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item;
+- (void)updateStatusMenu;
+- (void)applyWindowPositioning:(id)window;
+- (void)placeWindow:(id)window offset:(float)offset;
+- (OSStatus)setupExposeTags:(NSWindow*)win;
 @end

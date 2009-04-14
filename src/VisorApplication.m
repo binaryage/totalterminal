@@ -8,5 +8,6 @@
     LOG(@"applicationShouldHandleReopen");
     Visor* visor = [Visor sharedInstance];
     [visor showVisor:false];
+	return FALSE;
 }
 @end
