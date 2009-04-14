@@ -64,8 +64,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     
     activeIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorActive"]];
     inactiveIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorInactive"]];
-    pinUpIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorPinUp"]];
-    pinDownIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorPinDown"]];
     
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
@@ -163,30 +161,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [self updateStatusMenu];
 }
 
-- (void)createPinButton {
-    LOG(@"createPinButton");
-    NSRect windowFrame = [window frame];
-    pinButton = [[NSButton alloc] initWithFrame:NSMakeRect(windowFrame.size.width-20.-16.,windowFrame.size.height-20.,16.,16.)];
-    [pinButton setState:NSOffState];
-    [pinButton setButtonType: NSToggleButton];
-    [pinButton setImagePosition: NSImageOnly];
-    [pinButton setBordered: NO];
-    [pinButton setImage:pinUpIcon];
-    [pinButton setAlternateImage:pinDownIcon];
-    [pinButton setTarget:self];
-    [pinButton setAction:@selector(pinAction:)];
-    [[window contentView] addSubview:pinButton positioned:NSWindowAbove relativeTo:nil];  
-}
-
-- (void)updatePinButton {
-    LOG(@"updatePinButton");
-    NSRect windowFrame = [window frame];
-    [pinButton setFrame:NSMakeRect(windowFrame.size.width-20.-16.,windowFrame.size.height-20.,16.,16.)];
-}
-
 - (IBAction)pinAction:(id)sender {
     LOG(@"pinAction %@", sender);
     isPinned = !isPinned;
+    [self updateStatusMenu];
 }
 
 - (IBAction)toggleVisor:(id)sender {
@@ -515,7 +493,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
             [window invalidateShadow];
             [window update];
         }
-        [self createPinButton];
         [self showVisor:false];
     }
 }
@@ -530,7 +507,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [self cacheScreen];
     [self cachePosition];
     [self applyWindowPositioning:window];
-    [self updatePinButton];
 }
 
 - (void)willClose:(id)sender {
@@ -655,6 +631,13 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [showItem setTitle:@"Show Visor"];
     else
         [showItem setTitle:@"Hide Visor"];
+
+    // update second menu item
+    NSMenuItem* pinItem = [statusMenu itemAtIndex:1];
+    if (!isPinned)
+        [pinItem setTitle:@"Pin Visor"];
+    else
+        [pinItem setTitle:@"Unpin Visor"];
     
     // update icon
     BOOL status = [self status];

@@ -29,6 +29,7 @@
 - (BOOL)status;
 - (void)adoptTerminal:(NSWindow*)window;
 - (IBAction)showPrefs:(id)sender;
+- (IBAction)pinAction:(id)sender;
 - (IBAction)toggleVisor:(id)sender;
 - (IBAction)setHotKey:(id)sender;
 - (IBAction)chooseFile:(id)sender;
