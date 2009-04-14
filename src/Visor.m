@@ -86,7 +86,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [ud setBool:YES forKey:@"VisorShowStatusItem"];
     }
     if (![ud objectForKey:@"VisorScreen"]) {
-        [ud setInteger:0 forKey:@"VisorScreen"]; // use main screen by default
+        [ud setInteger:0 forKey:@"VisorScreen"]; // use screen 0 by default
     }
     if (![ud objectForKey:@"VisorOnEverySpace"]) {
         [ud setBool:YES forKey:@"VisorOnEverySpace"];
@@ -221,18 +221,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 - (void)cacheScreen {
     int screenIndex = [[NSUserDefaults standardUserDefaults]integerForKey:@"VisorScreen"];
-    if (screenIndex==0) {
-        cachedScreen = [NSScreen mainScreen];
-        LOG(@"Cached main screen %@", cachedScreen);
-        return;
-    }
-    screenIndex--;
     NSArray* screens = [NSScreen screens];
-    if (screenIndex>0 && screenIndex<[screens count]) {
-        cachedScreen=[screens objectAtIndex:screenIndex];
-    } else {
-        cachedScreen=[screens objectAtIndex:0];
-    }
+    if (!(screenIndex>0 && screenIndex<[screens count])) screenIndex = 0;
+    cachedScreen = [screens objectAtIndex:screenIndex];
     LOG(@"Cached screen %d %@", screenIndex, cachedScreen);
 }
 
@@ -628,7 +619,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
     LOG(@"numberOfItemsInComboBox %@", aComboBox);
-    return [[NSScreen screens] count]+1;
+    return [[NSScreen screens] count];
 }
 
 - (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index{
