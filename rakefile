@@ -13,7 +13,6 @@ VISOR_XIB = File.join(TMP_DIR, 'Visor.xib')
 INFO_PLIST = File.join(TMP_DIR, 'Info.plist')
 SIMBL_DIR = File.expand_path(File.join('~', 'Library', 'Application Support', 'SIMBL'))
 SIMBL_PLUGINS_DIR = File.expand_path(File.join(SIMBL_DIR, 'Plugins'))
-PUBLISH_FOLDER = File.expand_path(File.join("~", "Dropbox", "Public", "Visor"))
 
 # http://kpumuk.info/ruby-on-rails/colorizing-console-ruby-script-output/
 begin
@@ -88,6 +87,7 @@ desc "builds project"
 task :build do
   puts "#{cmd_color('Building')} #{file_color(XCODE_PROJECT)}"
   Dir.chdir(SRC_DIR) do
+    `rm -rf "build"`
     `xcodebuild -configuration Release 1>&2`
     die("build failed") unless $?==0
   end
@@ -103,7 +103,6 @@ task :release do
 
   puts "#{cmd_color('Copying sources to temporary directory ...')}"
   `cp -r "#{SRC_DIR}" "#{TMP_DIR}"`
-  `rm -rf "#{TMP_DIR}/build"` # this might cause troubles when doing from dev machine releases
 
   puts "#{cmd_color('Patching version info ...')}"
   patch(VISOR_XIB, [['**VERSION**', $version], ['**REVISION**', $short_revision]])
@@ -111,6 +110,7 @@ task :release do
 
   puts "#{cmd_color('Building')} #{file_color(TMP_DIR)}"
   Dir.chdir(TMP_DIR) do
+    `rm -rf "build"` # this might cause troubles when doing releases from dev machine 
     `xcodebuild -configuration Release 1>&2`
     die("build failed") unless $?==0
   end
@@ -137,7 +137,7 @@ end
 
 desc "installs newest release into ~/Library/Application Support/SIMBL/Plugins"
 task :install do
-  die("first build release> rake release version=1.6") unless File.exists? RELEASE_DIR
+  die("first build release> rake release") unless File.exists? RELEASE_DIR
   zip = ""
   Dir.chdir(RELEASE_DIR) do
     files = `ls -1at *.zip`
