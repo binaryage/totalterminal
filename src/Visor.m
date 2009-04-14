@@ -378,6 +378,14 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         frame.origin.y = screenRect.origin.y;
         [window setFrame:frame display:NO];
     }
+    if ([position isEqualToString:@"Full Screen"]) {
+        NSRect frame = [window frame];
+        frame.size.width = screenRect.size.width;
+        frame.size.height = screenRect.size.height - shift;
+        frame.origin.x = screenRect.origin.x;
+        frame.origin.y = screenRect.origin.y;
+        [window setFrame:frame display:NO];
+    }
 }
 
 - (void)storePreviouslyActiveApp {

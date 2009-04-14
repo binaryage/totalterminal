@@ -619,6 +619,7 @@
 													<string>Bottom-Left</string>
 													<string>Bottom-Center</string>
 													<string>Bottom-Right</string>
+													<string>Full Screen</string>
 												</object>
 												<reference key="NSDelegate" ref="145889338"/>
 												<object class="NSComboTableView" key="NSTableView" id="622772843">
