@@ -419,8 +419,8 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 #define SLIDE_EASING(x) sin(M_PI_2*(x))
 #define ALPHA_EASING(x) (1.0f-(x))
-#define SLIDE_DIRECTION(d,x) (d?(x):1.0f-(x))
-#define ALPHA_DIRECTION(d,x) (d?1.0f-(x):(x))
+#define SLIDE_DIRECTION(d,x) (d?(x):(1.0f-(x)))
+#define ALPHA_DIRECTION(d,x) (d?(1.0f-(x)):(x))
 
 - (void)slideWindows:(BOOL)direction fast:(bool)fast { // true == down
     if (!fast) {
@@ -430,13 +430,17 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
         // animation loop
         if (doFade || doSlide) {
-            if (!doSlide && direction) {
+            if (!doSlide && direction) { // setup final slide position in case of no sliding
                 float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(1));
                 [self placeWindow:window offset:offset];
             }
+            if (!doFade && direction) { // setup final alpha state in case of no alpha
+                float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
+                [window setAlphaValue: alpha];
+            }
             NSTimeInterval t;
             NSDate* date=[NSDate date];
-            while (animSpeed>(t=-[date timeIntervalSinceNow])) {
+            while (animSpeed>(t=-[date timeIntervalSinceNow])) { // animation update loop
                 float k=t/animSpeed;
                 if (doSlide) {
                     float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(k));
@@ -451,7 +455,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         }
     }
     
-    // apply final state
+    // apply final slide and alpha states
     float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(1));
     [self placeWindow:window offset:offset];
     float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
