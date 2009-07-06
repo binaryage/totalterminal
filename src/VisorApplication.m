@@ -7,7 +7,7 @@
 - (BOOL)applicationShouldHandleReopen:(id)fp8 hasVisibleWindows:(BOOL)fp12 {
     LOG(@"applicationShouldHandleReopen");
     Visor* visor = [Visor sharedInstance];
-    [visor showVisor:false];
-	return FALSE;
+    [visor onReopenVisor];
+    return FALSE;
 }
 @end

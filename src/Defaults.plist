@@ -17,6 +17,8 @@
     <true/>
     <key>VisorShowStatusItem</key>
     <true/>
+    <key>VisorShowOnReopen</key>
+    <true/>
     <key>VisorHideOnEscape</key>
     <false/>
     <key>VisorScreen</key>

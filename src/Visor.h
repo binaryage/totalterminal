@@ -48,6 +48,7 @@
 - (void)activateStatusMenu;
 - (void)updateStatusMenu;
 - (void)applyWindowPositioning:(id)window;
+- (void)onReopenVisor;
 - (void)placeWindow:(id)window offset:(float)offset;
 - (OSStatus)setupExposeTags:(NSWindow*)win;
 @end

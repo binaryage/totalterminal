@@ -83,6 +83,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     if (![ud objectForKey:@"VisorShowStatusItem"]) {
         [ud setBool:YES forKey:@"VisorShowStatusItem"];
     }
+    if (![ud objectForKey:@"VisorShowOnReopen"]) {
+        [ud setBool:YES forKey:@"VisorShowOnReopen"];
+    }
     if (![ud objectForKey:@"VisorScreen"]) {
         [ud setInteger:0 forKey:@"VisorScreen"]; // use screen 0 by default
     }
@@ -381,6 +384,12 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [scriptError release];
     [previouslyActiveApp release];
     previouslyActiveApp = nil;
+}
+
+- (void)onReopenVisor {
+    bool showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowOnReopen"];
+    if (!showOnReopen) return;
+    [self showVisor:false];
 }
 
 - (void)showVisor:(BOOL)fast {
