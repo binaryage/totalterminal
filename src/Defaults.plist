@@ -19,6 +19,8 @@
     <true/>
     <key>VisorShowOnReopen</key>
     <true/>
+    <key>VisorCopyOnSelect</key>
+    <false/>
     <key>VisorHideOnEscape</key>
     <false/>
     <key>VisorScreen</key>

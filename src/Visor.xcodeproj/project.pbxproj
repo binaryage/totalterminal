@@ -23,6 +23,7 @@
 		D68AA7020F371C810094AA92 /* Visor.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* Visor.m */; };
 		D68AA80C0F374F230094AA92 /* VisorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA80B0F374F230094AA92 /* VisorWindowController.m */; };
 		D6FB33E90F3843E20067F941 /* Visor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FB33E80F3843E20067F941 /* Visor.xib */; };
+		D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,8 @@
 		D68AA80B0F374F230094AA92 /* VisorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorWindowController.m; sourceTree = "<group>"; };
 		D6FB33E80F3843E20067F941 /* Visor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Visor.xib; sourceTree = "<group>"; };
 		D6FB34420F3844D80067F941 /* Visor.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor.pch; sourceTree = "<group>"; };
+		D6FCDC671002BA42000FDA45 /* CopyOnSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyOnSelect.h; sourceTree = "<group>"; };
+		D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyOnSelect.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +116,8 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D6FCDC671002BA42000FDA45 /* CopyOnSelect.h */,
+				D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */,
 				D600BAB10F94207800E76344 /* VisorApplication.h */,
 				D600BAB20F94207800E76344 /* VisorApplication.m */,
 				D6248C0D0F94002800E6B44D /* VisorScreenTransformer.h */,
@@ -260,6 +265,7 @@
 				D68AA80C0F374F230094AA92 /* VisorWindowController.m in Sources */,
 				D6248C0F0F94002800E6B44D /* VisorScreenTransformer.m in Sources */,
 				D600BAB30F94207800E76344 /* VisorApplication.m in Sources */,
+				D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

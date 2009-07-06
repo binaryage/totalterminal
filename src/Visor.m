@@ -86,6 +86,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     if (![ud objectForKey:@"VisorShowOnReopen"]) {
         [ud setBool:YES forKey:@"VisorShowOnReopen"];
     }
+    if (![ud objectForKey:@"VisorCopyOnSelect"]) {
+        [ud setBool:NO forKey:@"VisorCopyOnSelect"];
+    }
     if (![ud objectForKey:@"VisorScreen"]) {
         [ud setInteger:0 forKey:@"VisorScreen"]; // use screen 0 by default
     }
