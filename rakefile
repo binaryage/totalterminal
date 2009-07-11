@@ -16,7 +16,7 @@ SIMBL_PLUGINS_DIR = File.expand_path(File.join(SIMBL_DIR, 'Plugins'))
 
 # http://kpumuk.info/ruby-on-rails/colorizing-console-ruby-script-output/
 begin
-  require 'Win32/Console/ANSI' if PLATFORM =~ /win32/
+  require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/
 rescue LoadError
   raise 'You must "gem install win32console" to use terminal colors on Windows'
 end
