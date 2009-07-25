@@ -93,7 +93,7 @@ task :build do
   end
 end
 
-desc "prepares release"
+desc "prepares release build"
 task :release do
   puts "#{cmd_color('Checking environment ...')}"
   dirty_repo_warning()
@@ -129,13 +129,13 @@ task :clean do
   `rm -rf "#{TMP_DIR}"`
 end
 
-desc "removes all releases"
+desc "removes all release builds"
 task :purge do
   puts "#{cmd_color('Removing')} #{dir_color(RELEASE_DIR)}"
   `rm -rf "#{RELEASE_DIR}"`
 end
 
-desc "installs newest release into ~/Library/Application Support/SIMBL/Plugins"
+desc "installs latest release build into ~/Library/Application Support/SIMBL/Plugins"
 task :install do
   die("first build release> rake release") unless File.exists? RELEASE_DIR
   zip = ""
