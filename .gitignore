@@ -8,3 +8,5 @@ releases
 tmp
 Thumbs.db*
 _site
+_layouts
+shared
