@@ -238,8 +238,12 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)resetVisorWindowSize {
     // this is kind of a hack
     // I'm using scripting API to update main window geometry according to profile settings
-    TTProfile* profile = [[TTProfileManager sharedProfileManager] startupProfile];
-    LOG(@"resetWindowSize");
+    LOG(@"resetVisorWindowSize");
+    TTProfile* profile = [[TTProfileManager sharedProfileManager] profileWithName:@"Visor"];
+    if (!profile) {
+        LOG(@"  ... unable to locate Visor profile");
+        return;
+    }
     NSNumber* cols = [profile scriptNumberOfColumns];
     NSNumber* rows = [profile scriptNumberOfRows];
     [profile setScriptNumberOfColumns:cols];
