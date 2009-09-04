@@ -157,4 +157,10 @@ task :install do
   end
 end
 
+desc "dumps system Terminal.app into dumps/Current/"
+task :dump do
+  `rm -rf dumps/Current`
+  `class-dump -I -H -o dumps/Current "/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal"`
+end
+
 task :default => :release

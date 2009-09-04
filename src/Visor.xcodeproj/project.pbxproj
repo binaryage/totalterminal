@@ -15,6 +15,8 @@
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		D600BAB30F94207800E76344 /* VisorApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D600BAB20F94207800E76344 /* VisorApplication.m */; };
+		D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TerminalColours.m */; };
+		D62204B21051CC6A00FAEA30 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204B11051CC6A00FAEA30 /* JRSwizzle.m */; };
 		D6248C0F0F94002800E6B44D /* VisorScreenTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6248C0E0F94002800E6B44D /* VisorScreenTransformer.m */; };
 		D6701C2B0F40376F00900D77 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6701C2A0F40376F00900D77 /* QuartzCore.framework */; };
 		D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391740F93EB3F0037E3BC /* VisorActive.png */; };
@@ -47,6 +49,10 @@
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		D600BAB10F94207800E76344 /* VisorApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorApplication.h; sourceTree = "<group>"; };
 		D600BAB20F94207800E76344 /* VisorApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorApplication.m; sourceTree = "<group>"; };
+		D62204AD1051CC3700FAEA30 /* TerminalColours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalColours.h; sourceTree = "<group>"; };
+		D62204AE1051CC3700FAEA30 /* TerminalColours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalColours.m; sourceTree = "<group>"; };
+		D62204B01051CC6A00FAEA30 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
+		D62204B11051CC6A00FAEA30 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		D6248C0D0F94002800E6B44D /* VisorScreenTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorScreenTransformer.h; sourceTree = "<group>"; };
 		D6248C0E0F94002800E6B44D /* VisorScreenTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorScreenTransformer.m; sourceTree = "<group>"; };
 		D6701C2A0F40376F00900D77 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
@@ -116,6 +122,10 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D62204B01051CC6A00FAEA30 /* JRSwizzle.h */,
+				D62204B11051CC6A00FAEA30 /* JRSwizzle.m */,
+				D62204AD1051CC3700FAEA30 /* TerminalColours.h */,
+				D62204AE1051CC3700FAEA30 /* TerminalColours.m */,
 				D6FCDC671002BA42000FDA45 /* CopyOnSelect.h */,
 				D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */,
 				D600BAB10F94207800E76344 /* VisorApplication.h */,
@@ -266,6 +276,8 @@
 				D6248C0F0F94002800E6B44D /* VisorScreenTransformer.m in Sources */,
 				D600BAB30F94207800E76344 /* VisorApplication.m in Sources */,
 				D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */,
+				D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */,
+				D62204B21051CC6A00FAEA30 /* JRSwizzle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
