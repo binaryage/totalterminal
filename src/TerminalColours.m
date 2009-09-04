@@ -120,8 +120,9 @@ static NSString* colourKeys[] = {
 - (id)TerminalColours_propertyListRepresentation;
 {
     NSMutableDictionary* plist = [[self TerminalColours_propertyListRepresentation] mutableCopy];
+	size_t index;
 
-    for(size_t index = 0; index < sizeof(colourKeys) / sizeof(colourKeys[0]); index++)
+    for(index = 0; index < sizeof(colourKeys) / sizeof(colourKeys[0]); index++)
     {
         NSString* colourKey = colourKeys[index];
         if([self colourForKey:colourKey])
