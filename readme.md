@@ -1,4 +1,4 @@
-# Visor by BlackTree
+# Visor for OSX
 
 **Visor for OSX** provides a systemwide terminal window accessible via a hot-key, much like the consoles found in games such as Quake.
 
