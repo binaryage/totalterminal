@@ -24,6 +24,7 @@
 		D673917B0F93EB3F0037E3BC /* VisorLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391760F93EB3F0037E3BC /* VisorLarge.png */; };
 		D68AA7020F371C810094AA92 /* Visor.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* Visor.m */; };
 		D68AA80C0F374F230094AA92 /* VisorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA80B0F374F230094AA92 /* VisorWindowController.m */; };
+		D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6F5F1E910521A9B0047CFF8 /* Configuration.xib */; };
 		D6FB33E90F3843E20067F941 /* Visor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FB33E80F3843E20067F941 /* Visor.xib */; };
 		D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		D68AA7010F371C810094AA92 /* Visor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Visor.m; sourceTree = "<group>"; };
 		D68AA80A0F374F230094AA92 /* VisorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisorWindowController.h; sourceTree = "<group>"; };
 		D68AA80B0F374F230094AA92 /* VisorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisorWindowController.m; sourceTree = "<group>"; };
+		D6F5F1E910521A9B0047CFF8 /* Configuration.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Configuration.xib; sourceTree = "<group>"; };
 		D6FB33E80F3843E20067F941 /* Visor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Visor.xib; sourceTree = "<group>"; };
 		D6FB34420F3844D80067F941 /* Visor.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor.pch; sourceTree = "<group>"; };
 		D6FCDC671002BA42000FDA45 /* CopyOnSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyOnSelect.h; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D6F5F1E910521A9B0047CFF8 /* Configuration.xib */,
 				D67391740F93EB3F0037E3BC /* VisorActive.png */,
 				D67391750F93EB3F0037E3BC /* VisorInactive.png */,
 				D67391760F93EB3F0037E3BC /* VisorLarge.png */,
@@ -241,6 +244,7 @@
 				D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */,
 				D673917A0F93EB3F0037E3BC /* VisorInactive.png in Resources */,
 				D673917B0F93EB3F0037E3BC /* VisorLarge.png in Resources */,
+				D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
