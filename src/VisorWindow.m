@@ -46,6 +46,8 @@
     if (applyVisorProfileASAP) {
         applyVisorProfileASAP = FALSE;
         [self applyVisorProfile];
+        Visor* visor = [Visor sharedInstance];
+        [visor moveWindowOffScreen];
     }
     LOG(@"canBecomeKeyWindow");
     return YES;

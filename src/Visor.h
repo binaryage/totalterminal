@@ -6,6 +6,7 @@
 
 @interface Visor: NSObject {
     NSWindow* window; // the one visorized terminal window (may be nil)
+    NSRect initialFrame; // initial window dimensions, used for size reseting
     NSStatusItem* statusItem;
     IBOutlet NSWindow* prefsWindow;
     IBOutlet NSMenu* statusMenu;
@@ -50,5 +51,6 @@
 - (void)applyWindowPositioning:(id)window;
 - (void)onReopenVisor;
 - (void)placeWindow:(id)window offset:(float)offset;
+- (void)moveWindowOffScreen;
 - (OSStatus)setupExposeTags:(NSWindow*)win;
 @end
