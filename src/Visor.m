@@ -1,4 +1,5 @@
 #import "Macros.h"
+#import "JRSwizzle.h"
 #import "CGSPrivate.h"
 #import "NDHotKeyEvent_QSMods.h"
 #import "Visor.h"
@@ -25,6 +26,48 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     }
 }
 
+@implementation NSObject (Visor)
+// swizzled function for original TTWindowController::newTabWithProfile
+// this seems to be a good point to intercept new tab creation
+// responsible for opening all tabs in Visored window with Visor profile (regardless of "default profile" setting)
+- (id)Visor_newTabWithProfile:(id)arg1 {
+    LOG(@"creating a new tab");
+    Visor* visor = [Visor sharedInstance];
+    BOOL isVisoredWindow = [visor isVisoredWindow:[self window]];
+    if (isVisoredWindow) {
+        LOG(@"  in visored window ... so apply visor profile");
+        TTProfileManager* profileManager = [TTProfileManager sharedProfileManager];
+        TTProfile* visorProfile = [profileManager profileWithName:@"Visor"];
+        if (!visorProfile) {
+            LOG(@"  ... unable to lookup Visor profile!");
+            return;
+        }
+        arg1 = visorProfile;
+    }
+    return [self Visor_newTabWithProfile:arg1];
+}
+
+// this is variant of the ^^^
+// this seems to be an alternative point to intercept new tab creation
+- (id)Visor_newTabWithProfile:(id)arg1 command:(id)arg2 runAsShell:(BOOL)arg3 {
+    LOG(@"creating a new tab (with runAsShell)");
+    Visor* visor = [Visor sharedInstance];
+    BOOL isVisoredWindow = [visor isVisoredWindow:[self window]];
+    if (isVisoredWindow) {
+        LOG(@"  in visored window ... so apply visor profile");
+        TTProfileManager* profileManager = [TTProfileManager sharedProfileManager];
+        TTProfile* visorProfile = [profileManager profileWithName:@"Visor"];
+        if (!visorProfile) {
+            LOG(@"  ... unable to lookup Visor profile!");
+            return;
+        }
+        arg1 = visorProfile;
+    }
+    return [self Visor_newTabWithProfile:arg1 command:arg2 runAsShell:arg3];
+}
+
+@end
+
 @implementation Visor
 
 + (Visor*)sharedInstance {
@@ -44,6 +87,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     return !!window;
 }
 
+- (BOOL)isVisoredWindow:(id)win {
+    return window==win;
+}
+
 // for SIMBL debugging
 // http://www.atomicbird.com/blog/2007/07/code-quickie-redirect-nslog
 - (void) redirectLog {
@@ -56,6 +103,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (id) init {
     self = [super init];
     if (!self) return self;
+
+    // sizzling responsible for forcing all tabs opened in visored window to start with profile "Visor"
+    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:) withMethod:@selector(Visor_newTabWithProfile:) error:NULL];
+    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:command:runAsShell:) withMethod:@selector(Visor_newTabWithProfile:command:runAsShell:) error:NULL];
     
 #ifdef _DEBUG_MODE
     [self redirectLog];

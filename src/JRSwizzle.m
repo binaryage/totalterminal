@@ -9,8 +9,10 @@
 #import <objc/objc-class.h>
 
 #define SetNSError(ERROR_VAR, FORMAT,...)   \
+    NSString *errStr = [@"+[NSObject(JRSwizzle) jr_swizzleMethod:withMethod:error:]: " stringByAppendingFormat:FORMAT,##__VA_ARGS__];   \
+    NSBeep();\
+    NSLog(@"!!! %@", errStr);\
     if (ERROR_VAR) {    \
-        NSString *errStr = [@"+[NSObject(JRSwizzle) jr_swizzleMethod:withMethod:error:]: " stringByAppendingFormat:FORMAT,##__VA_ARGS__];   \
         *ERROR_VAR = [NSError errorWithDomain:@"NSCocoaErrorDomain" \
                                          code:-1    \
                                      userInfo:[NSDictionary dictionaryWithObject:errStr forKey:NSLocalizedDescriptionKey]]; \

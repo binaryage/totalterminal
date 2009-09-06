@@ -35,6 +35,7 @@
 - (IBAction)toggleVisor:(id)sender;
 - (IBAction)showAboutBox:(id)sender;
 - (IBAction)visitHomepage:(id)sender;
+- (BOOL)isVisoredWindow:(id)win;
 - (void)showVisor:(BOOL)fast;
 - (void)hideVisor:(BOOL)fast;
 - (void)slideWindows:(BOOL)direction fast:(bool)fast;
