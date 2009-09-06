@@ -10,8 +10,7 @@
 
 #define SetNSError(ERROR_VAR, FORMAT,...)   \
     NSString *errStr = [@"+[NSObject(JRSwizzle) jr_swizzleMethod:withMethod:error:]: " stringByAppendingFormat:FORMAT,##__VA_ARGS__];   \
-    NSBeep();\
-    NSLog(@"!!! %@", errStr);\
+    NSLog(@"Swizzle error: %@", errStr);\
     if (ERROR_VAR) {    \
         *ERROR_VAR = [NSError errorWithDomain:@"NSCocoaErrorDomain" \
                                          code:-1    \
