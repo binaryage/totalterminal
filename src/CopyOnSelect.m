@@ -3,6 +3,8 @@
 #import <objc/runtime.h>
 #import "CopyOnSelect.h"
 
+#import "Macros.h"
+
 @implementation TTView (TerminalCopyOnSelect)
 - (void) myMouseUp:(NSEvent *)theEvent
 {
@@ -25,6 +27,6 @@
     Method myMouseUp = class_getInstanceMethod(class, @selector(myMouseUp:));
     method_exchangeImplementations(mouseUp, myMouseUp);
     
-    NSLog(@"TerminalCopyOnSelect installed");
+    LOG(@"TerminalCopyOnSelect installed");
 }
 @end
