@@ -603,6 +603,11 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [aboutWindow makeKeyAndOrderFront:nil];
 }
 
+- (IBAction)visitHomepage:(id)sender {
+    LOG(@"visitHomepage");
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://visor.binaryage.com"]];
+}
+
 - (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
     if ([menuItem action]==@selector(toggleVisor:)){
         [menuItem setKeyEquivalent:stringForCharacter([hotkey keyCode],[hotkey character])];
