@@ -1,7 +1,3 @@
-#import "VisorScreenTransformer.h"
-
-@class TTProfileManager;
-@class TTProfile;
 @class NDHotKeyEvent;
 
 @interface Visor: NSObject {

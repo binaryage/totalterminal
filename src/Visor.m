@@ -3,18 +3,21 @@
 #import "CGSPrivate.h"
 #import "NDHotKeyEvent_QSMods.h"
 #import "Visor.h"
-#import "VisorWindow.h"
-#import "VisorScreenTransformer.h"
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// main entry point
 
 int main(int argc, char *argv[]) {
     return NSApplicationMain(argc,  (const char **) argv);
 }
 
-NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// display reconfiguration handling
 
 void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo) {
     if (flags & kCGDisplayBeginConfigurationFlag) {
         LOG(@"Will change display config: %d, flags=%x", display, flags);
+        
         // need to hide visor window to prevent displaying it randomly after resolution change takes place
         // correct visor placement is restored again in didChangeScreenScreenParameters
         Visor* visor = [Visor sharedInstance];
@@ -26,23 +29,83 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     }
 }
 
-@implementation NSObject (Visor)
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// VisorScreenTransformer - helper class for properties dialog
+
+@interface VisorScreenTransformer: NSValueTransformer {
+}
+@end
+
+@implementation VisorScreenTransformer
+
++ (Class)transformedValueClass {
+    LOG(@"transformedValueClass");
+    return [NSNumber class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    LOG(@"allowsReverseTransformation");
+    
+    return YES;
+}
+
+- (id)transformedValue:(id)value {
+    LOG(@"transformedValue %@", value);
+    return [NSString stringWithFormat: @"Screen %d", [value integerValue]];
+}
+
+- (id)reverseTransformedValue:(id)value {
+    LOG(@"reverseTransformedValue %@", value);
+    return [NSNumber numberWithInteger:[[value substringFromIndex:6] integerValue]];
+}
+
+@end
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// NSWindowController monkey patching
+
+@implementation NSWindowController (Visor)
+
+- (void)setCloseDialogExpected:(BOOL)fp8 {
+    if (fp8) {
+        // THIS IS MEGAHACK! (works for me on Leopard 10.5.6)
+        // the problem: beginSheet causes UI to lock for NSBorderlessWindowMask NSWindow which is in "closing mode"
+        //
+        // this hack tries to open sheet before window starts it's closing procedure
+        // we expect that setCloseDialogExpected is called by Terminal.app once BEFORE window gets into "closing mode"
+        // in this case we are able to open sheet before window starts closing and this works even for window with NSBorderlessWindowMask
+        // it works like a magic, took me few hours to figure out this random stuff
+        Visor* visor = [Visor sharedInstance];
+        [visor showVisor:false];
+        [self displayWindowCloseSheet:1];
+    }
+}
+
+- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
+    LOG(@"willPositionSheet");
+    Visor* visor = [Visor sharedInstance];
+    [visor setupExposeTags:sheet];
+    return rect;
+}
+
 // swizzled function for original TTWindowController::newTabWithProfile
 // this seems to be a good point to intercept new tab creation
 // responsible for opening all tabs in Visored window with Visor profile (regardless of "default profile" setting)
 - (id)Visor_newTabWithProfile:(id)arg1 {
     LOG(@"creating a new tab");
-    Visor* visor = [Visor sharedInstance];
-    BOOL isVisoredWindow = [visor isVisoredWindow:[self window]];
+    id this = self;
+    id visor = [Visor sharedInstance];
+    BOOL isVisoredWindow = [visor isVisoredWindow:[this window]];
     if (isVisoredWindow) {
         LOG(@"  in visored window ... so apply visor profile");
-        TTProfileManager* profileManager = [TTProfileManager sharedProfileManager];
-        TTProfile* visorProfile = [profileManager profileWithName:@"Visor"];
-        if (!visorProfile) {
+        id profileManagerClass = NSClassFromString(@"TTProfileManager");
+        id profileManager = [profileManagerClass sharedProfileManager];
+        id visorProfile = [profileManager profileWithName:@"Visor"];
+        if (visorProfile) {
+            arg1 = visorProfile;
+        } else {
             LOG(@"  ... unable to lookup Visor profile!");
-            return;
         }
-        arg1 = visorProfile;
     }
     return [self Visor_newTabWithProfile:arg1];
 }
@@ -51,33 +114,126 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 // this seems to be an alternative point to intercept new tab creation
 - (id)Visor_newTabWithProfile:(id)arg1 command:(id)arg2 runAsShell:(BOOL)arg3 {
     LOG(@"creating a new tab (with runAsShell)");
-    Visor* visor = [Visor sharedInstance];
-    BOOL isVisoredWindow = [visor isVisoredWindow:[self window]];
+    id this = self;
+    id visor = [Visor sharedInstance];
+    BOOL isVisoredWindow = [visor isVisoredWindow:[this window]];
     if (isVisoredWindow) {
         LOG(@"  in visored window ... so apply visor profile");
-        TTProfileManager* profileManager = [TTProfileManager sharedProfileManager];
-        TTProfile* visorProfile = [profileManager profileWithName:@"Visor"];
-        if (!visorProfile) {
+        id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
+        id visorProfile = [profileManager profileWithName:@"Visor"];
+        if (visorProfile) {
+            arg1 = visorProfile;
+        } else {
             LOG(@"  ... unable to lookup Visor profile!");
-            return;
         }
-        arg1 = visorProfile;
     }
     return [self Visor_newTabWithProfile:arg1 command:arg2 runAsShell:arg3];
 }
 
 @end
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// NSWindow monkey patching
+
+@implementation NSWindow (Visor)
+
+- (id) Visor_initWithContentRect: (NSRect) contentRect styleMask: (unsigned int) aStyle backing: (NSBackingStoreType) bufferingType defer: (BOOL) flag {
+    LOG(@"Creating a new terminal window %@", [self class]);
+    Visor* visor = [Visor sharedInstance];
+    BOOL shouldBeVisorized = ![visor status];
+    if (shouldBeVisorized) {
+        aStyle =  NSBorderlessWindowMask;
+        bufferingType = NSBackingStoreBuffered;
+    }
+    self = [self Visor_initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
+    if (shouldBeVisorized) {
+        [visor adoptTerminal:self];
+    }
+    return self;
+}
+
+- (BOOL) Visor_canBecomeKeyWindow {
+    LOG(@"canBecomeKeyWindow");
+    return YES;
+}
+
+- (BOOL) Visor_canBecomeMainWindow {
+    LOG(@"canBecomeMainWindow");
+    return YES;
+}
+@end
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Visor implementation
+
 @implementation Visor
 
-+ (Visor*)sharedInstance {
++ (Visor*) sharedInstance {
     static Visor* plugin = nil;
     if (plugin == nil)
         plugin = [[Visor alloc] init];
     return plugin;
 }
 
-+ (void)install {
++ (id) getOrCreateVisorProfile {
+    LOG(@"createVisorProfileIfNeeded");
+    id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
+    id visorProfile = [profileManager profileWithName:@"Visor"];
+    if (!visorProfile) {
+        LOG(@"   ... initialising Visor profile");
+        
+        // create visor profile in case it does not exist yet, use startup profile as a template
+        id startupProfile = [profileManager startupProfile];
+        visorProfile = [startupProfile copyWithZone:nil];
+
+        // apply Darwin's preferred Visor settings
+        Visor* visor = [Visor sharedInstance];
+        NSData *plistData;
+        NSString *error;
+        NSPropertyListFormat format;
+        id plist;
+        NSString *path = [[NSBundle bundleForClass:[visor class]] pathForResource:@"VisorProfile" ofType:@"plist"]; 
+        plistData = [NSData dataWithContentsOfFile:path]; 
+        plist = [NSPropertyListSerialization propertyListFromData:plistData mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
+        if (!plist) {
+            LOG(@"Error reading plist from file '%s', error = '%s'", [path UTF8String], [error UTF8String]);
+            [error release];
+        }
+        [visorProfile setPropertyListRepresentation:plist];
+
+        // set profile into manager
+        [profileManager setProfile:visorProfile forName:@"Visor"];
+    }
+    return visorProfile;
+}
+
++ (void) install {
+    LOG(@"Visor install");
+
+    // swizzling responsible for forcing all tabs opened in visored window to start with profile "Visor"
+    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:) withMethod:@selector(Visor_newTabWithProfile:) error:NULL];
+    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:command:runAsShell:) withMethod:@selector(Visor_newTabWithProfile:command:runAsShell:) error:NULL];
+    [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(initWithContentRect:styleMask:backing:defer:) withMethod:@selector(Visor_initWithContentRect:styleMask:backing:defer:) error:NULL];
+    [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeKeyWindow) withMethod:@selector(Visor_canBecomeKeyWindow) error:NULL];
+    [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeMainWindow) withMethod:@selector(Visor_canBecomeMainWindow) error:NULL];
+
+    id app = [NSClassFromString(@"TTApplication") sharedApplication];
+    NSWindow* win = [app mainWindow];
+    id wins = [app windows];
+    int winCount = [wins count];
+    
+    int i;
+    for (i=0; i<winCount; i++) {
+        id win = [wins objectAtIndex:i];
+        if (!win) continue;
+        if ([[win className] isEqualToString:@"TTWindow"]) {
+            [win close];
+        }
+    }
+    
+    id visorProfile = [self getOrCreateVisorProfile];
+    [app newWindowControllerWithProfile:visorProfile];
+    
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [[NSUserDefaults standardUserDefaults]registerDefaults:defaults];
     [Visor sharedInstance];
@@ -91,26 +247,14 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     return window==win;
 }
 
-// for SIMBL debugging
-// http://www.atomicbird.com/blog/2007/07/code-quickie-redirect-nslog
-- (void) redirectLog {
-    // set permissions for our LOG file
-    umask(022);
-    // send stderr to our file
-    freopen(DEBUG_LOG_PATH, "w", stderr);
++ (void) load {
+    LOG(@"Visor loaded");
 }
 
 - (id) init {
     self = [super init];
     if (!self) return self;
 
-    // sizzling responsible for forcing all tabs opened in visored window to start with profile "Visor"
-    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:) withMethod:@selector(Visor_newTabWithProfile:) error:NULL];
-    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:command:runAsShell:) withMethod:@selector(Visor_newTabWithProfile:command:runAsShell:) error:NULL];
-    
-#ifdef _DEBUG_MODE
-    [self redirectLog];
-#endif
     LOG(@"init");
     
     window = NULL;
@@ -124,18 +268,18 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
-
+    
     previouslyActiveApp = nil;
     isHidden = true;
     isMain = false;
     isKey = false;
-
+    
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [ud registerDefaults:defaults];
     
     hotkey=nil;
     [NSBundle loadNibNamed:@"Visor" owner:self];
-
+    // 
     // if the default VisorShowStatusItem doesn't exist, set it to true by default
     if (![ud objectForKey:@"VisorShowStatusItem"]) {
         [ud setBool:YES forKey:@"VisorShowStatusItem"];
@@ -157,10 +301,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     }
     
     // add the "Visor Preferences..." item to the Terminal menu
-    NSMenuItem* prefsMenuItem = [statusMenu itemWithTitle:@"Visor Preferences..."];
-    NSMenuItem* copy = [prefsMenuItem copyWithZone:nil];
-    [[[[NSApp mainMenu] itemAtIndex:0] submenu] insertItem:copy atIndex:3];
-    [copy release];
+    // NSMenuItem* prefsMenuItem = [statusMenu itemWithTitle:@"Visor Preferences..."];
+    // NSMenuItem* copy = [prefsMenuItem copyWithZone:nil];
+    // [[[[NSApp mainMenu] itemAtIndex:0] submenu] insertItem:copy atIndex:3];
+    // [copy release];
     
     if ([ud boolForKey:@"VisorShowStatusItem"]) {
         [self activateStatusMenu];
@@ -177,7 +321,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [udc addObserver:self forKeyPath:@"values.VisorShowStatusItem" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorScreen" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorPosition" options:0 context:nil];
-
+    
     // get notified of resolution change
     CGDisplayRegisterReconfigurationCallback(displayReconfigurationCallback, self);
     
@@ -238,7 +382,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     LOG(@"toggleVisor %@ %d", sender, isHidden);
     if (!window) {
         LOG(@"visor is detached");
-        NSBeep();
         return;
     }
     if (isHidden) {
@@ -591,8 +734,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowStatusItem"]) {
             [self activateStatusMenu];
         } else {
-            [statusItem release];
-            statusItem=nil;
+            [self deactivateStatusMenu];
         }
     } else {
         [self enableHotKey];
@@ -659,11 +801,14 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://visor.binaryage.com"]];
 }
 
+NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
+
 - (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
     if ([menuItem action]==@selector(toggleVisor:)){
-        [menuItem setKeyEquivalent:stringForCharacter([hotkey keyCode],[hotkey character])];
-        [menuItem setKeyEquivalentModifierMask:[hotkey modifierFlags]];
-        return [self status];
+        // [menuItem setKeyEquivalent:stringForCharacter([hotkey keyCode], [hotkey character])];
+        // [menuItem setKeyEquivalentModifierMask:[hotkey modifierFlags]];
+        // return [self status];
+        // return YES;
     }
     return YES;
 }
@@ -682,6 +827,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)activateStatusMenu {
+    if (statusItem) return;
     LOG(@"activateStatusMenu");
     NSStatusBar *bar = [NSStatusBar systemStatusBar];
     statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
@@ -691,9 +837,15 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [statusItem setTarget:self];
     [statusItem setAction:@selector(toggleVisor:)];
     [statusItem setDoubleAction:@selector(toggleVisor:)];
-    
+  
     [statusItem setMenu:statusMenu];
     [self updateStatusMenu];
+}
+
+- (void)deactivateStatusMenu {
+    if (!statusItem) return;
+    [statusItem release];
+    statusItem=nil;
 }
 
 - (void)updateStatusMenu {
@@ -706,7 +858,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [showItem setTitle:@"Show Visor"];
     else
         [showItem setTitle:@"Hide Visor"];
-
+    
     // update second menu item
     NSMenuItem* pinItem = [statusMenu itemAtIndex:1];
     if (!isPinned)

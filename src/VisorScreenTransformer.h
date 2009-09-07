@@ -1,5 +1,0 @@
-
-@interface VisorScreenTransformer: NSValueTransformer {
-}
-@end
-

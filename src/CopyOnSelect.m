@@ -1,14 +1,12 @@
 // taken from http://github.com/genki/terminalcopyonselect
 
-#import <objc/runtime.h>
 #import "CopyOnSelect.h"
-
+#import "JRSwizzle.h"
 #import "Macros.h"
 
-@implementation TTView (TerminalCopyOnSelect)
-- (void) myMouseUp:(NSEvent *)theEvent
-{
-    [self myMouseUp:theEvent];
+@implementation NSView (TerminalCopyOnSelect)
+- (void) Visor_mouseUp:(NSEvent *)theEvent {
+    [self Visor_mouseUp:theEvent];
     bool copyOnSelect = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorCopyOnSelect"];
     if (!copyOnSelect) return;
     NSString *selectedText = [[(id)self performSelector:@selector(selectedText)] retain];
@@ -20,13 +18,8 @@
 @end
 
 @implementation TerminalCopyOnSelect
-+(void) load
-{
-    Class class = objc_getClass("TTView");
-    Method mouseUp = class_getInstanceMethod(class, @selector(mouseUp:));
-    Method myMouseUp = class_getInstanceMethod(class, @selector(myMouseUp:));
-    method_exchangeImplementations(mouseUp, myMouseUp);
-    
++(void) load {
+    [NSClassFromString(@"TTView") jr_swizzleMethod:@selector(mouseUp:) withMethod:@selector(Visor_mouseUp:) error:NULL];
     LOG(@"TerminalCopyOnSelect installed");
 }
 @end

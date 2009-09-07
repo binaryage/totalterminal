@@ -27,7 +27,7 @@ static NSString* colourKeys[] = {
 + (id)sharedPreferencesController;
 @end
 
-@implementation NSView (TTView)
+@implementation NSView (NSObject)
 - (id)TerminalColours_colorForANSIColor:(unsigned int)index;
 {
     id colour = nil;
