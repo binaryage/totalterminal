@@ -114,10 +114,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     LOG(@"init");
     
     window = NULL;
-    initialFrame.origin.x = 0;
-    initialFrame.origin.y = 0;
-    initialFrame.size.width = 100;
-    initialFrame.size.height = 100;
     
     activeIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorActive"]];
     inactiveIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorInactive"]];
@@ -209,10 +205,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     }
     window = win;
 
-    initialFrame = [win frame];
-    initialFrame.origin.y = - initialFrame.size.height;
-    LOG(@"  initialFrame: x:%.2f, y:%.2f, width:%.2f, height:%.2f", initialFrame.origin.x, initialFrame.origin.y, initialFrame.size.width, initialFrame.size.height);
-    
     [window setLevel:NSMainMenuWindowLevel-1];
     [window setOpaque:NO];
     
@@ -312,10 +304,30 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)resetVisorWindowSize:(id)win {
+    // this block is needed to prevent "<NSSplitView>: the delegate <InterfaceController> was sent -splitView:resizeSubviewsWithOldSize: and left the subview frames in an inconsistent state" type of message
+    // http://cocoadev.com/forums/comments.php?DiscussionID=1092
+    // this issue is only on Snow Leopard (10.6), because it is newly using NSSplitViews
+    NSRect safeFrame;
+    safeFrame.origin.x = 0;
+    safeFrame.origin.y = 0;
+    safeFrame.size.width = 1;
+    safeFrame.size.height = 1;
+    [win setFrame:safeFrame display:NO];
+
     // this is kind of a hack
     // I'm using scripting API to update main window geometry according to profile settings
-    LOG(@"  resetVisorWindowSize: x:%.2f, y:%.2f, width:%.2f, height:%.2f", initialFrame.origin.x, initialFrame.origin.y, initialFrame.size.width, initialFrame.size.height);
-    [win setFrame:initialFrame display:YES];
+    // note: this will resize all Terminal.app windows using "Visor" profile
+    //       this should not be an issue because only Visor-ed window should use this profile
+    TTProfileManager* profileManager = [TTProfileManager sharedProfileManager];
+    TTProfile* visorProfile = [profileManager profileWithName:@"Visor"];
+    if (!visorProfile) {
+        LOG(@"  ... unable to lookup Visor profile!");
+        return;
+    }
+    NSNumber* cols = [visorProfile scriptNumberOfColumns];
+    NSNumber* rows = [visorProfile scriptNumberOfRows];
+    [visorProfile setScriptNumberOfColumns:cols];
+    [visorProfile setScriptNumberOfRows:rows];
 }
 
 - (void)applyWindowPositioning:(id)win {
