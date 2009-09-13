@@ -13,7 +13,6 @@
 		D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TerminalColours.m */; };
 		D62204B21051CC6A00FAEA30 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204B11051CC6A00FAEA30 /* JRSwizzle.m */; };
 		D65FF865105D82B500B54560 /* GTMHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF864105D82B500B54560 /* GTMHotKeyTextField.m */; };
-		D65FF868105D82E100B54560 /* GTMHotKeyTextField.strings in Resources */ = {isa = PBXBuildFile; fileRef = D65FF866105D82E100B54560 /* GTMHotKeyTextField.strings */; };
 		D65FF874105D845B00B54560 /* GTMNSObject+KeyValueObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF870105D845B00B54560 /* GTMNSObject+KeyValueObserving.m */; };
 		D65FF875105D845B00B54560 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF873105D845B00B54560 /* GTMSystemVersion.m */; };
 		D65FF88B105D853000B54560 /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF88A105D853000B54560 /* GTMObjC2Runtime.m */; };
@@ -49,7 +48,6 @@
 		D65FF862105D82B500B54560 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		D65FF863105D82B500B54560 /* GTMHotKeyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHotKeyTextField.h; sourceTree = "<group>"; };
 		D65FF864105D82B500B54560 /* GTMHotKeyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHotKeyTextField.m; sourceTree = "<group>"; };
-		D65FF867105D82E100B54560 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = GTMHotKeyTextFieldLocalizations/en.lproj/GTMHotKeyTextField.strings; sourceTree = "<group>"; };
 		D65FF86F105D845B00B54560 /* GTMNSObject+KeyValueObserving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSObject+KeyValueObserving.h"; sourceTree = "<group>"; };
 		D65FF870105D845B00B54560 /* GTMNSObject+KeyValueObserving.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSObject+KeyValueObserving.m"; sourceTree = "<group>"; };
 		D65FF871105D845B00B54560 /* GTMObjectSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjectSingleton.h; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 				D65FF871105D845B00B54560 /* GTMObjectSingleton.h */,
 				D65FF872105D845B00B54560 /* GTMSystemVersion.h */,
 				D65FF873105D845B00B54560 /* GTMSystemVersion.m */,
-				D65FF866105D82E100B54560 /* GTMHotKeyTextField.strings */,
 				D65FF862105D82B500B54560 /* GTMDefines.h */,
 				D65FF863105D82B500B54560 /* GTMHotKeyTextField.h */,
 				D65FF864105D82B500B54560 /* GTMHotKeyTextField.m */,
@@ -281,7 +278,6 @@
 				D673917B0F93EB3F0037E3BC /* VisorLarge.png in Resources */,
 				D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */,
 				D66688D310534A87002EDB20 /* VisorProfile.plist in Resources */,
-				D65FF868105D82E100B54560 /* GTMHotKeyTextField.strings in Resources */,
 				D65FF907105D984200B54560 /* Command.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,14 +335,6 @@
 				7F0146660A3E64DA006AF239 /* English */,
 			);
 			name = MainMenu.nib;
-			sourceTree = "<group>";
-		};
-		D65FF866105D82E100B54560 /* GTMHotKeyTextField.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D65FF867105D82E100B54560 /* en */,
-			);
-			name = GTMHotKeyTextField.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
