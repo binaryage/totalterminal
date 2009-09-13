@@ -1,8 +1,56 @@
 #import "Macros.h"
 #import "JRSwizzle.h"
 #import "CGSPrivate.h"
-#import "NDHotKeyEvent_QSMods.h"
 #import "Visor.h"
+#import "GTMHotKeyTextField.h"
+#import "QSBKeyMap.h"
+#import "GTMCarbonEvent.h"
+
+static const EventTypeSpec kModifierEventTypeSpec[] = { { kEventClassKeyboard, kEventRawKeyModifiersChanged } };
+static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) / sizeof(EventTypeSpec);
+
+#define kVisorHotKey                         @"VisorHotKey"
+// Default hotkey is ControlSpace
+#define kVisorHotKeyDefault                  [NSDictionary dictionaryWithObjectsAndKeys: \
+                                                 [NSNumber numberWithUnsignedInt:NSControlKeyMask], \
+                                                 kGTMHotKeyModifierFlagsKey, \
+                                                 [NSNumber numberWithUnsignedInt:49], \
+                                                 kGTMHotKeyCodeKey, \
+                                                 [NSNumber numberWithBool:NO], \
+                                                 kGTMHotKeyDoubledModifierKey, \
+                                                 nil]
+#define kVisorHotKeyEnabled                  @"VisorHotKeyEnabled"
+#define kVisorHotKeyEnabledDefault           YES
+
+#define kVisorHotKey2                         @"VisorHotKey2"
+#define kVisorHotKey2Default                 [NSDictionary dictionaryWithObjectsAndKeys: \
+                                                 [NSNumber numberWithUnsignedInt:NSCommandKeyMask], \
+                                                 kGTMHotKeyModifierFlagsKey, \
+                                                 [NSNumber numberWithUnsignedInt:0], \
+                                                 kGTMHotKeyCodeKey, \
+                                                 [NSNumber numberWithBool:YES], \
+                                                 kGTMHotKeyDoubledModifierKey, \
+                                                 nil]
+#define kVisorHotKey2Enabled                  @"VisorHotKey2Enabled"
+#define kVisorHotKey2EnabledDefault           YES
+
+@interface NSEvent (Visor)
+- (NSUInteger)qsbModifierFlags;
+@end
+
+@implementation NSEvent (QSBApplicationEventAdditions)
+
+- (NSUInteger)qsbModifierFlags {
+  NSUInteger flags 
+    = ([self modifierFlags] & NSDeviceIndependentModifierFlagsMask);
+  // Ignore caps lock if it's set http://b/issue?id=637380
+  if (flags & NSAlphaShiftKeyMask) flags -= NSAlphaShiftKeyMask;
+  // Ignore numeric lock if it's set http://b/issue?id=637380
+  if (flags & NSNumericPadKeyMask) flags -= NSNumericPadKeyMask;
+  return flags;
+}
+
+@end
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // main entry point
@@ -133,6 +181,26 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 @end
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// NSApplication monkey patching
+
+@implementation NSApplication (Visor)
+
+- (void)Visor_sendEvent:(NSEvent *)theEvent {
+    LOG(@"Visor_sendEvent");
+    NSUInteger type = [theEvent type];
+    if (type == NSFlagsChanged) {
+        Visor* visor = [Visor sharedInstance];
+        [visor modifiersChangedWhileActive:theEvent];
+    } else if (type == NSKeyDown || type == NSKeyUp) {
+        Visor* visor = [Visor sharedInstance];
+        [visor keysChangedWhileActive:theEvent];
+    }
+    [self Visor_sendEvent:theEvent];
+}
+
+@end
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // NSWindow monkey patching
 
 @implementation NSWindow (Visor)
@@ -160,6 +228,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (BOOL) Visor_canBecomeMainWindow {
     LOG(@"canBecomeMainWindow");
     return YES;
+}
+@end
+
+@interface VisorDelegate: NSObject {
 }
 @end
 
@@ -216,6 +288,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(initWithContentRect:styleMask:backing:defer:) withMethod:@selector(Visor_initWithContentRect:styleMask:backing:defer:) error:NULL];
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeKeyWindow) withMethod:@selector(Visor_canBecomeKeyWindow) error:NULL];
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeMainWindow) withMethod:@selector(Visor_canBecomeMainWindow) error:NULL];
+    [NSClassFromString(@"TTApplication") jr_swizzleMethod:@selector(sendEvent:) withMethod:@selector(Visor_sendEvent:) error:NULL];
 
     id app = [NSClassFromString(@"TTApplication") sharedApplication];
     NSWindow* win = [app mainWindow];
@@ -251,6 +324,45 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     LOG(@"Visor loaded");
 }
 
+// Allows me to intercept the "control" double tap to activate QSB. There 
+// appears to be no way to do this from straight Cocoa.
+- (void)startEventMonitoring {
+    GTMCarbonEventMonitorHandler *handler = [GTMCarbonEventMonitorHandler sharedEventMonitorHandler];
+    [handler registerForEvents:kModifierEventTypeSpec count:kModifierEventTypeSpecSize];
+    [handler setDelegate:self];
+}
+
+- (void)stopEventMonitoring {
+    GTMCarbonEventMonitorHandler *handler = [GTMCarbonEventMonitorHandler sharedEventMonitorHandler];
+    [handler unregisterForEvents:kModifierEventTypeSpec count:kModifierEventTypeSpecSize];
+    [handler setDelegate:nil];
+}
+
+- (OSStatus)gtm_eventHandler:(GTMCarbonEventHandler *)sender 
+               receivedEvent:(GTMCarbonEvent *)event 
+                     handler:(EventHandlerCallRef)handler {
+  OSStatus status = eventNotHandledErr;
+  if ([event eventClass] == kEventClassKeyboard &&
+      [event eventKind] == kEventRawKeyModifiersChanged) {
+    UInt32 modifiers;
+    if ([event getUInt32ParameterNamed:kEventParamKeyModifiers data:&modifiers]) {
+      NSUInteger cocoaMods = GTMCarbonToCocoaKeyModifiers(modifiers);
+      NSEvent *nsEvent = [NSEvent keyEventWithType:NSFlagsChanged
+                                          location:[NSEvent mouseLocation]
+                                     modifierFlags:cocoaMods
+                                         timestamp:[event time]
+                                      windowNumber:0
+                                           context:nil
+                                        characters:nil
+                       charactersIgnoringModifiers:nil
+                                         isARepeat:NO
+                                           keyCode:0];
+      [self modifiersChangedWhileInactive:nsEvent];
+    }
+  }
+  return status;
+}
+
 - (id) init {
     self = [super init];
     if (!self) return self;
@@ -273,7 +385,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [ud registerDefaults:defaults];
     
-    hotkey=nil;
     [NSBundle loadNibNamed:@"Visor" owner:self];
     // 
     // if the default VisorShowStatusItem doesn't exist, set it to true by default
@@ -306,11 +417,15 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [self activateStatusMenu];
     }
     
-    [self enableHotKey];
+    [self updateHotKeyRegistration];
     [self initEscapeKey];
+    [self startEventMonitoring];
     
     // watch for hotkey changes
     [udc addObserver:self forKeyPath:@"values.VisorHotKey" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorHotKeyEnabled" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorHotKey2" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorHotKey2Enabled" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorUseFade" options:0 context:nil];                                                           
     [udc addObserver:self forKeyPath:@"values.VisorUseSlide" options:0 context:nil];               
     [udc addObserver:self forKeyPath:@"values.VisorAnimationSpeed" options:0 context:nil];
@@ -461,8 +576,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     // I'm using scripting API to update main window geometry according to profile settings
     // note: this will resize all Terminal.app windows using "Visor" profile
     //       this should not be an issue because only Visor-ed window should use this profile
-    TTProfileManager* profileManager = [TTProfileManager sharedProfileManager];
-    TTProfile* visorProfile = [profileManager profileWithName:@"Visor"];
+    id profileManagerClass = NSClassFromString(@"TTProfileManager");
+    id profileManager = [profileManagerClass sharedProfileManager];
+    id visorProfile = [profileManager profileWithName:@"Visor"];
     if (!visorProfile) {
         LOG(@"  ... unable to lookup Visor profile!");
         return;
@@ -749,7 +865,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
             [self deactivateStatusMenu];
         }
     } else {
-        [self enableHotKey];
+        [self updateHotKeyRegistration];
     }
     if ([keyPath isEqualToString:@"values.VisorPosition"]) {
         [self cacheScreen];
@@ -768,31 +884,66 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     }
 }
 
-- (void)enableHotKey {
-    if (hotkey){
-        [hotkey setEnabled:NO];
-        [hotkey release];
-        hotkey=nil;
+- (void)updateHotKeyRegistration {
+    LOG(@"updateHotKeyRegistration");
+    GTMCarbonEventDispatcherHandler *dispatcher = [GTMCarbonEventDispatcherHandler sharedEventDispatcherHandler];
+
+    if (hotKey_) {
+        [dispatcher unregisterHotKey:hotKey_];
+        hotKey_ = nil;
     }
-    NSDictionary *dict=[[NSUserDefaults standardUserDefaults]dictionaryForKey:@"VisorHotKey"];
-    if (dict){
-        hotkey=(QSHotKeyEvent *)[QSHotKeyEvent hotKeyWithDictionary:dict];
-        [hotkey setTarget:self selectorReleased:(SEL)0 selectorPressed:@selector(toggleVisor:)];
-        [hotkey setEnabled:YES];    
-        [hotkey retain];
+
+    NSMenuItem *statusMenuItem = [statusMenu itemAtIndex:0];
+    NSString *statusMenuItemKey = @"";
+    uint statusMenuItemModifiers = 0;
+    [statusMenuItem setKeyEquivalent:statusMenuItemKey];
+    [statusMenuItem setKeyEquivalentModifierMask:statusMenuItemModifiers];
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSDictionary *newKey = [ud valueForKeyPath:kVisorHotKey];
+    NSNumber *value = [newKey objectForKey:kGTMHotKeyDoubledModifierKey];
+    BOOL hotKey1UseDoubleModifier = [value boolValue];
+    BOOL hotkey1Enabled = [ud boolForKey:kVisorHotKeyEnabled];
+    BOOL hotkey2Enabled = [ud boolForKey:kVisorHotKey2Enabled];
+    if (!newKey || hotKey1UseDoubleModifier || hotkey2Enabled) {
+        // set up double tap if appropriate
+        hotModifiers_ = NSControlKeyMask;
+        statusMenuItemKey = [NSString stringWithUTF8String:"⌃"];
+        statusMenuItemModifiers = NSControlKeyMask;
+    } else {
+        hotModifiers_ = 0;
     }
+    if (hotkey1Enabled && !hotKey1UseDoubleModifier) {
+        // setting hotModifiers_ means we're not looking for a double tap
+        value = [newKey objectForKey:kGTMHotKeyModifierFlagsKey];
+        uint modifiers = [value unsignedIntValue];
+        value = [newKey objectForKey:kGTMHotKeyKeyCodeKey];
+        uint keycode = [value unsignedIntValue];
+        hotKey_ = [dispatcher registerHotKey:keycode
+                                   modifiers:modifiers
+                                      target:self
+                                      action:@selector(toggleVisor:)
+                                 whenPressed:YES];
+
+        NSBundle *bundle = [NSBundle bundleForClass:[GTMHotKeyTextField class]];
+        statusMenuItemKey = [GTMHotKeyTextField stringForKeycode:keycode
+                                                        useGlyph:YES
+                                                  resourceBundle:bundle];
+        statusMenuItemModifiers = modifiers;
+    }
+    [statusMenuItem setKeyEquivalent:statusMenuItemKey];
+    [statusMenuItem setKeyEquivalentModifierMask:statusMenuItemModifiers];
 }
 
 - (void)initEscapeKey {
-    escapeKey=(QSHotKeyEvent *)[QSHotKeyEvent hotKeyWithKeyCode:53 character:0 modifierFlags:0];
-    [escapeKey setTarget:self selectorReleased:(SEL)0 selectorPressed:@selector(toggleVisor:)];
-    [escapeKey setEnabled:NO];  
-    [escapeKey retain];
+    // escapeKey=(QSHotKeyEvent *)[QSHotKeyEvent hotKeyWithKeyCode:53 character:0 modifierFlags:0];
+    // [escapeKey setTarget:self selectorReleased:(SEL)0 selectorPressed:@selector(toggleVisor:)];
+    // [escapeKey setEnabled:NO];  
+    // [escapeKey retain];
 }
 
 - (void)maybeEnableEscapeKey:(BOOL)pEnable {
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorHideOnEscape"])
-        [escapeKey setEnabled:pEnable];
+    // if([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorHideOnEscape"])
+    //     [escapeKey setEnabled:pEnable];
 }
 
 - (IBAction)showPrefs:(id)sender {
@@ -884,6 +1035,144 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
         [statusItem setImage:activeIcon];
     else
         [statusItem setImage:inactiveIcon];
+}
+
+- (id) windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client {
+    if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
+        return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
+    } else {
+        return nil;
+    }
+}
+
+// Returns the amount of time between two clicks to be considered a double click
+- (NSTimeInterval)doubleClickTime {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSTimeInterval doubleClickThreshold = [defaults doubleForKey:@"com.apple.mouse.doubleClickThreshold"];
+
+    // if we couldn't find the value in the user defaults, take a 
+    // conservative estimate
+    if (doubleClickThreshold <= 0.0) {
+        doubleClickThreshold = 1.0;
+    }
+    return doubleClickThreshold;
+}
+
+- (void)modifiersChangedWhileActive:(NSEvent*)event {
+    LOG(@"modifiersChangedWhileActive");
+    // A statemachine that tracks our state via hotModifiersState_.
+    // Simple incrementing state.
+    if (!hotModifiers_) {
+        return;
+    }
+    NSTimeInterval timeWindowToRespond = lastHotModifiersEventCheckedTime_ + [self doubleClickTime];
+    lastHotModifiersEventCheckedTime_ = [event timestamp];
+    if (hotModifiersState_ && lastHotModifiersEventCheckedTime_ > timeWindowToRespond) {
+        // Timed out. Reset.
+        hotModifiersState_ = 0;
+        return;
+    }
+    NSUInteger flags = [event qsbModifierFlags];
+    BOOL isGood = NO;
+    if (!(hotModifiersState_ % 2)) {
+        // This is key down cases
+        isGood = flags == hotModifiers_;
+    } else {
+        // This is key up cases
+        isGood = flags == 0;
+    }
+    if (!isGood) {
+        // reset
+        hotModifiersState_ = 0;
+        return;
+    } else {
+        hotModifiersState_ += 1;
+    }
+    if (hotModifiersState_ == 3) {
+        // We've worked our way through the state machine to success!
+        [self toggleVisor:self];
+    }
+}
+
+// method that is called when a key changes state and we are active
+- (void)keysChangedWhileActive:(NSEvent*)event {
+    if (!hotModifiers_) return;
+    hotModifiersState_ = 0;
+}
+
+// method that is called when the modifier keys are hit and we are inactive
+- (void)modifiersChangedWhileInactive:(NSEvent*)event {
+    LOG(@"modifiersChangedWhileInactive");
+    // If we aren't activated by hotmodifiers, we don't want to be here
+    // and if we are in the process of activating, we want to ignore the hotkey
+    // so we don't try to process it twice.
+    if (!hotModifiers_ || [NSApp keyWindow]) return;
+
+    NSUInteger flags = [event qsbModifierFlags];
+    if (flags != hotModifiers_) return;
+    const useconds_t oneMilliSecond = 10000;
+    UInt16 modifierKeys[] = {
+        0,
+        kVK_Shift,
+        kVK_CapsLock,
+        kVK_RightShift,
+    };
+    if (hotModifiers_ == NSControlKeyMask) {
+        modifierKeys[0] = kVK_Control;
+    } else if (hotModifiers_ == NSAlternateKeyMask) {
+        modifierKeys[0]  = kVK_Option;
+    } else if (hotModifiers_ == NSCommandKeyMask) {
+        modifierKeys[0]  = kVK_Command;
+    }
+    QSBKeyMap *hotMap = [[[QSBKeyMap alloc] initWithKeys:modifierKeys count:1] autorelease];
+    QSBKeyMap *invertedHotMap = [[[QSBKeyMap alloc] initWithKeys:modifierKeys count:sizeof(modifierKeys) / sizeof(UInt16)] autorelease];
+    invertedHotMap = [invertedHotMap keyMapByInverting];
+    NSTimeInterval startDate = [NSDate timeIntervalSinceReferenceDate];
+    BOOL isGood = NO;
+    while(([NSDate timeIntervalSinceReferenceDate] - startDate) < [self doubleClickTime]) {
+        QSBKeyMap *currentKeyMap = [QSBKeyMap currentKeyMap];
+        if ([currentKeyMap containsAnyKeyIn:invertedHotMap] || GetCurrentButtonState()) {
+            return;
+        }
+        if (![currentKeyMap containsAnyKeyIn:hotMap]) {
+            // Key released;
+            isGood = YES;
+            break;
+        }
+        usleep(oneMilliSecond);
+    }
+    if (!isGood) return;
+    isGood = NO;
+    startDate = [NSDate timeIntervalSinceReferenceDate];
+    while(([NSDate timeIntervalSinceReferenceDate] - startDate) < [self doubleClickTime]) {
+        QSBKeyMap *currentKeyMap = [QSBKeyMap currentKeyMap];
+        if ([currentKeyMap containsAnyKeyIn:invertedHotMap] || GetCurrentButtonState()) {
+            return;
+        }
+        if ([currentKeyMap containsAnyKeyIn:hotMap]) {
+            // Key down
+            isGood = YES;
+            break;
+        }
+        usleep(oneMilliSecond);
+    }
+    if (!isGood) return;
+    startDate = [NSDate timeIntervalSinceReferenceDate];
+    while(([NSDate timeIntervalSinceReferenceDate] - startDate) < [self doubleClickTime]) {
+        QSBKeyMap *currentKeyMap = [QSBKeyMap currentKeyMap];
+        if ([currentKeyMap containsAnyKeyIn:invertedHotMap]) {
+            return;
+        }
+        if (![currentKeyMap containsAnyKeyIn:hotMap]) {
+            // Key Released
+            isGood = YES;
+            break;
+        }
+        usleep(oneMilliSecond);
+    }
+    if (isGood) {
+        [self toggleVisor:self];
+    }
 }
 
 @end

@@ -8,13 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		7F849AAC0A457E2200963040 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F849AA60A457DE100963040 /* Defaults.plist */; };
-		7FB9C2B70A2FB4280076695A /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9C2B60A2FB4280076695A /* NDHotKeyEvent.m */; };
-		7FC7F74C0A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC7F7490A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m */; settings = {COMPILER_FLAGS = "-fnested-functions"; }; };
-		7FC7F74D0A3BBCAA00B52344 /* QSHotKeyEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC7F74B0A3BBCAA00B52344 /* QSHotKeyEditor.m */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TerminalColours.m */; };
 		D62204B21051CC6A00FAEA30 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204B11051CC6A00FAEA30 /* JRSwizzle.m */; };
+		D65FF865105D82B500B54560 /* GTMHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF864105D82B500B54560 /* GTMHotKeyTextField.m */; };
+		D65FF868105D82E100B54560 /* GTMHotKeyTextField.strings in Resources */ = {isa = PBXBuildFile; fileRef = D65FF866105D82E100B54560 /* GTMHotKeyTextField.strings */; };
+		D65FF874105D845B00B54560 /* GTMNSObject+KeyValueObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF870105D845B00B54560 /* GTMNSObject+KeyValueObserving.m */; };
+		D65FF875105D845B00B54560 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF873105D845B00B54560 /* GTMSystemVersion.m */; };
+		D65FF88B105D853000B54560 /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF88A105D853000B54560 /* GTMObjC2Runtime.m */; };
+		D65FF894105D875D00B54560 /* GTMCarbonEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF893105D875D00B54560 /* GTMCarbonEvent.m */; };
+		D65FF907105D984200B54560 /* Command.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D65FF906105D984200B54560 /* Command.pdf */; };
+		D65FF91B105D9B6200B54560 /* QSBKeyMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF91A105D9B6200B54560 /* QSBKeyMap.m */; };
 		D66688D310534A87002EDB20 /* VisorProfile.plist in Resources */ = {isa = PBXBuildFile; fileRef = D66688D210534A87002EDB20 /* VisorProfile.plist */; };
 		D6701C2B0F40376F00900D77 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6701C2A0F40376F00900D77 /* QuartzCore.framework */; };
 		D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391740F93EB3F0037E3BC /* VisorActive.png */; };
@@ -34,12 +39,6 @@
 		7F0146660A3E64DA006AF239 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		7F01469F0A3E6571006AF239 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		7F849AA60A457DE100963040 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
-		7FB9C2B50A2FB4280076695A /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent.h; sourceTree = "<group>"; };
-		7FB9C2B60A2FB4280076695A /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
-		7FC7F7480A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent_QSMods.h; sourceTree = "<group>"; };
-		7FC7F7490A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent_QSMods.m; sourceTree = "<group>"; };
-		7FC7F74A0A3BBCAA00B52344 /* QSHotKeyEditor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSHotKeyEditor.h; sourceTree = "<group>"; };
-		7FC7F74B0A3BBCAA00B52344 /* QSHotKeyEditor.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyEditor.m; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* Visor.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Visor.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -47,6 +46,24 @@
 		D62204AE1051CC3700FAEA30 /* TerminalColours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalColours.m; sourceTree = "<group>"; };
 		D62204B01051CC6A00FAEA30 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		D62204B11051CC6A00FAEA30 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
+		D65FF862105D82B500B54560 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		D65FF863105D82B500B54560 /* GTMHotKeyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHotKeyTextField.h; sourceTree = "<group>"; };
+		D65FF864105D82B500B54560 /* GTMHotKeyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHotKeyTextField.m; sourceTree = "<group>"; };
+		D65FF867105D82E100B54560 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = GTMHotKeyTextFieldLocalizations/en.lproj/GTMHotKeyTextField.strings; sourceTree = "<group>"; };
+		D65FF86F105D845B00B54560 /* GTMNSObject+KeyValueObserving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSObject+KeyValueObserving.h"; sourceTree = "<group>"; };
+		D65FF870105D845B00B54560 /* GTMNSObject+KeyValueObserving.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSObject+KeyValueObserving.m"; sourceTree = "<group>"; };
+		D65FF871105D845B00B54560 /* GTMObjectSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjectSingleton.h; sourceTree = "<group>"; };
+		D65FF872105D845B00B54560 /* GTMSystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMSystemVersion.h; sourceTree = "<group>"; };
+		D65FF873105D845B00B54560 /* GTMSystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMSystemVersion.m; sourceTree = "<group>"; };
+		D65FF887105D853000B54560 /* GTMDebugSelectorValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDebugSelectorValidation.h; sourceTree = "<group>"; };
+		D65FF888105D853000B54560 /* GTMGarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
+		D65FF889105D853000B54560 /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
+		D65FF88A105D853000B54560 /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMObjC2Runtime.m; sourceTree = "<group>"; };
+		D65FF892105D875D00B54560 /* GTMCarbonEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMCarbonEvent.h; sourceTree = "<group>"; };
+		D65FF893105D875D00B54560 /* GTMCarbonEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMCarbonEvent.m; sourceTree = "<group>"; };
+		D65FF906105D984200B54560 /* Command.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Command.pdf; path = res/Command.pdf; sourceTree = "<group>"; };
+		D65FF919105D9B6200B54560 /* QSBKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBKeyMap.h; sourceTree = "<group>"; };
+		D65FF91A105D9B6200B54560 /* QSBKeyMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBKeyMap.m; sourceTree = "<group>"; };
 		D66688D210534A87002EDB20 /* VisorProfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = VisorProfile.plist; path = res/VisorProfile.plist; sourceTree = "<group>"; };
 		D6701C2A0F40376F00900D77 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		D67391740F93EB3F0037E3BC /* VisorActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorActive.png; path = res/VisorActive.png; sourceTree = "<group>"; };
@@ -77,6 +94,8 @@
 		089C166AFE841209C02AAC07 /* Visor */ = {
 			isa = PBXGroup;
 			children = (
+				D65FF918105D9B5400B54560 /* QSB */,
+				D65FF861105D829F00B54560 /* GTM */,
 				7F2EC6BB0A4181080041F0D8 /* App */,
 				08FB77AFFE84173DC02AAC07 /* Classes */,
 				32C88E010371C26100C91783 /* Other Sources */,
@@ -100,6 +119,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D65FF906105D984200B54560 /* Command.pdf */,
 				D66688D210534A87002EDB20 /* VisorProfile.plist */,
 				D6F5F1E910521A9B0047CFF8 /* Configuration.xib */,
 				D67391740F93EB3F0037E3BC /* VisorActive.png */,
@@ -124,12 +144,6 @@
 				D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */,
 				D68AA7000F371C810094AA92 /* Visor.h */,
 				D68AA7010F371C810094AA92 /* Visor.m */,
-				7FB9C2B50A2FB4280076695A /* NDHotKeyEvent.h */,
-				7FB9C2B60A2FB4280076695A /* NDHotKeyEvent.m */,
-				7FC7F7480A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.h */,
-				7FC7F7490A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m */,
-				7FC7F74A0A3BBCAA00B52344 /* QSHotKeyEditor.h */,
-				7FC7F74B0A3BBCAA00B52344 /* QSHotKeyEditor.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -177,6 +191,37 @@
 			name = App;
 			sourceTree = "<group>";
 		};
+		D65FF861105D829F00B54560 /* GTM */ = {
+			isa = PBXGroup;
+			children = (
+				D65FF892105D875D00B54560 /* GTMCarbonEvent.h */,
+				D65FF893105D875D00B54560 /* GTMCarbonEvent.m */,
+				D65FF887105D853000B54560 /* GTMDebugSelectorValidation.h */,
+				D65FF888105D853000B54560 /* GTMGarbageCollection.h */,
+				D65FF889105D853000B54560 /* GTMObjC2Runtime.h */,
+				D65FF88A105D853000B54560 /* GTMObjC2Runtime.m */,
+				D65FF86F105D845B00B54560 /* GTMNSObject+KeyValueObserving.h */,
+				D65FF870105D845B00B54560 /* GTMNSObject+KeyValueObserving.m */,
+				D65FF871105D845B00B54560 /* GTMObjectSingleton.h */,
+				D65FF872105D845B00B54560 /* GTMSystemVersion.h */,
+				D65FF873105D845B00B54560 /* GTMSystemVersion.m */,
+				D65FF866105D82E100B54560 /* GTMHotKeyTextField.strings */,
+				D65FF862105D82B500B54560 /* GTMDefines.h */,
+				D65FF863105D82B500B54560 /* GTMHotKeyTextField.h */,
+				D65FF864105D82B500B54560 /* GTMHotKeyTextField.m */,
+			);
+			name = GTM;
+			sourceTree = "<group>";
+		};
+		D65FF918105D9B5400B54560 /* QSB */ = {
+			isa = PBXGroup;
+			children = (
+				D65FF919105D9B6200B54560 /* QSBKeyMap.h */,
+				D65FF91A105D9B6200B54560 /* QSBKeyMap.m */,
+			);
+			name = QSB;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -207,6 +252,13 @@
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Visor" */;
 			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				en,
+			);
 			mainGroup = 089C166AFE841209C02AAC07 /* Visor */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -229,6 +281,8 @@
 				D673917B0F93EB3F0037E3BC /* VisorLarge.png in Resources */,
 				D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */,
 				D66688D310534A87002EDB20 /* VisorProfile.plist in Resources */,
+				D65FF868105D82E100B54560 /* GTMHotKeyTextField.strings in Resources */,
+				D65FF907105D984200B54560 /* Command.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,13 +309,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FB9C2B70A2FB4280076695A /* NDHotKeyEvent.m in Sources */,
-				7FC7F74C0A3BBCAA00B52344 /* NDHotKeyEvent_QSMods.m in Sources */,
-				7FC7F74D0A3BBCAA00B52344 /* QSHotKeyEditor.m in Sources */,
 				D68AA7020F371C810094AA92 /* Visor.m in Sources */,
 				D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */,
 				D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */,
 				D62204B21051CC6A00FAEA30 /* JRSwizzle.m in Sources */,
+				D65FF865105D82B500B54560 /* GTMHotKeyTextField.m in Sources */,
+				D65FF874105D845B00B54560 /* GTMNSObject+KeyValueObserving.m in Sources */,
+				D65FF875105D845B00B54560 /* GTMSystemVersion.m in Sources */,
+				D65FF88B105D853000B54560 /* GTMObjC2Runtime.m in Sources */,
+				D65FF894105D875D00B54560 /* GTMCarbonEvent.m in Sources */,
+				D65FF91B105D9B6200B54560 /* QSBKeyMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +341,14 @@
 			name = MainMenu.nib;
 			sourceTree = "<group>";
 		};
+		D65FF866105D82E100B54560 /* GTMHotKeyTextField.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D65FF867105D82E100B54560 /* en */,
+			);
+			name = GTMHotKeyTextField.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -297,6 +362,7 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 				);
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -330,6 +396,7 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 				);
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_SYMBOL_SEPARATION = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
