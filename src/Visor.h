@@ -2,7 +2,6 @@
 
 @interface Visor: NSObject {
     NSWindow* window; // the one visorized terminal window (may be nil)
-    NSRect initialFrame; // initial window dimensions, used for size reseting
     NSStatusItem* statusItem;
     IBOutlet NSWindow* prefsWindow;
     IBOutlet NSMenu* statusMenu;
