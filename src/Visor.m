@@ -9,31 +9,6 @@
 static const EventTypeSpec kModifierEventTypeSpec[] = { { kEventClassKeyboard, kEventRawKeyModifiersChanged } };
 static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) / sizeof(EventTypeSpec);
 
-#define kVisorHotKey                         @"VisorHotKey"
-// Default hotkey is ControlSpace
-#define kVisorHotKeyDefault                  [NSDictionary dictionaryWithObjectsAndKeys: \
-                                                 [NSNumber numberWithUnsignedInt:NSControlKeyMask], \
-                                                 kGTMHotKeyModifierFlagsKey, \
-                                                 [NSNumber numberWithUnsignedInt:49], \
-                                                 kGTMHotKeyCodeKey, \
-                                                 [NSNumber numberWithBool:NO], \
-                                                 kGTMHotKeyDoubledModifierKey, \
-                                                 nil]
-#define kVisorHotKeyEnabled                  @"VisorHotKeyEnabled"
-#define kVisorHotKeyEnabledDefault           YES
-
-#define kVisorHotKey2                         @"VisorHotKey2"
-#define kVisorHotKey2Default                 [NSDictionary dictionaryWithObjectsAndKeys: \
-                                                 [NSNumber numberWithUnsignedInt:NSCommandKeyMask], \
-                                                 kGTMHotKeyModifierFlagsKey, \
-                                                 [NSNumber numberWithUnsignedInt:0], \
-                                                 kGTMHotKeyCodeKey, \
-                                                 [NSNumber numberWithBool:YES], \
-                                                 kGTMHotKeyDoubledModifierKey, \
-                                                 nil]
-#define kVisorHotKey2Enabled                  @"VisorHotKey2Enabled"
-#define kVisorHotKey2EnabledDefault           YES
-
 @interface NSEvent (Visor)
 - (NSUInteger)qsbModifierFlags;
 @end
@@ -362,6 +337,61 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
   return status;
 }
 
+- (void) sanitizeDefaults:(NSUserDefaults*) ud {
+    // if the default VisorShowStatusItem doesn't exist, set it to true by default
+    if (![ud objectForKey:@"VisorShowStatusItem"]) {
+        [ud setBool:YES forKey:@"VisorShowStatusItem"];
+    }
+    if (![ud objectForKey:@"VisorShowOnReopen"]) {
+        [ud setBool:YES forKey:@"VisorShowOnReopen"];
+    }
+    if (![ud objectForKey:@"VisorCopyOnSelect"]) {
+        [ud setBool:NO forKey:@"VisorCopyOnSelect"];
+    }
+    if (![ud objectForKey:@"VisorScreen"]) {
+        [ud setInteger:0 forKey:@"VisorScreen"]; // use screen 0 by default
+    }
+    if (![ud objectForKey:@"VisorOnEverySpace"]) {
+        [ud setBool:YES forKey:@"VisorOnEverySpace"];
+    }
+    if (![ud objectForKey:@"VisorPosition"]) {
+        [ud setObject:@"Top-Stretch" forKey:@"VisorPosition"];
+    }
+    if (![ud objectForKey:@"VisorPosition"]) {
+        [ud setObject:@"Top-Stretch" forKey:@"VisorPosition"];
+    }
+    // by default enable HotKey as Control+` (CTRL+tilde)
+    if (![ud objectForKey:@"VisorHotKey"]) {
+        [ud setObject:[NSDictionary dictionaryWithObjectsAndKeys: \
+                         [NSNumber numberWithUnsignedInt:NSControlKeyMask], \
+                         kGTMHotKeyModifierFlagsKey, \
+                         [NSNumber numberWithUnsignedInt:50], \
+                         kGTMHotKeyKeyCodeKey, \
+                         [NSNumber numberWithBool:NO], \
+                         kGTMHotKeyDoubledModifierKey, \
+                         nil]
+            forKey:@"VisorHotKey"];
+    }
+    if (![ud objectForKey:@"VisorHotKeyEnabled"]) {
+        [ud setBool:YES forKey:@"VisorHotKeyEnabled"];
+    }
+    // by default disable HotKey2 but set it to double Control
+    if (![ud objectForKey:@"VisorHotKey2"]) {
+        [ud setObject:[NSDictionary dictionaryWithObjectsAndKeys: \
+                         [NSNumber numberWithUnsignedInt:NSControlKeyMask], \
+                         kGTMHotKeyModifierFlagsKey, \
+                         [NSNumber numberWithUnsignedInt:0], \
+                         kGTMHotKeyKeyCodeKey, \
+                         [NSNumber numberWithBool:YES], \
+                         kGTMHotKeyDoubledModifierKey, \
+                         nil]
+            forKey:@"VisorHotKey2"];
+    }
+    if (![ud objectForKey:@"VisorHotKey2Enabled"]) {
+        [ud setBool:NO forKey:@"VisorHotKey2Enabled"];
+    }
+}
+
 - (id) init {
     self = [super init];
     if (!self) return self;
@@ -383,42 +413,17 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [ud registerDefaults:defaults];
+    [self sanitizeDefaults:ud];
     
     [NSBundle loadNibNamed:@"Visor" owner:self];
-    // 
-    // if the default VisorShowStatusItem doesn't exist, set it to true by default
-    if (![ud objectForKey:@"VisorShowStatusItem"]) {
-        [ud setBool:YES forKey:@"VisorShowStatusItem"];
-    }
-    if (![ud objectForKey:@"VisorShowOnReopen"]) {
-        [ud setBool:YES forKey:@"VisorShowOnReopen"];
-    }
-    if (![ud objectForKey:@"VisorCopyOnSelect"]) {
-        [ud setBool:NO forKey:@"VisorCopyOnSelect"];
-    }
-    if (![ud objectForKey:@"VisorScreen"]) {
-        [ud setInteger:0 forKey:@"VisorScreen"]; // use screen 0 by default
-    }
-    if (![ud objectForKey:@"VisorOnEverySpace"]) {
-        [ud setBool:YES forKey:@"VisorOnEverySpace"];
-    }
-    if (![ud objectForKey:@"VisorPosition"]) {
-        [ud setObject:@"Top-Stretch" forKey:@"VisorPosition"];
-    }
-    
-    // add the "Visor Preferences..." item to the Terminal menu
-    // NSMenuItem* prefsMenuItem = [statusMenu itemWithTitle:@"Visor Preferences..."];
-    // NSMenuItem* copy = [prefsMenuItem copyWithZone:nil];
-    // [[[[NSApp mainMenu] itemAtIndex:0] submenu] insertItem:copy atIndex:3];
-    // [copy release];
-    
-    if ([ud boolForKey:@"VisorShowStatusItem"]) {
-        [self activateStatusMenu];
-    }
     
     [self updateHotKeyRegistration];
     [self initEscapeKey];
     [self startEventMonitoring];
+
+    if ([ud boolForKey:@"VisorShowStatusItem"]) {
+        [self activateStatusMenu];
+    }
     
     // watch for hotkey changes
     [udc addObserver:self forKeyPath:@"values.VisorHotKey" options:0 context:nil];
@@ -915,11 +920,11 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [statusMenuItem setKeyEquivalent:statusMenuItemKey];
     [statusMenuItem setKeyEquivalentModifierMask:statusMenuItemModifiers];
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSDictionary *newKey = [ud valueForKeyPath:kVisorHotKey];
+    NSDictionary *newKey = [ud valueForKeyPath:@"VisorHotKey"];
     NSNumber *value = [newKey objectForKey:kGTMHotKeyDoubledModifierKey];
     BOOL hotKey1UseDoubleModifier = [value boolValue];
-    BOOL hotkey1Enabled = [ud boolForKey:kVisorHotKeyEnabled];
-    BOOL hotkey2Enabled = [ud boolForKey:kVisorHotKey2Enabled];
+    BOOL hotkey1Enabled = [ud boolForKey:@"VisorHotKeyEnabled"];
+    BOOL hotkey2Enabled = [ud boolForKey:@"VisorHotKey2Enabled"];
     if (!newKey || hotKey1UseDoubleModifier || hotkey2Enabled) {
         // set up double tap if appropriate
         hotModifiers_ = NSControlKeyMask;

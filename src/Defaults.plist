@@ -4,13 +4,6 @@
 <dict>
     <key>VisorAnimationSpeed</key>
     <real>0.29999999999999999</real>
-    <key>VisorHotKey</key>
-    <dict>
-        <key>keyCode</key>
-        <integer>122</integer>
-        <key>modifiers</key>
-        <integer>8651009</integer>
-    </dict>
     <key>VisorUseFade</key>
     <true/>
     <key>VisorUseSlide</key>
