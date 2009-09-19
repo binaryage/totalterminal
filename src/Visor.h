@@ -3,9 +3,9 @@
 @interface Visor: NSObject {
     NSWindow* window; // the one visorized terminal window (may be nil)
     NSStatusItem* statusItem;
-    IBOutlet NSWindow* prefsWindow;
     IBOutlet NSMenu* statusMenu;
-    IBOutlet NSWindow* aboutWindow;
+    IBOutlet NSWindow* settingsWindow;
+    IBOutlet WebView* infoLine; // on Visor preferences pane
     EventHotKeyRef hotKey_;  // the hot key we're looking for. 
     NSUInteger hotModifiers_;  // if we are getting double taps, the mods to look for.
     NSUInteger hotModifiersState_;
@@ -28,4 +28,7 @@
     BOOL ignoreResizeNotifications;
 }
 
+-(void)enahanceTerminalPreferencesWindowsettingsWindow;
+-(NSToolbarItem*)getVisorToolbarItem;
+- (void) updateInfoLine;
 @end

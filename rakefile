@@ -11,6 +11,7 @@ BUILD_RELEASE_PATH = File.join(BUILD_RELEASE_DIR, VISOR_BUNDLE)
 RELEASE_DIR = File.join(ROOT_DIR, 'releases')
 VISOR_XIB = File.join(TMP_DIR, 'Visor.xib')
 INFO_PLIST = File.join(TMP_DIR, 'Info.plist')
+VISOR_M = File.join(TMP_DIR, 'Visor.m')
 SIMBL_DIR = File.expand_path(File.join('~', 'Library', 'Application Support', 'SIMBL'))
 SIMBL_PLUGINS_DIR = File.expand_path(File.join(SIMBL_DIR, 'Plugins'))
 
@@ -49,7 +50,7 @@ end
 
 def revision()
   $revision = `git rev-parse HEAD`.strip
-  $short_revision = $revision[0...6]
+  $short_revision = $revision[0...7]
 end
 
 def dirty_repo_warning()
@@ -107,7 +108,8 @@ task :release do
   puts "#{cmd_color('Patching version info ...')}"
   patch(VISOR_XIB, [['**VERSION**', $version], ['**REVISION**', $short_revision]])
   patch(INFO_PLIST, [['**VERSION**', $version]])
-
+  patch(VISOR_M, [['**VERSION**', $version], ['**REVISION**', $short_revision], ['**SHA**', $revision]])
+  
   puts "#{cmd_color('Building')} #{file_color(TMP_DIR)}"
   Dir.chdir(TMP_DIR) do
     `rm -rf "build"` # this might cause troubles when doing releases from dev machine 

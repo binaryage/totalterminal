@@ -153,6 +153,40 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     return [self Visor_newTabWithProfile:arg1 command:arg2 runAsShell:arg3];
 }
 
+//------------------------------------------------------------
+// TTAppPrefsController hacks
+
+// Add Visor preference pane into Preferences window
+- (void)Visor_TTAppPrefsController_windowDidLoad {
+    [self Visor_TTAppPrefsController_windowDidLoad];
+    NSLog(@"Visor_TTAppPrefsController_windowDidLoad");
+    id visor = [Visor sharedInstance];
+    [visor enahanceTerminalPreferencesWindow];
+}
+
+- (void)Visor_TTAppPrefsController_selectVisorPane {
+    LOG(@"Visor_TTAppPrefsController_selectVisorPane");
+    NSWindow* prefsWindow = [self window];
+    [prefsWindow setTitle:@"Visor"];
+    NSToolbar* toolbar = [prefsWindow toolbar];
+    [toolbar setSelectedItemIdentifier:@"Visor"];
+    NSTabView* tabView = [self valueForKey:@"tabView"];
+    [tabView selectTabViewItemWithIdentifier:@"VisorPane"];
+    id visor = [Visor sharedInstance];
+}
+
+- (id)Visor_TTAppPrefsController_toolbar:(id)arg1 itemForItemIdentifier:(id)arg2 willBeInsertedIntoToolbar:(BOOL)arg3 {
+    LOG(@"Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar => %@", arg2);
+    if ([arg2 isEqualToString:@"Visor"]) {
+        id visor = [Visor sharedInstance];
+        NSToolbarItem* toolbarItem = [visor getVisorToolbarItem];
+        [toolbarItem setTarget:self];
+        [toolbarItem setAction:@selector(Visor_TTAppPrefsController_selectVisorPane)];
+        return toolbarItem;
+    }
+    return [self Visor_TTAppPrefsController_toolbar:arg1 itemForItemIdentifier:arg2 willBeInsertedIntoToolbar:arg3];
+}
+
 @end
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -184,7 +218,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     Visor* visor = [Visor sharedInstance];
     BOOL shouldBeVisorized = ![visor status];
     if (shouldBeVisorized) {
-        aStyle =  NSBorderlessWindowMask;
+        aStyle = NSBorderlessWindowMask;
         bufferingType = NSBackingStoreBuffered;
     }
     self = [self Visor_initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
@@ -213,6 +247,30 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 // Visor implementation
 
 @implementation Visor
+
+-(NSToolbarItem*)getVisorToolbarItem {
+    LOG(@"getVisorToolbarItem");
+    NSToolbar* sourceToolbar = [settingsWindow toolbar];
+    NSToolbarItem* toolbarItem = [[sourceToolbar items] objectAtIndex:0];
+    return toolbarItem;
+}
+
+- (void) enahanceTerminalPreferencesWindow {
+    LOG(@"enahanceTerminalPreferencesWindow");
+
+    id prefsController = [NSClassFromString(@"TTAppPrefsController") sharedPreferencesController];
+    NSTabView* tabView = [prefsController valueForKey:@"tabView"];
+    NSTabViewItem* windowSettings = [[prefsController valueForKey:@"tabView"] tabViewItemAtIndex:1];
+
+    NSWindow* prefsWindow = [prefsController window];
+    NSToolbar* toolbar = [prefsWindow toolbar];
+    
+    NSTabView* sourceTabView = [[[settingsWindow contentView] subviews] objectAtIndex:0];
+    NSTabViewItem* item = [sourceTabView tabViewItemAtIndex:0];
+    
+    [toolbar insertItemWithItemIdentifier:@"Visor" atIndex:4];
+    [tabView addTabViewItem:item];
+}
 
 + (Visor*) sharedInstance {
     static Visor* plugin = nil;
@@ -263,10 +321,12 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeKeyWindow) withMethod:@selector(Visor_canBecomeKeyWindow) error:NULL];
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeMainWindow) withMethod:@selector(Visor_canBecomeMainWindow) error:NULL];
     [NSClassFromString(@"TTApplication") jr_swizzleMethod:@selector(sendEvent:) withMethod:@selector(Visor_sendEvent:) error:NULL];
+    [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(Visor_TTAppPrefsController_windowDidLoad) error:NULL];
+    [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:NULL];
 
-    id app = [NSClassFromString(@"TTApplication") sharedApplication];
-    NSWindow* win = [app mainWindow];
-    id wins = [app windows];
+    id terminalApp = [NSClassFromString(@"TTApplication") sharedApplication];
+    NSWindow* win = [terminalApp mainWindow];
+    id wins = [terminalApp windows];
     int winCount = [wins count];
     
     int i;
@@ -279,7 +339,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     }
     
     id visorProfile = [self getOrCreateVisorProfile];
-    [app newWindowControllerWithProfile:visorProfile];
+    [terminalApp newWindowControllerWithProfile:visorProfile];
     
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [[NSUserDefaults standardUserDefaults]registerDefaults:defaults];
@@ -390,6 +450,29 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     if (![ud objectForKey:@"VisorHotKey2Enabled"]) {
         [ud setBool:NO forKey:@"VisorHotKey2Enabled"];
     }
+}
+
+- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {    
+    LOG(@"awakeFromNib");
+    if ([[actionInformation objectForKey:WebActionNavigationTypeKey] intValue] != WebNavigationTypeOther) {
+        [listener ignore];
+        [[NSWorkspace sharedWorkspace] openURL:[request URL]];
+    }
+    else {
+        [listener use];
+    }
+}
+
+- (void) updateInfoLine {
+    LOG(@"updateInfoLine %@", infoLine);
+    [[infoLine mainFrame] loadHTMLString:@"<style>html {cursor: default; color: #999;} a, a:visited { color: #66f; } a:hover {color: #22f}</style><center><b>Visor **VERSION**</b> (<a href=\"http://github.com/darwin/visor/commit/**SHA**\">**REVISION**</a>) by <a href=\"http://binaryage.com\">binaryage.com</a>, based on Visor 1.5 by <a href=\"http://blacktree.com\">blacktree.com</a></center>" baseURL:[NSURL URLWithString:@"http://visor.binaryage.com"]];
+    [infoLine setDrawsBackground:NO];
+}
+
+- (void)awakeFromNib {
+    LOG(@"awakeFromNib");
+
+    [self updateInfoLine];
 }
 
 - (id) init {
@@ -969,17 +1052,12 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 - (IBAction)showPrefs:(id)sender {
     [NSApp activateIgnoringOtherApps:YES];
-    [prefsWindow center];
-    [prefsWindow makeKeyAndOrderFront:nil];
+    id terminalApp = [NSClassFromString(@"TTApplication") sharedApplication];
+    [terminalApp showPreferencesWindow:nil];
+    id prefsController = [NSClassFromString(@"TTAppPrefsController") sharedPreferencesController];
+    [prefsController Visor_TTAppPrefsController_selectVisorPane];
 }
  
-- (IBAction)showAboutBox:(id)sender {
-    LOG(@"showAboutBox");
-    [NSApp activateIgnoringOtherApps:YES];
-    [aboutWindow center];
-    [aboutWindow makeKeyAndOrderFront:nil];
-}
-
 - (IBAction)visitHomepage:(id)sender {
     LOG(@"visitHomepage");
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://visor.binaryage.com"]];
@@ -989,10 +1067,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
 - (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
     if ([menuItem action]==@selector(toggleVisor:)){
-        // [menuItem setKeyEquivalent:stringForCharacter([hotkey keyCode], [hotkey character])];
-        // [menuItem setKeyEquivalentModifierMask:[hotkey modifierFlags]];
-        // return [self status];
-        // return YES;
+        return [self status];
     }
     return YES;
 }
