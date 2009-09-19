@@ -6,9 +6,6 @@
 #import "QSBKeyMap.h"
 #import "GTMCarbonEvent.h"
 
-static const EventTypeSpec kModifierEventTypeSpec[] = { { kEventClassKeyboard, kEventRawKeyModifiersChanged } };
-static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) / sizeof(EventTypeSpec);
-
 @interface NSEvent (Visor)
 - (NSUInteger)qsbModifierFlags;
 @end
@@ -159,7 +156,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 // Add Visor preference pane into Preferences window
 - (void)Visor_TTAppPrefsController_windowDidLoad {
     [self Visor_TTAppPrefsController_windowDidLoad];
-    NSLog(@"Visor_TTAppPrefsController_windowDidLoad");
+    LOG(@"Visor_TTAppPrefsController_windowDidLoad");
     id visor = [Visor sharedInstance];
     [visor enahanceTerminalPreferencesWindow];
 }
@@ -357,6 +354,9 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 + (void) load {
     LOG(@"Visor loaded");
 }
+
+static const EventTypeSpec kModifierEventTypeSpec[] = { { kEventClassKeyboard, kEventRawKeyModifiersChanged } };
+static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) / sizeof(EventTypeSpec);
 
 // Allows me to intercept the "control" double tap to activate QSB. There 
 // appears to be no way to do this from straight Cocoa.
@@ -950,7 +950,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 - (void)didResize:(id)sender {
     if (ignoreResizeNotifications) return;
-    NSLog(@"didResize %@", sender);
+    LOG(@"didResize %@", sender);
     lastPosition = nil;
 }
 

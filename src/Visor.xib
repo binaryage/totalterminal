@@ -21,8 +21,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="391"/>
 			<integer value="15"/>
+			<integer value="391"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1183,7 +1183,7 @@
 												<object class="NSTextFieldCell" key="NSCell" id="463685063">
 													<int key="NSCellFlags">68288064</int>
 													<int key="NSCellFlags2">272630784</int>
-													<string key="NSContents">Hint: Visor Window uses "Visor" profile, which can be customized on Settings Pane</string>
+													<string key="NSContents">Hint: Visor Window uses "Visor" profile which can be customized on Settings Pane</string>
 													<reference key="NSSupport" ref="245419672"/>
 													<reference key="NSControlView" ref="173689463"/>
 													<reference key="NSBackgroundColor" ref="36837894"/>
