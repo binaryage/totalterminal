@@ -24,6 +24,8 @@
     NSScreen* cachedScreen;
     NSButton* pinButton;
     NSString* cachedPosition;
+    NSString* lastPosition;
+    BOOL ignoreResizeNotifications;
 }
 
 @end

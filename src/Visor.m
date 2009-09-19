@@ -186,7 +186,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 @implementation NSApplication (Visor)
 
 - (void)Visor_sendEvent:(NSEvent *)theEvent {
-    LOG(@"Visor_sendEvent");
     NSUInteger type = [theEvent type];
     if (type == NSFlagsChanged) {
         Visor* visor = [Visor sharedInstance];
@@ -474,6 +473,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window];
     [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window];
     [dnc addObserver:self selector:@selector(didChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
+    [dnc addObserver:self selector:@selector(didResize:) name:NSWindowDidResizeNotification object:window];
     
     justLaunched = true;
     [self updateStatusMenu];
@@ -516,6 +516,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 
 - (void)resetWindowPlacement {
+    lastPosition = nil;
     if (!window) return;
     float offset = 1.0f;
     if (isHidden) offset = 0.0f;
@@ -562,6 +563,8 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)resetVisorWindowSize:(id)win {
+    LOG(@"resetVisorWindowSize");
+    
     // this block is needed to prevent "<NSSplitView>: the delegate <InterfaceController> was sent -splitView:resizeSubviewsWithOldSize: and left the subview frames in an inconsistent state" type of message
     // http://cocoadev.com/forums/comments.php?DiscussionID=1092
     // this issue is only on Snow Leopard (10.6), because it is newly using NSSplitViews
@@ -590,14 +593,20 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void)applyWindowPositioning:(id)win {
+    ignoreResizeNotifications = TRUE;
     [self setupExposeTags:win];
     NSScreen* screen = cachedScreen;
     NSRect screenRect = [screen frame];
     NSString* position = [[NSUserDefaults standardUserDefaults] stringForKey:@"VisorPosition"];
+    if (![position isEqualToString:lastPosition]) {
+        // note: cursor may jump during this operation, so do it only in rare cases when position changes
+        // for more info see http://github.com/darwin/visor/issues#issue/27
+        [self resetVisorWindowSize:win];
+    }
+    lastPosition = position;
     LOG(@"applyWindowPositioning %@", position);
     int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
     if (screen == [[NSScreen screens] objectAtIndex: 0]) shift = 21; // menu area
-    [self resetVisorWindowSize:win];
     if ([position isEqualToString:@"Top-Stretch"]) {
         NSRect frame = [win frame];
         frame.size.width = screenRect.size.width;
@@ -706,6 +715,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         frame.origin.y = screenRect.origin.y;
         [win setFrame:frame display:YES];
     }
+    ignoreResizeNotifications = FALSE;
 }
 
 - (void)storePreviouslyActiveApp {
@@ -848,6 +858,12 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 - (void)didChangeScreenScreenParameters:(id)sender {
     LOG(@"didChangeScreenScreenParameters %@", sender);
     [self resetWindowPlacement];
+}
+
+- (void)didResize:(id)sender {
+    if (ignoreResizeNotifications) return;
+    NSLog(@"didResize %@", sender);
+    lastPosition = nil;
 }
 
 - (void)willClose:(id)sender {
