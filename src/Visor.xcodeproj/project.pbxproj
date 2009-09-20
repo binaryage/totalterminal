@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,7 +17,6 @@
 		D65FF875105D845B00B54560 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF873105D845B00B54560 /* GTMSystemVersion.m */; };
 		D65FF88B105D853000B54560 /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF88A105D853000B54560 /* GTMObjC2Runtime.m */; };
 		D65FF894105D875D00B54560 /* GTMCarbonEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF893105D875D00B54560 /* GTMCarbonEvent.m */; };
-		D65FF907105D984200B54560 /* Command.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D65FF906105D984200B54560 /* Command.pdf */; };
 		D65FF91B105D9B6200B54560 /* QSBKeyMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF91A105D9B6200B54560 /* QSBKeyMap.m */; };
 		D66688D310534A87002EDB20 /* VisorProfile.plist in Resources */ = {isa = PBXBuildFile; fileRef = D66688D210534A87002EDB20 /* VisorProfile.plist */; };
 		D6701C2B0F40376F00900D77 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6701C2A0F40376F00900D77 /* QuartzCore.framework */; };
@@ -38,7 +37,6 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		7F0146660A3E64DA006AF239 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		7F01469F0A3E6571006AF239 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		7F849AA60A457DE100963040 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* Visor.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Visor.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,7 +60,6 @@
 		D65FF88A105D853000B54560 /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMObjC2Runtime.m; sourceTree = "<group>"; };
 		D65FF892105D875D00B54560 /* GTMCarbonEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMCarbonEvent.h; sourceTree = "<group>"; };
 		D65FF893105D875D00B54560 /* GTMCarbonEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMCarbonEvent.m; sourceTree = "<group>"; };
-		D65FF906105D984200B54560 /* Command.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Command.pdf; path = res/Command.pdf; sourceTree = "<group>"; };
 		D65FF919105D9B6200B54560 /* QSBKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBKeyMap.h; sourceTree = "<group>"; };
 		D65FF91A105D9B6200B54560 /* QSBKeyMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBKeyMap.m; sourceTree = "<group>"; };
 		D66688D210534A87002EDB20 /* VisorProfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = VisorProfile.plist; path = res/VisorProfile.plist; sourceTree = "<group>"; };
@@ -101,7 +98,6 @@
 			children = (
 				D65FF918105D9B5400B54560 /* QSB */,
 				D65FF861105D829F00B54560 /* GTM */,
-				7F2EC6BB0A4181080041F0D8 /* App */,
 				08FB77AFFE84173DC02AAC07 /* Classes */,
 				32C88E010371C26100C91783 /* Other Sources */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -126,7 +122,6 @@
 			children = (
 				D671706A1065D14300970560 /* RestoreApp.scpt */,
 				D6716FBC1065B54100970560 /* Control.pdf */,
-				D65FF906105D984200B54560 /* Command.pdf */,
 				D66688D210534A87002EDB20 /* VisorProfile.plist */,
 				D6F5F1E910521A9B0047CFF8 /* Configuration.xib */,
 				D67391740F93EB3F0037E3BC /* VisorActive.png */,
@@ -189,14 +184,6 @@
 				D6FB34420F3844D80067F941 /* Visor.pch */,
 			);
 			name = "Other Sources";
-			sourceTree = "<group>";
-		};
-		7F2EC6BB0A4181080041F0D8 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				7F0146650A3E64DA006AF239 /* MainMenu.nib */,
-			);
-			name = App;
 			sourceTree = "<group>";
 		};
 		D65FF861105D829F00B54560 /* GTM */ = {
@@ -289,7 +276,6 @@
 				D673917B0F93EB3F0037E3BC /* VisorLarge.png in Resources */,
 				D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */,
 				D66688D310534A87002EDB20 /* VisorProfile.plist in Resources */,
-				D65FF907105D984200B54560 /* Command.pdf in Resources */,
 				D6716FBD1065B54100970560 /* Control.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,7 +294,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "codesign -f -s Blacktree,\\ Inc. $CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME\ncodesign -v $CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME;\nexit 0";
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -341,21 +327,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		7F0146650A3E64DA006AF239 /* MainMenu.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7F0146660A3E64DA006AF239 /* English */,
-			);
-			name = MainMenu.nib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB913B08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = x86_64;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CODE_SIGN_IDENTITY = "";
 				CONFIGURATION_BUILD_DIR = "/Users/darwin/Library/Application Support/SIMBL/Plugins";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -382,8 +361,9 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = Visor;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = x86_64;
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -391,7 +371,8 @@
 		1DEB913C08733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = x86_64;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -408,7 +389,8 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = Visor;
-				VALID_ARCHS = x86_64;
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				VALID_ARCHS = "x86_64 i386 ppc";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -425,7 +407,7 @@
 					dynamic_lookup,
 				);
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
@@ -440,7 +422,7 @@
 					dynamic_lookup,
 				);
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = macosx10.5;
 			};
 			name = Release;
 		};
