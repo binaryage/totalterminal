@@ -13,8 +13,7 @@
 @implementation NSEvent (QSBApplicationEventAdditions)
 
 - (NSUInteger)qsbModifierFlags {
-  NSUInteger flags 
-    = ([self modifierFlags] & NSDeviceIndependentModifierFlagsMask);
+  NSUInteger flags = ([self modifierFlags] & NSDeviceIndependentModifierFlagsMask);
   // Ignore caps lock if it's set http://b/issue?id=637380
   if (flags & NSAlphaShiftKeyMask) flags -= NSAlphaShiftKeyMask;
   // Ignore numeric lock if it's set http://b/issue?id=637380
@@ -86,70 +85,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 @implementation NSWindowController (Visor)
 
-- (void)setCloseDialogExpected:(BOOL)fp8 {
-    if (fp8) {
-        // THIS IS MEGAHACK! (works for me on Leopard 10.5.6)
-        // the problem: beginSheet causes UI to lock for NSBorderlessWindowMask NSWindow which is in "closing mode"
-        //
-        // this hack tries to open sheet before window starts it's closing procedure
-        // we expect that setCloseDialogExpected is called by Terminal.app once BEFORE window gets into "closing mode"
-        // in this case we are able to open sheet before window starts closing and this works even for window with NSBorderlessWindowMask
-        // it works like a magic, took me few hours to figure out this random stuff
-        Visor* visor = [Visor sharedInstance];
-        [visor showVisor:false];
-        [self displayWindowCloseSheet:1];
-    }
-}
-
-- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
-    LOG(@"willPositionSheet");
-    Visor* visor = [Visor sharedInstance];
-    [visor setupExposeTags:sheet];
-    return rect;
-}
-
-// swizzled function for original TTWindowController::newTabWithProfile
-// this seems to be a good point to intercept new tab creation
-// responsible for opening all tabs in Visored window with Visor profile (regardless of "default profile" setting)
-- (id)Visor_newTabWithProfile:(id)arg1 {
-    LOG(@"creating a new tab");
-    id this = self;
-    id visor = [Visor sharedInstance];
-    BOOL isVisoredWindow = [visor isVisoredWindow:[this window]];
-    if (isVisoredWindow) {
-        LOG(@"  in visored window ... so apply visor profile");
-        id profileManagerClass = NSClassFromString(@"TTProfileManager");
-        id profileManager = [profileManagerClass sharedProfileManager];
-        id visorProfile = [profileManager profileWithName:@"Visor"];
-        if (visorProfile) {
-            arg1 = visorProfile;
-        } else {
-            LOG(@"  ... unable to lookup Visor profile!");
-        }
-    }
-    return [self Visor_newTabWithProfile:arg1];
-}
-
-// this is variant of the ^^^
-// this seems to be an alternative point to intercept new tab creation
-- (id)Visor_newTabWithProfile:(id)arg1 command:(id)arg2 runAsShell:(BOOL)arg3 {
-    LOG(@"creating a new tab (with runAsShell)");
-    id this = self;
-    id visor = [Visor sharedInstance];
-    BOOL isVisoredWindow = [visor isVisoredWindow:[this window]];
-    if (isVisoredWindow) {
-        LOG(@"  in visored window ... so apply visor profile");
-        id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
-        id visorProfile = [profileManager profileWithName:@"Visor"];
-        if (visorProfile) {
-            arg1 = visorProfile;
-        } else {
-            LOG(@"  ... unable to lookup Visor profile!");
-        }
-    }
-    return [self Visor_newTabWithProfile:arg1 command:arg2 runAsShell:arg3];
-}
-
 //------------------------------------------------------------
 // TTAppPrefsController hacks
 
@@ -182,6 +117,74 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         return toolbarItem;
     }
     return [self Visor_TTAppPrefsController_toolbar:arg1 itemForItemIdentifier:arg2 willBeInsertedIntoToolbar:arg3];
+}
+
+//------------------------------------------------------------
+// TTWindowController hacks
+
+- (void)Visor_TTWindowController_setCloseDialogExpected:(BOOL)fp8 {
+    LOG(@"Visor_TTWindowController_setCloseDialogExpected");
+    if (fp8) {
+        // THIS IS A MEGAHACK! (works for me on Leopard 10.5.6)
+        // the problem: beginSheet causes UI to lock for NSBorderlessWindowMask NSWindow which is in "closing mode"
+        //
+        // this hack tries to open sheet before window starts it's closing procedure
+        // we expect that setCloseDialogExpected is called by Terminal.app once BEFORE window gets into "closing mode"
+        // in this case we are able to open sheet before window starts closing and this works even for window with NSBorderlessWindowMask
+        // it works like a magic, took me few hours to figure out this random stuff
+        Visor* visor = [Visor sharedInstance];
+        [visor showVisor:false];
+        [self displayWindowCloseSheet:1];
+    }
+}
+
+- (NSRect)Visor_TTWindowController_window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
+    LOG(@"Visor_TTWindowController_window");
+    Visor* visor = [Visor sharedInstance];
+    [visor setupExposeTags:sheet];
+    return rect;
+}
+
+// swizzled function for original TTWindowController::newTabWithProfile
+// this seems to be a good point to intercept new tab creation
+// responsible for opening all tabs in Visored window with Visor profile (regardless of "default profile" setting)
+- (id)Visor_TTWindowController_newTabWithProfile:(id)arg1 {
+    LOG(@"creating a new tab");
+    id this = self;
+    id visor = [Visor sharedInstance];
+    BOOL isVisoredWindow = [visor isVisoredWindow:[this window]];
+    if (isVisoredWindow) {
+        LOG(@"  in visored window ... so apply visor profile");
+        id profileManagerClass = NSClassFromString(@"TTProfileManager");
+        id profileManager = [profileManagerClass sharedProfileManager];
+        id visorProfile = [profileManager profileWithName:@"Visor"];
+        if (visorProfile) {
+            arg1 = visorProfile;
+        } else {
+            LOG(@"  ... unable to lookup Visor profile!");
+        }
+    }
+    return [self Visor_TTWindowController_newTabWithProfile:arg1];
+}
+
+// this is variant of the ^^^
+// this seems to be an alternative point to intercept new tab creation
+- (id)Visor_TTWindowController_newTabWithProfile:(id)arg1 command:(id)arg2 runAsShell:(BOOL)arg3 {
+    LOG(@"creating a new tab (with runAsShell)");
+    id this = self;
+    id visor = [Visor sharedInstance];
+    BOOL isVisoredWindow = [visor isVisoredWindow:[this window]];
+    if (isVisoredWindow) {
+        LOG(@"  in visored window ... so apply visor profile");
+        id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
+        id visorProfile = [profileManager profileWithName:@"Visor"];
+        if (visorProfile) {
+            arg1 = visorProfile;
+        } else {
+            LOG(@"  ... unable to lookup Visor profile!");
+        }
+    }
+    return [self Visor_TTWindowController_newTabWithProfile:arg1 command:arg2 runAsShell:arg3];
 }
 
 @end
@@ -241,6 +244,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     LOG(@"canBecomeMainWindow");
     return YES;
 }
+
 @end
 
 @interface VisorDelegate: NSObject {
@@ -318,16 +322,20 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 + (void) install {
     LOG(@"Visor install");
 
-    // swizzling responsible for forcing all tabs opened in visored window to start with profile "Visor"
-    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:) withMethod:@selector(Visor_newTabWithProfile:) error:NULL];
-    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:command:runAsShell:) withMethod:@selector(Visor_newTabWithProfile:command:runAsShell:) error:NULL];
+    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:) withMethod:@selector(Visor_TTWindowController_newTabWithProfile:) error:NULL];
+    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:command:runAsShell:) withMethod:@selector(Visor_TTWindowController_newTabWithProfile:command:runAsShell:) error:NULL];
+    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(setCloseDialogExpected:) withMethod:@selector(Visor_TTWindowController_setCloseDialogExpected:) error:NULL];
+    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(window:willPositionSheet:usingRect:) withMethod:@selector(Visor_TTWindowController_window:willPositionSheet:usingRect:) error:NULL];
+    
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(initWithContentRect:styleMask:backing:defer:) withMethod:@selector(Visor_initWithContentRect:styleMask:backing:defer:) error:NULL];
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeKeyWindow) withMethod:@selector(Visor_canBecomeKeyWindow) error:NULL];
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeMainWindow) withMethod:@selector(Visor_canBecomeMainWindow) error:NULL];
+
     [NSClassFromString(@"TTApplication") jr_swizzleMethod:@selector(sendEvent:) withMethod:@selector(Visor_sendEvent:) error:NULL];
+    [NSClassFromString(@"TTApplication") jr_swizzleMethod:@selector(applicationShouldHandleReopen:hasVisibleWindows:) withMethod:@selector(Visor_TTAplication_applicationShouldHandleReopen:hasVisibleWindows:) error:NULL];
+
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(Visor_TTAppPrefsController_windowDidLoad) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:NULL];
-    [NSClassFromString(@"TTApplication") jr_swizzleMethod:@selector(applicationShouldHandleReopen:hasVisibleWindows:) withMethod:@selector(Visor_TTAplication_applicationShouldHandleReopen:hasVisibleWindows:) error:NULL];
 
     id terminalApp = [NSClassFromString(@"TTApplication") sharedApplication];
     NSWindow* win = [terminalApp mainWindow];
@@ -348,6 +356,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     
     NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     [[NSUserDefaults standardUserDefaults]registerDefaults:defaults];
+
     [Visor sharedInstance];
 }
 
