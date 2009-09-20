@@ -932,6 +932,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 - (void)resignKey:(id)sender {
     LOG(@"resignKey %@", sender);
     isKey = false;
+    [self updateEscapeHotKeyRegistration];
     if (!isPinned && !isMain && !isKey && !isHidden){
         [self hideVisor:false];  
     }
@@ -948,6 +949,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 - (void)becomeKey:(id)sender {
     LOG(@"becomeKey %@", sender);
     isKey = true;
+    [self updateEscapeHotKeyRegistration];
 }
 
 - (void)becomeMain:(id)sender {
@@ -1055,9 +1057,10 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 }
 
 - (void)updateEscapeHotKeyRegistration {
-    GTMCarbonEventDispatcherHandler *dispatcher = [GTMCarbonEventDispatcherHandler sharedEventDispatcherHandler];
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorHideOnEscape"]) {
+    BOOL hideOnEscape = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorHideOnEscape"];
+    if (hideOnEscape && isKey) {
         if (!escapeHotKey) {
+            GTMCarbonEventDispatcherHandler *dispatcher = [GTMCarbonEventDispatcherHandler sharedEventDispatcherHandler];
             escapeHotKey = [dispatcher registerHotKey:53
                                        modifiers:0
                                           target:self
@@ -1066,6 +1069,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         }
     } else {
         if (escapeHotKey) {
+            GTMCarbonEventDispatcherHandler *dispatcher = [GTMCarbonEventDispatcherHandler sharedEventDispatcherHandler];
             [dispatcher unregisterHotKey:escapeHotKey];
             escapeHotKey = nil;
         }
