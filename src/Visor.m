@@ -100,6 +100,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     LOG(@"Visor_TTAppPrefsController_selectVisorPane");
     NSWindow* prefsWindow = [self window];
     [prefsWindow setTitle:@"Visor"];
+    LOG(@" delegate: %@", [prefsWindow delegate]);
     NSToolbar* toolbar = [prefsWindow toolbar];
     [toolbar setSelectedItemIdentifier:@"Visor"];
     NSTabView* tabView = [self valueForKey:@"tabView"];
@@ -117,6 +118,18 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         return toolbarItem;
     }
     return [self Visor_TTAppPrefsController_toolbar:arg1 itemForItemIdentifier:arg2 willBeInsertedIntoToolbar:arg3];
+}
+
+- (id) Visor_TTAppPrefsController_windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client {
+    LOG(@"Visor_TTAppPrefsController_windowWillReturnFieldEditor");
+    if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
+        return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
+    }
+    return [self Visor_TTAppPrefsController_windowWillReturnFieldEditor:sender toObject:client];
+}
+
+- (id) windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client {
+    return nil;
 }
 
 //------------------------------------------------------------
@@ -247,10 +260,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 @end
 
-@interface VisorDelegate: NSObject {
-}
-@end
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Visor implementation
 
@@ -336,6 +345,8 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(Visor_TTAppPrefsController_windowDidLoad) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:NULL];
+    [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowWillReturnFieldEditor:toObject:) withMethod:@selector(Visor_TTAppPrefsController_windowWillReturnFieldEditor:toObject:) error:NULL];
+    
 
     id terminalApp = [NSClassFromString(@"TTApplication") sharedApplication];
     NSWindow* win = [terminalApp mainWindow];
@@ -1146,14 +1157,6 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
         [statusItem setImage:inactiveIcon];
 }
 
-- (id) windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client {
-    if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
-        return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
-    } else {
-        return nil;
-    }
-}
-
 // Returns the amount of time between two clicks to be considered a double click
 - (NSTimeInterval)doubleClickTime {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -1284,6 +1287,14 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     if (isGood) {
         [self toggleVisor:self];
     }
+}
+
+- (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client {
+    LOG(@"windowWillReturnFieldEditor %@", client);
+    if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
+        return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
+    }
+    return nil;
 }
 
 @end
