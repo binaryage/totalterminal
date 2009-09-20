@@ -27,8 +27,4 @@
     NSString* lastPosition;
     BOOL ignoreResizeNotifications;
 }
-
--(void)enahanceTerminalPreferencesWindowsettingsWindow;
--(NSToolbarItem*)getVisorToolbarItem;
-- (void) updateInfoLine;
 @end

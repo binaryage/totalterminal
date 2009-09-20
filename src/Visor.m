@@ -203,6 +203,13 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [self Visor_sendEvent:theEvent];
 }
 
+- (BOOL)Visor_TTAplication_applicationShouldHandleReopen:(id)fp8 hasVisibleWindows:(BOOL)fp12 {
+    LOG(@"Visor_TTAplication_applicationShouldHandleReopen");
+    Visor* visor = [Visor sharedInstance];
+    [visor onReopenVisor];
+    return [self Visor_TTAplication_applicationShouldHandleReopen:fp8 hasVisibleWindows:(BOOL)fp12];
+}
+
 @end
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -320,6 +327,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [NSClassFromString(@"TTApplication") jr_swizzleMethod:@selector(sendEvent:) withMethod:@selector(Visor_sendEvent:) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(Visor_TTAppPrefsController_windowDidLoad) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:NULL];
+    [NSClassFromString(@"TTApplication") jr_swizzleMethod:@selector(applicationShouldHandleReopen:hasVisibleWindows:) withMethod:@selector(Visor_TTAplication_applicationShouldHandleReopen:hasVisibleWindows:) error:NULL];
 
     id terminalApp = [NSClassFromString(@"TTApplication") sharedApplication];
     NSWindow* win = [terminalApp mainWindow];
@@ -834,7 +842,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 - (void)onReopenVisor {
     bool showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowOnReopen"];
     if (!showOnReopen) return;
-    [self showVisor:false];
+    [self showVisor:NO];
 }
 
 - (void)showVisor:(BOOL)fast {
