@@ -618,22 +618,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://visor.binaryage.com"]];
 }
 
-- (void)moveWindowOffScreen {
-    if (!window) return;
-    LOG(@"moveWindowOffScreen");
-
-    NSRect r;
-    r.origin.x = 0;
-    r.origin.y = -400;
-    r.size.width = 1000;
-    r.size.height = 400;
-    [window setFrame:r display:YES];
-    [window setHasShadow:NO];
-    [window invalidateShadow];
-    [window update];
-}
-
-
 - (void)resetWindowPlacement {
     lastPosition = nil;
     if (!window) return;
@@ -643,7 +627,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [self cacheScreen];
     [self cachePosition];
     [self applyWindowPositioning:window];
-    [self placeWindow:window offset:offset];
+    [self slideWindows:!isHidden fast:YES];
 }
 
 - (void)cachePosition {
@@ -1009,19 +993,13 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         [self updateHotKeyRegistration];
     }
     if ([keyPath isEqualToString:@"values.VisorPosition"]) {
-        [self cacheScreen];
-        [self cachePosition];
-        [self applyWindowPositioning:window];
+        [self resetWindowPlacement];
     }
     if ([keyPath isEqualToString:@"values.VisorScreen"]) {
-        [self cacheScreen];
-        [self cachePosition];
-        [self applyWindowPositioning:window];
+        [self resetWindowPlacement];
     }
     if ([keyPath isEqualToString:@"values.VisorOnEverySpace"]) {
-        [self cacheScreen];
-        [self cachePosition];
-        [self applyWindowPositioning:window];
+        [self resetWindowPlacement];
     }
     if ([keyPath isEqualToString:@"values.VisorHideOnEscape"]) {
         [self updateEscapeHotKeyRegistration];
