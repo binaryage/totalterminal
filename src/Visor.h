@@ -27,4 +27,8 @@
     NSString* lastPosition;
     BOOL ignoreResizeNotifications;
 }
+- (IBAction)pinAction:(id)sender;
+- (IBAction)toggleVisor:(id)sender;
+- (IBAction)showPrefs:(id)sender;
+- (IBAction)visitHomepage:(id)sender;
 @end

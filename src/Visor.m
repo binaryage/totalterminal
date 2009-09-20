@@ -605,6 +605,19 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     }
 }
 
+- (IBAction)showPrefs:(id)sender {
+    [NSApp activateIgnoringOtherApps:YES];
+    id terminalApp = [NSClassFromString(@"TTApplication") sharedApplication];
+    [terminalApp showPreferencesWindow:nil];
+    id prefsController = [NSClassFromString(@"TTAppPrefsController") sharedPreferencesController];
+    [prefsController Visor_TTAppPrefsController_selectVisorPane];
+}
+ 
+- (IBAction)visitHomepage:(id)sender {
+    LOG(@"visitHomepage");
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://visor.binaryage.com"]];
+}
+
 - (void)moveWindowOffScreen {
     if (!window) return;
     LOG(@"moveWindowOffScreen");
@@ -1085,19 +1098,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     }
 }
 
-- (IBAction)showPrefs:(id)sender {
-    [NSApp activateIgnoringOtherApps:YES];
-    id terminalApp = [NSClassFromString(@"TTApplication") sharedApplication];
-    [terminalApp showPreferencesWindow:nil];
-    id prefsController = [NSClassFromString(@"TTAppPrefsController") sharedPreferencesController];
-    [prefsController Visor_TTAppPrefsController_selectVisorPane];
-}
- 
-- (IBAction)visitHomepage:(id)sender {
-    LOG(@"visitHomepage");
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://visor.binaryage.com"]];
-}
-
 NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
 - (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
@@ -1139,7 +1139,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 - (void)deactivateStatusMenu {
     if (!statusItem) return;
     [statusItem release];
-    statusItem=nil;
+    statusItem = nil;
 }
 
 - (void)updateStatusMenu {
