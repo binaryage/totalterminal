@@ -367,20 +367,22 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowWillReturnFieldEditor:toObject:) withMethod:@selector(Visor_TTAppPrefsController_windowWillReturnFieldEditor:toObject:) error:NULL];
     
-    [self closeExistingWindows];
-    
-    id visorProfile = [self getOrCreateVisorProfile];
-    id app = [NSClassFromString(@"TTApplication") sharedApplication];
-    id controller = [app newWindowControllerWithProfile:visorProfile];
-    [controller release];
-    
     NSDictionary* defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     [ud registerDefaults:defaults];
     [self sanitizeDefaults:ud];
 
-    [Visor sharedInstance];
+    [self closeExistingWindows];
+    id visorProfile = [self getOrCreateVisorProfile];
+    id app = [NSClassFromString(@"TTApplication") sharedApplication];
+    id controller = [app newWindowControllerWithProfile:visorProfile];
+    
+    Visor* visor = [Visor sharedInstance];
+    [visor resetWindowPlacement];
+
+    [controller release];
 }
+
 
 - (BOOL)status {
     return !!window;
@@ -437,7 +439,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 }
 
 + (void) sanitizeDefaults:(NSUserDefaults*) ud {
-    // if the default VisorShowStatusItem doesn't exist, set it to true by default
+    LOG(@"sanitizeDefaults");
     if (![ud objectForKey:@"VisorShowStatusItem"]) {
         [ud setBool:YES forKey:@"VisorShowStatusItem"];
     }
@@ -471,6 +473,23 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
                          nil]
             forKey:@"VisorHotKey"];
     }
+    // convert hot-key format from 2.0 -> 2.1
+    NSDictionary* hotkey = [ud objectForKey:@"VisorHotKey"];
+    NSNumber* keyCode = [hotkey objectForKey:@"keyCode"];
+    NSNumber* modifiers = [hotkey objectForKey:@"modifiers"];
+    if (keyCode && modifiers) {
+        LOG(@"-> conversion of hotkey from 2.0 format %@ %@ %@", hotkey, keyCode, modifiers);
+        [ud setObject:[NSDictionary dictionaryWithObjectsAndKeys: \
+                         modifiers, \
+                         kGTMHotKeyModifierFlagsKey, \
+                         keyCode, \
+                         kGTMHotKeyKeyCodeKey, \
+                         [NSNumber numberWithBool:NO], \
+                         kGTMHotKeyDoubledModifierKey, \
+                         nil]
+            forKey:@"VisorHotKey"];
+    }
+    
     if (![ud objectForKey:@"VisorHotKeyEnabled"]) {
         [ud setBool:YES forKey:@"VisorHotKeyEnabled"];
     }
