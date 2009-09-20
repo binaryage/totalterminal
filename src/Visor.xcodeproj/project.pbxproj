@@ -22,6 +22,7 @@
 		D66688D310534A87002EDB20 /* VisorProfile.plist in Resources */ = {isa = PBXBuildFile; fileRef = D66688D210534A87002EDB20 /* VisorProfile.plist */; };
 		D6701C2B0F40376F00900D77 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6701C2A0F40376F00900D77 /* QuartzCore.framework */; };
 		D6716ED210659A6300970560 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6716ED110659A6300970560 /* WebKit.framework */; };
+		D6716FBD1065B54100970560 /* Control.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6716FBC1065B54100970560 /* Control.pdf */; };
 		D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391740F93EB3F0037E3BC /* VisorActive.png */; };
 		D673917A0F93EB3F0037E3BC /* VisorInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391750F93EB3F0037E3BC /* VisorInactive.png */; };
 		D673917B0F93EB3F0037E3BC /* VisorLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391760F93EB3F0037E3BC /* VisorLarge.png */; };
@@ -66,6 +67,7 @@
 		D66688D210534A87002EDB20 /* VisorProfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = VisorProfile.plist; path = res/VisorProfile.plist; sourceTree = "<group>"; };
 		D6701C2A0F40376F00900D77 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = res/Control.pdf; sourceTree = "<group>"; };
 		D67391740F93EB3F0037E3BC /* VisorActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorActive.png; path = res/VisorActive.png; sourceTree = "<group>"; };
 		D67391750F93EB3F0037E3BC /* VisorInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorInactive.png; path = res/VisorInactive.png; sourceTree = "<group>"; };
 		D67391760F93EB3F0037E3BC /* VisorLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorLarge.png; path = res/VisorLarge.png; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D6716FBC1065B54100970560 /* Control.pdf */,
 				D65FF906105D984200B54560 /* Command.pdf */,
 				D66688D210534A87002EDB20 /* VisorProfile.plist */,
 				D6F5F1E910521A9B0047CFF8 /* Configuration.xib */,
@@ -283,6 +286,7 @@
 				D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */,
 				D66688D310534A87002EDB20 /* VisorProfile.plist in Resources */,
 				D65FF907105D984200B54560 /* Command.pdf in Resources */,
+				D6716FBD1065B54100970560 /* Control.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

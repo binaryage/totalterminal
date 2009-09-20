@@ -21,8 +21,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="15"/>
 			<integer value="391"/>
+			<integer value="15"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -561,21 +561,13 @@
 															<bool key="EncodedWithXMLCoder">YES</bool>
 															<string>WebKitDefaultFixedFontSize</string>
 															<string>WebKitDefaultFontSize</string>
-															<string>WebKitJavaEnabled</string>
-															<string>WebKitJavaScriptEnabled</string>
 															<string>WebKitMinimumFontSize</string>
-															<string>WebKitPluginsEnabled</string>
-															<string>WebKitStandardFont</string>
 														</object>
 														<object class="NSMutableArray" key="dict.values">
 															<bool key="EncodedWithXMLCoder">YES</bool>
-															<integer value="10"/>
-															<integer value="10"/>
-															<boolean value="NO"/>
-															<boolean value="NO"/>
+															<integer value="12"/>
+															<integer value="12"/>
 															<integer value="1"/>
-															<boolean value="NO"/>
-															<string>Lucida Grande</string>
 														</object>
 													</object>
 												</object>
@@ -767,9 +759,9 @@
 												<object class="NSImageCell" key="NSCell" id="174944799">
 													<int key="NSCellFlags">130560</int>
 													<int key="NSCellFlags2">33554432</int>
-													<object class="NSCustomResource" key="NSContents" id="253958483">
+													<object class="NSCustomResource" key="NSContents" id="1613910">
 														<string key="NSClassName">NSImage</string>
-														<string key="NSResourceName">Command</string>
+														<string key="NSResourceName">Control</string>
 													</object>
 													<int key="NSAlign">0</int>
 													<int key="NSScale">2</int>
@@ -799,7 +791,7 @@
 												<object class="NSImageCell" key="NSCell" id="828512337">
 													<int key="NSCellFlags">130560</int>
 													<int key="NSCellFlags2">33554432</int>
-													<reference key="NSContents" ref="253958483"/>
+													<reference key="NSContents" ref="1613910"/>
 													<int key="NSAlign">0</int>
 													<int key="NSScale">2</int>
 													<int key="NSStyle">0</int>
