@@ -105,7 +105,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [toolbar setSelectedItemIdentifier:@"Visor"];
     NSTabView* tabView = [self valueForKey:@"tabView"];
     [tabView selectTabViewItemWithIdentifier:@"VisorPane"];
-    id visor = [Visor sharedInstance];
 }
 
 - (id)Visor_TTAppPrefsController_toolbar:(id)arg1 itemForItemIdentifier:(id)arg2 willBeInsertedIntoToolbar:(BOOL)arg3 {
@@ -121,8 +120,8 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (id) Visor_TTAppPrefsController_windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client {
-    LOG(@"Visor_TTAppPrefsController_windowWillReturnFieldEditor");
     if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
+        LOG(@"Visor_TTAppPrefsController_windowWillReturnFieldEditor with GTMHotKeyTextField");
         return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
     }
     return [self Visor_TTAppPrefsController_windowWillReturnFieldEditor:sender toObject:client];
@@ -149,6 +148,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         [visor showVisor:false];
         [self displayWindowCloseSheet:1];
     }
+}
+
+- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
+    return rect;
 }
 
 - (NSRect)Visor_TTWindowController_window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
@@ -277,7 +280,6 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
     id prefsController = [NSClassFromString(@"TTAppPrefsController") sharedPreferencesController];
     NSTabView* tabView = [prefsController valueForKey:@"tabView"];
-    NSTabViewItem* windowSettings = [[prefsController valueForKey:@"tabView"] tabViewItemAtIndex:1];
 
     NSWindow* prefsWindow = [prefsController window];
     NSToolbar* toolbar = [prefsWindow toolbar];
@@ -324,8 +326,21 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
         // set profile into manager
         [profileManager setProfile:visorProfile forName:@"Visor"];
+        [visorProfile release];
     }
     return visorProfile;
+}
+
++ (void) closeExistingWindows {
+    id wins = [[NSClassFromString(@"TTApplication") sharedApplication] windows];
+    int winCount = [wins count];
+    for (int i=0; i<winCount; i++) {
+        id win = [wins objectAtIndex:i];
+        if (!win) continue;
+        if ([[win className] isEqualToString:@"TTWindow"]) {
+            [win close];
+        }
+    }
 }
 
 + (void) install {
@@ -347,26 +362,17 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowWillReturnFieldEditor:toObject:) withMethod:@selector(Visor_TTAppPrefsController_windowWillReturnFieldEditor:toObject:) error:NULL];
     
-
-    id terminalApp = [NSClassFromString(@"TTApplication") sharedApplication];
-    NSWindow* win = [terminalApp mainWindow];
-    id wins = [terminalApp windows];
-    int winCount = [wins count];
-    
-    int i;
-    for (i=0; i<winCount; i++) {
-        id win = [wins objectAtIndex:i];
-        if (!win) continue;
-        if ([[win className] isEqualToString:@"TTWindow"]) {
-            [win close];
-        }
-    }
+    [self closeExistingWindows];
     
     id visorProfile = [self getOrCreateVisorProfile];
-    [terminalApp newWindowControllerWithProfile:visorProfile];
+    id app = [NSClassFromString(@"TTApplication") sharedApplication];
+    id controller = [app newWindowControllerWithProfile:visorProfile];
+    [controller release];
     
-    NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
-    [[NSUserDefaults standardUserDefaults]registerDefaults:defaults];
+    NSDictionary* defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
+    [ud registerDefaults:defaults];
+    [self sanitizeDefaults:ud];
 
     [Visor sharedInstance];
 }
@@ -425,7 +431,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
   return status;
 }
 
-- (void) sanitizeDefaults:(NSUserDefaults*) ud {
++ (void) sanitizeDefaults:(NSUserDefaults*) ud {
     // if the default VisorShowStatusItem doesn't exist, set it to true by default
     if (![ud objectForKey:@"VisorShowStatusItem"]) {
         [ud setBool:YES forKey:@"VisorShowStatusItem"];
@@ -481,12 +487,11 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 }
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {    
-    LOG(@"awakeFromNib");
+    LOG(@"webView:decidePolicyForNavigationAction...");
     if ([[actionInformation objectForKey:WebActionNavigationTypeKey] intValue] != WebNavigationTypeOther) {
         [listener ignore];
         [[NSWorkspace sharedWorkspace] openURL:[request URL]];
-    }
-    else {
+    } else {
         [listener use];
     }
 }
@@ -499,7 +504,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)awakeFromNib {
     LOG(@"awakeFromNib");
-
     [self updateInfoLine];
 }
 
@@ -525,10 +529,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     isHidden = true;
     isMain = false;
     isKey = false;
-    
-    NSDictionary *defaults=[NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
-    [ud registerDefaults:defaults];
-    [self sanitizeDefaults:ud];
     
     [NSBundle loadNibNamed:@"Visor" owner:self];
     
@@ -1175,7 +1175,6 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 }
 
 - (void)modifiersChangedWhileActive:(NSEvent*)event {
-    LOG(@"modifiersChangedWhileActive");
     // A statemachine that tracks our state via hotModifiersState_.
     // Simple incrementing state.
     if (!hotModifiers_) {
@@ -1220,7 +1219,6 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 
 // method that is called when the modifier keys are hit and we are inactive
 - (void)modifiersChangedWhileInactive:(NSEvent*)event {
-    LOG(@"modifiersChangedWhileInactive");
     // If we aren't activated by hotmodifiers, we don't want to be here
     // and if we are in the process of activating, we want to ignore the hotkey
     // so we don't try to process it twice.
@@ -1294,7 +1292,6 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
 }
 
 - (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client {
-    LOG(@"windowWillReturnFieldEditor %@", client);
     if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
         return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
     }
