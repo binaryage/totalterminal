@@ -98,9 +98,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 - (void)Visor_TTAppPrefsController_selectVisorPane {
     LOG(@"Visor_TTAppPrefsController_selectVisorPane");
+    id visor = [Visor sharedInstance]; // for some reason Visor_TTAppPrefsController_windowDidLoad may be not called in rare case we started visor and created Visor profile
+    [visor enahanceTerminalPreferencesWindow];
     NSWindow* prefsWindow = [self window];
     [prefsWindow setTitle:@"Visor"];
-    LOG(@" delegate: %@", [prefsWindow delegate]);
     NSToolbar* toolbar = [prefsWindow toolbar];
     [toolbar setSelectedItemIdentifier:@"Visor"];
     NSTabView* tabView = [self valueForKey:@"tabView"];
@@ -276,6 +277,10 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 - (void) enahanceTerminalPreferencesWindow {
+    static bool alreadyEnhanced = NO;
+    if (alreadyEnhanced) return;
+    alreadyEnhanced = YES;
+
     LOG(@"enahanceTerminalPreferencesWindow");
 
     id prefsController = [NSClassFromString(@"TTAppPrefsController") sharedPreferencesController];
@@ -344,7 +349,7 @@ void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 }
 
 + (void) install {
-    LOG(@"Visor install");
+    LOG(@"Visor installed");
 
     [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:) withMethod:@selector(Visor_TTWindowController_newTabWithProfile:) error:NULL];
     [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:command:runAsShell:) withMethod:@selector(Visor_TTWindowController_newTabWithProfile:command:runAsShell:) error:NULL];
