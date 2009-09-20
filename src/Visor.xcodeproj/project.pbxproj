@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,7 +19,6 @@
 		D65FF894105D875D00B54560 /* GTMCarbonEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF893105D875D00B54560 /* GTMCarbonEvent.m */; };
 		D65FF91B105D9B6200B54560 /* QSBKeyMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF91A105D9B6200B54560 /* QSBKeyMap.m */; };
 		D66688D310534A87002EDB20 /* VisorProfile.plist in Resources */ = {isa = PBXBuildFile; fileRef = D66688D210534A87002EDB20 /* VisorProfile.plist */; };
-		D6701C2B0F40376F00900D77 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6701C2A0F40376F00900D77 /* QuartzCore.framework */; };
 		D6716ED210659A6300970560 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6716ED110659A6300970560 /* WebKit.framework */; };
 		D6716FBD1065B54100970560 /* Control.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6716FBC1065B54100970560 /* Control.pdf */; };
 		D67170711065D19D00970560 /* RestoreApp.scpt in Resources */ = {isa = PBXBuildFile; fileRef = D671706A1065D14300970560 /* RestoreApp.scpt */; };
@@ -63,7 +62,6 @@
 		D65FF919105D9B6200B54560 /* QSBKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBKeyMap.h; sourceTree = "<group>"; };
 		D65FF91A105D9B6200B54560 /* QSBKeyMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBKeyMap.m; sourceTree = "<group>"; };
 		D66688D210534A87002EDB20 /* VisorProfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = VisorProfile.plist; path = res/VisorProfile.plist; sourceTree = "<group>"; };
-		D6701C2A0F40376F00900D77 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = res/Control.pdf; sourceTree = "<group>"; };
 		D671706A1065D14300970560 /* RestoreApp.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = RestoreApp.scpt; path = res/RestoreApp.scpt; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
-				D6701C2B0F40376F00900D77 /* QuartzCore.framework in Frameworks */,
 				D6716ED210659A6300970560 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,7 +107,6 @@
 		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D6701C2A0F40376F00900D77 /* QuartzCore.framework */,
 				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
 				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
 			);
@@ -243,8 +239,12 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				ORGANIZATIONNAME = BinaryAge;
+			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Visor" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
