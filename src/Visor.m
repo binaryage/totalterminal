@@ -1197,9 +1197,11 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     } else {
         hotModifiersState_ += 1;
     }
-    if (hotModifiersState_ == 3) {
+    LOG(@"  => %d", hotModifiersState_);
+    if (hotModifiersState_ >= 3) {
         // We've worked our way through the state machine to success!
         [self toggleVisor:self];
+        hotModifiersState_ = 0;
     }
 }
 
