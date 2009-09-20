@@ -25,6 +25,8 @@
     NSButton* pinButton;
     NSString* cachedPosition;
     NSString* lastPosition;
+    NSString* restoreAppAppleScriptSource;
+    NSDictionary* scriptError;
     BOOL ignoreResizeNotifications;
 }
 - (IBAction)pinAction:(id)sender;

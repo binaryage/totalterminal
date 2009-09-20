@@ -508,6 +508,10 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     if (!self) return self;
 
     LOG(@"init");
+
+    NSString* path = [[NSBundle bundleForClass:[self class]] pathForResource:@"RestoreApp" ofType:@"scpt"];
+    restoreAppAppleScriptSource = [[NSString alloc] initWithContentsOfFile:path encoding:NSMacOSRomanStringEncoding error:NULL]; 
+    scriptError = [[NSDictionary alloc] init]; 
     
     window = NULL;
     
@@ -833,6 +837,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 }
 
 - (void)storePreviouslyActiveApp {
+    LOG(@"storePreviouslyActiveApp");
     NSDictionary *activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
     if (previouslyActiveApp) {
         [previouslyActiveApp release];
@@ -845,13 +850,12 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)restorePreviouslyActiveApp {
     if (!previouslyActiveApp) return;
-    NSDictionary *scriptError = [[NSDictionary alloc] init]; 
-    // see: http://lists.apple.com/archives/Applescript-users/2007/Mar/msg00265.html
-    NSString *scriptSource = [NSString stringWithFormat: @"tell application \"%@\"\nwith timeout of 1 seconds\nactivate\nend timeout\nend tell", previouslyActiveApp]; 
-    NSAppleScript *appleScript = [[NSAppleScript alloc] initWithSource:scriptSource]; 
+    LOG(@"restorePreviouslyActiveApp %@", previouslyActiveApp);
+    NSString* scriptSource = [[NSString alloc] initWithFormat:restoreAppAppleScriptSource, previouslyActiveApp];
+    NSAppleScript* appleScript = [[NSAppleScript alloc] initWithSource:scriptSource]; 
     [appleScript executeAndReturnError: &scriptError];
     [appleScript release];
-    [scriptError release];
+    [scriptSource release];
     [previouslyActiveApp release];
     previouslyActiveApp = nil;
 }

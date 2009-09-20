@@ -23,6 +23,7 @@
 		D6701C2B0F40376F00900D77 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6701C2A0F40376F00900D77 /* QuartzCore.framework */; };
 		D6716ED210659A6300970560 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6716ED110659A6300970560 /* WebKit.framework */; };
 		D6716FBD1065B54100970560 /* Control.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6716FBC1065B54100970560 /* Control.pdf */; };
+		D67170711065D19D00970560 /* RestoreApp.scpt in Resources */ = {isa = PBXBuildFile; fileRef = D671706A1065D14300970560 /* RestoreApp.scpt */; };
 		D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391740F93EB3F0037E3BC /* VisorActive.png */; };
 		D673917A0F93EB3F0037E3BC /* VisorInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391750F93EB3F0037E3BC /* VisorInactive.png */; };
 		D673917B0F93EB3F0037E3BC /* VisorLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391760F93EB3F0037E3BC /* VisorLarge.png */; };
@@ -68,6 +69,7 @@
 		D6701C2A0F40376F00900D77 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = res/Control.pdf; sourceTree = "<group>"; };
+		D671706A1065D14300970560 /* RestoreApp.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = RestoreApp.scpt; path = res/RestoreApp.scpt; sourceTree = "<group>"; };
 		D67391740F93EB3F0037E3BC /* VisorActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorActive.png; path = res/VisorActive.png; sourceTree = "<group>"; };
 		D67391750F93EB3F0037E3BC /* VisorInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorInactive.png; path = res/VisorInactive.png; sourceTree = "<group>"; };
 		D67391760F93EB3F0037E3BC /* VisorLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorLarge.png; path = res/VisorLarge.png; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D671706A1065D14300970560 /* RestoreApp.scpt */,
 				D6716FBC1065B54100970560 /* Control.pdf */,
 				D65FF906105D984200B54560 /* Command.pdf */,
 				D66688D210534A87002EDB20 /* VisorProfile.plist */,
@@ -277,6 +280,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D67170711065D19D00970560 /* RestoreApp.scpt in Resources */,
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 				7F849AAC0A457E2200963040 /* Defaults.plist in Resources */,
 				D6FB33E90F3843E20067F941 /* Visor.xib in Resources */,
