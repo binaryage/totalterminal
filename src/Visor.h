@@ -5,12 +5,12 @@
     NSStatusItem* statusItem;
     IBOutlet NSMenu* statusMenu;
     IBOutlet NSWindow* settingsWindow;
-    IBOutlet WebView* infoLine; // on Visor preferences pane
-    EventHotKeyRef hotKey_;  // the hot key we're looking for. 
-    NSUInteger hotModifiers_;  // if we are getting double taps, the mods to look for.
+    IBOutlet WebView* infoLine; // bottom info line on Visor preferences pane
+    EventHotKeyRef hotKey_;
+    NSUInteger hotModifiers_;
     NSUInteger hotModifiersState_;
     NSTimeInterval lastHotModifiersEventCheckedTime_;
-    EventHotKeyRef escapeKey;
+    EventHotKeyRef escapeHotKey;
     NSString* previouslyActiveApp;
     BOOL isHidden;
     BOOL justLaunched;

@@ -501,7 +501,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [NSBundle loadNibNamed:@"Visor" owner:self];
     
     [self updateHotKeyRegistration];
-    [self initEscapeKey];
+    [self updateEscapeHotKeyRegistration];
     [self startEventMonitoring];
 
     if ([ud boolForKey:@"VisorShowStatusItem"]) {
@@ -519,6 +519,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [udc addObserver:self forKeyPath:@"values.VisorShowStatusItem" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorScreen" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorPosition" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorHideOnEscape" options:0 context:nil];
     
     // get notified of resolution change
     CGDisplayRegisterReconfigurationCallback(displayReconfigurationCallback, self);
@@ -845,7 +846,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [self cachePosition];
     [self storePreviouslyActiveApp];
     [NSApp activateIgnoringOtherApps:YES];
-    [self maybeEnableEscapeKey:YES];
     [window makeKeyAndOrderFront:self];
     [window setHasShadow:YES];
     [self applyWindowPositioning:window];
@@ -859,12 +859,16 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [window orderOut:nil];
 }
 
+-(void)hideOnEscape {
+    LOG(@"hideOnEscape");
+    [self hideVisor:NO];
+}
+
 -(void)hideVisor:(BOOL)fast {
     if (isHidden) return;
     LOG(@"hideVisor %d", fast);
     isHidden = true;
     [self updateStatusMenu];
-    [self maybeEnableEscapeKey:NO];
     [window update];
     [self slideWindows:0 fast:fast];
     [window setHasShadow:NO];
@@ -962,6 +966,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    LOG(@"observeValueForKeyPath %@", keyPath);
     if ([keyPath isEqualToString:@"values.VisorShowStatusItem"]) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowStatusItem"]) {
             [self activateStatusMenu];
@@ -985,6 +990,9 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         [self cacheScreen];
         [self cachePosition];
         [self applyWindowPositioning:window];
+    }
+    if ([keyPath isEqualToString:@"values.VisorHideOnEscape"]) {
+        [self updateEscapeHotKeyRegistration];
     }
 }
 
@@ -1038,16 +1046,22 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [statusMenuItem setKeyEquivalentModifierMask:statusMenuItemModifiers];
 }
 
-- (void)initEscapeKey {
-    // escapeKey=(QSHotKeyEvent *)[QSHotKeyEvent hotKeyWithKeyCode:53 character:0 modifierFlags:0];
-    // [escapeKey setTarget:self selectorReleased:(SEL)0 selectorPressed:@selector(toggleVisor:)];
-    // [escapeKey setEnabled:NO];  
-    // [escapeKey retain];
-}
-
-- (void)maybeEnableEscapeKey:(BOOL)pEnable {
-    // if([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorHideOnEscape"])
-    //     [escapeKey setEnabled:pEnable];
+- (void)updateEscapeHotKeyRegistration {
+    GTMCarbonEventDispatcherHandler *dispatcher = [GTMCarbonEventDispatcherHandler sharedEventDispatcherHandler];
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorHideOnEscape"]) {
+        if (!escapeHotKey) {
+            escapeHotKey = [dispatcher registerHotKey:53
+                                       modifiers:0
+                                          target:self
+                                          action:@selector(hideOnEscape)
+                                     whenPressed:YES];
+        }
+    } else {
+        if (escapeHotKey) {
+            [dispatcher unregisterHotKey:escapeHotKey];
+            escapeHotKey = nil;
+        }
+    }
 }
 
 - (IBAction)showPrefs:(id)sender {
