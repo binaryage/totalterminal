@@ -520,10 +520,12 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     LOG(@"Visor init");
     
     runningApplicationClass = NSClassFromString(@"NSRunningApplication"); // 10.6
-
-    NSString* path = [[NSBundle bundleForClass:[self class]] pathForResource:@"RestoreApp" ofType:@"scpt"];
-    restoreAppAppleScriptSource = [[NSString alloc] initWithContentsOfFile:path encoding:NSMacOSRomanStringEncoding error:NULL]; 
-    scriptError = [[NSDictionary alloc] init]; 
+    if (!runningApplicationClass) {
+        // 10.5 path
+        NSString* path = [[NSBundle bundleForClass:[self class]] pathForResource:@"RestoreApp" ofType:@"scpt"];
+        restoreAppAppleScriptSource = [[NSString alloc] initWithContentsOfFile:path encoding:NSMacOSRomanStringEncoding error:NULL]; 
+        scriptError = [[NSDictionary alloc] init]; 
+    }
     
     window = NULL;
     
@@ -848,7 +850,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         NSDictionary *activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
         previouslyActiveAppPath = nil;
         if ([[activeAppDict objectForKey:@"NSApplicationBundleIdentifier"] compare:@"com.apple.Terminal"]) {
-            previouslyActiveAppPath = [[NSString alloc] initWithString:[activeAppDict objectForKey:@"NSApplicationPath"]];
+            previouslyActiveAppPath = [activeAppDict objectForKey:@"NSApplicationPath"];
         }
         LOG(@"  (10.5) -> %@", previouslyActiveAppPath);
     } else {
