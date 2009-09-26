@@ -31,24 +31,6 @@ int main(int argc, char *argv[]) {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// display reconfiguration handling
-
-void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo) {
-    if (flags & kCGDisplayBeginConfigurationFlag) {
-        LOG(@"Will change display config: %d, flags=%x", display, flags);
-        
-        // need to hide visor window to prevent displaying it randomly after resolution change takes place
-        // correct visor placement is restored again in didChangeScreenScreenParameters
-        Visor* visor = [Visor sharedInstance];
-        [visor makeVisorInvisible]; 
-    } else {
-        LOG(@"Display config changed: %d, flags=%x", display, flags);
-        // I was unable to use this place to restore correct visor placement here
-        // NSScreen:frame has still old value at this point
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // VisorScreenTransformer - helper class for properties dialog
 
 @interface VisorScreenTransformer: NSValueTransformer {
@@ -577,9 +559,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [udc addObserver:self forKeyPath:@"values.VisorPosition" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorHideOnEscape" options:0 context:nil];
     
-    // get notified of resolution change
-    CGDisplayRegisterReconfigurationCallback(displayReconfigurationCallback, self);
-    
     return self;
 }
 
@@ -908,10 +887,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [window update];
 }
 
--(void)makeVisorInvisible {
-    [window orderOut:nil];
-}
-
 -(void)hideOnEscape {
     LOG(@"hideOnEscape");
     [self hideVisor:NO];
@@ -1015,7 +990,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)willClose:(id)sender {
     LOG(@"willClose %@", sender);
-    [self makeVisorInvisible]; // prevent gray background
+    [window orderOut:nil]; // prevent gray background
     window = nil;
     [self updateStatusMenu];
 }
