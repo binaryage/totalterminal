@@ -106,9 +106,9 @@ task :release do
   `cp -r "#{SRC_DIR}" "#{TMP_DIR}"`
 
   puts "#{cmd_color('Patching version info ...')}"
-  patch(VISOR_XIB, [['**VERSION**', $version], ['**REVISION**', $short_revision]])
-  patch(INFO_PLIST, [['**VERSION**', $version]])
-  patch(VISOR_M, [['**VERSION**', $version], ['**REVISION**', $short_revision], ['**SHA**', $revision]])
+  patch(VISOR_XIB, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
+  patch(INFO_PLIST, [['##VERSION##', $version]])
+  patch(VISOR_M, [['##VERSION##', $version], ['##REVISION##', $short_revision], ['##SHA##', $revision]])
   
   puts "#{cmd_color('Building')} #{file_color(TMP_DIR)}"
   Dir.chdir(TMP_DIR) do

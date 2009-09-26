@@ -504,7 +504,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void) updateInfoLine {
     LOG(@"updateInfoLine %@", infoLine);
-    [[infoLine mainFrame] loadHTMLString:@"<style>html {font-family: 'Lucida Grande', arial; font-size: 10px; cursor: default; color: #999;} a, a:visited { color: #66f; } a:hover {color: #22f}</style><center><b>Visor **VERSION**</b> (<a href=\"http://github.com/darwin/visor/commit/**SHA**\">**REVISION**</a>) by <a href=\"http://binaryage.com\">binaryage.com</a>, based on Visor 1.5 by <a href=\"http://blacktree.com\">blacktree.com</a></center>" baseURL:[NSURL URLWithString:@"http://visor.binaryage.com"]];
+    [[infoLine mainFrame] loadHTMLString:@"<style>html {font-family: 'Lucida Grande', arial; font-size: 10px; cursor: default; color: #999;} a, a:visited { color: #66f; } a:hover {color: #22f}</style><center><b>Visor ##VERSION##</b> (<a href=\"http://github.com/darwin/visor/commit/##SHA##\">##REVISION##</a>) by <a href=\"http://binaryage.com\">binaryage.com</a>, based on Visor 1.5 by <a href=\"http://blacktree.com\">blacktree.com</a></center>" baseURL:[NSURL URLWithString:@"http://visor.binaryage.com"]];
     [infoLine setDrawsBackground:NO];
 }
 
