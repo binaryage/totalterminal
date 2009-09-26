@@ -990,7 +990,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)willClose:(id)sender {
     LOG(@"willClose %@", sender);
-    [window orderOut:nil]; // prevent gray background
     window = nil;
     [self updateStatusMenu];
 }
