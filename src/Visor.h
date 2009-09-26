@@ -20,10 +20,7 @@
     BOOL isPinned;
     NSImage* activeIcon;
     NSImage* inactiveIcon;
-    NSImage* pinUpIcon;
-    NSImage* pinDownIcon;
     NSScreen* cachedScreen;
-    NSButton* pinButton;
     NSString* cachedPosition;
     NSString* lastPosition;
     NSString* restoreAppAppleScriptSource;
