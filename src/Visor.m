@@ -517,7 +517,9 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     self = [super init];
     if (!self) return self;
 
-    LOG(@"init");
+    LOG(@"Visor init");
+    
+    runningApplicationClass = NSClassFromString(@"NSRunningApplication"); // 10.6
 
     NSString* path = [[NSBundle bundleForClass:[self class]] pathForResource:@"RestoreApp" ofType:@"scpt"];
     restoreAppAppleScriptSource = [[NSString alloc] initWithContentsOfFile:path encoding:NSMacOSRomanStringEncoding error:NULL]; 
@@ -531,7 +533,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
     
-    previouslyActiveApp = nil;
+    previouslyActiveAppPath = nil;
     isHidden = true;
     isMain = false;
     isKey = false;
@@ -841,26 +843,49 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)storePreviouslyActiveApp {
     LOG(@"storePreviouslyActiveApp");
-    NSDictionary *activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
-    if (previouslyActiveApp) {
-        [previouslyActiveApp release];
-        previouslyActiveApp = nil;
-    }
-    if ([[activeAppDict objectForKey:@"NSApplicationBundleIdentifier"] compare:@"com.apple.Terminal"]) {
-        previouslyActiveApp = [[NSString alloc] initWithString:[activeAppDict objectForKey:@"NSApplicationPath"]];
+    if (!runningApplicationClass) {
+        // 10.5 path
+        NSDictionary *activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
+        previouslyActiveAppPath = nil;
+        if ([[activeAppDict objectForKey:@"NSApplicationBundleIdentifier"] compare:@"com.apple.Terminal"]) {
+            previouslyActiveAppPath = [[NSString alloc] initWithString:[activeAppDict objectForKey:@"NSApplicationPath"]];
+        }
+        LOG(@"  (10.5) -> %@", previouslyActiveAppPath);
+    } else {
+        // 10.6+ path
+        NSDictionary *activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
+        previouslyActiveAppPID = nil;
+        if ([[activeAppDict objectForKey:@"NSApplicationBundleIdentifier"] compare:@"com.apple.Terminal"]) {
+            previouslyActiveAppPID = [activeAppDict objectForKey:@"NSApplicationProcessIdentifier"];
+        }
+        LOG(@"  (10.6) -> %@", previouslyActiveAppPID);
     }
 }
 
 - (void)restorePreviouslyActiveApp {
-    if (!previouslyActiveApp) return;
-    LOG(@"restorePreviouslyActiveApp %@", previouslyActiveApp);
-    NSString* scriptSource = [[NSString alloc] initWithFormat:restoreAppAppleScriptSource, previouslyActiveApp];
-    NSAppleScript* appleScript = [[NSAppleScript alloc] initWithSource:scriptSource]; 
-    [appleScript executeAndReturnError: &scriptError];
-    [appleScript release];
-    [scriptSource release];
-    [previouslyActiveApp release];
-    previouslyActiveApp = nil;
+    if (!runningApplicationClass) {
+        if (!previouslyActiveAppPath) return;
+        LOG(@"restorePreviouslyActiveApp %@", previouslyActiveAppPath);
+        // 10.5 path
+        // Visor crashes when trying to return focus to non-running application? (http://github.com/darwin/visor/issues#issue/12)
+        NSString* scriptSource = [[NSString alloc] initWithFormat:restoreAppAppleScriptSource, previouslyActiveAppPath];
+        NSAppleScript* appleScript = [[NSAppleScript alloc] initWithSource:scriptSource]; 
+        [appleScript executeAndReturnError: &scriptError];
+        [appleScript release];
+        [scriptSource release];
+        previouslyActiveAppPath = nil;
+    } else {
+        // 10.6+ path
+        LOG(@"xrestorePreviouslyActiveApp %@", previouslyActiveAppPID);
+        if (!previouslyActiveAppPID) return;
+        LOG(@"restorePreviouslyActiveApp %@", previouslyActiveAppPID);
+        id app = [runningApplicationClass runningApplicationWithProcessIdentifier: [previouslyActiveAppPID intValue]];
+        if (app) {
+            LOG(@"  ... activating %@", app);
+            [app activateWithOptions:0];
+        }
+        previouslyActiveAppPID = nil;
+    }
 }
 
 - (void)onReopenVisor {

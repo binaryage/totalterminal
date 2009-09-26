@@ -12,6 +12,7 @@
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TerminalColours.m */; };
 		D62204B21051CC6A00FAEA30 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204B11051CC6A00FAEA30 /* JRSwizzle.m */; };
+		D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C167FFE841241C02AAC07 /* AppKit.framework */; };
 		D65FF865105D82B500B54560 /* GTMHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF864105D82B500B54560 /* GTMHotKeyTextField.m */; };
 		D65FF874105D845B00B54560 /* GTMNSObject+KeyValueObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF870105D845B00B54560 /* GTMNSObject+KeyValueObserving.m */; };
 		D65FF875105D845B00B54560 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF873105D845B00B54560 /* GTMSystemVersion.m */; };
@@ -84,6 +85,7 @@
 			files = (
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				D6716ED210659A6300970560 /* WebKit.framework in Frameworks */,
+				D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,10 +360,12 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = Visor;
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx10.6;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = bundle;
@@ -388,8 +392,10 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = Visor;
 				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = macosx10.6;
 				VALID_ARCHS = "x86_64 i386 ppc";
 				WRAPPER_EXTENSION = bundle;
 			};

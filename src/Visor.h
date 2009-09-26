@@ -11,7 +11,8 @@
     NSUInteger hotModifiersState_;
     NSTimeInterval lastHotModifiersEventCheckedTime_;
     EventHotKeyRef escapeHotKey;
-    NSString* previouslyActiveApp;
+    NSString* previouslyActiveAppPath;
+    NSNumber* previouslyActiveAppPID;
     BOOL isHidden;
     BOOL justLaunched;
     BOOL isMain;
@@ -28,6 +29,7 @@
     NSString* restoreAppAppleScriptSource;
     NSDictionary* scriptError;
     BOOL ignoreResizeNotifications;
+    id runningApplicationClass;
 }
 - (IBAction)pinAction:(id)sender;
 - (IBAction)toggleVisor:(id)sender;
