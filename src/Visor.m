@@ -699,11 +699,31 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     safeFrame.size.height = 1000;
     [win setFrame:safeFrame display:NO];
 
-    id controller = [window windowController];
-    id tabc = [controller selectedTabController];
-    id pane = [tabc activePane];
-    id view = [pane view];
-    [view returnToDefaultSize:self];
+    if (!runningApplicationClass) {
+        // 10.5 path
+        // this is kind of a hack
+        // I'm using scripting API to update main window geometry according to profile settings
+        // note: this will resize all Terminal.app windows using "Visor" profile
+        //       this should not be an issue because only Visor-ed window should use this profile
+        id profileManagerClass = NSClassFromString(@"TTProfileManager");
+        id profileManager = [profileManagerClass sharedProfileManager];
+        id visorProfile = [profileManager profileWithName:@"Visor"];
+        if (!visorProfile) {
+            LOG(@"  ... unable to lookup Visor profile!");
+            return;
+        }
+        NSNumber* cols = [visorProfile scriptNumberOfColumns];
+        NSNumber* rows = [visorProfile scriptNumberOfRows];
+        [visorProfile setScriptNumberOfColumns:cols];
+        [visorProfile setScriptNumberOfRows        
+    } else {
+        // 10.6 path
+        id controller = [window windowController];
+        id tabc = [controller selectedTabController];
+        id pane = [tabc activePane];
+        id view = [pane view];
+        [view returnToDefaultSize:self];
+    }
 }
 
 - (void)applyVisorPositioning {
