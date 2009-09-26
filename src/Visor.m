@@ -715,7 +715,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         NSNumber* cols = [visorProfile scriptNumberOfColumns];
         NSNumber* rows = [visorProfile scriptNumberOfRows];
         [visorProfile setScriptNumberOfColumns:cols];
-        [visorProfile setScriptNumberOfRows: rows];
+        [visorProfile setScriptNumberOfRows:rows];
     } else {
         // 10.6 path
         id controller = [window windowController];
