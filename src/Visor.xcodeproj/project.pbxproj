@@ -337,7 +337,7 @@
 			buildSettings = {
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CODE_SIGN_IDENTITY = "";
-				CONFIGURATION_BUILD_DIR = "/Users/darwin/Library/Application Support/SIMBL/Plugins";
+				CONFIGURATION_BUILD_DIR = "$HOME/Library/Application Support/SIMBL/Plugins";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
