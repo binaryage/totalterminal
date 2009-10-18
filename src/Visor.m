@@ -440,9 +440,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     if (![ud objectForKey:@"VisorPosition"]) {
         [ud setObject:@"Top-Stretch" forKey:@"VisorPosition"];
     }
-    if (![ud objectForKey:@"VisorPosition"]) {
-        [ud setObject:@"Top-Stretch" forKey:@"VisorPosition"];
-    }
     // by default enable HotKey as Control+` (CTRL+tilde)
     if (![ud objectForKey:@"VisorHotKey"]) {
         [ud setObject:[NSDictionary dictionaryWithObjectsAndKeys: \
