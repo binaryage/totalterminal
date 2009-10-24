@@ -10,6 +10,8 @@
 - (NSUInteger)qsbModifierFlags;
 @end
 
+#pragma mark -
+
 @implementation NSEvent (QSBApplicationEventAdditions)
 
 - (NSUInteger)qsbModifierFlags {
@@ -23,19 +25,21 @@
 
 @end
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// main entry point
+#pragma mark - main entry point -
 
 int main(int argc, char *argv[]) {
     return NSApplicationMain(argc,  (const char **) argv);
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// VisorScreenTransformer - helper class for properties dialog
+#pragma mark -
+#pragma mark - VisorScreenTransformer - helper class for properties dialog -
+#pragma mark -
 
 @interface VisorScreenTransformer: NSValueTransformer {
 }
 @end
+
+#pragma mark -
 
 @implementation VisorScreenTransformer
 
@@ -62,8 +66,9 @@ int main(int argc, char *argv[]) {
 
 @end
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// NSWindowController monkey patching
+#pragma mark -
+#pragma mark - NSWindowController monkey patching -
+#pragma mark -
 
 @implementation NSWindowController (Visor)
 
@@ -188,12 +193,13 @@ int main(int argc, char *argv[]) {
 
 @end
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// NSApplication monkey patching
+#pragma mark -
+#pragma mark - NSApplication monkey patching -
+#pragma mark -
 
 @implementation NSApplication (Visor)
 
-- (void)Visor_sendEvent:(NSEvent *)theEvent {
+- (void)Visor_TTApplication_sendEvent:(NSEvent *)theEvent {
     NSUInteger type = [theEvent type];
     if (type == NSFlagsChanged) {
         Visor* visor = [Visor sharedInstance];
@@ -202,20 +208,40 @@ int main(int argc, char *argv[]) {
         Visor* visor = [Visor sharedInstance];
         [visor keysChangedWhileActive:theEvent];
     }
-    [self Visor_sendEvent:theEvent];
+    [self Visor_TTApplication_sendEvent:theEvent];
 }
 
-- (BOOL)Visor_TTAplication_applicationShouldHandleReopen:(id)fp8 hasVisibleWindows:(BOOL)fp12 {
+- (BOOL)Visor_TTApplication_applicationShouldHandleReopen:(id)fp8 hasVisibleWindows:(BOOL)fp12 {
     LOG(@"Visor_TTAplication_applicationShouldHandleReopen");
-    Visor* visor = [Visor sharedInstance];
-    [visor onReopenVisor];
-    return [self Visor_TTAplication_applicationShouldHandleReopen:fp8 hasVisibleWindows:(BOOL)fp12];
+    Visor *visor = [Visor sharedInstance];
+	
+	if (![visor reopenVisor] && ![self mainTerminalWindow]) {
+		LOG(@"-- > Visor_TTAplication_applicationShouldHandleReopen got here");		
+		[self newShell:nil];
+	}
+	
+    return [self Visor_TTApplication_applicationShouldHandleReopen:fp8 hasVisibleWindows:(BOOL)fp12];
+}
+
+- (id)Visor_TTApplication_mainTerminalWindow {
+	LOG(@"Visor_TTApplication_mainTerminalWindow");
+
+	BOOL showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowOnReopen"];
+	id currentWindow = [self Visor_TTApplication_mainTerminalWindow];
+	Visor *visor = [Visor sharedInstance];
+	
+	if (!showOnReopen && [[visor window] isEqual:currentWindow]) {
+		currentWindow = nil;
+	}
+	
+	return currentWindow;
 }
 
 @end
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// NSWindow monkey patching
+#pragma mark -
+#pragma mark - NSWindow monkey patching -
+#pragma mark -
 
 @implementation NSWindow (Visor)
 
@@ -236,22 +262,45 @@ int main(int argc, char *argv[]) {
 
 - (BOOL) Visor_canBecomeKeyWindow {
     LOG(@"canBecomeKeyWindow");
-    return YES;
+	BOOL canBecomeKeyWindow = YES;
+	
+	Visor *visor = [Visor sharedInstance];
+	if ([[visor window] isEqual:self] && [visor isHidden]) {
+		canBecomeKeyWindow = NO;
+	}
+	
+    return canBecomeKeyWindow;
 }
 
 - (BOOL) Visor_canBecomeMainWindow {
     LOG(@"canBecomeMainWindow");
-    return YES;
+	BOOL canBecomeMainWindow = YES;
+	
+	Visor *visor = [Visor sharedInstance];
+	if ([[visor window] isEqual:self] && [visor isHidden]) {
+		canBecomeMainWindow = NO;
+	}
+	
+    return canBecomeMainWindow;
 }
 
 @end
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Visor implementation
+#pragma mark -
+#pragma mark - Visor implementation -
+#pragma mark -
 
 @implementation Visor
 
--(NSToolbarItem*)getVisorToolbarItem {
+- (NSWindow *)window {
+	return window;
+}
+
+- (BOOL)isHidden {
+	return isHidden;
+}
+
+- (NSToolbarItem*)getVisorToolbarItem {
     LOG(@"getVisorToolbarItem");
     NSToolbar* sourceToolbar = [settingsWindow toolbar];
     NSToolbarItem* toolbarItem = [[sourceToolbar items] objectAtIndex:0];
@@ -350,8 +399,10 @@ int main(int argc, char *argv[]) {
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeKeyWindow) withMethod:@selector(Visor_canBecomeKeyWindow) error:NULL];
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeMainWindow) withMethod:@selector(Visor_canBecomeMainWindow) error:NULL];
 
-    [NSClassFromString(@"TTApplication") jr_swizzleMethod:@selector(sendEvent:) withMethod:@selector(Visor_sendEvent:) error:NULL];
-    [NSClassFromString(@"TTApplication") jr_swizzleMethod:@selector(applicationShouldHandleReopen:hasVisibleWindows:) withMethod:@selector(Visor_TTAplication_applicationShouldHandleReopen:hasVisibleWindows:) error:NULL];
+	Class applicationClass = NSClassFromString(@"TTApplication");
+    [applicationClass jr_swizzleMethod:@selector(sendEvent:) withMethod:@selector(Visor_TTApplication_sendEvent:) error:NULL];
+    [applicationClass jr_swizzleMethod:@selector(applicationShouldHandleReopen:hasVisibleWindows:) withMethod:@selector(Visor_TTApplication_applicationShouldHandleReopen:hasVisibleWindows:) error:NULL];
+    [applicationClass jr_swizzleMethod:@selector(mainTerminalWindow) withMethod:@selector(Visor_TTApplication_mainTerminalWindow) error:NULL];
 
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(Visor_TTAppPrefsController_windowDidLoad) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:NULL];
@@ -902,10 +953,14 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     }
 }
 
-- (void)onReopenVisor {
-    bool showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowOnReopen"];
-    if (!showOnReopen) return;
-    [self showVisor:NO];
+- (BOOL)reopenVisor {
+    BOOL showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowOnReopen"];
+
+    if (showOnReopen) {
+		[self showVisor:NO];
+	}
+	
+	return showOnReopen;
 }
 
 - (void)showVisor:(BOOL)fast {
