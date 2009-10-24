@@ -160,7 +160,7 @@ int main(int argc, char *argv[]) {
         if (visorProfile) {
             arg1 = visorProfile;
         } else {
-            LOG(@"  ... unable to lookup Visor profile!");
+            arg1 = [profileManagerClass defaultProfile];
         }
     }
     return [self Visor_TTWindowController_newTabWithProfile:arg1];
