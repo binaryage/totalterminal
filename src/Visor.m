@@ -180,7 +180,7 @@ int main(int argc, char *argv[]) {
         if (visorProfile) {
             arg1 = visorProfile;
         } else {
-            LOG(@"  ... unable to lookup Visor profile!");
+            arg1 = [profileManager defaultProfile];
         }
     }
     return [self Visor_TTWindowController_newTabWithProfile:arg1 command:arg2 runAsShell:arg3];
@@ -289,7 +289,8 @@ int main(int argc, char *argv[]) {
     LOG(@"createVisorProfileIfNeeded");
     id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
-    if (!visorProfile) {
+
+    if (visorProfile) {
         LOG(@"   ... initialising Visor profile");
         
         // create visor profile in case it does not exist yet, use startup profile as a template
@@ -297,11 +298,11 @@ int main(int argc, char *argv[]) {
         visorProfile = [startupProfile copyWithZone:nil];
 
         // apply Darwin's preferred Visor settings
-        Visor* visor = [Visor sharedInstance];
-        NSData *plistData;
-        NSString *error;
-        NSPropertyListFormat format;
-        id plist;
+        Visor *visor = [Visor sharedInstance];
+        NSData *plistData = nil;
+        NSString *error = nil;
+        NSPropertyListFormat format = nil;
+        id plist = nil;
         NSString *path = [[NSBundle bundleForClass:[visor class]] pathForResource:@"VisorProfile" ofType:@"plist"]; 
         plistData = [NSData dataWithContentsOfFile:path]; 
         plist = [NSPropertyListSerialization propertyListFromData:plistData mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
@@ -314,7 +315,10 @@ int main(int argc, char *argv[]) {
         // set profile into manager
         [profileManager setProfile:visorProfile forName:@"Visor"];
         [visorProfile release];
-    }
+    } else {
+		visorProfile = [profileManager defaultProfile];
+	}
+	
     return visorProfile;
 }
 
