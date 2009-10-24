@@ -607,7 +607,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window];
     [dnc addObserver:self selector:@selector(didChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
     
-    justLaunched = true;
     [self updateStatusMenu];
 }
 

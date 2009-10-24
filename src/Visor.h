@@ -14,7 +14,6 @@
     NSString* previouslyActiveAppPath;
     NSNumber* previouslyActiveAppPID;
     BOOL isHidden;
-    BOOL justLaunched;
     BOOL isMain;
     BOOL isKey;
     BOOL isPinned;
