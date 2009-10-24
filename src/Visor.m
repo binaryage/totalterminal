@@ -160,7 +160,7 @@ int main(int argc, char *argv[]) {
         if (visorProfile) {
             arg1 = visorProfile;
         } else {
-            arg1 = [profileManagerClass defaultProfile];
+            arg1 = [profileManager defaultProfile];
         }
     }
     return [self Visor_TTWindowController_newTabWithProfile:arg1];
@@ -278,19 +278,23 @@ int main(int argc, char *argv[]) {
     [tabView addTabViewItem:item];
 }
 
-+ (Visor*) sharedInstance {
-    static Visor* plugin = nil;
++ (Visor *) sharedInstance {
+    static Visor *plugin = nil;
     if (plugin == nil)
         plugin = [[Visor alloc] init];
     return plugin;
 }
 
-+ (id) getOrCreateVisorProfile {
++ (id) getVisorProfile {
+	return [self getOrCreateVisorProfileIfNecessary:NO];
+}
+
++ (id) getOrCreateVisorProfileIfNecessary:(BOOL)createIfNecessary {
     LOG(@"createVisorProfileIfNeeded");
     id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
 
-    if (visorProfile) {
+    if (!visorProfile && createIfNecessary) {
         LOG(@"   ... initialising Visor profile");
         
         // create visor profile in case it does not exist yet, use startup profile as a template
@@ -359,11 +363,11 @@ int main(int argc, char *argv[]) {
     [self sanitizeDefaults:ud];
 
     [self closeExistingWindows];
-    id visorProfile = [self getOrCreateVisorProfile];
+    id visorProfile = [self getVisorProfile];
     id app = [NSClassFromString(@"TTApplication") sharedApplication];
     id controller = [app newWindowControllerWithProfile:visorProfile];
     
-    Visor* visor = [Visor sharedInstance];
+    Visor *visor = [Visor sharedInstance];
     [visor resetWindowPlacement];
 
     [controller release];
@@ -709,10 +713,10 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         id profileManagerClass = NSClassFromString(@"TTProfileManager");
         id profileManager = [profileManagerClass sharedProfileManager];
         id visorProfile = [profileManager profileWithName:@"Visor"];
-        if (!visorProfile) {
-            LOG(@"  ... unable to lookup Visor profile!");
-            return;
-        }
+ //       if (!visorProfile) {
+//            LOG(@"  ... unable to lookup Visor profile!");
+//            return;
+//        }
         NSNumber* cols = [visorProfile scriptNumberOfColumns];
         NSNumber* rows = [visorProfile scriptNumberOfRows];
         [visorProfile setScriptNumberOfColumns:cols];
