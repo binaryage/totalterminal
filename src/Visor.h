@@ -28,6 +28,10 @@
     BOOL ignoreResizeNotifications;
     id runningApplicationClass;
 }
+
+- (NSWindow *)window;
+- (BOOL)isHidden;
+
 - (IBAction)pinAction:(id)sender;
 - (IBAction)toggleVisor:(id)sender;
 - (IBAction)showPrefs:(id)sender;
