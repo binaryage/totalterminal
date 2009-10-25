@@ -123,6 +123,7 @@ task :release do
     unless system("zip -r \"#{result}\" Visor.bundle") then puts red('need zip on command line (download http://www.info-zip.org/Zip.html)') end;
   end
   Rake::Task["clean"].execute nil
+  puts "Tip: Execute '#{blue("rake install")}' to install this latest version (into your SIMBL Plugins directory)."
 end
 
 desc "removes intermediate build files"

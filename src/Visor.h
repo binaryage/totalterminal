@@ -1,7 +1,7 @@
 #import "GTMCarbonEvent.h"
 
 @interface Visor: NSObject {
-    NSWindow		*window_; // the one visorized terminal window (may be nil)
+    NSWindow        *window_; // the one visorized terminal window (may be nil)
     NSStatusItem* statusItem;
     IBOutlet NSMenu* statusMenu;
     IBOutlet NSWindow* settingsWindow;
@@ -14,7 +14,6 @@
     NSString* previouslyActiveAppPath;
     NSNumber* previouslyActiveAppPID;
     BOOL isHidden;
-    BOOL justLaunched;
     BOOL isMain;
     BOOL isKey;
     BOOL isPinned;
@@ -25,9 +24,9 @@
     NSString* lastPosition;
     NSString* restoreAppAppleScriptSource;
     NSDictionary* scriptError;
-    BOOL	ignoreResizeNotifications;
-    id		runningApplicationClass_;
-	BOOL	runningOnLeopard_;
+    BOOL    ignoreResizeNotifications;
+    id      runningApplicationClass_;
+    BOOL    runningOnLeopard_;
 }
 
 - (NSWindow *)window;

@@ -211,28 +211,28 @@ int main(int argc, char *argv[]) {
 - (BOOL)Visor_TTApplication_applicationShouldHandleReopen:(id)fp8 hasVisibleWindows:(BOOL)fp12 {
     LOG(@"Visor_TTAplication_applicationShouldHandleReopen");
     Visor *visor = [Visor sharedInstance];
-	
-	if (![visor reopenVisor] && ![self mainTerminalWindow]) {
-		[self newShell:nil];
-	}
-	
+    
+    if (![visor reopenVisor] && ![self mainTerminalWindow]) {
+        [self newShell:nil];
+    }
+    
     return [self Visor_TTApplication_applicationShouldHandleReopen:fp8 hasVisibleWindows:(BOOL)fp12];
 }
 
 - (id)Visor_TTApplication_mainTerminalWindow {
-	LOG(@"Visor_TTApplication_mainTerminalWindow");
+    LOG(@"Visor_TTApplication_mainTerminalWindow");
 
-	BOOL showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowOnReopen"];
-	id currentWindow = [self Visor_TTApplication_mainTerminalWindow];
-	LOG(@"currentWindow: %@", currentWindow);	
-	Visor *visor = [Visor sharedInstance];
-	
-	if (!showOnReopen && [[visor window] isEqual:currentWindow]) {
-		currentWindow = nil;
-	}
-	LOG(@"currentWindow: %@", currentWindow);	
-	
-	return currentWindow;
+    BOOL showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowOnReopen"];
+    id currentWindow = [self Visor_TTApplication_mainTerminalWindow];
+    LOG(@"currentWindow: %@", currentWindow);   
+    Visor *visor = [Visor sharedInstance];
+    
+    if (!showOnReopen && [[visor window] isEqual:currentWindow]) {
+        currentWindow = nil;
+    }
+    LOG(@"currentWindow: %@", currentWindow);   
+    
+    return currentWindow;
 }
 
 @end
@@ -260,25 +260,25 @@ int main(int argc, char *argv[]) {
 
 - (BOOL) Visor_canBecomeKeyWindow {
     LOG(@"canBecomeKeyWindow");
-	BOOL canBecomeKeyWindow = YES;
-	
-	Visor *visor = [Visor sharedInstance];
-	if ([[visor window] isEqual:self] && [visor isHidden]) {
-		canBecomeKeyWindow = NO;
-	}
-	
+    BOOL canBecomeKeyWindow = YES;
+    
+    Visor *visor = [Visor sharedInstance];
+    if ([[visor window] isEqual:self] && [visor isHidden]) {
+        canBecomeKeyWindow = NO;
+    }
+    
     return canBecomeKeyWindow;
 }
 
 - (BOOL) Visor_canBecomeMainWindow {
     LOG(@"canBecomeMainWindow");
-	BOOL canBecomeMainWindow = YES;
-	
-	Visor *visor = [Visor sharedInstance];
-	if ([[visor window] isEqual:self] && [visor isHidden]) {
-		canBecomeMainWindow = NO;
-	}
-	
+    BOOL canBecomeMainWindow = YES;
+    
+    Visor *visor = [Visor sharedInstance];
+    if ([[visor window] isEqual:self] && [visor isHidden]) {
+        canBecomeMainWindow = NO;
+    }
+    
     return canBecomeMainWindow;
 }
 
@@ -291,36 +291,36 @@ int main(int argc, char *argv[]) {
 @implementation Visor
 
 - (NSWindow *)window {
-	return window_;
+    return window_;
 }
 
 - (void)setWindow:(NSWindow *)inWindow {
-	NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
+    NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
 
-	[inWindow retain];
-	
-	[dnc removeObserver:self name:NSWindowDidBecomeKeyNotification object:window_];
-	[dnc removeObserver:self name:NSWindowDidResignKeyNotification object:window_];
-	[dnc removeObserver:self name:NSWindowDidBecomeMainNotification object:window_];
-	[dnc removeObserver:self name:NSWindowDidResignMainNotification object:window_];
-	[dnc removeObserver:self name:NSWindowWillCloseNotification object:window_];
+    [inWindow retain];
+    
+    [dnc removeObserver:self name:NSWindowDidBecomeKeyNotification object:window_];
+    [dnc removeObserver:self name:NSWindowDidResignKeyNotification object:window_];
+    [dnc removeObserver:self name:NSWindowDidBecomeMainNotification object:window_];
+    [dnc removeObserver:self name:NSWindowDidResignMainNotification object:window_];
+    [dnc removeObserver:self name:NSWindowWillCloseNotification object:window_];
 
-	LOG(@"setWindow %@ beforeRelease", window_);
-	[window_ release];	
-	window_ = inWindow;
-	LOG(@"setWindow %@ afterRelease", window_);
+    LOG(@"setWindow %@ beforeRelease", window_);
+    [window_ release];  
+    window_ = inWindow;
+    LOG(@"setWindow %@ afterRelease", window_);
 
-	if (window_) {
-		[dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:window_];
-		[dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:window_];
-		[dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window_];
-		[dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window_];
-		[dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window_];
-	}
+    if (window_) {
+        [dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:window_];
+        [dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:window_];
+        [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window_];
+        [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window_];
+        [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window_];
+    }
 }
 
 - (BOOL)isHidden {
-	return isHidden;
+    return isHidden;
 }
 
 - (NSToolbarItem*)getVisorToolbarItem {
@@ -358,7 +358,7 @@ int main(int argc, char *argv[]) {
 }
 
 + (id) getVisorProfile {
-	return [self getOrCreateVisorProfileIfNecessary:NO];
+    return [self getOrCreateVisorProfileIfNecessary:NO];
 }
 
 + (id) getOrCreateVisorProfileIfNecessary:(BOOL)createIfNecessary {
@@ -392,9 +392,9 @@ int main(int argc, char *argv[]) {
         [profileManager setProfile:visorProfile forName:@"Visor"];
         [visorProfile release];
     } else {
-		visorProfile = [profileManager defaultProfile];
-	}
-	
+        visorProfile = [profileManager defaultProfile];
+    }
+    
     return visorProfile;
 }
 
@@ -422,7 +422,7 @@ int main(int argc, char *argv[]) {
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeKeyWindow) withMethod:@selector(Visor_canBecomeKeyWindow) error:NULL];
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeMainWindow) withMethod:@selector(Visor_canBecomeMainWindow) error:NULL];
 
-	Class applicationClass = NSClassFromString(@"TTApplication");
+    Class applicationClass = NSClassFromString(@"TTApplication");
     [applicationClass jr_swizzleMethod:@selector(sendEvent:) withMethod:@selector(Visor_TTApplication_sendEvent:) error:NULL];
     [applicationClass jr_swizzleMethod:@selector(applicationShouldHandleReopen:hasVisibleWindows:) withMethod:@selector(Visor_TTApplication_applicationShouldHandleReopen:hasVisibleWindows:) error:NULL];
     [applicationClass jr_swizzleMethod:@selector(mainTerminalWindow) withMethod:@selector(Visor_TTApplication_mainTerminalWindow) error:NULL];
@@ -599,7 +599,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     LOG(@"Visor init");
     
     runningApplicationClass_ = NSClassFromString(@"NSRunningApplication"); // 10.6
-	runningOnLeopard_ = !runningApplicationClass_;
+    runningOnLeopard_ = !runningApplicationClass_;
     if (runningOnLeopard_) {
         // 10.5 path
         NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"RestoreApp" ofType:@"scpt"];
@@ -607,7 +607,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         scriptError = [[NSDictionary alloc] init]; 
     }
     
-	[self setWindow:nil];
+    [self setWindow:nil];
     
     activeIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorActive"]];
     inactiveIcon=[[NSImage alloc]initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]]pathForImageResource:@"VisorInactive"]];
@@ -670,12 +670,11 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         LOG(@"adoptTerminal called when old window existed");
     }
 
-	[self setWindow:win];
+    [self setWindow:win];
 
     [window_ setLevel:NSMainMenuWindowLevel-1];
     [window_ setOpaque:NO];
         
-    justLaunched = true;
     [self updateStatusMenu];
 }
 
@@ -715,14 +714,16 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 - (void)resetWindowPlacement {
     lastPosition = nil;
     if (window_) {
-		float offset = 1.0f;
-		if (isHidden) offset = 0.0f;
-		LOG(@"resetWindowPlacement %@ %f", window_, offset);
-		[self cacheScreen];
-		[self cachePosition];
-		[self applyVisorPositioning];
-		[self slideWindows:!isHidden fast:YES];
-	}
+        float offset = 1.0f;
+        if (isHidden) offset = 0.0f;
+        LOG(@"resetWindowPlacement %@ %f", window_, offset);
+        [self cacheScreen];
+        [self cachePosition];
+        [self applyVisorPositioning];
+        [self slideWindows:!isHidden fast:YES];
+    } else {
+        LOG(@"resetWindowPlacement called for nil window");
+    }
 }
 
 - (void)cachePosition {
@@ -762,18 +763,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)resetVisorWindowSize:(id)win {
     LOG(@"resetVisorWindowSize");
-    
-    // this block is needed to prevent "<NSSplitView>: the delegate <InterfaceController> was sent -splitView:resizeSubviewsWithOldSize: and left the subview frames in an inconsistent state" type of message
-    // http://cocoadev.com/forums/comments.php?DiscussionID=1092
-    // this issue is only on Snow Leopard (10.6), because it is newly using NSSplitViews
-    NSRect safeFrame;
-    safeFrame.origin.x = 0;
-    safeFrame.origin.y = 0;
-    safeFrame.size.width = 1000;
-    safeFrame.size.height = 1000;
-    [win setFrame:safeFrame display:NO];
-
-    if (!runningOnLeopard_) {
+    if (runningOnLeopard_) {
         // 10.5 path
         // this is kind of a hack
         // I'm using scripting API to update main window geometry according to profile settings
@@ -783,10 +773,24 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
         NSNumber *cols = [visorProfile scriptNumberOfColumns];
         NSNumber *rows = [visorProfile scriptNumberOfRows];
+        LOG(@"  10.5 path: setting window dimmensions to %@, %@ via scripting interface", cols, rows);
         [visorProfile setScriptNumberOfColumns:cols];
         [visorProfile setScriptNumberOfRows:rows];
     } else {
         // 10.6 path
+        // this block is needed to prevent "<NSSplitView>: the delegate <InterfaceController> was sent -splitView:resizeSubviewsWithOldSize: and left the subview frames in an inconsistent state" type of message
+        // http://cocoadev.com/forums/comments.php?DiscussionID=1092
+        // this issue is only on Snow Leopard (10.6), because it is newly using NSSplitViews
+        NSRect safeFrame;
+        safeFrame.origin.x = 0;
+        safeFrame.origin.y = 0;
+        safeFrame.size.width = 1000;
+        safeFrame.size.height = 1000;
+        [win setFrame:safeFrame display:NO];
+
+        // this is a better way of 10.5 path for Terminal on Snow Leopard
+        // we may call returnToDefaultSize method on our window's view
+        // no more resizing issues like described here: http://github.com/darwin/visor/issues/#issue/1
         id controller = [window_ windowController];
         id tabc = [controller selectedTabController];
         id pane = [tabc activePane];
@@ -923,7 +927,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)storePreviouslyActiveApp {
     LOG(@"storePreviouslyActiveApp");
-    if (!runningOnLeopard_) {
+    if (runningOnLeopard_) {
         // 10.5 path
         NSDictionary *activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
         previouslyActiveAppPath = nil;
@@ -943,7 +947,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 }
 
 - (void)restorePreviouslyActiveApp {
-    if (!runningOnLeopard_) {
+    if (runningOnLeopard_) {
         if (!previouslyActiveAppPath) return;
         LOG(@"restorePreviouslyActiveApp %@", previouslyActiveAppPath);
         // 10.5 path
@@ -971,10 +975,10 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     BOOL showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowOnReopen"];
 
     if (showOnReopen) {
-		[self showVisor:NO];
-	}
-	
-	return showOnReopen;
+        [self showVisor:NO];
+    }
+    
+    return showOnReopen;
 }
 
 - (void)showVisor:(BOOL)fast {
@@ -1092,7 +1096,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)willClose:(NSNotification *)inNotification {
     LOG(@"willClose %@", inNotification);
-	[self setWindow:nil];
+    [self setWindow:nil];
     [self updateStatusMenu];
 }
 
