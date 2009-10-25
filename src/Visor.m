@@ -159,9 +159,7 @@ int main(int argc, char *argv[]) {
     BOOL isVisoredWindow = [visor isVisoredWindow:[this window]];
     if (isVisoredWindow) {
         LOG(@"  in visored window ... so apply visor profile");
-        id profileManagerClass = NSClassFromString(@"TTProfileManager");
-        id profileManager = [profileManagerClass sharedProfileManager];
-        id visorProfile = [profileManager profileWithName:@"Visor"];
+        id visorProfile = [Visor getVisorProfile];
         if (visorProfile) {
             arg1 = visorProfile;
         } else {
@@ -180,13 +178,8 @@ int main(int argc, char *argv[]) {
     BOOL isVisoredWindow = [visor isVisoredWindow:[this window]];
     if (isVisoredWindow) {
         LOG(@"  in visored window ... so apply visor profile");
-        id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
-        id visorProfile = [profileManager profileWithName:@"Visor"];
-        if (visorProfile) {
-            arg1 = visorProfile;
-        } else {
-            arg1 = [profileManager defaultProfile];
-        }
+        id visorProfile = [Visor getVisorProfile];
+		arg1 = visorProfile;
     }
     return [self Visor_TTWindowController_newTabWithProfile:arg1 command:arg2 runAsShell:arg3];
 }
