@@ -728,6 +728,8 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 		[self cachePosition];
 		[self applyVisorPositioning];
 		[self slideWindows:!isHidden fast:YES];
+	} else {
+        LOG(@"resetWindowPlacement called for nil window");
 	}
 }
 
@@ -768,18 +770,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)resetVisorWindowSize:(id)win {
     LOG(@"resetVisorWindowSize");
-    
-    // this block is needed to prevent "<NSSplitView>: the delegate <InterfaceController> was sent -splitView:resizeSubviewsWithOldSize: and left the subview frames in an inconsistent state" type of message
-    // http://cocoadev.com/forums/comments.php?DiscussionID=1092
-    // this issue is only on Snow Leopard (10.6), because it is newly using NSSplitViews
-    NSRect safeFrame;
-    safeFrame.origin.x = 0;
-    safeFrame.origin.y = 0;
-    safeFrame.size.width = 1000;
-    safeFrame.size.height = 1000;
-    [win setFrame:safeFrame display:NO];
-
-    if (!runningOnLeopard_) {
+    if (runningOnLeopard_) {
         // 10.5 path
         // this is kind of a hack
         // I'm using scripting API to update main window geometry according to profile settings
@@ -789,10 +780,24 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
         NSNumber *cols = [visorProfile scriptNumberOfColumns];
         NSNumber *rows = [visorProfile scriptNumberOfRows];
+        LOG(@"  10.5 path: setting window dimmensions to %@, %@ via scripting interface", cols, rows);
         [visorProfile setScriptNumberOfColumns:cols];
         [visorProfile setScriptNumberOfRows:rows];
     } else {
         // 10.6 path
+        // this block is needed to prevent "<NSSplitView>: the delegate <InterfaceController> was sent -splitView:resizeSubviewsWithOldSize: and left the subview frames in an inconsistent state" type of message
+        // http://cocoadev.com/forums/comments.php?DiscussionID=1092
+        // this issue is only on Snow Leopard (10.6), because it is newly using NSSplitViews
+        NSRect safeFrame;
+        safeFrame.origin.x = 0;
+        safeFrame.origin.y = 0;
+        safeFrame.size.width = 1000;
+        safeFrame.size.height = 1000;
+        [win setFrame:safeFrame display:NO];
+
+        // this is a better way of 10.5 path for Terminal on Snow Leopard
+        // we may call returnToDefaultSize method on our window's view
+        // no more resizing issues like described here: http://github.com/darwin/visor/issues/#issue/1
         id controller = [window_ windowController];
         id tabc = [controller selectedTabController];
         id pane = [tabc activePane];
@@ -929,7 +934,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)storePreviouslyActiveApp {
     LOG(@"storePreviouslyActiveApp");
-    if (!runningOnLeopard_) {
+    if (runningOnLeopard_) {
         // 10.5 path
         NSDictionary *activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
         previouslyActiveAppPath = nil;
@@ -949,7 +954,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 }
 
 - (void)restorePreviouslyActiveApp {
-    if (!runningOnLeopard_) {
+    if (runningOnLeopard_) {
         if (!previouslyActiveAppPath) return;
         LOG(@"restorePreviouslyActiveApp %@", previouslyActiveAppPath);
         // 10.5 path
