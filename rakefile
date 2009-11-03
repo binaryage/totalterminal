@@ -103,6 +103,7 @@ task :release do
   mkdir_p(RELEASE_DIR) unless File.exists? RELEASE_DIR
 
   puts "#{cmd_color('Copying sources to temporary directory ...')}"
+  `rm -rf "#{TMP_DIR}"`
   `cp -r "#{SRC_DIR}" "#{TMP_DIR}"`
 
   puts "#{cmd_color('Patching version info ...')}"
