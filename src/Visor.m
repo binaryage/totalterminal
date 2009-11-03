@@ -163,6 +163,7 @@ int main(int argc, char *argv[]) {
         if (visorProfile) {
             arg1 = visorProfile;
         } else {
+            id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
             arg1 = [profileManager defaultProfile];
         }
     }
