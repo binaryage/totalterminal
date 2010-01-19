@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26C7384F11045EBF00E5058E /* PasteOnRightclick.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* PasteOnRightclick.m */; };
 		7F849AAC0A457E2200963040 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F849AA60A457DE100963040 /* Defaults.plist */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
@@ -37,6 +38,8 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		26C7384D11045EBF00E5058E /* PasteOnRightclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasteOnRightclick.h; sourceTree = "<group>"; };
+		26C7384E11045EBF00E5058E /* PasteOnRightclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasteOnRightclick.m; sourceTree = "<group>"; };
 		7F01469F0A3E6571006AF239 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		7F849AA60A457DE100963040 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* Visor.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Visor.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +147,8 @@
 				D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */,
 				D68AA7000F371C810094AA92 /* Visor.h */,
 				D68AA7010F371C810094AA92 /* Visor.m */,
+				26C7384D11045EBF00E5058E /* PasteOnRightclick.h */,
+				26C7384E11045EBF00E5058E /* PasteOnRightclick.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 				D65FF88B105D853000B54560 /* GTMObjC2Runtime.m in Sources */,
 				D65FF894105D875D00B54560 /* GTMCarbonEvent.m in Sources */,
 				D65FF91B105D9B6200B54560 /* QSBKeyMap.m in Sources */,
+				26C7384F11045EBF00E5058E /* PasteOnRightclick.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
