@@ -98,7 +98,7 @@
 					</object>
 					<object class="NSMenuItem" id="940842461">
 						<reference key="NSMenu" ref="935150787"/>
-						<string key="NSTitle">Visor Preferences...</string>
+						<string key="NSTitle">Visor Preferences…</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="714036382"/>
@@ -117,7 +117,7 @@
 					</object>
 					<object class="NSMenuItem" id="327755216">
 						<reference key="NSMenu" ref="935150787"/>
-						<string key="NSTitle">Visit Homepage ...</string>
+						<string key="NSTitle">Visit Homepage…</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="714036382"/>
@@ -2282,7 +2282,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{54, 877}, {197, 103}}</string>
+					<string>{{54, 877}, {198, 103}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
