@@ -590,7 +590,17 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)awakeFromNib {
     LOG(@"awakeFromNib");
+    NSApplication *thisApp = [NSApplication sharedApplication];
+    NSNotificationCenter *defCenter = [NSNotificationCenter defaultCenter];
+    [defCenter addObserver:self
+                  selector:@selector(visorWillResign)
+                      name:NSApplicationWillResignActiveNotification
+                    object:thisApp];
     [self updateInfoLine];
+}
+
+- (void) visorWillResign {
+    [[NSApplication  sharedApplication] hide:self];
 }
 
 - (id) init {
