@@ -27,6 +27,7 @@
     BOOL    ignoreResizeNotifications;
     id      runningApplicationClass_;
     BOOL    runningOnLeopard_;
+    BOOL    dontShowOnFirstTab;
 }
 
 - (NSWindow *)window;

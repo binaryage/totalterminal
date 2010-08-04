@@ -166,6 +166,9 @@ int main(int argc, char *argv[]) {
             id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
             arg1 = [profileManager defaultProfile];
         }
+        if ([visor isHidden]) {
+            [visor showVisor:false];
+        }
     }
     return [self Visor_TTWindowController_newTabWithProfile:arg1];
 }
@@ -620,6 +623,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     isHidden = true;
     isMain = false;
     isKey = false;
+    dontShowOnFirstTab = true;
     
     [NSBundle loadNibNamed:@"Visor" owner:self];
     
@@ -984,6 +988,10 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void)showVisor:(BOOL)fast {
     if (!isHidden) return;
+    if (dontShowOnFirstTab) {
+        dontShowOnFirstTab = false;
+        return;
+    }
     LOG(@"showVisor %d", fast);
     isHidden = false;
     [self updateStatusMenu];
