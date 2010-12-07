@@ -371,7 +371,7 @@ int main(int argc, char *argv[]) {
     id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
 
-    if (!visorProfile && (createIfNecessary || runningOnLeopard_)) {
+    if (!visorProfile && (createIfNecessary || !NSClassFromString(@"NSRunningApplication"))) {
         LOG(@"   ... initialising Visor profile");
         
         // create visor profile in case it does not exist yet, use startup profile as a template
