@@ -2,6 +2,7 @@
 
 @interface Visor: NSObject {
     NSWindow        *window_; // the one visorized terminal window (may be nil)
+    NSWindow* background; // background window for quartz animations (will be nil if not enabled in settings!)
     NSStatusItem* statusItem;
     IBOutlet NSMenu* statusMenu;
     IBOutlet NSWindow* settingsWindow;
@@ -32,8 +33,11 @@
 
 - (NSWindow *)window;
 - (void)setWindow:(NSWindow *)inWindow;
+- (NSWindow*)background;
+- (void)setBackground:(NSWindow*)newBackground;
 - (BOOL)isHidden;
 
+- (IBAction)chooseBackgroundComposition:(id)sender;
 - (IBAction)pinAction:(id)sender;
 - (IBAction)toggleVisor:(id)sender;
 - (IBAction)showPrefs:(id)sender;

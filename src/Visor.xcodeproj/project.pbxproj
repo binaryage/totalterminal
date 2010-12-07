@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0708B0F612ADA36100A0F345 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708B0F512ADA36100A0F345 /* Quartz.framework */; };
+		0708B0F812ADA36100A0F345 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708B0F712ADA36100A0F345 /* QuartzCore.framework */; };
+		07CA8A0712ADAC6C00A6D8BF /* Visor.qtz in Resources */ = {isa = PBXBuildFile; fileRef = 07CA8A0612ADAC6C00A6D8BF /* Visor.qtz */; };
 		26C7384F11045EBF00E5058E /* PasteOnRightclick.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* PasteOnRightclick.m */; };
 		7F849AAC0A457E2200963040 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F849AA60A457DE100963040 /* Defaults.plist */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -34,6 +37,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0708B0F512ADA36100A0F345 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
+		0708B0F712ADA36100A0F345 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		07CA8A0612ADAC6C00A6D8BF /* Visor.qtz */ = {isa = PBXFileReference; lastKnownFileType = "video.quartz-composer"; path = Visor.qtz; sourceTree = "<group>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -89,6 +95,8 @@
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				D6716ED210659A6300970560 /* WebKit.framework in Frameworks */,
 				D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */,
+				0708B0F612ADA36100A0F345 /* Quartz.framework in Frameworks */,
+				0708B0F812ADA36100A0F345 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +129,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				07CA8A0612ADAC6C00A6D8BF /* Visor.qtz */,
 				D671706A1065D14300970560 /* RestoreApp.scpt */,
 				D6716FBC1065B54100970560 /* Control.pdf */,
 				D66688D210534A87002EDB20 /* VisorProfile.plist */,
@@ -159,6 +168,8 @@
 				7F01469F0A3E6571006AF239 /* Carbon.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 				D6716ED110659A6300970560 /* WebKit.framework */,
+				0708B0F512ADA36100A0F345 /* Quartz.framework */,
+				0708B0F712ADA36100A0F345 /* QuartzCore.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -284,6 +295,7 @@
 				D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */,
 				D66688D310534A87002EDB20 /* VisorProfile.plist in Resources */,
 				D6716FBD1065B54100970560 /* Control.pdf in Resources */,
+				07CA8A0712ADAC6C00A6D8BF /* Visor.qtz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

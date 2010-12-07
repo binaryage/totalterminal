@@ -5,6 +5,7 @@
 #import "GTMHotKeyTextField.h"
 #import "QSBKeyMap.h"
 #import "GTMCarbonEvent.h"
+#import <Quartz/Quartz.h>
 
 @interface NSEvent (Visor)
 - (NSUInteger)qsbModifierFlags;
@@ -647,8 +648,55 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [udc addObserver:self forKeyPath:@"values.VisorScreen" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorPosition" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorHideOnEscape" options:0 context:nil];
-    
+    [udc addObserver:self forKeyPath:@"values.VisorUseBackgroundAnimation" options:0 context:nil];
+
+    if ([ud boolForKey:@"VisorUseBackgroundAnimation"]) {
+        [self background];
+    }
     return self;
+}
+
+- (NSWindow *)background {
+    if (background) return [[background retain] autorelease];
+
+    background = [[[NSWindow class] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+    [background orderFront:nil];
+    [background setLevel:NSMainMenuWindowLevel-2];
+    [background setIgnoresMouseEvents:YES];
+    [background setBackgroundColor: [NSColor blueColor]];
+    [background setOpaque:NO];
+    [background setHasShadow:NO];
+    [background setReleasedWhenClosed:YES];
+    [background setLevel:NSFloatingWindowLevel];
+    [background setHasShadow:NO];
+    QCView *content = [[[QCView alloc]init]autorelease];
+
+    [background setContentView:content];
+
+    NSString *path = [[NSUserDefaults standardUserDefaults]stringForKey:@"VisorBackgroundAnimationFile"];
+    path = [path stringByStandardizingPath];
+
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath:path]){
+        NSLog(@"animation does not exist: %@",path);
+        path=nil;
+    }
+
+    if (!path)
+        path = [[NSBundle bundleForClass:[self class]]pathForResource:@"Visor" ofType:@"qtz"];
+
+    [content loadCompositionFromFile:path];
+    [content setMaxRenderingFrameRate:15.0];
+    if (!isHidden) [content startRendering];
+
+    return [[background retain] autorelease];
+}
+
+- (void) setBackground: (NSWindow *) newBackgroundWindow {
+    if (background != newBackgroundWindow) {
+        [background release];
+        background = [newBackgroundWindow retain];
+    }
 }
 
 // credit: http://tonyarnold.com/entries/fixing-an-annoying-expose-bug-with-nswindows/
@@ -764,6 +812,17 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         frame.origin.y = screenRect.origin.y - NSHeight(frame) + round(offset*NSHeight(frame));
     }
     [win setFrame:frame display:YES];
+    [self updateBackgroundFrame];
+}
+
+- (void)updateBackgroundFrame {
+    BOOL useBackground = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseBackgroundAnimation"];
+    if (useBackground) {
+        [self background];
+        [background setFrame:[window_ frame] display:YES];
+    } else {
+        [self setBackground:nil];
+    }
 }
 
 - (void)resetVisorWindowSize:(id)win {
@@ -927,6 +986,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         frame.origin.y = screenRect.origin.y;
         [window_ setFrame:frame display:YES];
     }
+    [self updateBackgroundFrame];
     NSEnableScreenUpdates();
 }
 
@@ -1003,6 +1063,9 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [window_ setHasShadow:YES];
     [self applyVisorPositioning];
     [window_ update];
+    if (background) {
+        [[background contentView] startRendering];
+    }
     [self slideWindows:1 fast:fast];
     [window_ invalidateShadow];
     [window_ update];
@@ -1023,6 +1086,9 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [window_ setHasShadow:NO];
     [window_ invalidateShadow];
     [window_ update];
+    if (background) {
+        [[background contentView] stopRendering];
+    }
 }
 
 #define SLIDE_EASING(x) sin(M_PI_2*(x))
@@ -1044,6 +1110,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
             }
             if (!doFade && direction) { // setup final alpha state in case of no alpha
                 float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
+                if (background) [background setAlphaValue:alpha];
                 [window_ setAlphaValue: alpha];
             }
             NSTimeInterval t;
@@ -1056,9 +1123,10 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
                 }
                 if (doFade) {
                     float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(k));
+    					      if (background) [background setAlphaValue:alpha];
                     [window_ setAlphaValue:alpha];
                 }
-                usleep(5000); // 5ms
+                usleep(background ? 1000 : 5000); // 1 or 5ms
             }
         }
     }
@@ -1068,6 +1136,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [self placeWindow:window_ offset:offset];
     float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
     [window_ setAlphaValue: alpha];
+    if (background) [background setAlphaValue:alpha];
 }
 
 - (void)resignKey:(id)sender {
@@ -1132,6 +1201,9 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     if ([keyPath isEqualToString:@"values.VisorHideOnEscape"]) {
         [self updateEscapeHotKeyRegistration];
     }
+    if ([keyPath isEqualToString:@"values.VisorUseBackgroundAnimation"]) {
+        [self updateBackgroundFrame];
+    }
 }
 
 - (void)updateHotKeyRegistration {
@@ -1182,6 +1254,18 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     }
     [statusMenuItem setKeyEquivalent:statusMenuItemKey];
     [statusMenuItem setKeyEquivalentModifierMask:statusMenuItemModifiers];
+}
+
+- (IBAction)chooseBackgroundComposition:(id)sender {
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setTitle:@"Select a Quartz Composer (qtz) file"];
+    if ([panel runModalForTypes:[NSArray arrayWithObject:@"qtz"]]){
+        NSString *path=[panel filename];
+        path=[path stringByAbbreviatingWithTildeInPath];
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"VisorUseBackgroundAnimation"];
+        [[NSUserDefaults standardUserDefaults]setObject:path forKey:@"VisorBackgroundAnimationFile"];
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"VisorUseBackgroundAnimation"];
+    }
 }
 
 - (void)updateEscapeHotKeyRegistration {
