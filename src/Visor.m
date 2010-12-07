@@ -209,7 +209,9 @@ int main(int argc, char *argv[]) {
     } else if (type == NSKeyDown || type == NSKeyUp) {
         Visor* visor = [Visor sharedInstance];
         [visor keysChangedWhileActive:theEvent];
-    }
+    } else if (type == NSMouseMoved) {
+		[[[Visor sharedInstance] background] sendEvent:theEvent];
+	}
     [self Visor_TTApplication_sendEvent:theEvent];
 }
 
@@ -670,7 +672,9 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [background setHasShadow:NO];
     QCView *content = [[[QCView alloc]init]autorelease];
 
+	[content setEventForwardingMask:NSMouseMovedMask];
     [background setContentView:content];
+    [background makeFirstResponder:content];
 
     NSString *path = [[NSUserDefaults standardUserDefaults]stringForKey:@"VisorBackgroundAnimationFile"];
     path = [path stringByStandardizingPath];
