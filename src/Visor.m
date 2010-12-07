@@ -651,6 +651,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [udc addObserver:self forKeyPath:@"values.VisorPosition" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorHideOnEscape" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorUseBackgroundAnimation" options:0 context:nil];
+    [[[self class] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:@"Update bkg"];
 
     if ([ud boolForKey:@"VisorUseBackgroundAnimation"]) {
         [self background];
@@ -1215,6 +1216,14 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     }
     if ([keyPath isEqualToString:@"values.VisorUseBackgroundAnimation"]) {
         [self updateBackgroundFrame];
+    }
+	if (background != nil &&
+		!isHidden &&
+		[keyPath isEqualToString:@"BackgroundColor"] &&
+		context != nil &&
+		[context isEqualToString:@"Update bkg"]) {
+		float bkgAlpha = [self getVisorProfileBackgroundAlpha];
+		[background setAlphaValue:bkgAlpha];
     }
 }
 
