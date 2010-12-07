@@ -658,6 +658,11 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     return self;
 }
 
+- (float)getVisorProfileBackgroundAlpha {
+	id bckColor = background ? [[[self class] getVisorProfile] valueForKey:@"BackgroundColor"] : nil;
+    return bckColor ? [bckColor alphaComponent] : 1.0;
+}
+
 - (NSWindow *)background {
     if (background) return [[background retain] autorelease];
 
@@ -670,6 +675,9 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [background setReleasedWhenClosed:YES];
     [background setLevel:NSFloatingWindowLevel];
     [background setHasShadow:NO];
+	float bkgAlpha = [self getVisorProfileBackgroundAlpha];
+	[background setAlphaValue:bkgAlpha];
+
     QCView *content = [[[QCView alloc]init]autorelease];
 
 	[content setEventForwardingMask:NSMouseMovedMask];
@@ -1100,8 +1108,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 #define ALPHA_DIRECTION(d,x) (d?(1.0f-(x)):(x))
 
 - (void)slideWindows:(BOOL)direction fast:(bool)fast { // true == down
-    id bckColor = background ? [[[self class] getVisorProfile] valueForKey:@"BackgroundColor"] : nil;
-    float bkgAlpha = bckColor ? [bckColor alphaComponent] : 1.0;
+	float bkgAlpha = [self getVisorProfileBackgroundAlpha];
     if (!fast) {
         BOOL doSlide = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseSlide"];
         BOOL doFade = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"];
