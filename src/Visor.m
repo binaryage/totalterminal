@@ -663,7 +663,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [background orderFront:nil];
     [background setLevel:NSMainMenuWindowLevel-2];
     [background setIgnoresMouseEvents:YES];
-    [background setBackgroundColor: [NSColor blueColor]];
     [background setOpaque:NO];
     [background setHasShadow:NO];
     [background setReleasedWhenClosed:YES];
