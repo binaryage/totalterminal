@@ -10,6 +10,8 @@
 		0708B0F612ADA36100A0F345 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708B0F512ADA36100A0F345 /* Quartz.framework */; };
 		0708B0F812ADA36100A0F345 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708B0F712ADA36100A0F345 /* QuartzCore.framework */; };
 		07CA8A0712ADAC6C00A6D8BF /* Visor.qtz in Resources */ = {isa = PBXBuildFile; fileRef = 07CA8A0612ADAC6C00A6D8BF /* Visor.qtz */; };
+		07CA8BD712B499F600A6D8BF /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CA8BD612B499F600A6D8BF /* error.png */; };
+		07CA8C6212B58C0700A6D8BF /* ChangeThemeBackgroundColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CA8C6112B58C0700A6D8BF /* ChangeThemeBackgroundColor.png */; };
 		26C7384F11045EBF00E5058E /* PasteOnRightclick.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* PasteOnRightclick.m */; };
 		7F849AAC0A457E2200963040 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F849AA60A457DE100963040 /* Defaults.plist */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -40,6 +42,8 @@
 		0708B0F512ADA36100A0F345 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		0708B0F712ADA36100A0F345 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		07CA8A0612ADAC6C00A6D8BF /* Visor.qtz */ = {isa = PBXFileReference; lastKnownFileType = "video.quartz-composer"; path = Visor.qtz; sourceTree = "<group>"; };
+		07CA8BD612B499F600A6D8BF /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
+		07CA8C6112B58C0700A6D8BF /* ChangeThemeBackgroundColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChangeThemeBackgroundColor.png; sourceTree = "<group>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -129,6 +133,8 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				07CA8C6112B58C0700A6D8BF /* ChangeThemeBackgroundColor.png */,
+				07CA8BD612B499F600A6D8BF /* error.png */,
 				07CA8A0612ADAC6C00A6D8BF /* Visor.qtz */,
 				D671706A1065D14300970560 /* RestoreApp.scpt */,
 				D6716FBC1065B54100970560 /* Control.pdf */,
@@ -285,7 +291,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07CA8C6212B58C0700A6D8BF /* ChangeThemeBackgroundColor.png in Resources */,
 				D67170711065D19D00970560 /* RestoreApp.scpt in Resources */,
+				07CA8BD712B499F600A6D8BF /* error.png in Resources */,
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 				7F849AAC0A457E2200963040 /* Defaults.plist in Resources */,
 				D6FB33E90F3843E20067F941 /* Visor.xib in Resources */,

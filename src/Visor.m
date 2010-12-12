@@ -94,6 +94,7 @@ int main(int argc, char *argv[]) {
     [toolbar setSelectedItemIdentifier:@"Visor"];
     NSTabView* tabView = [self valueForKey:@"tabView"];
     [tabView selectTabViewItemWithIdentifier:@"VisorPane"];
+		[visor updateShouldShowTransparencyAlert];
 }
 
 - (id)Visor_TTAppPrefsController_toolbar:(id)arg1 itemForItemIdentifier:(id)arg2 willBeInsertedIntoToolbar:(BOOL)arg3 {
@@ -588,6 +589,10 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     if (![ud objectForKey:@"VisorHotKeyEnabled"]) {
         [ud setBool:YES forKey:@"VisorHotKeyEnabled"];
     }
+
+    if (![ud objectForKey:@"VisorBackgroundAnimationOpacity"]) {
+        [ud setInteger:100 forKey:@"VisorBackgroundAnimationOpacity"];
+    }
     // by default disable HotKey2 but set it to double Control
     if (![ud objectForKey:@"VisorHotKey2"]) {
         [ud setObject:[NSDictionary dictionaryWithObjectsAndKeys: \
@@ -697,12 +702,23 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [udc addObserver:self forKeyPath:@"values.VisorPosition" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorHideOnEscape" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorUseBackgroundAnimation" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.VisorBackgroundAnimationOpacity" options:0 context:nil];
     [[[self class] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:@"Update bkg"];
 
     if ([ud boolForKey:@"VisorUseBackgroundAnimation"]) {
         [self background];
     }
     return self;
+}
+
+- (float)getVisorAnimationBackgroundAlpha {
+		return [[NSUserDefaults standardUserDefaults] integerForKey:@"VisorBackgroundAnimationOpacity"] / 100.0f;
+}
+- (void)updateAnimationAlpha {
+		if (background != nil && !isHidden) {
+				float bkgAlpha = [self getVisorAnimationBackgroundAlpha];
+				[background setAlphaValue:bkgAlpha];
+		}
 }
 
 - (float)getVisorProfileBackgroundAlpha {
@@ -722,8 +738,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [background setReleasedWhenClosed:YES];
     [background setLevel:NSFloatingWindowLevel];
     [background setHasShadow:NO];
-	float bkgAlpha = [self getVisorProfileBackgroundAlpha];
-	[background setAlphaValue:bkgAlpha];
+    [self updateAnimationAlpha];
 
     QCView *content = [[[QCView alloc]init]autorelease];
 
@@ -1155,7 +1170,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 #define ALPHA_DIRECTION(d,x) (d?(1.0f-(x)):(x))
 
 - (void)slideWindows:(BOOL)direction fast:(bool)fast { // true == down
-	float bkgAlpha = [self getVisorProfileBackgroundAlpha];
+	float bkgAlpha = [self getVisorAnimationBackgroundAlpha];
     if (!fast) {
         BOOL doSlide = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseSlide"];
         BOOL doFade = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"];
@@ -1237,6 +1252,11 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [self updateStatusMenu];
 }
 
+- (void)updateShouldShowTransparencyAlert {
+		[self willChangeValueForKey:@"shouldShowTransparencyAlert"];
+		[self didChangeValueForKey:@"shouldShowTransparencyAlert"];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     LOG(@"observeValueForKeyPath %@", keyPath);
     if ([keyPath isEqualToString:@"values.VisorShowStatusItem"]) {
@@ -1262,15 +1282,39 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     }
     if ([keyPath isEqualToString:@"values.VisorUseBackgroundAnimation"]) {
         [self updateBackgroundFrame];
+        [self updateShouldShowTransparencyAlert];
     }
-	if (background != nil &&
-		!isHidden &&
-		[keyPath isEqualToString:@"BackgroundColor"] &&
-		context != nil &&
-		[context isEqualToString:@"Update bkg"]) {
-		float bkgAlpha = [self getVisorProfileBackgroundAlpha];
-		[background setAlphaValue:bkgAlpha];
+    if ([keyPath isEqualToString:@"values.VisorBackgroundAnimationOpacity"]) {
+        [self updateAnimationAlpha];
     }
+    if ([keyPath isEqualToString:@"BackgroundColor"] &&
+        context != nil &&
+        [context isEqualToString:@"Update bkg"])
+    {
+        [self updateAnimationAlpha];
+        [self updateShouldShowTransparencyAlert];
+    }
+}
+
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
+    if ([theKey isEqualToString:@"shouldShowTransparencyAlert"])
+        return NO;
+    return [super automaticallyNotifiesObserversForKey:theKey];
+}
+
+- (NSNumber *)shouldShowTransparencyAlert {
+    return ([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorUseBackgroundAnimation"] &&
+            ((float)[self getVisorProfileBackgroundAlpha] >= 1.0f))
+    ? kCFBooleanTrue : kCFBooleanFalse;
+}
+
+- (IBAction)showTransparencyHelpPanel:(id)sender {
+    [NSApp beginSheet:transparencyHelpPanel modalForWindow:[[NSClassFromString(@"TTAppPrefsController")
+    sharedPreferencesController] window] modalDelegate:self didEndSelector:NULL contextInfo:nil];
+}
+- (IBAction)closeTransparencyHelpPanel:(id)sender {
+    [transparencyHelpPanel orderOut:nil];
+    [NSApp endSheet:transparencyHelpPanel];
 }
 
 - (void)updateHotKeyRegistration {

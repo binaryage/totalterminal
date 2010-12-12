@@ -6,6 +6,7 @@
     NSStatusItem* statusItem;
     IBOutlet NSMenu* statusMenu;
     IBOutlet NSWindow* settingsWindow;
+    IBOutlet NSPanel* transparencyHelpPanel;
     IBOutlet WebView* infoLine; // bottom info line on Visor preferences pane
     EventHotKeyRef hotKey_;
     NSUInteger hotModifiers_;
@@ -43,9 +44,13 @@
 - (void)setOriginalPreferencesSize:(CGSize)size;
 - (CGSize)prefPaneSize;
 
+- (IBAction)showTransparencyHelpPanel:(id)sender;
+- (IBAction)closeTransparencyHelpPanel:(id)sender;
 - (IBAction)chooseBackgroundComposition:(id)sender;
 - (IBAction)pinAction:(id)sender;
 - (IBAction)toggleVisor:(id)sender;
 - (IBAction)showPrefs:(id)sender;
 - (IBAction)visitHomepage:(id)sender;
+
+@property (readonly, nonatomic) NSNumber *shouldShowTransparencyAlert;
 @end
