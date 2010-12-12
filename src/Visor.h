@@ -29,6 +29,8 @@
     id      runningApplicationClass_;
     BOOL    runningOnLeopard_;
     BOOL    dontShowOnFirstTab;
+	CGSize	originalPreferencesSize;
+	CGSize	prefPaneSize;
 }
 
 - (NSWindow *)window;
@@ -36,6 +38,10 @@
 - (NSWindow*)background;
 - (void)setBackground:(NSWindow*)newBackground;
 - (BOOL)isHidden;
+
+- (CGSize)originalPreferencesSize;
+- (void)setOriginalPreferencesSize:(CGSize)size;
+- (CGSize)prefPaneSize;
 
 - (IBAction)chooseBackgroundComposition:(id)sender;
 - (IBAction)pinAction:(id)sender;

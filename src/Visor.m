@@ -108,6 +108,32 @@ int main(int argc, char *argv[]) {
     return [self Visor_TTAppPrefsController_toolbar:arg1 itemForItemIdentifier:arg2 willBeInsertedIntoToolbar:arg3];
 }
 
+- (void)Visor_TTAppPrefsController_tabView:(id)view didSelectTabViewItem:(NSTabViewItem *)tab {
+    LOG(@"Visor_TTAppPrefsController_tabView => %@", tab);
+	Visor *visor = [Visor sharedInstance];
+	CGSize originalSize;
+	originalSize = (CGSize)[visor originalPreferencesSize];
+	NSWindow* prefsWindow = [self window];
+	NSRect frame = [prefsWindow contentRectForFrameRect:[prefsWindow frame]];
+	if (originalSize.width == 0) {
+		[visor setOriginalPreferencesSize:frame.size];
+		originalSize = frame.size;
+	}
+	if ([[tab identifier] isEqualToString:@"VisorPane"]) {
+		NSRect viewItemFrame = [[[[self valueForKey:@"tabView"] tabViewItemAtIndex:0] view] frame];
+		CGSize visorPrefpanelSize = [visor prefPaneSize];
+		frame.size.width += visorPrefpanelSize.width - viewItemFrame.size.width;
+		frame.size.height += visorPrefpanelSize.height - viewItemFrame.size.height;
+		frame.origin.y -= visorPrefpanelSize.height - viewItemFrame.size.height;
+	} else {
+		frame.origin.y += frame.size.height - originalSize.height;
+		frame.size = originalSize;
+	}
+	frame = [prefsWindow frameRectForContentRect:frame];
+	[prefsWindow setFrame:frame display:YES animate:YES];
+	return [self Visor_TTAppPrefsController_tabView:view didSelectTabViewItem:tab];
+}
+
 - (id) Visor_TTAppPrefsController_windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client {
     if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
         LOG(@"Visor_TTAppPrefsController_windowWillReturnFieldEditor with GTMHotKeyTextField");
@@ -437,7 +463,8 @@ int main(int argc, char *argv[]) {
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(Visor_TTAppPrefsController_windowDidLoad) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowWillReturnFieldEditor:toObject:) withMethod:@selector(Visor_TTAppPrefsController_windowWillReturnFieldEditor:toObject:) error:NULL];
-    
+    [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(tabView:didSelectTabViewItem:) withMethod:@selector(Visor_TTAppPrefsController_tabView:didSelectTabViewItem:) error:NULL];
+
     NSDictionary* defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     [ud registerDefaults:defaults];
@@ -597,6 +624,23 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 - (void)awakeFromNib {
     LOG(@"awakeFromNib");
     [self updateInfoLine];
+
+    // Store size of Visor preferences panel as it was set in IB
+    NSTabView* sourceTabView = [[[settingsWindow contentView] subviews] objectAtIndex:0];
+    NSTabViewItem* item = [sourceTabView tabViewItemAtIndex:0];
+	prefPaneSize = [[item view] frame].size;
+}
+
+- (CGSize) originalPreferencesSize {
+	return originalPreferencesSize;
+}
+
+- (void) setOriginalPreferencesSize:(CGSize)size {
+	originalPreferencesSize = size;
+}
+
+- (CGSize)prefPaneSize {
+	return prefPaneSize;
 }
 
 - (id) init {
@@ -605,6 +649,8 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
     LOG(@"Visor init");
     
+	originalPreferencesSize.width = 0;
+
     runningApplicationClass_ = NSClassFromString(@"NSRunningApplication"); // 10.6
     runningOnLeopard_ = !runningApplicationClass_;
     if (runningOnLeopard_) {
