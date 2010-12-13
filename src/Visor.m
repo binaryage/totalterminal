@@ -651,11 +651,17 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [udc addObserver:self forKeyPath:@"values.VisorPosition" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorHideOnEscape" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorUseBackgroundAnimation" options:0 context:nil];
+    [[[self class] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:@"Update bkg"];
 
     if ([ud boolForKey:@"VisorUseBackgroundAnimation"]) {
         [self background];
     }
     return self;
+}
+
+- (float)getVisorProfileBackgroundAlpha {
+	id bckColor = background ? [[[self class] getVisorProfile] valueForKey:@"BackgroundColor"] : nil;
+    return bckColor ? [bckColor alphaComponent] : 1.0;
 }
 
 - (NSWindow *)background {
@@ -670,6 +676,8 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [background setReleasedWhenClosed:YES];
     [background setLevel:NSFloatingWindowLevel];
     [background setHasShadow:NO];
+	float bkgAlpha = [self getVisorProfileBackgroundAlpha];
+	[background setAlphaValue:bkgAlpha];
 
     QCView *content = [[[QCView alloc]init]autorelease];
 
@@ -1101,6 +1109,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 #define ALPHA_DIRECTION(d,x) (d?(1.0f-(x)):(x))
 
 - (void)slideWindows:(BOOL)direction fast:(bool)fast { // true == down
+	float bkgAlpha = [self getVisorProfileBackgroundAlpha];
     if (!fast) {
         BOOL doSlide = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseSlide"];
         BOOL doFade = [[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseFade"];
@@ -1114,7 +1123,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
             }
             if (!doFade && direction) { // setup final alpha state in case of no alpha
                 float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
-                if (background) [background setAlphaValue:alpha];
+                if (background) [background setAlphaValue:alpha * bkgAlpha];
                 [window_ setAlphaValue: alpha];
             }
             NSTimeInterval t;
@@ -1127,7 +1136,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
                 }
                 if (doFade) {
                     float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(k));
-    					      if (background) [background setAlphaValue:alpha];
+    					      if (background) [background setAlphaValue:alpha * bkgAlpha];
                     [window_ setAlphaValue:alpha];
                 }
                 usleep(background ? 1000 : 5000); // 1 or 5ms
@@ -1140,7 +1149,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [self placeWindow:window_ offset:offset];
     float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
     [window_ setAlphaValue: alpha];
-    if (background) [background setAlphaValue:alpha];
+    if (background) [background setAlphaValue:alpha * bkgAlpha];
 }
 
 - (void)resignKey:(id)sender {
@@ -1207,6 +1216,14 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     }
     if ([keyPath isEqualToString:@"values.VisorUseBackgroundAnimation"]) {
         [self updateBackgroundFrame];
+    }
+	if (background != nil &&
+		!isHidden &&
+		[keyPath isEqualToString:@"BackgroundColor"] &&
+		context != nil &&
+		[context isEqualToString:@"Update bkg"]) {
+		float bkgAlpha = [self getVisorProfileBackgroundAlpha];
+		[background setAlphaValue:bkgAlpha];
     }
 }
 
