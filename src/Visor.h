@@ -30,8 +30,8 @@
     id      runningApplicationClass_;
     BOOL    runningOnLeopard_;
     BOOL    dontShowOnFirstTab;
-	CGSize	originalPreferencesSize;
-	CGSize	prefPaneSize;
+	NSSize	originalPreferencesSize;
+	NSSize	prefPaneSize;
 }
 
 - (NSWindow *)window;
@@ -40,9 +40,9 @@
 - (void)setBackground:(NSWindow*)newBackground;
 - (BOOL)isHidden;
 
-- (CGSize)originalPreferencesSize;
-- (void)setOriginalPreferencesSize:(CGSize)size;
-- (CGSize)prefPaneSize;
+- (NSSize)originalPreferencesSize;
+- (void)setOriginalPreferencesSize:(NSSize)size;
+- (NSSize)prefPaneSize;
 
 - (IBAction)showTransparencyHelpPanel:(id)sender;
 - (IBAction)closeTransparencyHelpPanel:(id)sender;

@@ -112,8 +112,8 @@ int main(int argc, char *argv[]) {
 - (void)Visor_TTAppPrefsController_tabView:(id)view didSelectTabViewItem:(NSTabViewItem *)tab {
     LOG(@"Visor_TTAppPrefsController_tabView => %@", tab);
 	Visor *visor = [Visor sharedInstance];
-	CGSize originalSize;
-	originalSize = (CGSize)[visor originalPreferencesSize];
+	NSSize originalSize;
+	originalSize = (NSSize)[visor originalPreferencesSize];
 	NSWindow* prefsWindow = [self window];
 	NSRect frame = [prefsWindow contentRectForFrameRect:[prefsWindow frame]];
 	if (originalSize.width == 0) {
@@ -122,7 +122,7 @@ int main(int argc, char *argv[]) {
 	}
 	if ([[tab identifier] isEqualToString:@"VisorPane"]) {
 		NSRect viewItemFrame = [[[[self valueForKey:@"tabView"] tabViewItemAtIndex:0] view] frame];
-		CGSize visorPrefpanelSize = [visor prefPaneSize];
+		NSSize visorPrefpanelSize = [visor prefPaneSize];
 		frame.size.width += visorPrefpanelSize.width - viewItemFrame.size.width;
 		frame.size.height += visorPrefpanelSize.height - viewItemFrame.size.height;
 		frame.origin.y -= visorPrefpanelSize.height - viewItemFrame.size.height;
@@ -636,15 +636,15 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 	prefPaneSize = [[item view] frame].size;
 }
 
-- (CGSize) originalPreferencesSize {
+- (NSSize) originalPreferencesSize {
 	return originalPreferencesSize;
 }
 
-- (void) setOriginalPreferencesSize:(CGSize)size {
+- (void) setOriginalPreferencesSize:(NSSize)size {
 	originalPreferencesSize = size;
 }
 
-- (CGSize)prefPaneSize {
+- (NSSize)prefPaneSize {
 	return prefPaneSize;
 }
 
