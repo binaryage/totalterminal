@@ -3,5 +3,3 @@
 #else
 #  define LOG(format, ...)
 #endif
-
-#define DEBUG_LOG_PATH "/Users/darwin/code/visor/debug.log"

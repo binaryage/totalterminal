@@ -70,7 +70,7 @@ def patch(path, replacers)
     end
   end
   File.open(path, "w") do |f|
-    f << lines
+    f << lines.join
   end
 end
 

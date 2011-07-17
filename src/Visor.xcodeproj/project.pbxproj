@@ -18,6 +18,7 @@
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TerminalColours.m */; };
 		D62204B21051CC6A00FAEA30 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204B11051CC6A00FAEA30 /* JRSwizzle.m */; };
+		D644151F13D3B55E00A0678F /* Versions.m in Sources */ = {isa = PBXBuildFile; fileRef = D644151E13D3B55E00A0678F /* Versions.m */; };
 		D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C167FFE841241C02AAC07 /* AppKit.framework */; };
 		D65FF865105D82B500B54560 /* GTMHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF864105D82B500B54560 /* GTMHotKeyTextField.m */; };
 		D65FF874105D845B00B54560 /* GTMNSObject+KeyValueObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF870105D845B00B54560 /* GTMNSObject+KeyValueObserving.m */; };
@@ -59,6 +60,10 @@
 		D62204AE1051CC3700FAEA30 /* TerminalColours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalColours.m; sourceTree = "<group>"; };
 		D62204B01051CC6A00FAEA30 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		D62204B11051CC6A00FAEA30 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
+		D644151B13D3B55E00A0678F /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
+		D644151C13D3B55E00A0678F /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		D644151D13D3B55E00A0678F /* Versions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Versions.h; sourceTree = "<group>"; };
+		D644151E13D3B55E00A0678F /* Versions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Versions.m; sourceTree = "<group>"; };
 		D65FF862105D82B500B54560 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		D65FF863105D82B500B54560 /* GTMHotKeyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHotKeyTextField.h; sourceTree = "<group>"; };
 		D65FF864105D82B500B54560 /* GTMHotKeyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHotKeyTextField.m; sourceTree = "<group>"; };
@@ -154,6 +159,10 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D644151B13D3B55E00A0678F /* CGSPrivate.h */,
+				D644151C13D3B55E00A0678F /* Macros.h */,
+				D644151D13D3B55E00A0678F /* Versions.h */,
+				D644151E13D3B55E00A0678F /* Versions.m */,
 				D62204B01051CC6A00FAEA30 /* JRSwizzle.h */,
 				D62204B11051CC6A00FAEA30 /* JRSwizzle.m */,
 				D62204AD1051CC3700FAEA30 /* TerminalColours.h */,
@@ -244,9 +253,9 @@
 			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "Visor.bundle" */;
 			buildPhases = (
 				8D5B49AF048680CD000E48DA /* Resources */,
-				7FB66BF60CE76F070057DA0F /* ShellScript */,
 				8D5B49B1048680CD000E48DA /* Sources */,
 				8D5B49B3048680CD000E48DA /* Frameworks */,
+				D644151A13D3A9D400A0678F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -265,10 +274,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0410;
 				ORGANIZATIONNAME = BinaryAge;
 			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Visor" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -310,7 +321,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7FB66BF60CE76F070057DA0F /* ShellScript */ = {
+		D644151A13D3A9D400A0678F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -321,7 +332,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "mkdir -p ~/Library/Application\\ Support/SIMBL/Plugins\nrm -rf ~/Library/Application\\ Support/SIMBL/Plugins/$FULL_PRODUCT_NAME\ncp -r \"$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME\" ~/Library/Application\\ Support/SIMBL/Plugins";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -341,6 +352,7 @@
 				D65FF894105D875D00B54560 /* GTMCarbonEvent.m in Sources */,
 				D65FF91B105D9B6200B54560 /* QSBKeyMap.m in Sources */,
 				26C7384F11045EBF00E5058E /* PasteOnRightclick.m in Sources */,
+				D644151F13D3B55E00A0678F /* Versions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,39 +373,19 @@
 		1DEB913B08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
-				CODE_SIGN_IDENTITY = "";
-				CONFIGURATION_BUILD_DIR = "$HOME/Library/Application Support/SIMBL/Plugins";
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-				);
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_SYMBOL_SEPARATION = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Visor.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				ONLY_ACTIVE_ARCH = NO;
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = Visor;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = "x86_64 i386";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -402,27 +394,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-				);
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_ENABLE_SYMBOL_SEPARATION = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Visor.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = Visor;
-				RUN_CLANG_STATIC_ANALYZER = NO;
-				SDKROOT = "";
-				VALID_ARCHS = "x86_64 i386 ppc";
+				VALID_ARCHS = "x86_64 i386";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -431,30 +410,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG_MODE;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-fnested-functions";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
 		1DEB914008733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-fnested-functions";
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,
 				);
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
 			};
 			name = Release;
 		};

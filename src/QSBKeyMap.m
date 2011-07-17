@@ -58,7 +58,8 @@
   }
   KeyMapByteArray array;
   bzero(array, sizeof(array));
-  for (NSUInteger k = 0; k < count; ++k) {
+  NSUInteger k;
+  for (k = 0; k < count; ++k) {
     UInt16 i = keys[k] / 8;
     UInt16 j = keys[k] % 8;
     array[i] |= 1 << j;
@@ -76,7 +77,8 @@
   // keymap.
   NSUInteger hash = 0;
   NSUInteger *keyMapHash = (NSUInteger *)keyMap_;
-  for (size_t i = 0; i < sizeof(keyMap_) / sizeof(hash); ++i) {
+  size_t i;
+  for (i = 0; i < sizeof(keyMap_) / sizeof(hash); ++i) {
     hash += keyMapHash[i];
   }
   return hash;
@@ -94,7 +96,8 @@
 
 - (NSString*)description {
   NSMutableString *string = [NSMutableString string];
-  for (size_t i = 0; i < sizeof(keyMap_); i++) {
+  size_t i;
+  for (i = 0; i < sizeof(keyMap_); i++) {
     [string appendFormat:@" %02hhX", keyMap_[i]];
   }
   return string;
@@ -112,7 +115,8 @@
 
 - (QSBKeyMap *)keyMapByInverting {
   KeyMapByteArray array;
-  for (size_t i = 0; i < sizeof(array); ++i) {
+  size_t i;
+  for (i = 0; i < sizeof(array); ++i) {
     array[i] = ~keyMap_[i];
   }
   return [[[[self class] alloc] initWithKeyMap:*((KeyMap*)&array)] autorelease];
@@ -130,7 +134,8 @@
   BOOL contains = NO;
   KeyMapByteArray array;
   [keyMap getKeyMap:(KeyMap*)&array];
-  for (size_t i = 0; i < sizeof(KeyMapByteArray); ++i) {
+  size_t i;
+  for (i = 0; i < sizeof(KeyMapByteArray); ++i) {
     if (keyMap_[i] & array[i]) {
       contains = YES;
       break;

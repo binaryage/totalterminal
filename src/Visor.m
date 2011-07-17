@@ -1,4 +1,5 @@
 #import "Macros.h"
+#import "Versions.h"
 #import "JRSwizzle.h"
 #import "CGSPrivate.h"
 #import "Visor.h"
@@ -94,7 +95,7 @@ int main(int argc, char *argv[]) {
     [toolbar setSelectedItemIdentifier:@"Visor"];
     NSTabView* tabView = [self valueForKey:@"tabView"];
     [tabView selectTabViewItemWithIdentifier:@"VisorPane"];
-		[visor updateShouldShowTransparencyAlert];
+	[visor updateShouldShowTransparencyAlert];
 }
 
 - (id)Visor_TTAppPrefsController_toolbar:(id)arg1 itemForItemIdentifier:(id)arg2 willBeInsertedIntoToolbar:(BOOL)arg3 {
@@ -177,26 +178,38 @@ int main(int argc, char *argv[]) {
     return rect;
 }
 
+- (id) Visor_getVisorProfileOrTheDefaultOne {
+    id visorProfile = [Visor getVisorProfile];
+    if (visorProfile) {
+        return visorProfile;
+    } else {
+        id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
+        return [profileManager defaultProfile];
+    }
+}
+
+- (id) Visor_forceVisorProfileIfVisoredWindow {
+    id res = nil;
+    id visor = [Visor sharedInstance];
+    BOOL isVisoredWindow = [visor isVisoredWindow:[self window]];
+    if (isVisoredWindow) {
+        LOG(@"  in visored window ... so apply visor profile");
+        res = [self Visor_getVisorProfileOrTheDefaultOne];
+        if ([visor isHidden]) {
+            [visor showVisor:false];
+        }
+    }
+    return res;
+}
+
 // swizzled function for original TTWindowController::newTabWithProfile
 // this seems to be a good point to intercept new tab creation
 // responsible for opening all tabs in Visored window with Visor profile (regardless of "default profile" setting)
 - (id)Visor_TTWindowController_newTabWithProfile:(id)arg1 {
     LOG(@"creating a new tab");
-    id this = self;
-    id visor = [Visor sharedInstance];
-    BOOL isVisoredWindow = [visor isVisoredWindow:[this window]];
-    if (isVisoredWindow) {
-        LOG(@"  in visored window ... so apply visor profile");
-        id visorProfile = [Visor getVisorProfile];
-        if (visorProfile) {
-            arg1 = visorProfile;
-        } else {
-            id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
-            arg1 = [profileManager defaultProfile];
-        }
-        if ([visor isHidden]) {
-            [visor showVisor:false];
-        }
+    id profile = [self Visor_forceVisorProfileIfVisoredWindow];
+    if (profile) {
+        arg1 = profile;
     }
     return [self Visor_TTWindowController_newTabWithProfile:arg1];
 }
@@ -205,15 +218,21 @@ int main(int argc, char *argv[]) {
 // this seems to be an alternative point to intercept new tab creation
 - (id)Visor_TTWindowController_newTabWithProfile:(id)arg1 command:(id)arg2 runAsShell:(BOOL)arg3 {
     LOG(@"creating a new tab (with runAsShell)");
-    id this = self;
-    id visor = [Visor sharedInstance];
-    BOOL isVisoredWindow = [visor isVisoredWindow:[this window]];
-    if (isVisoredWindow) {
-        LOG(@"  in visored window ... so apply visor profile");
-        id visorProfile = [Visor getVisorProfile];
-		arg1 = visorProfile;
+    id profile = [self Visor_forceVisorProfileIfVisoredWindow];
+    if (profile) {
+        arg1 = profile;
     }
     return [self Visor_TTWindowController_newTabWithProfile:arg1 command:arg2 runAsShell:arg3];
+}
+
+// LION: this is variant of the ^^^
+- (id)Visor_TTWindowController_newTabWithProfile:(id)arg1 customFont:(id)arg2 command:(id)arg3 runAsShell:(BOOL)arg4 restorable:(BOOL)arg5 workingDirectory:(id)arg6 sessionClass:(id)arg7 restoreSession:(id)arg8 {
+    id profile = [self Visor_forceVisorProfileIfVisoredWindow];
+    LOG(@"creating a new tab (with customFont) %@", profile);
+    if (profile) {
+        arg1 = profile;
+    }
+    return [self Visor_TTWindowController_newTabWithProfile:arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
 }
 
 @end
@@ -237,7 +256,11 @@ int main(int argc, char *argv[]) {
         Visor* visor = [Visor sharedInstance];
         [visor keysChangedWhileActive:theEvent];
     } else if (type == NSMouseMoved) {
-		[[[Visor sharedInstance] background] sendEvent:theEvent];
+		// TODO review this: it caused background intialization even if Quartz background was disabled in the preferences
+        // => https://github.com/darwin/visor/issues/102#issuecomment-1508598
+        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"VisorUseBackgroundAnimation"]) {
+            [[[Visor sharedInstance] background] sendEvent:theEvent];
+        }
 	}
     [self Visor_TTApplication_sendEvent:theEvent];
 }
@@ -392,50 +415,20 @@ int main(int argc, char *argv[]) {
 }
 
 + (id) getVisorProfile {
-    return [self getOrCreateVisorProfileIfNecessary:NO];
-}
-
-+ (id) getOrCreateVisorProfileIfNecessary:(BOOL)createIfNecessary {
     LOG(@"createVisorProfileIfNeeded");
     id profileManager = [NSClassFromString(@"TTProfileManager") sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
-
-    if (!visorProfile && (createIfNecessary || !NSClassFromString(@"NSRunningApplication"))) {
-        LOG(@"   ... initialising Visor profile");
-        
-        // create visor profile in case it does not exist yet, use startup profile as a template
-        id startupProfile = [profileManager startupProfile];
-        visorProfile = [startupProfile copyWithZone:nil];
-
-        // apply Darwin's preferred Visor settings
-        Visor *visor = [Visor sharedInstance];
-        NSData *plistData = nil;
-        NSString *error = nil;
-        NSPropertyListFormat format = nil;
-        id plist = nil;
-        NSString *path = [[NSBundle bundleForClass:[visor class]] pathForResource:@"VisorProfile" ofType:@"plist"]; 
-        plistData = [NSData dataWithContentsOfFile:path]; 
-        plist = [NSPropertyListSerialization propertyListFromData:plistData mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
-        if (!plist) {
-            LOG(@"Error reading plist from file '%s', error = '%s'", [path UTF8String], [error UTF8String]);
-            [error release];
-        }
-        [visorProfile setPropertyListRepresentation:plist];
-
-        // set profile into manager
-        [profileManager setProfile:visorProfile forName:@"Visor"];
-        [visorProfile release];
-    } else {
-        visorProfile = [profileManager defaultProfile];
+    if (visorProfile) {
+        return visorProfile;
     }
-    
-    return visorProfile;
+    return [profileManager defaultProfile];
 }
 
 + (void) closeExistingWindows {
     id wins = [[NSClassFromString(@"TTApplication") sharedApplication] windows];
     int winCount = [wins count];
-    for (int i=0; i<winCount; i++) {
+    int i;
+    for (i=0; i<winCount; i++) {
         id win = [wins objectAtIndex:i];
         if (!win) continue;
         if ([[win className] isEqualToString:@"TTWindow"]) {
@@ -448,7 +441,12 @@ int main(int argc, char *argv[]) {
     LOG(@"Visor installed");
 
     [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:) withMethod:@selector(Visor_TTWindowController_newTabWithProfile:) error:NULL];
-    [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:command:runAsShell:) withMethod:@selector(Visor_TTWindowController_newTabWithProfile:command:runAsShell:) error:NULL];
+    if (terminalVersion()<FIRST_LION_VERSION) {
+        [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:command:runAsShell:) withMethod:@selector(Visor_TTWindowController_newTabWithProfile:command:runAsShell:) error:NULL];
+    } else {
+        // under Lion signature changed slightly
+        [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:customFont:command:runAsShell:restorable:workingDirectory:sessionClass:restoreSession:) withMethod:@selector(Visor_TTWindowController_newTabWithProfile:customFont:command:runAsShell:restorable:workingDirectory:sessionClass:restoreSession:) error:NULL];
+    }
     [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(setCloseDialogExpected:) withMethod:@selector(Visor_TTWindowController_setCloseDialogExpected:) error:NULL];
     [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(window:willPositionSheet:usingRect:) withMethod:@selector(Visor_TTWindowController_window:willPositionSheet:usingRect:) error:NULL];
     

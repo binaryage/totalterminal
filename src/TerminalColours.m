@@ -1,6 +1,7 @@
 // taken from http://github.com/evanphx/terminalcolours/commit/20eb738a5c81349a3b0189ee7eb25de589abf987
 
 #import "TerminalColours.h"
+#import "Versions.h"
 #import "JRSwizzle.h"
 
 static NSString* colourKeys[] = {
@@ -27,7 +28,7 @@ static NSString* colourKeys[] = {
 + (id)sharedPreferencesController;
 @end
 
-@implementation NSView (NSObject)
+@implementation NSView (TerminalColours)
 - (id)TerminalColours_colorForANSIColor:(unsigned int)index;
 {
     id colour = nil;
@@ -164,9 +165,14 @@ static NSString* colourKeys[] = {
 @implementation TerminalColours
 + (void)load
 {
+    if (terminalVersion()>=FIRST_LION_VERSION) {
+        // TerminalColours is not needed anymore under Lion, Apple has implemented 256 color support
+        return;
+    }
+    
     [NSClassFromString(@"TTProfile") jr_swizzleMethod:@selector(valueForKey:) withMethod:@selector(TerminalColours_TTProfile_valueForKey:) error:NULL];
     [NSClassFromString(@"TTProfile") jr_swizzleMethod:@selector(setValue:forKey:) withMethod:@selector(TerminalColours_TTProfile_setValue:forKey:) error:NULL];
-
+    
     [NSClassFromString(@"TTView") jr_swizzleMethod:@selector(colorForANSIColor:) withMethod:@selector(TerminalColours_colorForANSIColor:) error:NULL];
     [NSClassFromString(@"TTView") jr_swizzleMethod:@selector(colorForANSIColor:adjustedRelativeToColor:) withMethod:@selector(TerminalColours_colorForANSIColor:adjustedRelativeToColor:) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(TerminalColours_TTAppPrefsController_windowDidLoad) error:NULL];
