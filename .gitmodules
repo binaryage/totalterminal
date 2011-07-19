@@ -1,3 +1,6 @@
 [submodule "sparkle"]
 	path = sparkle
 	url = git://github.com/binaryage/Sparkle.git
+[submodule "totalterminal-osax"]
+	path = totalterminal-osax
+	url = git://github.com/binaryage/totalterminal-osax.git
