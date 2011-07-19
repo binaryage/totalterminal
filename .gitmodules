@@ -4,3 +4,6 @@
 [submodule "totalterminal-osax"]
 	path = totalterminal-osax
 	url = git://github.com/binaryage/totalterminal-osax.git
+[submodule "totalterminal-installer"]
+	path = totalterminal-installer
+	url = git://github.com/binaryage/totalterminal-installer.git
