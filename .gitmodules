@@ -7,3 +7,6 @@
 [submodule "totalterminal-installer"]
 	path = totalterminal-installer
 	url = git://github.com/binaryage/totalterminal-installer.git
+[submodule "totalterminal-i18n"]
+	path = totalterminal-i18n
+	url = git://github.com/binaryage/totalterminal-i18n.git
