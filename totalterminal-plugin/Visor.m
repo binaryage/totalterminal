@@ -391,21 +391,40 @@ int main(int argc, char *argv[]) {
 - (void) enahanceTerminalPreferencesWindow {
     static bool alreadyEnhanced = NO;
     if (alreadyEnhanced) return;
-    alreadyEnhanced = YES;
 
     LOG(@"enahanceTerminalPreferencesWindow");
 
     id prefsController = [NSClassFromString(@"TTAppPrefsController") sharedPreferencesController];
+    if (!prefsController) {
+        return;
+    }
+    
     NSTabView* tabView = [prefsController valueForKey:@"tabView"];
+    if (!tabView) {
+        return;
+    }
 
     NSWindow* prefsWindow = [prefsController window];
-    NSToolbar* toolbar = [prefsWindow toolbar];
+    if (!prefsWindow) {
+        return;
+    }
     
     NSTabView* sourceTabView = [[[settingsWindow contentView] subviews] objectAtIndex:0];
+    if (!sourceTabView) {
+        return;
+    }
     NSTabViewItem* item = [sourceTabView tabViewItemAtIndex:0];
+    if (!item) {
+        return;
+    }
     
+    NSToolbar* toolbar = [prefsWindow toolbar];
+    if (!toolbar) {
+        return;
+    }
     [toolbar insertItemWithItemIdentifier:@"Visor" atIndex:4];
     [tabView addTabViewItem:item];
+    alreadyEnhanced = YES;
 }
 
 + (Visor *) sharedInstance {
@@ -438,13 +457,11 @@ int main(int argc, char *argv[]) {
     }
 }
 
-
-
 + (void) install {
     LOG(@"install called");
     
-    // under 10.7 when TotalFinder is injected during Finder launch some windows may be going through restoration process
-    // so the Finder windows are not fully re-created, closeExistingWindows then does not process all windows and they may appear as crippled
+    // under 10.7 when TotalTerminal is injected during Terminal launch some windows may be going through restoration process
+    // so the Terminal windows are not fully re-created
     [self performSelector:@selector(delayedInit) withObject:nil afterDelay:2.0];
 }
 
@@ -477,7 +494,6 @@ int main(int argc, char *argv[]) {
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     [ud registerDefaults:defaults];
     [self sanitizeDefaults:ud];
-    
     [self closeExistingWindows];
     id visorProfile = [self getVisorProfile];
     id app = [NSClassFromString(@"TTApplication") sharedApplication];
@@ -485,6 +501,7 @@ int main(int argc, char *argv[]) {
     
     Visor *visor = [Visor sharedInstance];
     [visor resetWindowPlacement];
+    [visor enahanceTerminalPreferencesWindow];
     
     [controller release];    
 }
