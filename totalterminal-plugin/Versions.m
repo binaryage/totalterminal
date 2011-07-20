@@ -30,8 +30,8 @@ TSupportedTerminalVersions initializeTerminalVersion() {
     TSupportedTerminalVersions version = vUnknown;
     if ([terminalVersion isEqualToString:@"273.1"]) { // 10.6.8
         version = v273_1;
-    } else if ([terminalVersion isEqualToString:@"294"]) { // 10.7 (GM)
-        version = v294;
+    } else if ([terminalVersion isEqualToString:@"297"]) { // 10.7 (GM)
+        version = v297;
     }
     if (version == vUnknown) {
         // try to parse it and detect historical version
