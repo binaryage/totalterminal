@@ -1,4 +1,5 @@
-Copyright 2006-2009 Nicholas Jitkoff, Antonin Hildebrand and contributors (http://github.com/darwin/visor)
+Copyright 2006-2011 Nicholas Jitkoff, Antonin Hildebrand 
+and contributors (http://github.com/binaryage/totalterminal/contributors)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
