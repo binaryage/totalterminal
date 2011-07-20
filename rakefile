@@ -21,36 +21,31 @@ TMP_TOTALTERMINAL_DIR = File.join(TMP_DIR, 'totalterminal-plugin')
 TMP_BIN_DIR = File.join(TMP_DIR, 'bin')
 TMP_BIN_TOTALTERMINAL_FRAMEWORKS = File.join(TMP_BIN_DIR, 'TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks')
 
-PLUGIN_INFO_PLIST = File.join(TMP_DIR, 'totalterminal-plugin', 'plugin', 'Info.plist')
+PLUGIN_INFO_PLIST = File.join(TMP_DIR, 'totalterminal-plugin', 'Info.plist')
 PLUGIN_TOTALTERMINAL_H = File.join(TMP_DIR, 'totalterminal-plugin', 'plugin', 'TotalTerminal.h')
 OSAX_INFO_PLIST = File.join(TMP_DIR, 'totalterminal-osax', 'Info.plist')
 
 PUBLISH_PREFIX_URL = "http://downloads.binaryage.com"
 CHANGELOG_PREFIX_URL = "http://totalterminal.binaryage.com"
 
-############################################################################################
+################################################################################################
+# dependencies
 
-def colorize(text, color_code)
-  "#{color_code}#{text}\e[0m"
+begin
+    require 'colored'
+rescue LoadError
+    raise 'You must "gem install colored" to use terminal colors'
 end
 
-def red(text); colorize(text, "\e[31m"); end
-def green(text); colorize(text, "\e[32m"); end
-def yellow(text); colorize(text, "\e[33m"); end
-def blue(text); colorize(text, "\e[34m"); end
-def magenta(text); colorize(text, "\e[35m"); end
-def azure(text); colorize(text, "\e[36m"); end
-def white(text); colorize(text, "\e[37m"); end
-def black(text); colorize(text, "\e[30m"); end
+def file_color(text); text.yellow; end
+def dir_color(text); text.blue; end
+def cmd_color(text); text.magenta; end
 
-def file_color(text); yellow(text); end
-def dir_color(text); blue(text); end
-def cmd_color(text); azure(text); end
 
 ############################################################################################
 
 def die(msg, status=1)
-  puts red("Error[#{status||$?}]: #{msg}")
+  puts "Error[#{status||$?}]: #{msg}".red
   exit status||$?
 end
 
@@ -65,7 +60,7 @@ end
 
 def dirty_repo_warning()
   is_clean = `git status`.match(/working directory clean/)
-  puts red("Repository is not clean! You should commit all changes before releasing.") unless is_clean
+  puts "Repository is not clean! You should commit all changes before releasing.".red unless is_clean
 end
 
 def patch(path, replacers)
@@ -85,7 +80,7 @@ def patch(path, replacers)
 end
 
 def announce(cmd)
-    puts "> " + yellow(cmd)
+    puts "> " + cmd.yellow
 end
 
 def sys(cmd)
@@ -134,7 +129,7 @@ def generate_payload_for_pkg(tmp, pkg)
 end
 
 def generate_payload(dmg, out)
-    puts green("Generating payload for: ") + blue(dmg)
+    puts "Generating payload for: ".green + dmg.blue
     
     volume = "/Volumes/TotalTerminal"
     tmp = File.join(TMP_DIR, "payloads", File.basename(dmg, ".dmg"))
@@ -175,7 +170,7 @@ def generate_payload(dmg, out)
         end
     end
     
-    puts green("  -> ") + blue(out)
+    puts "  -> ".green + out.blue
     
     sys("hdiutil detach #{disk}")
 end
@@ -227,7 +222,7 @@ task :stage do
     puts "#{cmd_color('Initializing submodules ...')}"
     Dir.chdir(TMP_DIR) do
       `git reset --hard HEAD`
-      patch(TMP_GIT_MODULES, [['git@github.com:darwin', ROOT_DIR], ['git@github.com:binaryage', ROOT_DIR], ['.git', '']])
+      patch(TMP_GIT_MODULES, [['git://github.com/binaryage', ROOT_DIR], ['.git', '']])
       `git submodule update --init`
     end
 end
@@ -248,7 +243,7 @@ task :release do
             sys('git clean -fd')
             sys('git fetch')
             sys('git reset --hard origin/master')
-            patch(TMP_GIT_MODULES, [['git@github.com:darwin', ROOT_DIR], ['git@github.com:binaryage', ROOT_DIR], ['.git', '']])
+            patch(TMP_GIT_MODULES, [['git://github.com/binaryage', ROOT_DIR], ['.git', '']])
             #
             sys('git submodule sync')
             sys('git submodule foreach "git reset --hard origin/master"')
@@ -299,14 +294,16 @@ task :release do
   
   puts snippet
   puts
-  puts red("Don't forget: ")+green("git tag -a v#{$version} -m \"Release #{$version}\"")
-  puts blue("#{PUBLISH_PREFIX_URL}/TotalTerminal-#{$version}.dmg")
+  puts "Don't forget: ".red+"git tag -a v#{$version} -m \"Release #{$version}\"".green
+  puts "#{PUBLISH_PREFIX_URL}/TotalTerminal-#{$version}.dmg".blue
   
-  sys("mkdir -p tfdata")
-  sys("mount -t smbfs //guest:@whale/Store/ttdata ttdata")
-  sys("rsync -av --delete release ttdata")
-  sys("umount ttdata")
-  sys("rm -rf ttdata")
+  Dir.chdir(ROOT_DIR) do
+      sys("mkdir -p ttdata")
+      sys("mount -t smbfs //guest:@whale/Store/ttdata ttdata")
+      sys("rsync -av --delete release ttdata")
+      sys("umount ttdata")
+      sys("rm -rf ttdata")
+  end
 end
   
 desc "removes intermediate build files"

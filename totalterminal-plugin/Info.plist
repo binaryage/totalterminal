@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.binaryage.visor</string>
+	<string>com.binaryage.totalterminal</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -20,12 +20,5 @@
 	<string>##VERSION##</string>
 	<key>NSPrincipalClass</key>
 	<string>Visor</string>
-	<key>SIMBLTargetApplications</key>
-	<array>
-		<dict>
-			<key>BundleIdentifier</key>
-			<string>com.apple.Terminal</string>
-		</dict>
-	</array>
 </dict>
 </plist>

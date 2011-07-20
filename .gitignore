@@ -12,3 +12,4 @@ release/*
 *.rej
 xcuserdata
 keys/
+*/build/

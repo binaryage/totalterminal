@@ -6,6 +6,23 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		D6C7F6D013D6495300DAC2BC /* TotalTerminal.app */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = D6C7F6D313D6495300DAC2BC /* Build configuration list for PBXAggregateTarget "TotalTerminal.app" */;
+			buildPhases = (
+				D6C7F6D513D6495B00DAC2BC /* Assemble TotalTerminal.app */,
+				D6C7F70413D652C000DAC2BC /* Compile main.scpt */,
+				D6C7F70513D6531C00DAC2BC /* Install into /Applications */,
+			);
+			dependencies = (
+				D6C7F70313D64C7200DAC2BC /* PBXTargetDependency */,
+			);
+			name = TotalTerminal.app;
+			productName = TotalTerminal.app;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		0708B0F612ADA36100A0F345 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708B0F512ADA36100A0F345 /* Quartz.framework */; };
 		0708B0F812ADA36100A0F345 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708B0F712ADA36100A0F345 /* QuartzCore.framework */; };
@@ -39,6 +56,58 @@
 		D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D6C7F6F613D64BEA00DAC2BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Sparkle;
+		};
+		D6C7F6F813D64BEA00DAC2BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 61B5F90209C4CEE200B25A18;
+			remoteInfo = "Sparkle Test App";
+		};
+		D6C7F6FA13D64BEA00DAC2BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DAAEFC960DA571DF0051E0D0;
+			remoteInfo = "relaunch tool";
+		};
+		D6C7F6FC13D64BEA00DAC2BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 612279D90DB5470200AB99EA;
+			remoteInfo = "Sparkle Unit Tests";
+		};
+		D6C7F6FE13D64BEA00DAC2BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D06E8D00FD68C7C005AE3F6;
+			remoteInfo = BinaryDelta;
+		};
+		D6C7F70013D64C2E00DAC2BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = Sparkle;
+		};
+		D6C7F70213D64C7200DAC2BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = TotalTerminal.bundle;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0708B0F512ADA36100A0F345 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		0708B0F712ADA36100A0F345 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
@@ -53,7 +122,7 @@
 		26C7384E11045EBF00E5058E /* PasteOnRightclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasteOnRightclick.m; sourceTree = "<group>"; };
 		7F01469F0A3E6571006AF239 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		7F849AA60A457DE100963040 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
-		8D5B49B6048680CD000E48DA /* Visor.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Visor.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B6048680CD000E48DA /* TotalTerminal.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TotalTerminal.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		D62204AD1051CC3700FAEA30 /* TerminalColours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalColours.h; sourceTree = "<group>"; };
@@ -83,12 +152,13 @@
 		D66688D210534A87002EDB20 /* VisorProfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = VisorProfile.plist; path = res/VisorProfile.plist; sourceTree = "<group>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = res/Control.pdf; sourceTree = "<group>"; };
-		D671706A1065D14300970560 /* RestoreApp.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = RestoreApp.scpt; path = res/RestoreApp.scpt; sourceTree = "<group>"; };
+		D671706A1065D14300970560 /* RestoreApp.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RestoreApp.scpt; path = res/RestoreApp.scpt; sourceTree = "<group>"; };
 		D67391740F93EB3F0037E3BC /* VisorActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorActive.png; path = res/VisorActive.png; sourceTree = "<group>"; };
 		D67391750F93EB3F0037E3BC /* VisorInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorInactive.png; path = res/VisorInactive.png; sourceTree = "<group>"; };
 		D67391760F93EB3F0037E3BC /* VisorLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorLarge.png; path = res/VisorLarge.png; sourceTree = "<group>"; };
 		D68AA7000F371C810094AA92 /* Visor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor.h; sourceTree = "<group>"; };
 		D68AA7010F371C810094AA92 /* Visor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Visor.m; sourceTree = "<group>"; };
+		D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = ../sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
 		D6F5F1E910521A9B0047CFF8 /* Configuration.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Configuration.xib; sourceTree = "<group>"; };
 		D6FB33E80F3843E20067F941 /* Visor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Visor.xib; sourceTree = "<group>"; };
 		D6FB34420F3844D80067F941 /* Visor.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor.pch; sourceTree = "<group>"; };
@@ -115,6 +185,7 @@
 		089C166AFE841209C02AAC07 /* Visor */ = {
 			isa = PBXGroup;
 			children = (
+				D6C7F6D613D64B7700DAC2BC /* Frameworks */,
 				D65FF918105D9B5400B54560 /* QSB */,
 				D65FF861105D829F00B54560 /* GTM */,
 				08FB77AFFE84173DC02AAC07 /* Classes */,
@@ -202,7 +273,7 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D5B49B6048680CD000E48DA /* Visor.bundle */,
+				8D5B49B6048680CD000E48DA /* TotalTerminal.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -245,26 +316,46 @@
 			name = QSB;
 			sourceTree = "<group>";
 		};
+		D6C7F6D613D64B7700DAC2BC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D6C7F6EA13D64BEA00DAC2BC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D6C7F6F713D64BEA00DAC2BC /* Sparkle.framework */,
+				D6C7F6F913D64BEA00DAC2BC /* Sparkle Test App.app */,
+				D6C7F6FB13D64BEA00DAC2BC /* relaunch */,
+				D6C7F6FD13D64BEA00DAC2BC /* Sparkle Unit Tests.octest */,
+				D6C7F6FF13D64BEA00DAC2BC /* BinaryDelta */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D5B49AC048680CD000E48DA /* Visor.bundle */ = {
+		8D5B49AC048680CD000E48DA /* TotalTerminal.bundle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "Visor.bundle" */;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "TotalTerminal.bundle" */;
 			buildPhases = (
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
 				8D5B49B3048680CD000E48DA /* Frameworks */,
-				D644151A13D3A9D400A0678F /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D6C7F70113D64C2E00DAC2BC /* PBXTargetDependency */,
 			);
-			name = Visor.bundle;
+			name = TotalTerminal.bundle;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = Visor;
-			productReference = 8D5B49B6048680CD000E48DA /* Visor.bundle */;
+			productReference = 8D5B49B6048680CD000E48DA /* TotalTerminal.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -277,7 +368,7 @@
 				LastUpgradeCheck = 0410;
 				ORGANIZATIONNAME = BinaryAge;
 			};
-			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Visor" */;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "TotalTerminal" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -290,12 +381,57 @@
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* Visor */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D6C7F6EA13D64BEA00DAC2BC /* Products */;
+					ProjectRef = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
-				8D5B49AC048680CD000E48DA /* Visor.bundle */,
+				D6C7F6D013D6495300DAC2BC /* TotalTerminal.app */,
+				8D5B49AC048680CD000E48DA /* TotalTerminal.bundle */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D6C7F6F713D64BEA00DAC2BC /* Sparkle.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Sparkle.framework;
+			remoteRef = D6C7F6F613D64BEA00DAC2BC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D6C7F6F913D64BEA00DAC2BC /* Sparkle Test App.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Sparkle Test App.app";
+			remoteRef = D6C7F6F813D64BEA00DAC2BC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D6C7F6FB13D64BEA00DAC2BC /* relaunch */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = relaunch;
+			remoteRef = D6C7F6FA13D64BEA00DAC2BC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D6C7F6FD13D64BEA00DAC2BC /* Sparkle Unit Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Sparkle Unit Tests.octest";
+			remoteRef = D6C7F6FC13D64BEA00DAC2BC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D6C7F6FF13D64BEA00DAC2BC /* BinaryDelta */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = BinaryDelta;
+			remoteRef = D6C7F6FE13D64BEA00DAC2BC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D5B49AF048680CD000E48DA /* Resources */ = {
@@ -321,18 +457,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D644151A13D3A9D400A0678F /* ShellScript */ = {
+		D6C7F6D513D6495B00DAC2BC /* Assemble TotalTerminal.app */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Assemble TotalTerminal.app";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mkdir -p ~/Library/Application\\ Support/SIMBL/Plugins\nrm -rf ~/Library/Application\\ Support/SIMBL/Plugins/$FULL_PRODUCT_NAME\ncp -r \"$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME\" ~/Library/Application\\ Support/SIMBL/Plugins";
+			shellScript = "TTROOT=\"$PROJECT_DIR\"\nTTINSTALLER=\"$TTROOT/../totalterminal-installer\"\nTTBIN=\"$TTROOT/../bin\"\nTOTALTERMINAL_BINARY=\"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/MacOS/TotalTerminal\"\nTOTALTERMINAL_RESOURCES=\"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Resources\"\n\nrm -rf \"$TTBIN/TotalTerminal.app\"\nmkdir -p \"$TTBIN/TotalTerminal.app/Contents/Resources\"\n\ncp -Rf \"$TTINSTALLER/TotalTerminal.app\" \"$TTBIN\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.bundle\" \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle\"\nrm -rf \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks\" # bug in XCode4?\n\n# copy TotalTerminalCrashWatcher.app into Resources\n# cp -Rf \"$TTBIN/TotalTerminalCrashWatcher.app\" \"$TOTALTERMINAL_RESOURCES\"\n\nif [ -d \"$BUILT_PRODUCTS_DIR/Sparkle.framework\" ]\nthen\nrm -rf \"$TTBIN/Sparkle.framework\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/Sparkle.framework\" \"$TTBIN\"\nfi\n\nmkdir -p \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks\"\ncp -Rf \"$TTBIN/Sparkle.framework\" \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks\"\n\n# WARNING! may break autoupdater if done incorectly\necho \"com.binaryage.totalterminal.sparkle\"\nSPARKLE_PLIST=\"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Resources/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.binaryage.totalterminal.sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleName\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleName string Sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleExecutable\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleExecutable string Sparkle\" \"$SPARKLE_PLIST\"\n\ninstall_name_tool -change \"/Library/Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"@loader_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"$TOTALTERMINAL_BINARY\"\n\nexit 0";
+		};
+		D6C7F70413D652C000DAC2BC /* Compile main.scpt */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../totalterminal-installer/TotalTerminal.app/Contents/Resources/Scripts/main.applescript",
+			);
+			name = "Compile main.scpt";
+			outputPaths = (
+				"$(PROJECT_DIR)/../bin/TotalTerminal.app/Contents/Resources/Scripts/main.scpt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TFROOT=\"$PROJECT_DIR\"\nTFINSTALLER=\"$TFROOT/../totalterminal-installer\"\nTFBIN=\"$TFROOT/../bin\"\n\ncd \"$TFBIN/TotalTerminal.app/Contents/Resources/Scripts\"\nosacompile -o \"main.scptd\" \"main.applescript\"\nrm \"main.applescript\"\nmv \"main.scptd/Contents/Resources/Scripts/main.scpt\" \"main.scpt\"\nrm -rf \"main.scptd\"";
+		};
+		D6C7F70513D6531C00DAC2BC /* Install into /Applications */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Install into /Applications";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TFROOT=\"$PROJECT_DIR\"\nTFINSTALLER=\"$TFROOT/../totalterminal-installer\"\nTFBIN=\"$TFROOT/../bin\"\nOSAXBIN=\"$TFROOT/../totalterminal-osax/bin\"\n\n# build final package\nrm -rf \"/Applications/TotalTerminal.app\"\ncp -Rf \"$TFBIN/TotalTerminal.app\" \"/Applications\"\n\n# install osax, this does not work from commandline or under Lion\n# sudo rm -rf \"/Library/ScriptingAdditions/TotalTerminal.osax\"\n# sudo cp -r \"$OSAXBIN/TotalTerminal.osax\" \"/Library/ScriptingAdditions\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -357,6 +524,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D6C7F70113D64C2E00DAC2BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sparkle;
+			targetProxy = D6C7F70013D64C2E00DAC2BC /* PBXContainerItemProxy */;
+		};
+		D6C7F70313D64C7200DAC2BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D5B49AC048680CD000E48DA /* TotalTerminal.bundle */;
+			targetProxy = D6C7F70213D64C7200DAC2BC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {
@@ -383,7 +563,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				PRODUCT_NAME = Visor;
+				PRODUCT_NAME = TotalTerminal;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "x86_64 i386";
 				WRAPPER_EXTENSION = bundle;
@@ -400,7 +580,7 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				PRODUCT_NAME = Visor;
+				PRODUCT_NAME = TotalTerminal;
 				VALID_ARCHS = "x86_64 i386";
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -410,6 +590,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG_MODE;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = "-fnested-functions";
 				OTHER_LDFLAGS = (
 					"-undefined",
@@ -421,6 +602,7 @@
 		1DEB914008733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = "-fnested-functions";
 				OTHER_LDFLAGS = (
 					"-undefined",
@@ -429,10 +611,24 @@
 			};
 			name = Release;
 		};
+		D6C7F6D113D6495300DAC2BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D6C7F6D213D6495300DAC2BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "Visor.bundle" */ = {
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "TotalTerminal.bundle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913B08733D840010E9CD /* Debug */,
@@ -441,11 +637,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "Visor" */ = {
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "TotalTerminal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913F08733D840010E9CD /* Debug */,
 				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D6C7F6D313D6495300DAC2BC /* Build configuration list for PBXAggregateTarget "TotalTerminal.app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6C7F6D113D6495300DAC2BC /* Debug */,
+				D6C7F6D213D6495300DAC2BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -27,7 +27,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D6800B2C1172A68C00140755"
+               BlueprintIdentifier = "D6C7F6D013D6495300DAC2BC"
                BuildableName = "TotalTerminal.app"
                BlueprintName = "TotalTerminal.app"
                ReferencedContainer = "container:totalterminal-plugin/TotalTerminal.xcodeproj">
