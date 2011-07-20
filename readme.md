@@ -1,7 +1,7 @@
-# Visor for OSX
+# TotalTerminal for OS X (previously known as Visor)
 
-**Visor for OSX** provides a systemwide terminal window accessible via a hot-key, much like the consoles found in games such as Quake.
+**TotalTerminal for OSX** provides a system-wide terminal window accessible via a hot-key, much like the consoles found in games such as Quake.
 
-<img src="http://visor.binaryage.com/shared/img/visor-mainshot.png">
+<img src="http://totalterminal.binaryage.com/shared/img/visor-mainshot.png">
 
-## Visit [visor.binaryage.com](http://visor.binaryage.com)
+## Visit [totalterminal.binaryage.com](http://totalterminal.binaryage.com)
