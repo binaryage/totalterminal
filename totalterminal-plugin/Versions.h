@@ -6,7 +6,7 @@ typedef enum {
     vMaxSupportedTerminalVersion
 } TSupportedTerminalVersions;
 
-#define FIRST_LION_VERSION v294
+#define FIRST_LION_VERSION v297
 
 extern TSupportedTerminalVersions initializeTerminalVersion();
 extern TSupportedTerminalVersions terminalVersion();

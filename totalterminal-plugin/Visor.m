@@ -438,9 +438,17 @@ int main(int argc, char *argv[]) {
     }
 }
 
-+ (void) install {
-    LOG(@"Visor installed");
 
+
++ (void) install {
+    LOG(@"install called");
+    
+    // under 10.7 when TotalFinder is injected during Finder launch some windows may be going through restoration process
+    // so the Finder windows are not fully re-created, closeExistingWindows then does not process all windows and they may appear as crippled
+    [self performSelector:@selector(delayedInit) withObject:nil afterDelay:2.0];
+}
+
++ (void) delayedInit {
     [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:) withMethod:@selector(Visor_TTWindowController_newTabWithProfile:) error:NULL];
     if (terminalVersion()<FIRST_LION_VERSION) {
         [NSClassFromString(@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:command:runAsShell:) withMethod:@selector(Visor_TTWindowController_newTabWithProfile:command:runAsShell:) error:NULL];
@@ -454,22 +462,22 @@ int main(int argc, char *argv[]) {
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(initWithContentRect:styleMask:backing:defer:) withMethod:@selector(Visor_initWithContentRect:styleMask:backing:defer:) error:NULL];
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeKeyWindow) withMethod:@selector(Visor_canBecomeKeyWindow) error:NULL];
     [NSClassFromString(@"TTWindow") jr_swizzleMethod:@selector(canBecomeMainWindow) withMethod:@selector(Visor_canBecomeMainWindow) error:NULL];
-
+    
     Class applicationClass = NSClassFromString(@"TTApplication");
     [applicationClass jr_swizzleMethod:@selector(sendEvent:) withMethod:@selector(Visor_TTApplication_sendEvent:) error:NULL];
     [applicationClass jr_swizzleMethod:@selector(applicationShouldHandleReopen:hasVisibleWindows:) withMethod:@selector(Visor_TTApplication_applicationShouldHandleReopen:hasVisibleWindows:) error:NULL];
     [applicationClass jr_swizzleMethod:@selector(mainTerminalWindow) withMethod:@selector(Visor_TTApplication_mainTerminalWindow) error:NULL];
-
+    
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(Visor_TTAppPrefsController_windowDidLoad) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowWillReturnFieldEditor:toObject:) withMethod:@selector(Visor_TTAppPrefsController_windowWillReturnFieldEditor:toObject:) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(tabView:didSelectTabViewItem:) withMethod:@selector(Visor_TTAppPrefsController_tabView:didSelectTabViewItem:) error:NULL];
-
+    
     NSDictionary* defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle bundleForClass:[self class]]pathForResource:@"Defaults" ofType:@"plist"]];
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     [ud registerDefaults:defaults];
     [self sanitizeDefaults:ud];
-
+    
     [self closeExistingWindows];
     id visorProfile = [self getVisorProfile];
     id app = [NSClassFromString(@"TTApplication") sharedApplication];
@@ -477,10 +485,9 @@ int main(int argc, char *argv[]) {
     
     Visor *visor = [Visor sharedInstance];
     [visor resetWindowPlacement];
-
-    [controller release];
+    
+    [controller release];    
 }
-
 
 - (BOOL)status {
     return window_;
