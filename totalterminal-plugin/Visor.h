@@ -32,6 +32,9 @@
     BOOL    dontShowOnFirstTab;
 	NSSize	originalPreferencesSize;
 	NSSize	prefPaneSize;
+    BOOL isActiveAlternativeIcon;
+    NSImage* originalDockIcon;
+    NSImage* alternativeDockIcon;
 }
 
 - (NSWindow *)window;
@@ -51,6 +54,7 @@
 - (IBAction)toggleVisor:(id)sender;
 - (IBAction)showPrefs:(id)sender;
 - (IBAction)visitHomepage:(id)sender;
+- (IBAction) updateMe:(id)sender;
 
 @property (readonly, nonatomic) NSNumber *shouldShowTransparencyAlert;
 @end

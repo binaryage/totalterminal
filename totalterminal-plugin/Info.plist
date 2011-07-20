@@ -20,5 +20,13 @@
 	<string>##VERSION##</string>
 	<key>NSPrincipalClass</key>
 	<string>Visor</string>
+	<key>SUFeedURL</key>
+	<string>http://updates.binaryage.com/totalterminal.xml</string>
+	<key>SUPromptUserOnFirstLaunch</key>
+	<true/>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
+	<key>CFBundleIconFile</key>
+	<string>TotalTerminal.icns</string>
 </dict>
 </plist>

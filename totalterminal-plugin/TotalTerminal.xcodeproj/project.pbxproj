@@ -46,6 +46,13 @@
 		D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391740F93EB3F0037E3BC /* VisorActive.png */; };
 		D673917A0F93EB3F0037E3BC /* VisorInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391750F93EB3F0037E3BC /* VisorInactive.png */; };
 		D673917B0F93EB3F0037E3BC /* ToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391760F93EB3F0037E3BC /* ToolbarIcon.png */; };
+		D6757D5713D69AB000F2FB8D /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = D6757D5613D69AB000F2FB8D /* dsa_pub.pem */; };
+		D6757D5913D69AFC00F2FB8D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6757D5813D69AFC00F2FB8D /* Sparkle.framework */; };
+		D6757D5C13D69C4500F2FB8D /* Updater.m in Sources */ = {isa = PBXBuildFile; fileRef = D6757D5B13D69C4500F2FB8D /* Updater.m */; };
+		D6757D5E13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png in Resources */ = {isa = PBXBuildFile; fileRef = D6757D5D13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png */; };
+		D6757D6013D6AD1600F2FB8D /* Command.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6757D5F13D6AD1600F2FB8D /* Command.pdf */; };
+		D6757D6213D6B00600F2FB8D /* TotalTerminal.icns in Resources */ = {isa = PBXBuildFile; fileRef = D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */; };
+		D6757D6413D6B29300F2FB8D /* Terminal.icns in Resources */ = {isa = PBXBuildFile; fileRef = D6757D6313D6B29300F2FB8D /* Terminal.icns */; };
 		D68AA7020F371C810094AA92 /* Visor.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* Visor.m */; };
 		D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6F5F1E910521A9B0047CFF8 /* Configuration.xib */; };
 		D6FB33E90F3843E20067F941 /* Visor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FB33E80F3843E20067F941 /* Visor.xib */; };
@@ -148,6 +155,14 @@
 		D67391740F93EB3F0037E3BC /* VisorActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorActive.png; path = "../totalterminal-i18n/plugin/VisorActive.png"; sourceTree = "<group>"; };
 		D67391750F93EB3F0037E3BC /* VisorInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorInactive.png; path = "../totalterminal-i18n/plugin/VisorInactive.png"; sourceTree = "<group>"; };
 		D67391760F93EB3F0037E3BC /* ToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToolbarIcon.png; path = "../totalterminal-i18n/plugin/ToolbarIcon.png"; sourceTree = "<group>"; };
+		D6757D5613D69AB000F2FB8D /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = ../keys/dsa_pub.pem; sourceTree = "<group>"; };
+		D6757D5813D69AFC00F2FB8D /* Sparkle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Sparkle.framework; sourceTree = SOURCE_ROOT; };
+		D6757D5A13D69C4500F2FB8D /* Updater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Updater.h; sourceTree = "<group>"; };
+		D6757D5B13D69C4500F2FB8D /* Updater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Updater.m; sourceTree = "<group>"; };
+		D6757D5D13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ChangeThemeBackgroundColor.png; path = "../totalterminal-i18n/plugin/ChangeThemeBackgroundColor.png"; sourceTree = "<group>"; };
+		D6757D5F13D6AD1600F2FB8D /* Command.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Command.pdf; path = "../totalterminal-i18n/plugin/Command.pdf"; sourceTree = "<group>"; };
+		D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TotalTerminal.icns; path = "../totalterminal-i18n/plugin/TotalTerminal.icns"; sourceTree = "<group>"; };
+		D6757D6313D6B29300F2FB8D /* Terminal.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Terminal.icns; path = "../totalterminal-i18n/plugin/Terminal.icns"; sourceTree = "<group>"; };
 		D68AA7000F371C810094AA92 /* Visor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor.h; sourceTree = "<group>"; };
 		D68AA7010F371C810094AA92 /* Visor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Visor.m; sourceTree = "<group>"; };
 		D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = ../sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
@@ -163,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6757D5913D69AFC00F2FB8D /* Sparkle.framework in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				D6716ED210659A6300970560 /* WebKit.framework in Frameworks */,
 				D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */,
@@ -177,6 +193,7 @@
 		089C166AFE841209C02AAC07 /* Visor */ = {
 			isa = PBXGroup;
 			children = (
+				D6757D5813D69AFC00F2FB8D /* Sparkle.framework */,
 				D6C7F6D613D64B7700DAC2BC /* Frameworks */,
 				D65FF918105D9B5400B54560 /* QSB */,
 				D65FF861105D829F00B54560 /* GTM */,
@@ -201,6 +218,11 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D6757D6313D6B29300F2FB8D /* Terminal.icns */,
+				D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */,
+				D6757D5F13D6AD1600F2FB8D /* Command.pdf */,
+				D6757D5D13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png */,
+				D6757D5613D69AB000F2FB8D /* dsa_pub.pem */,
 				07CA8BD612B499F600A6D8BF /* Error.png */,
 				07CA8A0612ADAC6C00A6D8BF /* Visor.qtz */,
 				D671706A1065D14300970560 /* RestoreApp.scpt */,
@@ -232,6 +254,8 @@
 				D68AA7010F371C810094AA92 /* Visor.m */,
 				26C7384D11045EBF00E5058E /* PasteOnRightclick.h */,
 				26C7384E11045EBF00E5058E /* PasteOnRightclick.m */,
+				D6757D5A13D69C4500F2FB8D /* Updater.h */,
+				D6757D5B13D69C4500F2FB8D /* Updater.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -426,6 +450,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6757D6213D6B00600F2FB8D /* TotalTerminal.icns in Resources */,
 				D67170711065D19D00970560 /* RestoreApp.scpt in Resources */,
 				07CA8BD712B499F600A6D8BF /* Error.png in Resources */,
 				D6FB33E90F3843E20067F941 /* Visor.xib in Resources */,
@@ -435,6 +460,10 @@
 				D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */,
 				D6716FBD1065B54100970560 /* Control.pdf in Resources */,
 				07CA8A0712ADAC6C00A6D8BF /* Visor.qtz in Resources */,
+				D6757D5713D69AB000F2FB8D /* dsa_pub.pem in Resources */,
+				D6757D5E13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png in Resources */,
+				D6757D6013D6AD1600F2FB8D /* Command.pdf in Resources */,
+				D6757D6413D6B29300F2FB8D /* Terminal.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +482,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TTROOT=\"$PROJECT_DIR\"\nTTINSTALLER=\"$TTROOT/../totalterminal-installer\"\nTTBIN=\"$TTROOT/../bin\"\nTOTALTERMINAL_BINARY=\"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/MacOS/TotalTerminal\"\nTOTALTERMINAL_RESOURCES=\"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Resources\"\n\nrm -rf \"$TTBIN/TotalTerminal.app\"\nmkdir -p \"$TTBIN/TotalTerminal.app/Contents/Resources\"\n\ncp -Rf \"$TTINSTALLER/TotalTerminal.app\" \"$TTBIN\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.bundle\" \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle\"\nrm -rf \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks\" # bug in XCode4?\n\n# copy TotalTerminalCrashWatcher.app into Resources\n# cp -Rf \"$TTBIN/TotalTerminalCrashWatcher.app\" \"$TOTALTERMINAL_RESOURCES\"\n\nif [ -d \"$BUILT_PRODUCTS_DIR/Sparkle.framework\" ]\nthen\nrm -rf \"$TTBIN/Sparkle.framework\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/Sparkle.framework\" \"$TTBIN\"\nfi\n\nmkdir -p \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks\"\ncp -Rf \"$TTBIN/Sparkle.framework\" \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks\"\n\n# WARNING! may break autoupdater if done incorectly\necho \"com.binaryage.totalterminal.sparkle\"\nSPARKLE_PLIST=\"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Resources/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.binaryage.totalterminal.sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleName\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleName string Sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleExecutable\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleExecutable string Sparkle\" \"$SPARKLE_PLIST\"\n\ninstall_name_tool -change \"/Library/Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"@loader_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"$TOTALTERMINAL_BINARY\"\n\nexit 0";
+			shellScript = "TTROOT=\"$PROJECT_DIR\"\nTTINSTALLER=\"$TTROOT/../totalterminal-installer\"\nTTBIN=\"$TTROOT/../bin\"\nTOTALTERMINAL_BINARY=\"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/MacOS/TotalTerminal\"\nTOTALTERMINAL_RESOURCES=\"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Resources\"\n\nrm -rf \"$TTBIN/TotalTerminal.app\"\nmkdir -p \"$TTBIN/TotalTerminal.app/Contents/Resources\"\n\ncp -Rf \"$TTINSTALLER/TotalTerminal.app\" \"$TTBIN\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.bundle\" \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle\"\nrm -rf \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks\" # bug in XCode4?\n\n# copy TotalTerminalCrashWatcher.app into Resources\n# cp -Rf \"$TTBIN/TotalTerminalCrashWatcher.app\" \"$TOTALTERMINAL_RESOURCES\"\n\nif [ -d \"$BUILT_PRODUCTS_DIR/Sparkle.framework\" ]\nthen\nrm -rf \"$TTBIN/Sparkle.framework\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/Sparkle.framework\" \"$TTBIN\"\nfi\n\nmkdir -p \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks\"\ncp -Rf \"$TTBIN/Sparkle.framework\" \"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks\"\n\n# WARNING! may break autoupdater if done incorectly\necho \"com.binaryage.sparkle\"\nSPARKLE_PLIST=\"$TTBIN/TotalTerminal.app/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Resources/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.binaryage.sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleName\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleName string Sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleExecutable\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleExecutable string Sparkle\" \"$SPARKLE_PLIST\"\n\ninstall_name_tool -change \"/Library/Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"@loader_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"$TOTALTERMINAL_BINARY\"\n\nexit 0";
 		};
 		D6C7F70413D652C000DAC2BC /* Compile main.scpt */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -504,6 +533,7 @@
 				D65FF91B105D9B6200B54560 /* QSBKeyMap.m in Sources */,
 				26C7384F11045EBF00E5058E /* PasteOnRightclick.m in Sources */,
 				D644151F13D3B55E00A0678F /* Versions.m in Sources */,
+				D6757D5C13D69C4500F2FB8D /* Updater.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +557,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Visor.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -547,6 +581,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Visor.pch;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;

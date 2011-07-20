@@ -7,6 +7,7 @@
 #import "QSBKeyMap.h"
 #import "GTMCarbonEvent.h"
 #import <Quartz/Quartz.h>
+#include "Updater.h"
 
 @interface NSEvent (Visor)
 - (NSUInteger)qsbModifierFlags;
@@ -620,7 +621,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 - (void) updateInfoLine {
     LOG(@"updateInfoLine %@", infoLine);
-    [[infoLine mainFrame] loadHTMLString:@"<style>html {font-family: 'Lucida Grande', arial; font-size: 10px; cursor: default; color: #999;} a, a:visited { color: #66f; } a:hover {color: #22f}</style><center><b>Visor ##VERSION##</b> (<a href=\"http://github.com/darwin/visor/commit/##SHA##\">##REVISION##</a>) by <a href=\"http://binaryage.com\">binaryage.com</a>, based on Visor 1.5 by <a href=\"http://blacktree.com\">blacktree.com</a></center>" baseURL:[NSURL URLWithString:@"http://visor.binaryage.com"]];
+    [[infoLine mainFrame] loadHTMLString:@"<style>html, body {margin:0; padding:0} html {font-family: 'Lucida Grande', arial; font-size: 10px; cursor: default; color: #999;} a, a:visited { color: #66f; } a:hover {color: #22f}</style><center><b>TotalTerminal ##VERSION##</b> by <a href=\"http://binaryage.com\">binaryage.com</a></center>" baseURL:[NSURL URLWithString:@"http://totalterminal.binaryage.com"]];
     [infoLine setDrawsBackground:NO];
 }
 
@@ -678,6 +679,12 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     dontShowOnFirstTab = true;
     
     [NSBundle loadNibNamed:@"Visor" owner:self];
+
+    isActiveAlternativeIcon = FALSE;
+    alternativeDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"TotalTerminal"]];
+    originalDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"Terminal"]];
+    
+    [self setupDockIcon];
     
     [self updateHotKeyRegistration];
     [self updateEscapeHotKeyRegistration];
@@ -701,6 +708,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [udc addObserver:self forKeyPath:@"values.VisorHideOnEscape" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorUseBackgroundAnimation" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.VisorBackgroundAnimationOpacity" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.TotalTerminalDontCustomizeDockIcon" options:0 context:nil];
     [[[self class] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:@"Update bkg"];
 
     if ([ud boolForKey:@"VisorUseBackgroundAnimation"]) {
@@ -1292,6 +1300,9 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         [self updateAnimationAlpha];
         [self updateShouldShowTransparencyAlert];
     }
+    if ([keyPath isEqualToString:@"values.TotalTerminalDontCustomizeDockIcon"]) {
+        [self setupDockIcon];
+    }
 }
 
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey {
@@ -1602,6 +1613,42 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
         return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
     }
     return nil;
+}
+
+-(IBAction) updateMe:(id)sender {
+    TTUpdater* updater = [TTUpdater sharedUpdater];
+    if (!updater) return;
+    
+    [self refreshFeedURLInUpdater];
+    [updater resetUpdateCycle];
+    [updater checkForUpdates:sender];
+}
+
+-(void) refreshFeedURLInUpdater {
+    TTUpdater* updater = [TTUpdater sharedUpdater];
+    if (!updater) return;
+    
+    BOOL useBeta = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalUsePreReleases"];
+    if (useBeta) {
+        [updater setFeedURL:[NSURL URLWithString:@"http://updates.binaryage.com/totalterminal-beta.xml"]];
+    } else {
+        [updater setFeedURL:[NSURL URLWithString:@"http://updates.binaryage.com/totalterminal.xml"]];
+    }
+}
+
+-(void) setupDockIcon {
+    BOOL hasOriginalIcon = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalDontCustomizeDockIcon"];
+    if (!hasOriginalIcon) {
+        if (!isActiveAlternativeIcon) {
+            isActiveAlternativeIcon = TRUE;
+            [NSApp setApplicationIconImage:alternativeDockIcon];
+        }
+    } else {
+        if (isActiveAlternativeIcon) {
+            isActiveAlternativeIcon = FALSE;
+            [NSApp setApplicationIconImage:originalDockIcon];
+        }
+    }
 }
 
 @end
