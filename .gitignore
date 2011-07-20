@@ -11,5 +11,5 @@ release/*
 *.orig
 *.rej
 xcuserdata
-keys/
+keys/dsa_priv.pem
 */build/
