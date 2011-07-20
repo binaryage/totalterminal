@@ -1,0 +1,228 @@
+BASIC DMG LAYOUT
+================
+.
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal Uninstaller.app
+[drwxr-xr-x darwin   wheel            170]  ./TotalTerminal Uninstaller.app/Contents
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal Uninstaller.app/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          48164]  ./TotalTerminal Uninstaller.app/Contents/MacOS/Uninstall TotalTerminal
+[drwxr-xr-x darwin   wheel            238]  ./TotalTerminal Uninstaller.app/Contents/Resources
+[drwxr-xr-x darwin   wheel            136]  ./TotalTerminal Uninstaller.app/Contents/Resources/English.lproj
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib
+[-rwxr-xr-x darwin   wheel          32583]  ./TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib/keyedobjects.nib
+[-rw-r--r-- darwin   wheel            239]  ./TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/InfoPlist.strings
+[-rw-r--r-- darwin   wheel            833]  ./TotalTerminal Uninstaller.app/Contents/Resources/AppSettings.plist
+[-rw-r--r-- darwin   wheel         321560]  ./TotalTerminal Uninstaller.app/Contents/Resources/appIcon.icns
+[-rw-r--r-- darwin   wheel           1397]  ./TotalTerminal Uninstaller.app/Contents/Resources/script
+[-rw-r--r-- darwin   wheel           1397]  ./TotalTerminal Uninstaller.app/Contents/Resources/uninstall.applescript
+[-rw-r--r-- darwin   wheel           1411]  ./TotalTerminal Uninstaller.app/Contents/Info.plist
+[drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg
+[drwxr-xr-x darwin   wheel            170]  ./TotalTerminal.mpkg/Contents
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal.mpkg/Contents/Packages
+[-rw-r--r-- darwin   wheel        1377393]  ./TotalTerminal.mpkg/Contents/Packages/TotalTerminal Plugin.pkg
+[drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg/Contents/Resources
+[drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj
+[-rw-r--r-- darwin   wheel            426]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj/Localizable.strings
+[-r-xr-xr-x darwin   wheel           2653]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj/welcome.rtf
+[-r-xr-xr-x darwin   wheel           9423]  ./TotalTerminal.mpkg/Contents/Resources/background
+[-rw-r--r-- darwin   wheel           3591]  ./TotalTerminal.mpkg/Contents/distribution.dist
+[-rw-r--r-- darwin   wheel              0]  ./TotalTerminal.mpkg/Icon^M
+[-rw-r--r-- darwin   wheel         193321]  ./Readme.pdf
+
+11 directories, 15 files
+
+TotalTerminal Plugin.pkg
+=======================================================================
+.
+[drwxrwxr-x darwin   wheel            102]  ./Applications
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          39072]  ./Applications/TotalTerminal.app/Contents/MacOS/applet
+[drwxr-xr-x darwin   wheel            272]  ./Applications/TotalTerminal.app/Contents/Resources
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/Scripts
+[-rw-r--r-- darwin   wheel           2246]  ./Applications/TotalTerminal.app/Contents/Resources/Scripts/main.scpt
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework
+[lrwxr-xr-x darwin   wheel             24]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Headers -> Versions/Current/Headers
+[lrwxr-xr-x darwin   wheel             26]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Resources -> Versions/Current/Resources
+[drwxr-xr-x darwin   wheel            136]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions
+[drwxr-xr-x darwin   wheel            170]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A
+[drwxr-xr-x darwin   wheel            238]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Headers
+[-rw-r--r-- darwin   wheel            699]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUAppcast.h
+[-rw-r--r-- darwin   wheel           1181]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUAppcastItem.h
+[-rw-r--r-- darwin   wheel           5048]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUUpdater.h
+[-rw-r--r-- darwin   wheel            705]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUVersionComparisonProtocol.h
+[-rw-r--r-- darwin   wheel            536]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/Sparkle.h
+[drwxr-xr-x darwin   wheel            918]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj
+[-rw-r--r-- darwin   wheel           7368]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          11891]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          15540]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8642]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj
+[-rw-r--r-- darwin   wheel           8147]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          11557]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          15232]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8276]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj
+[-rw-r--r-- darwin   wheel           7273]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10497]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          15315]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8884]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj
+[-rw-r--r-- darwin   wheel           7148]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10623]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          13263]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8234]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj
+[-rw-r--r-- darwin   wheel           7193]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10429]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          15740]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           9596]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj
+[-rw-r--r-- darwin   wheel           7245]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10338]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          15456]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8852]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/Sparkle.strings
+[lrwxr-xr-x darwin   wheel              8]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr_CA.lproj -> fr.lproj
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj
+[-rw-r--r-- darwin   wheel           7315]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10558]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          13293]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           6772]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj
+[-rw-r--r-- darwin   wheel           7161]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10360]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          15233]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8914]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj
+[-rw-r--r-- darwin   wheel           7226]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10243]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12493]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           7180]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj
+[-rw-r--r-- darwin   wheel           7234]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10220]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          14448]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8528]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj
+[-rw-r--r-- darwin   wheel           7367]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10559]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12839]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           9532]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/Sparkle.strings
+[lrwxr-xr-x darwin   wheel             11]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt.lproj -> pt_BR.lproj
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj
+[-rw-r--r-- darwin   wheel           7339]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10649]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          13293]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8642]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj
+[-rw-r--r-- darwin   wheel           8445]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          11971]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          15665]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8528]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj
+[-rw-r--r-- darwin   wheel           8751]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12116]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          15767]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8364]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj
+[-rw-r--r-- darwin   wheel           7474]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10180]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          15052]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8142]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj
+[-rw-r--r-- darwin   wheel           7109]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10187]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12504]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8858]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj
+[-rw-r--r-- darwin   wheel           7008]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10119]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12443]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           6618]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj
+[-rw-r--r-- darwin   wheel           7018]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10090]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12436]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           6642]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/Sparkle.strings
+[-rw-r--r-- darwin   wheel            805]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Info.plist
+[-rw-r--r-- darwin   wheel           8507]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/License.txt
+[-rw-r--r-- darwin   wheel           5987]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUModelTranslation.plist
+[-rw-r--r-- darwin   wheel           7505]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib
+[-rwxr-xr-x darwin   wheel          38448]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/relaunch
+[-rwxr-xr-x darwin   wheel         346068]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle
+[lrwxr-xr-x darwin   wheel              1]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Versions/Current -> A
+[lrwxr-xr-x darwin   wheel             24]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Frameworks/Sparkle.framework/Sparkle -> Versions/Current/Sparkle
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/MacOS
+[-rwxr-xr-x darwin   wheel         397416]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/MacOS/TotalTerminal
+[drwxr-xr-x darwin   wheel            544]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources
+[-rw-r--r-- darwin   wheel          64716]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/ChangeThemeBackgroundColor.png
+[-rw-r--r-- darwin   wheel          18010]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/Command.pdf
+[-rw-r--r-- darwin   wheel          16463]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/Configuration.nib
+[-rw-r--r-- darwin   wheel           9254]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/Control.pdf
+[-rwxr-xr-x darwin   wheel            666]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/Error.png
+[-rw-r--r-- darwin   wheel            490]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/RestoreApp.scpt
+[-rw-r--r-- darwin   wheel         121922]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/Terminal.icns
+[-rw-r--r-- darwin   wheel           9614]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/ToolbarIcon.png
+[-rw-r--r-- darwin   wheel         155296]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/TotalTerminal.icns
+[-rw-r--r-- darwin   wheel          39136]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/Visor.nib
+[-rw-r--r-- darwin   wheel           3227]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/Visor.qtz
+[-rw-r--r-- darwin   wheel            560]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/VisorActive.png
+[-rw-r--r-- darwin   wheel            452]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/VisorInactive.png
+[-rw-r--r-- darwin   wheel            654]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/dsa_pub.pem
+[-rw-r--r-- darwin   wheel           1372]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Info.plist
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app
+[drwxr-xr-x darwin   wheel            170]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          48164]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/MacOS/Uninstall TotalTerminal
+[drwxr-xr-x darwin   wheel            238]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources
+[drwxr-xr-x darwin   wheel            136]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/English.lproj
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib
+[-rwxr-xr-x darwin   wheel          32583]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib/keyedobjects.nib
+[-rw-r--r-- darwin   wheel            239]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/InfoPlist.strings
+[-rw-r--r-- darwin   wheel            833]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/AppSettings.plist
+[-rw-r--r-- darwin   wheel         321560]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/appIcon.icns
+[-rw-r--r-- darwin   wheel           1397]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/script
+[-rw-r--r-- darwin   wheel           1397]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/uninstall.applescript
+[-rw-r--r-- darwin   wheel           1411]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Info.plist
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/description.rtfd
+[-rw-r--r-- darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/description.rtfd/TXT.rtf
+[-rw-r--r-- darwin   wheel         155296]  ./Applications/TotalTerminal.app/Contents/Resources/applet.icns
+[-rw-r--r-- darwin   wheel            362]  ./Applications/TotalTerminal.app/Contents/Resources/applet.rsrc
+[-rw-r--r-- darwin   wheel            985]  ./Applications/TotalTerminal.app/Contents/Info.plist
+[-rw-r--r-- darwin   wheel              8]  ./Applications/TotalTerminal.app/Contents/PkgInfo
+[drwxrwxr-t darwin   wheel            102]  ./Library
+[drwxrwxr-x darwin   wheel            102]  ./Library/ScriptingAdditions
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax
+[drwxr-xr-x darwin   wheel            170]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          54104]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/MacOS/TotalTerminal
+[drwxr-xr-x darwin   wheel            136]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/English.lproj
+[-rw-r--r-- darwin   wheel             92]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/English.lproj/InfoPlist.strings
+[-rw-r--r-- darwin   wheel            560]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminalInjector.sdef
+[-rw-r--r-- darwin   wheel           1733]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Info.plist
+[-rw-r--r-- darwin   staff          46201]  ./Bom
+[-rw-r--r-- darwin   staff           1009]  ./PackageInfo
+[-rw-r--r-- darwin   staff        2683904]  ./Payload
+[-rw-r--r-- darwin   staff            604]  ./Scripts
+
+53 directories, 123 files
+
+Applications/TotalTerminal.app/Contents/MacOS/applet: Mach-O universal binary with 2 architectures
+Applications/TotalTerminal.app/Contents/MacOS/applet (for architecture x86_64):	Mach-O 64-bit executable x86_64
+Applications/TotalTerminal.app/Contents/MacOS/applet (for architecture i386):	Mach-O executable i386
+
+Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/MacOS/TotalTerminal: Mach-O universal binary with 2 architectures
+Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/MacOS/TotalTerminal (for architecture x86_64):	Mach-O 64-bit bundle x86_64
+Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/MacOS/TotalTerminal (for architecture i386):	Mach-O bundle i386
+
+Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/MacOS/Uninstall TotalTerminal: Mach-O executable i386
+
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/MacOS/TotalTerminal: Mach-O universal binary with 2 architectures
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/MacOS/TotalTerminal (for architecture x86_64):	Mach-O 64-bit bundle x86_64
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/MacOS/TotalTerminal (for architecture i386):	Mach-O bundle i386
+

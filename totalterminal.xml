@@ -5,5 +5,12 @@
         <link>http://updates.binaryage.com/totalterminal.xml</link>
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
+        <item>
+            <title>Version 1.0</title>
+            <sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog.html</sparkle:releaseNotesLink>
+            <pubDate>Wed Jul 20 10:55:04 +0200 2011</pubDate>
+            <enclosure url="http://downloads.binaryage.com/TotalTerminal-1.0.dmg" sparkle:version="1.0" length="2175167" type="application/octet-stream" sparkle:dsaSignature="MCwCFGgQyiGpvKDpPaoXcFGCxvryhZKuAhRfiLaRWEOZOrAcTRQJAceqQWX5jw=="/>
+            <sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
+        </item>
     </channel>
 </rss>
