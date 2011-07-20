@@ -1675,4 +1675,19 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     }
 }
 
+-(IBAction) uninstallMe:(id)sender {
+    NSAlert* alert = [[[NSAlert alloc] init] autorelease];
+    [alert setIcon:alternativeDockIcon];
+    [alert addButtonWithTitle:(@"Uninstall")];
+    [alert addButtonWithTitle:(@"Cancel")];
+    [alert setMessageText:(@"Really want to uninstall TotalTerminal?")];
+    [alert setInformativeText:(@"This will launch an uninstall script which will remove TotalTerminal from this computer and restore your original Terminal behavior.")];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    NSInteger returnCode = [alert runModal];
+    if (returnCode == NSAlertFirstButtonReturn) {
+        NSString* uninstallerPath = [[[[NSBundle bundleForClass:[self classForCoder]] resourcePath] stringByAppendingPathComponent:@"../../../TotalTerminal Uninstaller.app"] stringByStandardizingPath];
+        [[NSWorkspace sharedWorkspace] launchApplication:uninstallerPath];
+    }
+}
+
 @end
