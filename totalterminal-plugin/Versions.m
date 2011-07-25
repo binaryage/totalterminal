@@ -28,15 +28,17 @@ TSupportedTerminalVersions initializeTerminalVersion() {
     }
 
     TSupportedTerminalVersions version = vUnknown;
-    if ([terminalVersion isEqualToString:@"273.1"]) { // 10.6.8
+    if ([terminalVersion isEqualToString:@"273.1"]) {
+        // 10.6.8
         version = v273_1;
-    } else if ([terminalVersion isEqualToString:@"297"]) { // 10.7 (GM)
+    } else if ([terminalVersion isEqualToString:@"297"]) {
+        // 10.7 (GM)
         version = v297;
     }
     if (version == vUnknown) {
         // try to parse it and detect historical version
         int parsedVersion = [terminalVersion intValue];
-        if (parsedVersion>0 && parsedVersion<273) {
+        if ((parsedVersion > 0) && (parsedVersion < 273)) {
             version = vHistorical;
         } else {
             NSLog(@"Warning: Terminal has unknown version %@. Visor has not been tested with this Terminal version.", terminalVersion);
@@ -47,6 +49,7 @@ TSupportedTerminalVersions initializeTerminalVersion() {
 
 TSupportedTerminalVersions terminalVersion() {
     static bool terminalImageVersionDetected = false;
+
     if (!terminalImageVersionDetected) {
         terminalImageVersionDetected = true;
         terminalImageVersion = initializeTerminalVersion();

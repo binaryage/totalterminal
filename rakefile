@@ -326,18 +326,12 @@ desc "beautify sources using uncrustify => see uncrustify.cfg"
 task :beautify do
     config = File.join(ROOT_DIR, 'uncrustify.cfg')
     what = ENV["filter"] || "*"
-    base = File.join(ROOT_DIR, "src")
+    base = File.join(ROOT_DIR, "totalterminal-plugin")
     Dir.glob(File.join(base, "**/#{what}")) do |file|
         next unless file=~/\.(mm|m|c|h|cc|cpp|hpp)$/
         puts file[base.size+1..-1]
         `uncrustify -c "#{config}" --replace --no-backup --mtime "#{file}"`
     end
-    # base = File.join(ROOT_DIR, "CrashWatcher")
-    # Dir.glob(File.join(base, "**/#{what}")) do |file|
-    #     next unless file=~/\.(mm|m|c|h|cc|cpp|hpp)$/
-    #     puts file[base.size+1..-1]
-    #     `uncrustify -c "#{config}" --replace --no-backup --mtime "#{file}"`
-    # end
 end
 
 desc "build missing payloads"
