@@ -1,6 +1,6 @@
 #import "GTMCarbonEvent.h"
 
-@interface Visor : NSObject {
+@interface TotalTerminal : NSObject {
     NSWindow* window_;        // the one visorized terminal window (may be nil)
     NSWindow* background; // background window for quartz animations (will be nil if not enabled in settings!)
     NSStatusItem* statusItem;

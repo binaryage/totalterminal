@@ -2,7 +2,7 @@
 #import "Versions.h"
 #import "JRSwizzle.h"
 #import "CGSPrivate.h"
-#import "Visor.h"
+#import "TotalTerminal.h"
 #import "GTMHotKeyTextField.h"
 #import "QSBKeyMap.h"
 #import "GTMCarbonEvent.h"
@@ -81,28 +81,28 @@ int main(int argc, char* argv[]) {
 -(void) Visor_TTAppPrefsController_windowDidLoad {
     [self Visor_TTAppPrefsController_windowDidLoad];
     LOG(@"Visor_TTAppPrefsController_windowDidLoad");
-    id visor = [Visor sharedInstance];
-    [visor enahanceTerminalPreferencesWindow];
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    [tt enahanceTerminalPreferencesWindow];
 }
 
 -(void) Visor_TTAppPrefsController_selectVisorPane {
     LOG(@"Visor_TTAppPrefsController_selectVisorPane");
-    id visor = [Visor sharedInstance]; // for some reason Visor_TTAppPrefsController_windowDidLoad may be not called in rare case we started visor and created Visor profile
-    [visor enahanceTerminalPreferencesWindow];
+    TotalTerminal* tt = [TotalTerminal sharedInstance]; // for some reason Visor_TTAppPrefsController_windowDidLoad may be not called in rare case we started visor and created Visor profile
+    [tt enahanceTerminalPreferencesWindow];
     NSWindow* prefsWindow = [self window];
     [prefsWindow setTitle:@"Visor"];
     NSToolbar* toolbar = [prefsWindow toolbar];
     [toolbar setSelectedItemIdentifier:@"Visor"];
     NSTabView* tabView = [self valueForKey:@"tabView"];
     [tabView selectTabViewItemWithIdentifier:@"VisorPane"];
-    [visor updateShouldShowTransparencyAlert];
+    [tt updateShouldShowTransparencyAlert];
 }
 
 -(id) Visor_TTAppPrefsController_toolbar:(id)arg1 itemForItemIdentifier:(id)arg2 willBeInsertedIntoToolbar:(BOOL)arg3 {
     LOG(@"Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar => %@", arg2);
     if ([arg2 isEqualToString:@"Visor"]) {
-        id visor = [Visor sharedInstance];
-        NSToolbarItem* toolbarItem = [visor getVisorToolbarItem];
+        TotalTerminal* tt = [TotalTerminal sharedInstance];
+        NSToolbarItem* toolbarItem = [tt getVisorToolbarItem];
         [toolbarItem setTarget:self];
         [toolbarItem setAction:@selector(Visor_TTAppPrefsController_selectVisorPane)];
         return toolbarItem;
@@ -112,18 +112,18 @@ int main(int argc, char* argv[]) {
 
 -(void) Visor_TTAppPrefsController_tabView:(id)view didSelectTabViewItem:(NSTabViewItem*)tab {
     LOG(@"Visor_TTAppPrefsController_tabView => %@", tab);
-    Visor* visor = [Visor sharedInstance];
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
     NSSize originalSize;
-    originalSize = (NSSize)[visor originalPreferencesSize];
+    originalSize = (NSSize)[tt originalPreferencesSize];
     NSWindow* prefsWindow = [self window];
     NSRect frame = [prefsWindow contentRectForFrameRect:[prefsWindow frame]];
     if (originalSize.width == 0) {
-        [visor setOriginalPreferencesSize:frame.size];
+        [tt setOriginalPreferencesSize:frame.size];
         originalSize = frame.size;
     }
     if ([[tab identifier] isEqualToString:@"VisorPane"]) {
         NSRect viewItemFrame = [[[[self valueForKey:@"tabView"] tabViewItemAtIndex:0] view] frame];
-        NSSize visorPrefpanelSize = [visor prefPaneSize];
+        NSSize visorPrefpanelSize = [tt prefPaneSize];
         frame.size.width += visorPrefpanelSize.width - viewItemFrame.size.width;
         frame.size.height += visorPrefpanelSize.height - viewItemFrame.size.height;
         frame.origin.y -= visorPrefpanelSize.height - viewItemFrame.size.height;
@@ -161,8 +161,8 @@ int main(int argc, char* argv[]) {
         // we expect that setCloseDialogExpected is called by Terminal.app once BEFORE window gets into "closing mode"
         // in this case we are able to open sheet before window starts closing and this works even for window with NSBorderlessWindowMask
         // it works like a magic, took me few hours to figure out this random stuff
-        Visor* visor = [Visor sharedInstance];
-        [visor showVisor:false];
+        TotalTerminal* tt = [TotalTerminal sharedInstance];
+        [tt showVisor:false];
         [self displayWindowCloseSheet:1];
     }
 }
@@ -173,13 +173,13 @@ int main(int argc, char* argv[]) {
 
 -(NSRect) Visor_TTWindowController_window:(NSWindow*)window willPositionSheet:(NSWindow*)sheet usingRect:(NSRect)rect {
     LOG(@"Visor_TTWindowController_window");
-    Visor* visor = [Visor sharedInstance];
-    [visor setupExposeTags:sheet];
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    [tt setupExposeTags:sheet];
     return rect;
 }
 
 -(id) Visor_getVisorProfileOrTheDefaultOne {
-    id visorProfile = [Visor getVisorProfile];
+    id visorProfile = [TotalTerminal getVisorProfile];
 
     if (visorProfile) {
         return visorProfile;
@@ -191,14 +191,14 @@ int main(int argc, char* argv[]) {
 
 -(id) Visor_forceVisorProfileIfVisoredWindow {
     id res = nil;
-    id visor = [Visor sharedInstance];
-    BOOL isVisoredWindow = [visor isVisoredWindow:[self window]];
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    BOOL isVisoredWindow = [tt isVisoredWindow:[self window]];
 
     if (isVisoredWindow) {
         LOG(@"  in visored window ... so apply visor profile");
         res = [self Visor_getVisorProfileOrTheDefaultOne];
-        if ([visor isHidden]) {
-            [visor showVisor:false];
+        if ([tt isHidden]) {
+            [tt showVisor:false];
         }
     }
     return res;
@@ -255,16 +255,16 @@ int main(int argc, char* argv[]) {
     NSUInteger type = [theEvent type];
 
     if (type == NSFlagsChanged) {
-        Visor* visor = [Visor sharedInstance];
-        [visor modifiersChangedWhileActive:theEvent];
+        TotalTerminal* tt = [TotalTerminal sharedInstance];
+        [tt modifiersChangedWhileActive:theEvent];
     } else if ((type == NSKeyDown) || (type == NSKeyUp)) {
-        Visor* visor = [Visor sharedInstance];
-        [visor keysChangedWhileActive:theEvent];
+        TotalTerminal* tt = [TotalTerminal sharedInstance];
+        [tt keysChangedWhileActive:theEvent];
     } else if (type == NSMouseMoved) {
         // TODO review this: it caused background intialization even if Quartz background was disabled in the preferences
         // => https://github.com/darwin/visor/issues/102#issuecomment-1508598
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"VisorUseBackgroundAnimation"]) {
-            [[[Visor sharedInstance] background] sendEvent:theEvent];
+            [[[TotalTerminal sharedInstance] background] sendEvent:theEvent];
         }
     }
     [self Visor_TTApplication_sendEvent:theEvent];
@@ -272,9 +272,9 @@ int main(int argc, char* argv[]) {
 
 -(BOOL) Visor_TTApplication_applicationShouldHandleReopen:(id)fp8 hasVisibleWindows:(BOOL)fp12 {
     LOG(@"Visor_TTAplication_applicationShouldHandleReopen");
-    Visor* visor = [Visor sharedInstance];
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
 
-    if (![visor reopenVisor] && ![self mainTerminalWindow]) {
+    if (![tt reopenVisor] && ![self mainTerminalWindow]) {
         [self newShell:nil];
     }
 
@@ -287,9 +287,9 @@ int main(int argc, char* argv[]) {
     BOOL showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorShowOnReopen"];
     id currentWindow = [self Visor_TTApplication_mainTerminalWindow];
     LOG(@"currentWindow: %@", currentWindow);
-    Visor* visor = [Visor sharedInstance];
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
 
-    if (!showOnReopen && [[visor window] isEqual:currentWindow]) {
+    if (!showOnReopen && [[tt window] isEqual:currentWindow]) {
         currentWindow = nil;
     }
     LOG(@"currentWindow: %@", currentWindow);
@@ -307,15 +307,15 @@ int main(int argc, char* argv[]) {
 
 -(id) Visor_initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
     LOG(@"Creating a new terminal window %@", [self class]);
-    Visor* visor = [Visor sharedInstance];
-    BOOL shouldBeVisorized = ![visor status];
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    BOOL shouldBeVisorized = ![tt status];
     if (shouldBeVisorized) {
         aStyle = NSBorderlessWindowMask;
         bufferingType = NSBackingStoreBuffered;
     }
     self = [self Visor_initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
     if (shouldBeVisorized) {
-        [visor adoptTerminal:self];
+        [tt adoptTerminal:self];
     }
     return self;
 }
@@ -324,8 +324,8 @@ int main(int argc, char* argv[]) {
     LOG(@"canBecomeKeyWindow");
     BOOL canBecomeKeyWindow = YES;
 
-    Visor* visor = [Visor sharedInstance];
-    if ([[visor window] isEqual:self] && [visor isHidden]) {
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    if ([[tt window] isEqual:self] && [tt isHidden]) {
         canBecomeKeyWindow = NO;
     }
 
@@ -336,8 +336,8 @@ int main(int argc, char* argv[]) {
     LOG(@"canBecomeMainWindow");
     BOOL canBecomeMainWindow = YES;
 
-    Visor* visor = [Visor sharedInstance];
-    if ([[visor window] isEqual:self] && [visor isHidden]) {
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    if ([[tt window] isEqual:self] && [tt isHidden]) {
         canBecomeMainWindow = NO;
     }
 
@@ -350,7 +350,7 @@ int main(int argc, char* argv[]) {
 #pragma mark - Visor implementation -
 #pragma mark -
 
-@implementation Visor
+@implementation TotalTerminal
 
 -(NSWindow*) window {
     return window_;
@@ -432,10 +432,10 @@ int main(int argc, char* argv[]) {
     alreadyEnhanced = YES;
 }
 
-+(Visor*) sharedInstance {
-    static Visor* plugin = nil;
++(TotalTerminal*) sharedInstance {
+    static TotalTerminal* plugin = nil;
 
-    if (plugin == nil) plugin = [[Visor alloc] init];
+    if (plugin == nil) plugin = [[TotalTerminal alloc] init];
     return plugin;
 }
 
@@ -512,9 +512,9 @@ int main(int argc, char* argv[]) {
     id app = [NSClassFromString (@"TTApplication")sharedApplication];
     id controller = [app newWindowControllerWithProfile:visorProfile];
 
-    Visor* visor = [Visor sharedInstance];
-    [visor resetWindowPlacement];
-    [visor enahanceTerminalPreferencesWindow];
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    [tt resetWindowPlacement];
+    [tt enahanceTerminalPreferencesWindow];
 
     [controller release];
 }

@@ -53,7 +53,7 @@
 		D6757D6013D6AD1600F2FB8D /* Command.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6757D5F13D6AD1600F2FB8D /* Command.pdf */; };
 		D6757D6213D6B00600F2FB8D /* TotalTerminal.icns in Resources */ = {isa = PBXBuildFile; fileRef = D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */; };
 		D6757D6413D6B29300F2FB8D /* Terminal.icns in Resources */ = {isa = PBXBuildFile; fileRef = D6757D6313D6B29300F2FB8D /* Terminal.icns */; };
-		D68AA7020F371C810094AA92 /* Visor.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* Visor.m */; };
+		D68AA7020F371C810094AA92 /* TotalTerminal.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* TotalTerminal.m */; };
 		D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6F5F1E910521A9B0047CFF8 /* Configuration.xib */; };
 		D6FB33E90F3843E20067F941 /* Visor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FB33E80F3843E20067F941 /* Visor.xib */; };
 		D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */; };
@@ -163,8 +163,8 @@
 		D6757D5F13D6AD1600F2FB8D /* Command.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Command.pdf; path = "../totalterminal-i18n/plugin/Command.pdf"; sourceTree = "<group>"; };
 		D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TotalTerminal.icns; path = "../totalterminal-i18n/plugin/TotalTerminal.icns"; sourceTree = "<group>"; };
 		D6757D6313D6B29300F2FB8D /* Terminal.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Terminal.icns; path = "../totalterminal-i18n/plugin/Terminal.icns"; sourceTree = "<group>"; };
-		D68AA7000F371C810094AA92 /* Visor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor.h; sourceTree = "<group>"; };
-		D68AA7010F371C810094AA92 /* Visor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Visor.m; sourceTree = "<group>"; };
+		D68AA7000F371C810094AA92 /* TotalTerminal.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TotalTerminal.h; sourceTree = "<group>"; };
+		D68AA7010F371C810094AA92 /* TotalTerminal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TotalTerminal.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = ../sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
 		D6F5F1E910521A9B0047CFF8 /* Configuration.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Configuration.xib; path = "../totalterminal-i18n/plugin/Configuration.xib"; sourceTree = "<group>"; };
 		D6FB33E80F3843E20067F941 /* Visor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Visor.xib; path = "../totalterminal-i18n/plugin/Visor.xib"; sourceTree = "<group>"; };
@@ -250,8 +250,8 @@
 				D62204AE1051CC3700FAEA30 /* TerminalColours.m */,
 				D6FCDC671002BA42000FDA45 /* CopyOnSelect.h */,
 				D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */,
-				D68AA7000F371C810094AA92 /* Visor.h */,
-				D68AA7010F371C810094AA92 /* Visor.m */,
+				D68AA7000F371C810094AA92 /* TotalTerminal.h */,
+				D68AA7010F371C810094AA92 /* TotalTerminal.m */,
 				26C7384D11045EBF00E5058E /* PasteOnRightclick.h */,
 				26C7384E11045EBF00E5058E /* PasteOnRightclick.m */,
 				D6757D5A13D69C4500F2FB8D /* Updater.h */,
@@ -521,7 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D68AA7020F371C810094AA92 /* Visor.m in Sources */,
+				D68AA7020F371C810094AA92 /* TotalTerminal.m in Sources */,
 				D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */,
 				D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */,
 				D62204B21051CC6A00FAEA30 /* JRSwizzle.m in Sources */,

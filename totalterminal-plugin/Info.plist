@@ -19,7 +19,7 @@
 	<key>CFBundleVersion</key>
 	<string>##VERSION##</string>
 	<key>NSPrincipalClass</key>
-	<string>Visor</string>
+	<string>TotalTerminal</string>
 	<key>SUFeedURL</key>
 	<string>http://updates.binaryage.com/totalterminal.xml</string>
 	<key>SUPromptUserOnFirstLaunch</key>
