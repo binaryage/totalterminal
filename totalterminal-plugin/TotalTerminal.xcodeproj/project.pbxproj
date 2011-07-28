@@ -34,7 +34,6 @@
 		D62204B21051CC6A00FAEA30 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204B11051CC6A00FAEA30 /* JRSwizzle.m */; };
 		D644151F13D3B55E00A0678F /* Versions.m in Sources */ = {isa = PBXBuildFile; fileRef = D644151E13D3B55E00A0678F /* Versions.m */; };
 		D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C167FFE841241C02AAC07 /* AppKit.framework */; };
-		D65FF91B105D9B6200B54560 /* QSBKeyMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D65FF91A105D9B6200B54560 /* QSBKeyMap.m */; };
 		D6716ED210659A6300970560 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6716ED110659A6300970560 /* WebKit.framework */; };
 		D6716FBD1065B54100970560 /* Control.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6716FBC1065B54100970560 /* Control.pdf */; };
 		D67170711065D19D00970560 /* RestoreApp.scpt in Resources */ = {isa = PBXBuildFile; fileRef = D671706A1065D14300970560 /* RestoreApp.scpt */; };
@@ -54,6 +53,7 @@
 		D6E5F58313E204730069D886 /* GTMNSObject+KeyValueObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57B13E204730069D886 /* GTMNSObject+KeyValueObserving.m */; };
 		D6E5F58413E204730069D886 /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57D13E204730069D886 /* GTMObjC2Runtime.m */; };
 		D6E5F58513E204730069D886 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F58013E204730069D886 /* GTMSystemVersion.m */; };
+		D6E5F58913E204E20069D886 /* QSBKeyMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F58813E204E20069D886 /* QSBKeyMap.m */; };
 		D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6F5F1E910521A9B0047CFF8 /* Configuration.xib */; };
 		D6FB33E90F3843E20067F941 /* Visor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FB33E80F3843E20067F941 /* Visor.xib */; };
 		D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */; };
@@ -133,8 +133,6 @@
 		D644151C13D3B55E00A0678F /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		D644151D13D3B55E00A0678F /* Versions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Versions.h; sourceTree = "<group>"; };
 		D644151E13D3B55E00A0678F /* Versions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Versions.m; sourceTree = "<group>"; };
-		D65FF919105D9B6200B54560 /* QSBKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBKeyMap.h; sourceTree = "<group>"; };
-		D65FF91A105D9B6200B54560 /* QSBKeyMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBKeyMap.m; sourceTree = "<group>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = "../totalterminal-i18n/plugin/Control.pdf"; sourceTree = "<group>"; };
 		D671706A1065D14300970560 /* RestoreApp.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RestoreApp.scpt; path = "../totalterminal-i18n/plugin/RestoreApp.scpt"; sourceTree = "<group>"; };
@@ -166,6 +164,8 @@
 		D6E5F57E13E204730069D886 /* GTMObjectSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMObjectSingleton.h; path = GTM/GTMObjectSingleton.h; sourceTree = "<group>"; };
 		D6E5F57F13E204730069D886 /* GTMSystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMSystemVersion.h; path = GTM/GTMSystemVersion.h; sourceTree = "<group>"; };
 		D6E5F58013E204730069D886 /* GTMSystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMSystemVersion.m; path = GTM/GTMSystemVersion.m; sourceTree = "<group>"; };
+		D6E5F58713E204E20069D886 /* QSBKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSBKeyMap.h; path = QSB/QSBKeyMap.h; sourceTree = "<group>"; };
+		D6E5F58813E204E20069D886 /* QSBKeyMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSBKeyMap.m; path = QSB/QSBKeyMap.m; sourceTree = "<group>"; };
 		D6F5F1E910521A9B0047CFF8 /* Configuration.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Configuration.xib; path = "../totalterminal-i18n/plugin/Configuration.xib"; sourceTree = "<group>"; };
 		D6FB33E80F3843E20067F941 /* Visor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Visor.xib; path = "../totalterminal-i18n/plugin/Visor.xib"; sourceTree = "<group>"; };
 		D6FB34420F3844D80067F941 /* Visor.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor.pch; sourceTree = "<group>"; };
@@ -195,7 +195,6 @@
 			children = (
 				D6757D5813D69AFC00F2FB8D /* Sparkle.framework */,
 				D6C7F6D613D64B7700DAC2BC /* Frameworks */,
-				D65FF918105D9B5400B54560 /* QSB */,
 				08FB77AFFE84173DC02AAC07 /* Sources */,
 				32C88E010371C26100C91783 /* Other Sources */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -239,6 +238,7 @@
 		08FB77AFFE84173DC02AAC07 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D6E5F58613E204D20069D886 /* QSB */,
 				D6E5F57213E2045E0069D886 /* GTM */,
 				D644151B13D3B55E00A0678F /* CGSPrivate.h */,
 				D644151C13D3B55E00A0678F /* Macros.h */,
@@ -298,15 +298,6 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
-		D65FF918105D9B5400B54560 /* QSB */ = {
-			isa = PBXGroup;
-			children = (
-				D65FF919105D9B6200B54560 /* QSBKeyMap.h */,
-				D65FF91A105D9B6200B54560 /* QSBKeyMap.m */,
-			);
-			name = QSB;
-			sourceTree = "<group>";
-		};
 		D6C7F6D613D64B7700DAC2BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,6 +337,15 @@
 				D6E5F58013E204730069D886 /* GTMSystemVersion.m */,
 			);
 			name = GTM;
+			sourceTree = "<group>";
+		};
+		D6E5F58613E204D20069D886 /* QSB */ = {
+			isa = PBXGroup;
+			children = (
+				D6E5F58713E204E20069D886 /* QSBKeyMap.h */,
+				D6E5F58813E204E20069D886 /* QSBKeyMap.m */,
+			);
+			name = QSB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,7 +525,6 @@
 				D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */,
 				D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */,
 				D62204B21051CC6A00FAEA30 /* JRSwizzle.m in Sources */,
-				D65FF91B105D9B6200B54560 /* QSBKeyMap.m in Sources */,
 				26C7384F11045EBF00E5058E /* PasteOnRightclick.m in Sources */,
 				D644151F13D3B55E00A0678F /* Versions.m in Sources */,
 				D6757D5C13D69C4500F2FB8D /* Updater.m in Sources */,
@@ -534,6 +533,7 @@
 				D6E5F58313E204730069D886 /* GTMNSObject+KeyValueObserving.m in Sources */,
 				D6E5F58413E204730069D886 /* GTMObjC2Runtime.m in Sources */,
 				D6E5F58513E204730069D886 /* GTMSystemVersion.m in Sources */,
+				D6E5F58913E204E20069D886 /* QSBKeyMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
