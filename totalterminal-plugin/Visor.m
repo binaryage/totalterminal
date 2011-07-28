@@ -1714,7 +1714,7 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     NSInteger returnCode = [alert runModal];
     if (returnCode == NSAlertFirstButtonReturn) {
         NSString* uninstallerPath =
-            [[[[NSBundle bundleForClass:[self classForCoder]] resourcePath] stringByAppendingPathComponent:@"../../../TotalTerminal Uninstaller.app"] stringByStandardizingPath];
+            [[[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"TotalTerminal Uninstaller.app"] stringByStandardizingPath];
         [[NSWorkspace sharedWorkspace] launchApplication:uninstallerPath];
     }
 }
