@@ -66,6 +66,7 @@
         return self; \
     } \
     -(id)copyWithZone : (NSZone*)zone { \
+        GTM_UNUSED(zone); \
         return self; \
     } \
 

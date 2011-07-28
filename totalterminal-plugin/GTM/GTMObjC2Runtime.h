@@ -17,6 +17,7 @@
 //
 
 #import <objc/objc-api.h>
+#import <objc/objc-auto.h>
 #import "GTMDefines.h"
 
 // These functions exist for code that we want to compile on both the < 10.5
@@ -41,6 +42,7 @@
 //
 // The |Object| class was removed in the iPhone2.0 SDK too.
 #if GTM_IPHONE_SDK
+# import <objc/message.h>
 # import <objc/runtime.h>
 #else
 # import <objc/objc-runtime.h>
@@ -55,6 +57,7 @@
 OBJC_EXPORT Class object_getClass(id obj);
 OBJC_EXPORT const char* class_getName(Class cls);
 OBJC_EXPORT BOOL class_conformsToProtocol(Class cls, Protocol* protocol);
+OBJC_EXPORT BOOL class_respondsToSelector(Class cls, SEL sel);
 OBJC_EXPORT Class class_getSuperclass(Class cls);
 OBJC_EXPORT Method* class_copyMethodList(Class cls, unsigned int* outCount);
 OBJC_EXPORT SEL method_getName(Method m);
@@ -89,7 +92,7 @@ GTM_INLINE bool OSAtomicCompareAndSwapPtrBarrier(void* predicate,
 # endif // MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5
 #endif  // MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 
-#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5) || (GTM_IPHONE_DEVICE)
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 
 GTM_INLINE BOOL objc_atomicCompareAndSwapGlobalBarrier(id predicate,
         id replacement,
@@ -107,4 +110,4 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
             (void* volatile*)objectLocation);
 }
 
-#endif  // (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5) || (GTM_IPHONE_DEVICE)
+#endif  // MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5

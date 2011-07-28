@@ -603,11 +603,11 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     if (![ud objectForKey:@"VisorHotKey"]) {
         [ud setObject:[NSDictionary dictionaryWithObjectsAndKeys: \
                        [NSNumber numberWithUnsignedInt:NSControlKeyMask], \
-                       kGTMHotKeyModifierFlagsKey, \
+                       @"Modifiers", \
                        [NSNumber numberWithUnsignedInt:50], \
-                       kGTMHotKeyKeyCodeKey, \
+                       @"KeyCode", \
                        [NSNumber numberWithBool:NO], \
-                       kGTMHotKeyDoubledModifierKey, \
+                       @"DoubleModifier", \
                        nil]
                forKey:@"VisorHotKey"];
     }
@@ -619,11 +619,11 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         LOG(@"-> conversion of hotkey from 2.0 format %@ %@ %@", hotkey, keyCode, modifiers);
         [ud setObject:[NSDictionary dictionaryWithObjectsAndKeys: \
                        modifiers, \
-                       kGTMHotKeyModifierFlagsKey, \
+                       @"Modifiers", \
                        keyCode, \
-                       kGTMHotKeyKeyCodeKey, \
+                       @"KeyCode", \
                        [NSNumber numberWithBool:NO], \
-                       kGTMHotKeyDoubledModifierKey, \
+                       @"DoubleModifier", \
                        nil]
                forKey:@"VisorHotKey"];
     }
@@ -639,11 +639,11 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     if (![ud objectForKey:@"VisorHotKey2"]) {
         [ud setObject:[NSDictionary dictionaryWithObjectsAndKeys: \
                        [NSNumber numberWithUnsignedInt:NSControlKeyMask], \
-                       kGTMHotKeyModifierFlagsKey, \
+                       @"Modifiers", \
                        [NSNumber numberWithUnsignedInt:0], \
-                       kGTMHotKeyKeyCodeKey, \
+                       @"KeyCode", \
                        [NSNumber numberWithBool:YES], \
-                       kGTMHotKeyDoubledModifierKey, \
+                       @"DoubleModifier", \
                        nil]
                forKey:@"VisorHotKey2"];
     }
@@ -1382,7 +1382,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
 -(void) updateHotKeyRegistration {
     LOG(@"updateHotKeyRegistration");
-    GTMCarbonEventDispatcherHandler* dispatcher = [GTMCarbonEventDispatcherHandler sharedEventDispatcherHandler];
+    GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
 
     if (hotKey_) {
         [dispatcher unregisterHotKey:hotKey_];
@@ -1396,7 +1396,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     [statusMenuItem setKeyEquivalentModifierMask:statusMenuItemModifiers];
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSDictionary* newKey = [ud valueForKeyPath:@"VisorHotKey"];
-    NSNumber* value = [newKey objectForKey:kGTMHotKeyDoubledModifierKey];
+    NSNumber* value = [newKey objectForKey:@"DoubleModifier"];
     BOOL hotKey1UseDoubleModifier = [value boolValue];
     BOOL hotkey1Enabled = [ud boolForKey:@"VisorHotKeyEnabled"];
     BOOL hotkey2Enabled = [ud boolForKey:@"VisorHotKey2Enabled"];
@@ -1410,20 +1410,20 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     }
     if (hotkey1Enabled && !hotKey1UseDoubleModifier) {
         // setting hotModifiers_ means we're not looking for a double tap
-        value = [newKey objectForKey:kGTMHotKeyModifierFlagsKey];
+        value = [newKey objectForKey:@"Modifiers"];
         uint modifiers = [value unsignedIntValue];
-        value = [newKey objectForKey:kGTMHotKeyKeyCodeKey];
+        value = [newKey objectForKey:@"KeyCode"];
         uint keycode = [value unsignedIntValue];
         hotKey_ = [dispatcher registerHotKey:keycode
                                    modifiers:modifiers
                                       target:self
                                       action:@selector(toggleVisor:)
+                                    userInfo:nil
                                  whenPressed:YES];
 
-        NSBundle* bundle = [NSBundle bundleForClass:[GTMHotKeyTextField class]];
-        statusMenuItemKey = [GTMHotKeyTextField stringForKeycode:keycode
-                                                        useGlyph:YES
-                                                  resourceBundle:bundle];
+        Class GTMHotKeyTextFieldCellClass = NSClassFromString(@"GTMHotKeyTextFieldCell");
+        NSBundle* bundle = [NSBundle bundleForClass:GTMHotKeyTextFieldCellClass];
+        statusMenuItemKey = [GTMHotKeyTextFieldCellClass stringForKeycode:keycode useGlyph:YES resourceBundle:bundle];
         statusMenuItemModifiers = modifiers;
     }
     [statusMenuItem setKeyEquivalent:statusMenuItemKey];
@@ -1448,16 +1448,17 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
     if (hideOnEscape && isKey) {
         if (!escapeHotKey) {
-            GTMCarbonEventDispatcherHandler* dispatcher = [GTMCarbonEventDispatcherHandler sharedEventDispatcherHandler];
+            GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
             escapeHotKey = [dispatcher registerHotKey:53
                                             modifiers:0
                                                target:self
                                                action:@selector(hideOnEscape)
+                                             userInfo:nil
                                           whenPressed:YES];
         }
     } else {
         if (escapeHotKey) {
-            GTMCarbonEventDispatcherHandler* dispatcher = [GTMCarbonEventDispatcherHandler sharedEventDispatcherHandler];
+            GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
             [dispatcher unregisterHotKey:escapeHotKey];
             escapeHotKey = nil;
         }

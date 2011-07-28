@@ -35,10 +35,6 @@ NSString* const kGTMArch_i386 = @"i386";
 
 static NSString* const kSystemVersionPlistPath = @"/System/Library/CoreServices/SystemVersion.plist";
 
-NSString* const kGTMSystemBuild10_5_5 = @"9F33";
-NSString* const kGTMSystemBuild10_6_0_WWDC = @"10A96";
-NSString* const kGTMSystemBuild10_6_0_10A190 = @"10A190";
-
 @implementation GTMSystemVersion
 +(void) initialize {
     if (self == [GTMSystemVersion class]) {
@@ -208,15 +204,15 @@ failedGestalt:
 #if GTM_IPHONE_SDK
     architecture = kGTMArch_iPhone;
 #else // !GTM_IPHONE_SDK
-    // In reading arch(3) you'd thing this would work:
-    //
-    // const NXArchInfo *localInfo = NXGetLocalArchInfo();
-    // _GTMDevAssert(localInfo && localInfo->name, @"Couldn't get NXArchInfo");
-    // const NXArchInfo *genericInfo = NXGetArchInfoFromCpuType(localInfo->cputype, 0);
-    // _GTMDevAssert(genericInfo && genericInfo->name, @"Couldn't get generic NXArchInfo");
-    // extensions[0] = [NSString stringWithFormat:@".%s", genericInfo->name];
-    //
-    // but on 64bit it returns the same things as on 32bit, so...
+      // In reading arch(3) you'd thing this would work:
+      //
+      // const NXArchInfo *localInfo = NXGetLocalArchInfo();
+      // _GTMDevAssert(localInfo && localInfo->name, @"Couldn't get NXArchInfo");
+      // const NXArchInfo *genericInfo = NXGetArchInfoFromCpuType(localInfo->cputype, 0);
+      // _GTMDevAssert(genericInfo && genericInfo->name, @"Couldn't get generic NXArchInfo");
+      // extensions[0] = [NSString stringWithFormat:@".%s", genericInfo->name];
+      //
+      // but on 64bit it returns the same things as on 32bit, so...
 # if __POWERPC__
 #  if __LP64__
     architecture = kGTMArch_ppc64;

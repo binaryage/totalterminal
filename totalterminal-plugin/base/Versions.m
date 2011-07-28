@@ -56,3 +56,4 @@ TSupportedTerminalVersions terminalVersion() {
     }
     return terminalImageVersion;
 }
+

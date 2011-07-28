@@ -54,6 +54,7 @@
 		D6E5F59113E205880069D886 /* Updater.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F58E13E205880069D886 /* Updater.m */; };
 		D6E5F59213E205880069D886 /* Versions.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F59013E205880069D886 /* Versions.m */; };
 		D6E5F59613E205AB0069D886 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F59513E205AB0069D886 /* JRSwizzle.m */; };
+		D6E5F59A13E2087D0069D886 /* GTMMethodCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F59813E2087D0069D886 /* GTMMethodCheck.m */; };
 		D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6F5F1E910521A9B0047CFF8 /* Configuration.xib */; };
 		D6FB33E90F3843E20067F941 /* Visor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FB33E80F3843E20067F941 /* Visor.xib */; };
 		D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */; };
@@ -166,6 +167,9 @@
 		D6E5F59313E205AB0069D886 /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGSPrivate.h; path = lib/CGSPrivate.h; sourceTree = "<group>"; };
 		D6E5F59413E205AB0069D886 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JRSwizzle.h; path = lib/JRSwizzle.h; sourceTree = "<group>"; };
 		D6E5F59513E205AB0069D886 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JRSwizzle.m; path = lib/JRSwizzle.m; sourceTree = "<group>"; };
+		D6E5F59713E2087D0069D886 /* GTMMethodCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMMethodCheck.h; path = GTM/GTMMethodCheck.h; sourceTree = "<group>"; };
+		D6E5F59813E2087D0069D886 /* GTMMethodCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMMethodCheck.m; path = GTM/GTMMethodCheck.m; sourceTree = "<group>"; };
+		D6E5F59913E2087D0069D886 /* GTMTypeCasting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMTypeCasting.h; path = GTM/GTMTypeCasting.h; sourceTree = "<group>"; };
 		D6F5F1E910521A9B0047CFF8 /* Configuration.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Configuration.xib; path = "../totalterminal-i18n/plugin/Configuration.xib"; sourceTree = "<group>"; };
 		D6FB33E80F3843E20067F941 /* Visor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Visor.xib; path = "../totalterminal-i18n/plugin/Visor.xib"; sourceTree = "<group>"; };
 		D6FB34420F3844D80067F941 /* TotalTerminal.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalTerminal.pch; sourceTree = "<group>"; };
@@ -315,6 +319,9 @@
 		D6E5F57213E2045E0069D886 /* GTM */ = {
 			isa = PBXGroup;
 			children = (
+				D6E5F59713E2087D0069D886 /* GTMMethodCheck.h */,
+				D6E5F59813E2087D0069D886 /* GTMMethodCheck.m */,
+				D6E5F59913E2087D0069D886 /* GTMTypeCasting.h */,
 				D6E5F57313E204730069D886 /* GTMCarbonEvent.h */,
 				D6E5F57413E204730069D886 /* GTMCarbonEvent.m */,
 				D6E5F57513E204730069D886 /* GTMDebugSelectorValidation.h */,
@@ -550,6 +557,7 @@
 				D6E5F59113E205880069D886 /* Updater.m in Sources */,
 				D6E5F59213E205880069D886 /* Versions.m in Sources */,
 				D6E5F59613E205AB0069D886 /* JRSwizzle.m in Sources */,
+				D6E5F59A13E2087D0069D886 /* GTMMethodCheck.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +585,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TotalTerminal.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -601,6 +610,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TotalTerminal.pch;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;

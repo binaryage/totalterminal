@@ -22,6 +22,7 @@
 #import "GTMDefines.h"
 
 @class GTMCarbonEventHandler;
+@class GTMCarbonHotKey;
 
 // Objective C wrapper for a Carbon Event
 @interface GTMCarbonEvent : NSObject<NSCopying> {
@@ -334,13 +335,25 @@ GTM_EXTERN const OSType kGTMCarbonFrameworkSignature;
 +(GTMCarbonEventMonitorHandler*)sharedEventMonitorHandler;
 @end
 
+// An event handler class representing the application event handler.
+//
+// there is only one of these per application. This way you can put
+// event handlers directly on the application if necessary.
+@interface GTMCarbonEventApplicationEventHandler : GTMCarbonEventHandler
+// Accessor to get the GTMCarbonEventApplicationEventHandler singleton.
+//
+// Returns:
+// pointer to the GTMCarbonEventApplicationEventHandler singleton.
++(GTMCarbonEventApplicationEventHandler*)sharedApplicationEventHandler;
+@end
+
 // An event handler class representing the toolbox dispatcher event handler
 //
 // there is only one of these per application. This way you can put
 // event handlers directly on the dispatcher if necessary.
 @interface GTMCarbonEventDispatcherHandler : GTMCarbonEventHandler {
     @private
-    NSMutableDictionary* hotkeys_; // Collection of registered hotkeys
+    NSMutableArray* hotkeys_; // Collection of registered hotkeys
 }
 
 // Accessor to get the GTMCarbonEventDispatcherHandler singleton.
@@ -357,21 +370,40 @@ GTM_EXTERN const OSType kGTMCarbonFrameworkSignature;
 // that these are cocoa modifiers, so NSCommandKeyMask etc.
 // target - instance that will get |action| called when the hotkey fires
 // action - the method to call on |target| when the hotkey fires
+// userInfo - storage for callers use
 // onPress - is YES, the hotkey fires on the keydown (usual) otherwise
 // it fires on the key up.
 // Returns:
-// a EventHotKeyRef that you can use with other Carbon functions, or for
-// unregistering the hotkey. Note that all hotkeys are unregistered
-// automatically when an app quits. Will be NULL on failure.
--(EventHotKeyRef)registerHotKey:(NSUInteger) keyCode
-                      modifiers:(NSUInteger) cocoaModifiers
-                         target:(id) target
-                         action:(SEL) action
-                    whenPressed:(BOOL)onPress;
+// a GTMCarbonHotKey. Note that all hotkeys are unregistered
+// automatically when an app quits. Will be nil on failure.
+-(GTMCarbonHotKey*)registerHotKey:(NSUInteger) keyCode
+                        modifiers:(NSUInteger) cocoaModifiers
+                           target:(id) target
+                           action:(SEL) action
+                         userInfo:(id) userInfo
+                      whenPressed:(BOOL)onPress;
 
 // Unregisters a hotkey previously registered with registerHotKey.
 // Arguments:
 // keyRef - the EventHotKeyRef to unregister
--(void)unregisterHotKey:(EventHotKeyRef)keyRef;
+-(void)unregisterHotKey:(GTMCarbonHotKey*)keyRef;
 
+@end
+
+// Wrapper for all the info we need about a hotkey that we can store in a
+// Foundation storage class. We expecct selector to have this signature:
+// - (void)hitHotKey:(GTMCarbonHotKey *)key;
+@interface GTMCarbonHotKey : NSObject {
+    @private
+    EventHotKeyID id_; // EventHotKeyID for this hotkey.
+    EventHotKeyRef hotKeyRef_;
+    id target_; // Object we are going to call when the hotkey is hit
+    SEL selector_; // Selector we are going to call on target_
+    BOOL onKeyDown_; // Do we do it on key down or on key up?
+    id userInfo_;
+}
+
+-(id)userInfo;
+-(EventHotKeyRef)hotKeyRef;
+-(BOOL)onKeyDown;
 @end
