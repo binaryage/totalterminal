@@ -3,7 +3,7 @@
 #include "TotalTerminal.h"
 
 @interface TotalTerminal (TerminalColours)
-+(void) loadTerminalColours;
++(void)loadTerminalColours;
 -(void)orderFrontColourConfiguration:(id)sender;
 -(IBAction)orderOutConfiguration:(id)sender;
 @end

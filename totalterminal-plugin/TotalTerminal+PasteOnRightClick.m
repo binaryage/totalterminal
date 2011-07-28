@@ -14,7 +14,7 @@
 
 @end
 
-@implementation TotalTerminal(PasteOnRightClick)
+@implementation TotalTerminal (PasteOnRightClick)
 
 +(void) loadPasteOnRightClick {
     [NSClassFromString (@"TTView") jr_swizzleMethod:@selector(rightMouseDown:)

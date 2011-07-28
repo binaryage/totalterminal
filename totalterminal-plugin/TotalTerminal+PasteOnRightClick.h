@@ -2,6 +2,6 @@
 
 #include "TotalTerminal.h"
 
-@interface TotalTerminal(PasteOnRightClick)
+@interface TotalTerminal (PasteOnRightClick)
 +(void)loadPasteOnRightClick;
 @end

@@ -21,7 +21,9 @@
     NSUInteger flags = ([self modifierFlags] & NSDeviceIndependentModifierFlagsMask);
 
     // Ignore caps lock if it's set http://b/issue?id=637380
-    if (flags & NSAlphaShiftKeyMask) flags -= NSAlphaShiftKeyMask;  // Ignore numeric lock if it's set http://b/issue?id=637380
+    if (flags & NSAlphaShiftKeyMask) {
+        flags -= NSAlphaShiftKeyMask;                               // Ignore numeric lock if it's set http://b/issue?id=637380
+    }
     if (flags & NSNumericPadKeyMask) flags -= NSNumericPadKeyMask;
     return flags;
 }
@@ -478,12 +480,13 @@ int main(int argc, char* argv[]) {
                                                                                                                                           :) error:NULL];
     } else {
         // under Lion signature changed slightly
-        [NSClassFromString (@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:customFont:command:runAsShell:restorable:workingDirectory:sessionClass:restoreSession:) withMethod:
+        [NSClassFromString (@"TTWindowController") jr_swizzleMethod:@selector(newTabWithProfile:customFont:
+                                                                              command:runAsShell:restorable:workingDirectory:sessionClass:restoreSession:) withMethod:
          @selector(Visor_TTWindowController_newTabWithProfile:customFont:command:runAsShell:restorable:workingDirectory:sessionClass:restoreSession:) error:NULL];
     }
     [NSClassFromString (@"TTWindowController") jr_swizzleMethod:@selector(setCloseDialogExpected:) withMethod:@selector(Visor_TTWindowController_setCloseDialogExpected:) error:NULL];
     [NSClassFromString (@"TTWindowController") jr_swizzleMethod:@selector(window:willPositionSheet:usingRect:) withMethod:@selector(Visor_TTWindowController_window:willPositionSheet:usingRect:) error
-     :NULL];
+                                                               :NULL];
 
     [NSClassFromString (@"TTWindow") jr_swizzleMethod:@selector(initWithContentRect:styleMask:backing:defer:) withMethod:@selector(Visor_initWithContentRect:styleMask:backing:defer:) error:NULL];
     [NSClassFromString (@"TTWindow") jr_swizzleMethod:@selector(canBecomeKeyWindow) withMethod:@selector(Visor_canBecomeKeyWindow) error:NULL];
@@ -527,8 +530,9 @@ int main(int argc, char* argv[]) {
     return window_ == win;
 }
 
-+(BOOL) shouldLoadFeature: (NSString*)feature {
++(BOOL) shouldLoadFeature:(NSString*)feature {
     BOOL enabled = ![[NSUserDefaults standardUserDefaults] boolForKey:[@"TotalFinderDisable" stringByAppendingString:feature]];
+
     return enabled;
 }
 
@@ -542,7 +546,7 @@ int main(int argc, char* argv[]) {
         [self loadCopyOnSelect];
     }
     // TerminalColours is not needed anymore under Lion, Apple has implemented 256 color support
-    if (terminalVersion() < FIRST_LION_VERSION && [self shouldLoadFeature:@"TerminalColours"]) {
+    if ((terminalVersion() < FIRST_LION_VERSION) && [self shouldLoadFeature:@"TerminalColours"]) {
         [self loadTerminalColours];
     }
 }
@@ -683,7 +687,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     LOG(@"updateInfoLine %@", infoLine);
     [[infoLine mainFrame] loadHTMLString:
      @"<style>html, body {margin:0; padding:0} html {font-family: 'Lucida Grande', arial; font-size: 10px; cursor: default; color: #999;} a, a:visited { color: #66f; } a:hover {color: #22f}</style><center><b>TotalTerminal ##VERSION##</b> by <a href=\"http://binaryage.com\">binaryage.com</a></center>"
-     baseURL:[NSURL URLWithString:@"http://totalterminal.binaryage.com"]];
+                                 baseURL:[NSURL URLWithString:@"http://totalterminal.binaryage.com"]];
     [infoLine setDrawsBackground:NO];
 }
 
@@ -1532,12 +1536,10 @@ NSString* stringForCharacter(const unsigned short aKeyCode, unichar aCharacter);
     // update first menu item
     NSMenuItem* showItem = [statusMenu itemAtIndex:0];
     if (isHidden) [showItem setTitle:@"Show Visor"];
-    else [showItem setTitle:@"Hide Visor"];
-    // update second menu item
+    else [showItem setTitle:@"Hide Visor"];  // update second menu item
     NSMenuItem* pinItem = [statusMenu itemAtIndex:1];
     if (!isPinned) [pinItem setTitle:@"Pin Visor"];
-    else [pinItem setTitle:@"Unpin Visor"];
-    // update icon
+    else [pinItem setTitle:@"Unpin Visor"];  // update icon
     BOOL status = [self status];
     if (status) [statusItem setImage:activeIcon];
     else [statusItem setImage:inactiveIcon];
