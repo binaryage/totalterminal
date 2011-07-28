@@ -168,7 +168,7 @@
 		D6E5F59513E205AB0069D886 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JRSwizzle.m; path = lib/JRSwizzle.m; sourceTree = "<group>"; };
 		D6F5F1E910521A9B0047CFF8 /* Configuration.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Configuration.xib; path = "../totalterminal-i18n/plugin/Configuration.xib"; sourceTree = "<group>"; };
 		D6FB33E80F3843E20067F941 /* Visor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Visor.xib; path = "../totalterminal-i18n/plugin/Visor.xib"; sourceTree = "<group>"; };
-		D6FB34420F3844D80067F941 /* Visor.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visor.pch; sourceTree = "<group>"; };
+		D6FB34420F3844D80067F941 /* TotalTerminal.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalTerminal.pch; sourceTree = "<group>"; };
 		D6FCDC671002BA42000FDA45 /* CopyOnSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyOnSelect.h; sourceTree = "<group>"; };
 		D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyOnSelect.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -287,7 +287,7 @@
 		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D6FB34420F3844D80067F941 /* Visor.pch */,
+				D6FB34420F3844D80067F941 /* TotalTerminal.pch */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -578,7 +578,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Visor.pch;
+				GCC_PREFIX_HEADER = TotalTerminal.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
@@ -602,7 +602,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Visor.pch;
+				GCC_PREFIX_HEADER = TotalTerminal.pch;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = Info.plist;
