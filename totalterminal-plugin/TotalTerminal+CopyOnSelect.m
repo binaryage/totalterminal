@@ -1,6 +1,6 @@
 // taken from http://github.com/genki/terminalcopyonselect
 
-#import "CopyOnSelect.h"
+#import "TotalTerminal+CopyOnSelect.h"
 #import "JRSwizzle.h"
 #import "Macros.h"
 
@@ -18,8 +18,8 @@
 
 @end
 
-@implementation TerminalCopyOnSelect
-+(void) load {
+@implementation TotalTerminal (CopyOnSelect)
++(void) loadCopyOnSelect {
     [NSClassFromString (@"TTView") jr_swizzleMethod:@selector(mouseUp:) withMethod:@selector(Visor_mouseUp:) error:NULL];
     LOG(@"TerminalCopyOnSelect installed");
 }

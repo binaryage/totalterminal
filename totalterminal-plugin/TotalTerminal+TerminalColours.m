@@ -1,6 +1,6 @@
 // taken from http://github.com/evanphx/terminalcolours/commit/20eb738a5c81349a3b0189ee7eb25de589abf987
 
-#import "TerminalColours.h"
+#import "TotalTerminal+TerminalColours.h"
 #import "Versions.h"
 #import "JRSwizzle.h"
 
@@ -145,7 +145,7 @@ static NSString* colourKeys[] = {
         [[configureButton cell] setControlSize:NSSmallControlSize];
         [configureButton setTitle:@"More…"];
         [configureButton sizeToFit];
-        [configureButton setTarget:[TerminalColours sharedInstance]];
+        [configureButton setTarget:[TotalTerminal sharedInstance]];
         [configureButton setAction:@selector(orderFrontColourConfiguration:)];
         [configureButton setFrameOrigin:NSMakePoint(233, 128)];
         [textPrefsView addSubview:configureButton];
@@ -154,13 +154,8 @@ static NSString* colourKeys[] = {
 }
 @end
 
-@implementation TerminalColours
-+(void) load {
-    if (terminalVersion() >= FIRST_LION_VERSION) {
-        // TerminalColours is not needed anymore under Lion, Apple has implemented 256 color support
-        return;
-    }
-
+@implementation TotalTerminal (TerminalColours)
++(void) loadTerminalColours {
     [NSClassFromString (@"TTProfile") jr_swizzleMethod:@selector(valueForKey:) withMethod:@selector(TerminalColours_TTProfile_valueForKey:) error:NULL];
     [NSClassFromString (@"TTProfile") jr_swizzleMethod:@selector(setValue:forKey:) withMethod:@selector(TerminalColours_TTProfile_setValue:forKey:) error:NULL];
 
@@ -168,13 +163,6 @@ static NSString* colourKeys[] = {
     [NSClassFromString (@"TTView") jr_swizzleMethod:@selector(colorForANSIColor:adjustedRelativeToColor:) withMethod:@selector(TerminalColours_colorForANSIColor:adjustedRelativeToColor:) error:NULL];
     [NSClassFromString (@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(TerminalColours_TTAppPrefsController_windowDidLoad) error:NULL];
     [NSClassFromString (@"TTProfile") jr_swizzleMethod:@selector(propertyListRepresentation) withMethod:@selector(TerminalColours_propertyListRepresentation) error:NULL];
-}
-
-+(TerminalColours*) sharedInstance {
-    static TerminalColours* plugin = nil;
-
-    if (plugin == nil) plugin = [[TerminalColours alloc] init];
-    return plugin;
 }
 
 -(void) orderFrontColourConfiguration:(id)sender {

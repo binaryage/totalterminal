@@ -527,8 +527,24 @@ int main(int argc, char* argv[]) {
     return window_ == win;
 }
 
++(BOOL) shouldLoadFeature: (NSString*)feature {
+    BOOL enabled = ![[NSUserDefaults standardUserDefaults] boolForKey:[@"TotalFinderDisable" stringByAppendingString:feature]];
+    return enabled;
+}
+
 +(void) load {
-    LOG(@"Visor loaded");
+    LOG(@"TotalTerminal loading...");
+    // load individual features
+    if ([self shouldLoadFeature:@"PasteOnRightClick"]) {
+        [self loadPasteOnRightClick];
+    }
+    if ([self shouldLoadFeature:@"CopyOnSelect"]) {
+        [self loadCopyOnSelect];
+    }
+    // TerminalColours is not needed anymore under Lion, Apple has implemented 256 color support
+    if (terminalVersion() < FIRST_LION_VERSION && [self shouldLoadFeature:@"TerminalColours"]) {
+        [self loadTerminalColours];
+    }
 }
 
 static const EventTypeSpec kModifierEventTypeSpec[] = { {

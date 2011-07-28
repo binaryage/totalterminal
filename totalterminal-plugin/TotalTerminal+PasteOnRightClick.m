@@ -1,6 +1,6 @@
 // Created by Anmol Khirbat on 1/18/10.
 
-#import "PasteOnRightclick.h"
+#import "TotalTerminal+PasteOnRightClick.h"
 #import "JRSwizzle.h"
 #import "Macros.h"
 
@@ -14,8 +14,9 @@
 
 @end
 
-@implementation PasteOnRightclick
-+(void) load {
+@implementation TotalTerminal(PasteOnRightClick)
+
++(void) loadPasteOnRightClick {
     [NSClassFromString (@"TTView") jr_swizzleMethod:@selector(rightMouseDown:)
                                          withMethod:@selector(Visor_rightMouseDown:) error:NULL];
     LOG(@"PasteOnRightclick installed");

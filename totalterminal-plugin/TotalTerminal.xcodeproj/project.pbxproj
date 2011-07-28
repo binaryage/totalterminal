@@ -28,9 +28,9 @@
 		0708B0F812ADA36100A0F345 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708B0F712ADA36100A0F345 /* QuartzCore.framework */; };
 		07CA8A0712ADAC6C00A6D8BF /* Visor.qtz in Resources */ = {isa = PBXBuildFile; fileRef = 07CA8A0612ADAC6C00A6D8BF /* Visor.qtz */; };
 		07CA8BD712B499F600A6D8BF /* Error.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CA8BD612B499F600A6D8BF /* Error.png */; };
-		26C7384F11045EBF00E5058E /* PasteOnRightclick.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* PasteOnRightclick.m */; };
+		26C7384F11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.m */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
-		D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TerminalColours.m */; };
+		D62204AF1051CC3700FAEA30 /* TotalTerminal+TerminalColours.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.m */; };
 		D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C167FFE841241C02AAC07 /* AppKit.framework */; };
 		D6716ED210659A6300970560 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6716ED110659A6300970560 /* WebKit.framework */; };
 		D6716FBD1065B54100970560 /* Control.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6716FBC1065B54100970560 /* Control.pdf */; };
@@ -57,7 +57,7 @@
 		D6E5F59A13E2087D0069D886 /* GTMMethodCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F59813E2087D0069D886 /* GTMMethodCheck.m */; };
 		D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6F5F1E910521A9B0047CFF8 /* Configuration.xib */; };
 		D6FB33E90F3843E20067F941 /* Visor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FB33E80F3843E20067F941 /* Visor.xib */; };
-		D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */; };
+		D6FCDC691002BA42000FDA45 /* TotalTerminal+CopyOnSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,14 +120,14 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		26C7384D11045EBF00E5058E /* PasteOnRightclick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasteOnRightclick.h; sourceTree = "<group>"; };
-		26C7384E11045EBF00E5058E /* PasteOnRightclick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasteOnRightclick.m; sourceTree = "<group>"; };
+		26C7384D11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "TotalTerminal+PasteOnRightClick.h"; sourceTree = "<group>"; };
+		26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TotalTerminal+PasteOnRightClick.m"; sourceTree = "<group>"; };
 		7F01469F0A3E6571006AF239 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		8D5B49B6048680CD000E48DA /* TotalTerminal.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TotalTerminal.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		D62204AD1051CC3700FAEA30 /* TerminalColours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalColours.h; sourceTree = "<group>"; };
-		D62204AE1051CC3700FAEA30 /* TerminalColours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalColours.m; sourceTree = "<group>"; };
+		D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "TotalTerminal+TerminalColours.h"; sourceTree = "<group>"; };
+		D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TotalTerminal+TerminalColours.m"; sourceTree = "<group>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = "../totalterminal-i18n/plugin/Control.pdf"; sourceTree = "<group>"; };
 		D671706A1065D14300970560 /* RestoreApp.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RestoreApp.scpt; path = "../totalterminal-i18n/plugin/RestoreApp.scpt"; sourceTree = "<group>"; };
@@ -173,8 +173,8 @@
 		D6F5F1E910521A9B0047CFF8 /* Configuration.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Configuration.xib; path = "../totalterminal-i18n/plugin/Configuration.xib"; sourceTree = "<group>"; };
 		D6FB33E80F3843E20067F941 /* Visor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Visor.xib; path = "../totalterminal-i18n/plugin/Visor.xib"; sourceTree = "<group>"; };
 		D6FB34420F3844D80067F941 /* TotalTerminal.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalTerminal.pch; sourceTree = "<group>"; };
-		D6FCDC671002BA42000FDA45 /* CopyOnSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyOnSelect.h; sourceTree = "<group>"; };
-		D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyOnSelect.m; sourceTree = "<group>"; };
+		D6FCDC671002BA42000FDA45 /* TotalTerminal+CopyOnSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "TotalTerminal+CopyOnSelect.h"; sourceTree = "<group>"; };
+		D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TotalTerminal+CopyOnSelect.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,14 +246,14 @@
 				D6E5F58A13E205100069D886 /* base */,
 				D6E5F58613E204D20069D886 /* QSB */,
 				D6E5F57213E2045E0069D886 /* GTM */,
-				D62204AD1051CC3700FAEA30 /* TerminalColours.h */,
-				D62204AE1051CC3700FAEA30 /* TerminalColours.m */,
-				D6FCDC671002BA42000FDA45 /* CopyOnSelect.h */,
-				D6FCDC681002BA42000FDA45 /* CopyOnSelect.m */,
+				D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */,
+				D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.m */,
+				D6FCDC671002BA42000FDA45 /* TotalTerminal+CopyOnSelect.h */,
+				D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.m */,
 				D68AA7000F371C810094AA92 /* TotalTerminal.h */,
 				D68AA7010F371C810094AA92 /* TotalTerminal.m */,
-				26C7384D11045EBF00E5058E /* PasteOnRightclick.h */,
-				26C7384E11045EBF00E5058E /* PasteOnRightclick.m */,
+				26C7384D11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.h */,
+				26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -545,9 +545,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D68AA7020F371C810094AA92 /* TotalTerminal.m in Sources */,
-				D6FCDC691002BA42000FDA45 /* CopyOnSelect.m in Sources */,
-				D62204AF1051CC3700FAEA30 /* TerminalColours.m in Sources */,
-				26C7384F11045EBF00E5058E /* PasteOnRightclick.m in Sources */,
+				D6FCDC691002BA42000FDA45 /* TotalTerminal+CopyOnSelect.m in Sources */,
+				D62204AF1051CC3700FAEA30 /* TotalTerminal+TerminalColours.m in Sources */,
+				26C7384F11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.m in Sources */,
 				D6E5F58113E204730069D886 /* GTMCarbonEvent.m in Sources */,
 				D6E5F58213E204730069D886 /* GTMHotKeyTextField.m in Sources */,
 				D6E5F58313E204730069D886 /* GTMNSObject+KeyValueObserving.m in Sources */,
