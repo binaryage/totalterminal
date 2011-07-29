@@ -1,13 +1,12 @@
 // taken from http://github.com/genki/terminalcopyonselect
 
+#define PROJECT CopyOnSelect
 #import "TotalTerminal+CopyOnSelect.h"
-#import "JRSwizzle.h"
-#import "Macros.h"
 
-@implementation NSView (TerminalCopyOnSelect)
--(void) Visor_mouseUp:(NSEvent*)theEvent {
-    [self Visor_mouseUp:theEvent];
-    bool copyOnSelect = [[NSUserDefaults standardUserDefaults] boolForKey:@"VisorCopyOnSelect"];
+@implementation NSView (TotalTerminal)
+-(void) SMETHOD(TTView, mouseUp):(NSEvent*)theEvent {
+    [self SMETHOD(TTView, mouseUp):theEvent];
+    bool copyOnSelect = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalCopyOnSelect"];
     if (!copyOnSelect) return;
     NSString* selectedText = [[(id) self performSelector:@selector(selectedText)] retain];
     if ([selectedText length] > 0) {
@@ -20,8 +19,8 @@
 
 @implementation TotalTerminal (CopyOnSelect)
 +(void) loadCopyOnSelect {
-    [NSClassFromString (@"TTView") jr_swizzleMethod:@selector(mouseUp:) withMethod:@selector(Visor_mouseUp:) error:NULL];
-    LOG(@"TerminalCopyOnSelect installed");
+    SWIZZLE(TTView, mouseUp:);
+    LOG(@"CopyOnSelect installed");
 }
 
 @end

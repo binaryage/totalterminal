@@ -28,9 +28,9 @@
 		0708B0F812ADA36100A0F345 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0708B0F712ADA36100A0F345 /* QuartzCore.framework */; };
 		07CA8A0712ADAC6C00A6D8BF /* Visor.qtz in Resources */ = {isa = PBXBuildFile; fileRef = 07CA8A0612ADAC6C00A6D8BF /* Visor.qtz */; };
 		07CA8BD712B499F600A6D8BF /* Error.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CA8BD612B499F600A6D8BF /* Error.png */; };
-		26C7384F11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.m */; };
+		26C7384F11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
-		D62204AF1051CC3700FAEA30 /* TotalTerminal+TerminalColours.m in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.m */; };
+		D62204AF1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */; };
 		D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C167FFE841241C02AAC07 /* AppKit.framework */; };
 		D6716ED210659A6300970560 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6716ED110659A6300970560 /* WebKit.framework */; };
 		D6716FBD1065B54100970560 /* Control.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6716FBC1065B54100970560 /* Control.pdf */; };
@@ -41,10 +41,34 @@
 		D6757D5713D69AB000F2FB8D /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = D6757D5613D69AB000F2FB8D /* dsa_pub.pem */; };
 		D6757D5913D69AFC00F2FB8D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6757D5813D69AFC00F2FB8D /* Sparkle.framework */; };
 		D6757D5E13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png in Resources */ = {isa = PBXBuildFile; fileRef = D6757D5D13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png */; };
-		D6757D6013D6AD1600F2FB8D /* Command.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6757D5F13D6AD1600F2FB8D /* Command.pdf */; };
 		D6757D6213D6B00600F2FB8D /* TotalTerminal.icns in Resources */ = {isa = PBXBuildFile; fileRef = D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */; };
 		D6757D6413D6B29300F2FB8D /* Terminal.icns in Resources */ = {isa = PBXBuildFile; fileRef = D6757D6313D6B29300F2FB8D /* Terminal.icns */; };
-		D68AA7020F371C810094AA92 /* TotalTerminal.m in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* TotalTerminal.m */; };
+		D68AA7020F371C810094AA92 /* TotalTerminal.mm in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* TotalTerminal.mm */; };
+		D69D315A13E44CD50013A750 /* TotalTerminal+Menu.mm in Sources */ = {isa = PBXBuildFile; fileRef = D69D315913E44CD50013A750 /* TotalTerminal+Menu.mm */; };
+		D69D315D13E46F000013A750 /* ScreenUpdates.mm in Sources */ = {isa = PBXBuildFile; fileRef = D69D315C13E46F000013A750 /* ScreenUpdates.mm */; };
+		D6AF5A7F13E2FB1200C44014 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A7D13E2FB1200C44014 /* LoggerClient.m */; };
+		D6AF5A8B13E2FB2C00C44014 /* SRCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A8213E2FB2C00C44014 /* SRCommon.m */; };
+		D6AF5A8C13E2FB2C00C44014 /* SRKeyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A8413E2FB2C00C44014 /* SRKeyCodeTransformer.m */; };
+		D6AF5A8D13E2FB2C00C44014 /* SRRecorderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A8613E2FB2C00C44014 /* SRRecorderCell.m */; };
+		D6AF5A8E13E2FB2C00C44014 /* SRRecorderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A8813E2FB2C00C44014 /* SRRecorderControl.m */; };
+		D6AF5A8F13E2FB2C00C44014 /* SRValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A8A13E2FB2C00C44014 /* SRValidator.m */; };
+		D6AF5A9213E2FF5500C44014 /* TotalTerminal+Shortcuts.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A9113E2FF5500C44014 /* TotalTerminal+Shortcuts.mm */; };
+		D6AF5A9513E302C400C44014 /* TotalTerminal+Defaults.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A9413E302C400C44014 /* TotalTerminal+Defaults.mm */; };
+		D6AF5A9813E3032D00C44014 /* TotalTerminal+Debug.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A9713E3032D00C44014 /* TotalTerminal+Debug.mm */; };
+		D6AF5A9B13E304F300C44014 /* TotalTerminal+Observers.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A9A13E304F300C44014 /* TotalTerminal+Observers.mm */; };
+		D6AF5AA013E3094300C44014 /* TotalTerminal+StatusMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A9F13E3094300C44014 /* TotalTerminal+StatusMenu.mm */; };
+		D6AF5AA313E30A4E00C44014 /* TotalTerminal+Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5AA213E30A4E00C44014 /* TotalTerminal+Preferences.mm */; };
+		D6AF5AA613E3109500C44014 /* TotalTerminal+Visor.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5AA513E3109500C44014 /* TotalTerminal+Visor.mm */; };
+		D6AF5AA913E311EE00C44014 /* TotalTerminal+Commands.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5AA813E311EE00C44014 /* TotalTerminal+Commands.mm */; };
+		D6AF5AAC13E314F000C44014 /* TotalTerminal+Helpers.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5AAB13E314F000C44014 /* TotalTerminal+Helpers.mm */; };
+		D6AF5AAF13E3154F00C44014 /* TotalTerminal+Dock.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5AAE13E3154F00C44014 /* TotalTerminal+Dock.mm */; };
+		D6AF5AB213E3156000C44014 /* TotalTerminal+Sparkle.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5AB113E3156000C44014 /* TotalTerminal+Sparkle.mm */; };
+		D6AF5AB413E3166D00C44014 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5AB313E3166D00C44014 /* main.m */; };
+		D6AF5AB713E3171B00C44014 /* TotalTerminal+Features.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5AB613E3171B00C44014 /* TotalTerminal+Features.mm */; };
+		D6AF5ABD13E35F9B00C44014 /* ModifiersCommand.png in Resources */ = {isa = PBXBuildFile; fileRef = D6AF5AB913E35F9B00C44014 /* ModifiersCommand.png */; };
+		D6AF5ABE13E35F9B00C44014 /* ModifiersControl.png in Resources */ = {isa = PBXBuildFile; fileRef = D6AF5ABA13E35F9B00C44014 /* ModifiersControl.png */; };
+		D6AF5ABF13E35F9B00C44014 /* ModifiersOption.png in Resources */ = {isa = PBXBuildFile; fileRef = D6AF5ABB13E35F9B00C44014 /* ModifiersOption.png */; };
+		D6AF5AC013E35F9B00C44014 /* ModifiersShift.png in Resources */ = {isa = PBXBuildFile; fileRef = D6AF5ABC13E35F9B00C44014 /* ModifiersShift.png */; };
 		D6E5F58113E204730069D886 /* GTMCarbonEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57413E204730069D886 /* GTMCarbonEvent.m */; };
 		D6E5F58213E204730069D886 /* GTMHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57913E204730069D886 /* GTMHotKeyTextField.m */; };
 		D6E5F58313E204730069D886 /* GTMNSObject+KeyValueObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57B13E204730069D886 /* GTMNSObject+KeyValueObserving.m */; };
@@ -56,8 +80,8 @@
 		D6E5F59613E205AB0069D886 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F59513E205AB0069D886 /* JRSwizzle.m */; };
 		D6E5F59A13E2087D0069D886 /* GTMMethodCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F59813E2087D0069D886 /* GTMMethodCheck.m */; };
 		D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6F5F1E910521A9B0047CFF8 /* Configuration.xib */; };
-		D6FB33E90F3843E20067F941 /* Visor.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FB33E80F3843E20067F941 /* Visor.xib */; };
-		D6FCDC691002BA42000FDA45 /* TotalTerminal+CopyOnSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.m */; };
+		D6FB33E90F3843E20067F941 /* TotalTerminal.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FB33E80F3843E20067F941 /* TotalTerminal.xib */; };
+		D6FCDC691002BA42000FDA45 /* TotalTerminal+CopyOnSelect.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,14 +144,14 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		26C7384D11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "TotalTerminal+PasteOnRightClick.h"; sourceTree = "<group>"; };
-		26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TotalTerminal+PasteOnRightClick.m"; sourceTree = "<group>"; };
+		26C7384D11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+PasteOnRightClick.h"; sourceTree = "<group>"; };
+		26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+PasteOnRightClick.mm"; sourceTree = "<group>"; };
 		7F01469F0A3E6571006AF239 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		8D5B49B6048680CD000E48DA /* TotalTerminal.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TotalTerminal.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "TotalTerminal+TerminalColours.h"; sourceTree = "<group>"; };
-		D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TotalTerminal+TerminalColours.m"; sourceTree = "<group>"; };
+		D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+TerminalColours.h"; sourceTree = "<group>"; };
+		D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+TerminalColours.mm"; sourceTree = "<group>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = "../totalterminal-i18n/plugin/Control.pdf"; sourceTree = "<group>"; };
 		D671706A1065D14300970560 /* RestoreApp.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RestoreApp.scpt; path = "../totalterminal-i18n/plugin/RestoreApp.scpt"; sourceTree = "<group>"; };
@@ -137,11 +161,57 @@
 		D6757D5613D69AB000F2FB8D /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = ../keys/dsa_pub.pem; sourceTree = "<group>"; };
 		D6757D5813D69AFC00F2FB8D /* Sparkle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		D6757D5D13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ChangeThemeBackgroundColor.png; path = "../totalterminal-i18n/plugin/ChangeThemeBackgroundColor.png"; sourceTree = "<group>"; };
-		D6757D5F13D6AD1600F2FB8D /* Command.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Command.pdf; path = "../totalterminal-i18n/plugin/Command.pdf"; sourceTree = "<group>"; };
 		D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TotalTerminal.icns; path = "../totalterminal-i18n/plugin/TotalTerminal.icns"; sourceTree = "<group>"; };
 		D6757D6313D6B29300F2FB8D /* Terminal.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Terminal.icns; path = "../totalterminal-i18n/plugin/Terminal.icns"; sourceTree = "<group>"; };
 		D68AA7000F371C810094AA92 /* TotalTerminal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalTerminal.h; sourceTree = "<group>"; };
-		D68AA7010F371C810094AA92 /* TotalTerminal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TotalTerminal.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D68AA7010F371C810094AA92 /* TotalTerminal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = TotalTerminal.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D69D315813E44CD50013A750 /* TotalTerminal+Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Menu.h"; sourceTree = "<group>"; };
+		D69D315913E44CD50013A750 /* TotalTerminal+Menu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Menu.mm"; sourceTree = "<group>"; };
+		D69D315B13E46F000013A750 /* ScreenUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScreenUpdates.h; path = base/ScreenUpdates.h; sourceTree = "<group>"; };
+		D69D315C13E46F000013A750 /* ScreenUpdates.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ScreenUpdates.mm; path = base/ScreenUpdates.mm; sourceTree = "<group>"; };
+		D6AF5A7C13E2FB1200C44014 /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerClient.h; path = Logger/LoggerClient.h; sourceTree = "<group>"; };
+		D6AF5A7D13E2FB1200C44014 /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerClient.m; path = Logger/LoggerClient.m; sourceTree = "<group>"; };
+		D6AF5A7E13E2FB1200C44014 /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerCommon.h; path = Logger/LoggerCommon.h; sourceTree = "<group>"; };
+		D6AF5A8113E2FB2C00C44014 /* SRCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRCommon.h; path = SR/SRCommon.h; sourceTree = "<group>"; };
+		D6AF5A8213E2FB2C00C44014 /* SRCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRCommon.m; path = SR/SRCommon.m; sourceTree = "<group>"; };
+		D6AF5A8313E2FB2C00C44014 /* SRKeyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRKeyCodeTransformer.h; path = SR/SRKeyCodeTransformer.h; sourceTree = "<group>"; };
+		D6AF5A8413E2FB2C00C44014 /* SRKeyCodeTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRKeyCodeTransformer.m; path = SR/SRKeyCodeTransformer.m; sourceTree = "<group>"; };
+		D6AF5A8513E2FB2C00C44014 /* SRRecorderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRRecorderCell.h; path = SR/SRRecorderCell.h; sourceTree = "<group>"; };
+		D6AF5A8613E2FB2C00C44014 /* SRRecorderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRRecorderCell.m; path = SR/SRRecorderCell.m; sourceTree = "<group>"; };
+		D6AF5A8713E2FB2C00C44014 /* SRRecorderControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRRecorderControl.h; path = SR/SRRecorderControl.h; sourceTree = "<group>"; };
+		D6AF5A8813E2FB2C00C44014 /* SRRecorderControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRRecorderControl.m; path = SR/SRRecorderControl.m; sourceTree = "<group>"; };
+		D6AF5A8913E2FB2C00C44014 /* SRValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRValidator.h; path = SR/SRValidator.h; sourceTree = "<group>"; };
+		D6AF5A8A13E2FB2C00C44014 /* SRValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRValidator.m; path = SR/SRValidator.m; sourceTree = "<group>"; };
+		D6AF5A9013E2FF5500C44014 /* TotalTerminal+Shortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Shortcuts.h"; sourceTree = "<group>"; };
+		D6AF5A9113E2FF5500C44014 /* TotalTerminal+Shortcuts.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Shortcuts.mm"; sourceTree = "<group>"; };
+		D6AF5A9313E302C400C44014 /* TotalTerminal+Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Defaults.h"; sourceTree = "<group>"; };
+		D6AF5A9413E302C400C44014 /* TotalTerminal+Defaults.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Defaults.mm"; sourceTree = "<group>"; };
+		D6AF5A9613E3032D00C44014 /* TotalTerminal+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Debug.h"; sourceTree = "<group>"; };
+		D6AF5A9713E3032D00C44014 /* TotalTerminal+Debug.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Debug.mm"; sourceTree = "<group>"; };
+		D6AF5A9913E304F300C44014 /* TotalTerminal+Observers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Observers.h"; sourceTree = "<group>"; };
+		D6AF5A9A13E304F300C44014 /* TotalTerminal+Observers.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Observers.mm"; sourceTree = "<group>"; };
+		D6AF5A9C13E3091B00C44014 /* TotalTerminal+StatusMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+StatusMenu.h"; sourceTree = "<group>"; };
+		D6AF5A9F13E3094300C44014 /* TotalTerminal+StatusMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+StatusMenu.mm"; sourceTree = "<group>"; };
+		D6AF5AA113E30A4E00C44014 /* TotalTerminal+Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Preferences.h"; sourceTree = "<group>"; };
+		D6AF5AA213E30A4E00C44014 /* TotalTerminal+Preferences.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Preferences.mm"; sourceTree = "<group>"; };
+		D6AF5AA413E3109500C44014 /* TotalTerminal+Visor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Visor.h"; sourceTree = "<group>"; };
+		D6AF5AA513E3109500C44014 /* TotalTerminal+Visor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Visor.mm"; sourceTree = "<group>"; };
+		D6AF5AA713E311EE00C44014 /* TotalTerminal+Commands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Commands.h"; sourceTree = "<group>"; };
+		D6AF5AA813E311EE00C44014 /* TotalTerminal+Commands.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Commands.mm"; sourceTree = "<group>"; };
+		D6AF5AAA13E314F000C44014 /* TotalTerminal+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Helpers.h"; sourceTree = "<group>"; };
+		D6AF5AAB13E314F000C44014 /* TotalTerminal+Helpers.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Helpers.mm"; sourceTree = "<group>"; };
+		D6AF5AAD13E3154F00C44014 /* TotalTerminal+Dock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Dock.h"; sourceTree = "<group>"; };
+		D6AF5AAE13E3154F00C44014 /* TotalTerminal+Dock.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Dock.mm"; sourceTree = "<group>"; };
+		D6AF5AB013E3156000C44014 /* TotalTerminal+Sparkle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Sparkle.h"; sourceTree = "<group>"; };
+		D6AF5AB113E3156000C44014 /* TotalTerminal+Sparkle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Sparkle.mm"; sourceTree = "<group>"; };
+		D6AF5AB313E3166D00C44014 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D6AF5AB513E3171A00C44014 /* TotalTerminal+Features.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Features.h"; sourceTree = "<group>"; };
+		D6AF5AB613E3171B00C44014 /* TotalTerminal+Features.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Features.mm"; sourceTree = "<group>"; };
+		D6AF5AB813E351CB00C44014 /* Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
+		D6AF5AB913E35F9B00C44014 /* ModifiersCommand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ModifiersCommand.png; path = "../totalterminal-i18n/plugin/ModifiersCommand.png"; sourceTree = "<group>"; };
+		D6AF5ABA13E35F9B00C44014 /* ModifiersControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ModifiersControl.png; path = "../totalterminal-i18n/plugin/ModifiersControl.png"; sourceTree = "<group>"; };
+		D6AF5ABB13E35F9B00C44014 /* ModifiersOption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ModifiersOption.png; path = "../totalterminal-i18n/plugin/ModifiersOption.png"; sourceTree = "<group>"; };
+		D6AF5ABC13E35F9B00C44014 /* ModifiersShift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ModifiersShift.png; path = "../totalterminal-i18n/plugin/ModifiersShift.png"; sourceTree = "<group>"; };
 		D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = ../sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
 		D6E5F57313E204730069D886 /* GTMCarbonEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMCarbonEvent.h; path = GTM/GTMCarbonEvent.h; sourceTree = "<group>"; };
 		D6E5F57413E204730069D886 /* GTMCarbonEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMCarbonEvent.m; path = GTM/GTMCarbonEvent.m; sourceTree = "<group>"; };
@@ -171,10 +241,10 @@
 		D6E5F59813E2087D0069D886 /* GTMMethodCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMMethodCheck.m; path = GTM/GTMMethodCheck.m; sourceTree = "<group>"; };
 		D6E5F59913E2087D0069D886 /* GTMTypeCasting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMTypeCasting.h; path = GTM/GTMTypeCasting.h; sourceTree = "<group>"; };
 		D6F5F1E910521A9B0047CFF8 /* Configuration.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Configuration.xib; path = "../totalterminal-i18n/plugin/Configuration.xib"; sourceTree = "<group>"; };
-		D6FB33E80F3843E20067F941 /* Visor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Visor.xib; path = "../totalterminal-i18n/plugin/Visor.xib"; sourceTree = "<group>"; };
-		D6FB34420F3844D80067F941 /* TotalTerminal.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalTerminal.pch; sourceTree = "<group>"; };
-		D6FCDC671002BA42000FDA45 /* TotalTerminal+CopyOnSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "TotalTerminal+CopyOnSelect.h"; sourceTree = "<group>"; };
-		D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TotalTerminal+CopyOnSelect.m"; sourceTree = "<group>"; };
+		D6FB33E80F3843E20067F941 /* TotalTerminal.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TotalTerminal.xib; path = "../totalterminal-i18n/plugin/TotalTerminal.xib"; sourceTree = "<group>"; };
+		D6FB34420F3844D80067F941 /* TotalTerminalShared.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalTerminalShared.pch; sourceTree = "<group>"; };
+		D6FCDC671002BA42000FDA45 /* TotalTerminal+CopyOnSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+CopyOnSelect.h"; sourceTree = "<group>"; };
+		D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+CopyOnSelect.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,9 +290,12 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D6AF5AB913E35F9B00C44014 /* ModifiersCommand.png */,
+				D6AF5ABA13E35F9B00C44014 /* ModifiersControl.png */,
+				D6AF5ABB13E35F9B00C44014 /* ModifiersOption.png */,
+				D6AF5ABC13E35F9B00C44014 /* ModifiersShift.png */,
 				D6757D6313D6B29300F2FB8D /* Terminal.icns */,
 				D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */,
-				D6757D5F13D6AD1600F2FB8D /* Command.pdf */,
 				D6757D5D13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png */,
 				D6757D5613D69AB000F2FB8D /* dsa_pub.pem */,
 				07CA8BD612B499F600A6D8BF /* Error.png */,
@@ -233,7 +306,7 @@
 				D67391740F93EB3F0037E3BC /* VisorActive.png */,
 				D67391750F93EB3F0037E3BC /* VisorInactive.png */,
 				D67391760F93EB3F0037E3BC /* ToolbarIcon.png */,
-				D6FB33E80F3843E20067F941 /* Visor.xib */,
+				D6FB33E80F3843E20067F941 /* TotalTerminal.xib */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 			);
 			name = Resources;
@@ -242,18 +315,47 @@
 		08FB77AFFE84173DC02AAC07 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D6AF5A8013E2FB1B00C44014 /* ShortcutRecorder */,
+				D6AF5A7B13E2FB0400C44014 /* Logger */,
 				D6E5F58B13E205470069D886 /* lib */,
 				D6E5F58A13E205100069D886 /* base */,
 				D6E5F58613E204D20069D886 /* QSB */,
 				D6E5F57213E2045E0069D886 /* GTM */,
 				D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */,
-				D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.m */,
+				D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */,
+				D6AF5A9113E2FF5500C44014 /* TotalTerminal+Shortcuts.mm */,
+				D6AF5A9013E2FF5500C44014 /* TotalTerminal+Shortcuts.h */,
 				D6FCDC671002BA42000FDA45 /* TotalTerminal+CopyOnSelect.h */,
-				D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.m */,
-				D68AA7000F371C810094AA92 /* TotalTerminal.h */,
-				D68AA7010F371C810094AA92 /* TotalTerminal.m */,
+				D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.mm */,
 				26C7384D11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.h */,
-				26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.m */,
+				26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm */,
+				D68AA7000F371C810094AA92 /* TotalTerminal.h */,
+				D68AA7010F371C810094AA92 /* TotalTerminal.mm */,
+				D6AF5A9313E302C400C44014 /* TotalTerminal+Defaults.h */,
+				D6AF5A9413E302C400C44014 /* TotalTerminal+Defaults.mm */,
+				D6AF5A9613E3032D00C44014 /* TotalTerminal+Debug.h */,
+				D6AF5A9713E3032D00C44014 /* TotalTerminal+Debug.mm */,
+				D6AF5A9913E304F300C44014 /* TotalTerminal+Observers.h */,
+				D6AF5A9A13E304F300C44014 /* TotalTerminal+Observers.mm */,
+				D6AF5A9C13E3091B00C44014 /* TotalTerminal+StatusMenu.h */,
+				D6AF5A9F13E3094300C44014 /* TotalTerminal+StatusMenu.mm */,
+				D6AF5AA113E30A4E00C44014 /* TotalTerminal+Preferences.h */,
+				D6AF5AA213E30A4E00C44014 /* TotalTerminal+Preferences.mm */,
+				D6AF5AA413E3109500C44014 /* TotalTerminal+Visor.h */,
+				D6AF5AA513E3109500C44014 /* TotalTerminal+Visor.mm */,
+				D6AF5AA713E311EE00C44014 /* TotalTerminal+Commands.h */,
+				D6AF5AA813E311EE00C44014 /* TotalTerminal+Commands.mm */,
+				D6AF5AAA13E314F000C44014 /* TotalTerminal+Helpers.h */,
+				D6AF5AAB13E314F000C44014 /* TotalTerminal+Helpers.mm */,
+				D6AF5AAD13E3154F00C44014 /* TotalTerminal+Dock.h */,
+				D6AF5AAE13E3154F00C44014 /* TotalTerminal+Dock.mm */,
+				D6AF5AB013E3156000C44014 /* TotalTerminal+Sparkle.h */,
+				D6AF5AB113E3156000C44014 /* TotalTerminal+Sparkle.mm */,
+				D6AF5AB313E3166D00C44014 /* main.m */,
+				D6AF5AB513E3171A00C44014 /* TotalTerminal+Features.h */,
+				D6AF5AB613E3171B00C44014 /* TotalTerminal+Features.mm */,
+				D69D315813E44CD50013A750 /* TotalTerminal+Menu.h */,
+				D69D315913E44CD50013A750 /* TotalTerminal+Menu.mm */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -291,9 +393,36 @@
 		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D6FB34420F3844D80067F941 /* TotalTerminal.pch */,
+				D6FB34420F3844D80067F941 /* TotalTerminalShared.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		D6AF5A7B13E2FB0400C44014 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				D6AF5A7C13E2FB1200C44014 /* LoggerClient.h */,
+				D6AF5A7D13E2FB1200C44014 /* LoggerClient.m */,
+				D6AF5A7E13E2FB1200C44014 /* LoggerCommon.h */,
+			);
+			name = Logger;
+			sourceTree = "<group>";
+		};
+		D6AF5A8013E2FB1B00C44014 /* ShortcutRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				D6AF5A8113E2FB2C00C44014 /* SRCommon.h */,
+				D6AF5A8213E2FB2C00C44014 /* SRCommon.m */,
+				D6AF5A8313E2FB2C00C44014 /* SRKeyCodeTransformer.h */,
+				D6AF5A8413E2FB2C00C44014 /* SRKeyCodeTransformer.m */,
+				D6AF5A8513E2FB2C00C44014 /* SRRecorderCell.h */,
+				D6AF5A8613E2FB2C00C44014 /* SRRecorderCell.m */,
+				D6AF5A8713E2FB2C00C44014 /* SRRecorderControl.h */,
+				D6AF5A8813E2FB2C00C44014 /* SRRecorderControl.m */,
+				D6AF5A8913E2FB2C00C44014 /* SRValidator.h */,
+				D6AF5A8A13E2FB2C00C44014 /* SRValidator.m */,
+			);
+			name = ShortcutRecorder;
 			sourceTree = "<group>";
 		};
 		D6C7F6D613D64B7700DAC2BC /* Frameworks */ = {
@@ -352,11 +481,14 @@
 		D6E5F58A13E205100069D886 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				D69D315B13E46F000013A750 /* ScreenUpdates.h */,
+				D69D315C13E46F000013A750 /* ScreenUpdates.mm */,
 				D6E5F58C13E205880069D886 /* Macros.h */,
 				D6E5F58D13E205880069D886 /* Updater.h */,
 				D6E5F58E13E205880069D886 /* Updater.m */,
 				D6E5F58F13E205880069D886 /* Versions.h */,
 				D6E5F59013E205880069D886 /* Versions.m */,
+				D6AF5AB813E351CB00C44014 /* Notifications.h */,
 			);
 			name = base;
 			sourceTree = "<group>";
@@ -476,7 +608,7 @@
 				D6757D6213D6B00600F2FB8D /* TotalTerminal.icns in Resources */,
 				D67170711065D19D00970560 /* RestoreApp.scpt in Resources */,
 				07CA8BD712B499F600A6D8BF /* Error.png in Resources */,
-				D6FB33E90F3843E20067F941 /* Visor.xib in Resources */,
+				D6FB33E90F3843E20067F941 /* TotalTerminal.xib in Resources */,
 				D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */,
 				D673917A0F93EB3F0037E3BC /* VisorInactive.png in Resources */,
 				D673917B0F93EB3F0037E3BC /* ToolbarIcon.png in Resources */,
@@ -485,8 +617,11 @@
 				07CA8A0712ADAC6C00A6D8BF /* Visor.qtz in Resources */,
 				D6757D5713D69AB000F2FB8D /* dsa_pub.pem in Resources */,
 				D6757D5E13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png in Resources */,
-				D6757D6013D6AD1600F2FB8D /* Command.pdf in Resources */,
 				D6757D6413D6B29300F2FB8D /* Terminal.icns in Resources */,
+				D6AF5ABD13E35F9B00C44014 /* ModifiersCommand.png in Resources */,
+				D6AF5ABE13E35F9B00C44014 /* ModifiersControl.png in Resources */,
+				D6AF5ABF13E35F9B00C44014 /* ModifiersOption.png in Resources */,
+				D6AF5AC013E35F9B00C44014 /* ModifiersShift.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,10 +679,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D68AA7020F371C810094AA92 /* TotalTerminal.m in Sources */,
-				D6FCDC691002BA42000FDA45 /* TotalTerminal+CopyOnSelect.m in Sources */,
-				D62204AF1051CC3700FAEA30 /* TotalTerminal+TerminalColours.m in Sources */,
-				26C7384F11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.m in Sources */,
+				D68AA7020F371C810094AA92 /* TotalTerminal.mm in Sources */,
+				D6FCDC691002BA42000FDA45 /* TotalTerminal+CopyOnSelect.mm in Sources */,
+				D62204AF1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm in Sources */,
+				26C7384F11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm in Sources */,
 				D6E5F58113E204730069D886 /* GTMCarbonEvent.m in Sources */,
 				D6E5F58213E204730069D886 /* GTMHotKeyTextField.m in Sources */,
 				D6E5F58313E204730069D886 /* GTMNSObject+KeyValueObserving.m in Sources */,
@@ -558,6 +693,27 @@
 				D6E5F59213E205880069D886 /* Versions.m in Sources */,
 				D6E5F59613E205AB0069D886 /* JRSwizzle.m in Sources */,
 				D6E5F59A13E2087D0069D886 /* GTMMethodCheck.m in Sources */,
+				D6AF5A7F13E2FB1200C44014 /* LoggerClient.m in Sources */,
+				D6AF5A8B13E2FB2C00C44014 /* SRCommon.m in Sources */,
+				D6AF5A8C13E2FB2C00C44014 /* SRKeyCodeTransformer.m in Sources */,
+				D6AF5A8D13E2FB2C00C44014 /* SRRecorderCell.m in Sources */,
+				D6AF5A8E13E2FB2C00C44014 /* SRRecorderControl.m in Sources */,
+				D6AF5A8F13E2FB2C00C44014 /* SRValidator.m in Sources */,
+				D6AF5A9213E2FF5500C44014 /* TotalTerminal+Shortcuts.mm in Sources */,
+				D6AF5A9513E302C400C44014 /* TotalTerminal+Defaults.mm in Sources */,
+				D6AF5A9813E3032D00C44014 /* TotalTerminal+Debug.mm in Sources */,
+				D6AF5A9B13E304F300C44014 /* TotalTerminal+Observers.mm in Sources */,
+				D6AF5AA013E3094300C44014 /* TotalTerminal+StatusMenu.mm in Sources */,
+				D6AF5AA313E30A4E00C44014 /* TotalTerminal+Preferences.mm in Sources */,
+				D6AF5AA613E3109500C44014 /* TotalTerminal+Visor.mm in Sources */,
+				D6AF5AA913E311EE00C44014 /* TotalTerminal+Commands.mm in Sources */,
+				D6AF5AAC13E314F000C44014 /* TotalTerminal+Helpers.mm in Sources */,
+				D6AF5AAF13E3154F00C44014 /* TotalTerminal+Dock.mm in Sources */,
+				D6AF5AB213E3156000C44014 /* TotalTerminal+Sparkle.mm in Sources */,
+				D6AF5AB413E3166D00C44014 /* main.m in Sources */,
+				D6AF5AB713E3171B00C44014 /* TotalTerminal+Features.mm in Sources */,
+				D69D315A13E44CD50013A750 /* TotalTerminal+Menu.mm in Sources */,
+				D69D315D13E46F000013A750 /* ScreenUpdates.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,7 +743,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TotalTerminal.pch;
+				GCC_PREFIX_HEADER = TotalTerminalShared.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
@@ -612,7 +768,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TotalTerminal.pch;
+				GCC_PREFIX_HEADER = TotalTerminalShared.pch;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = Info.plist;

@@ -7,3 +7,6 @@
 #import <WebKit/WebKit.h>
 #import <AppKit/AppKit.h>
 #endif
+
+#import "Macros.h"
+#import "Versions.h"

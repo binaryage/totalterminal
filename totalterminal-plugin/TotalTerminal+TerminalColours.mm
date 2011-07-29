@@ -1,8 +1,7 @@
 // taken from http://github.com/evanphx/terminalcolours/commit/20eb738a5c81349a3b0189ee7eb25de589abf987
 
+#define PROJECT TerminalColours
 #import "TotalTerminal+TerminalColours.h"
-#import "Versions.h"
-#import "JRSwizzle.h"
 
 static NSString* colourKeys[] = {
     @"noColour",
@@ -24,12 +23,12 @@ static NSString* colourKeys[] = {
     @"brightWhiteColour",
 };
 
-@interface NSObject (TTAppPrefsController_Methods)
-+(id) sharedPreferencesController;
-@end
+//@interface NSObject (TTAppPrefsController_Methods)
+//+(id) sharedPreferencesController;
+//@end
 
-@implementation NSView (TerminalColours)
--(id) TerminalColours_colorForANSIColor:(unsigned int)index;
+@implementation NSView (TotalTerminal)
+-(id) SMETHOD(TTView, colorForANSIColor):(unsigned int)index;
 {
     id colour = nil;
 
@@ -37,10 +36,10 @@ static NSString* colourKeys[] = {
         colour = [[self performSelector:@selector(profile)] valueForKey:colourKeys[index]];
     }
 
-    return colour ? : [self TerminalColours_colorForANSIColor:index];
+    return colour ? : [self SMETHOD(TTView, colorForANSIColor):index];
 }
 
--(id) TerminalColours_colorForANSIColor:(unsigned int)index adjustedRelativeToColor:(id)arg2;
+-(id) SMETHOD(TTView, colorForANSIColor):(unsigned int)index adjustedRelativeToColor:(id)arg2;
 {
     id colour = nil;
 
@@ -48,11 +47,11 @@ static NSString* colourKeys[] = {
         colour = [[self performSelector:@selector(profile)] valueForKey:colourKeys[index]];
     }
 
-    return colour ? : [self TerminalColours_colorForANSIColor:index adjustedRelativeToColor:arg2];
+    return colour ? : [self SMETHOD(TTView, colorForANSIColor):index adjustedRelativeToColor:arg2];
 }
 @end
 
-@implementation NSObject (TTProfile_TerminalColours)
+@implementation NSObject (TotalTerminal)
 // ===========================
 // = Setting/getting colours =
 // ===========================
@@ -97,16 +96,14 @@ static NSString* colourKeys[] = {
     These two are swizzled so that we can use bindings to set the colour values
     from the nib
  */
--(id) TerminalColours_TTProfile_valueForKey:(NSString*)key;
-{
+-(id) SMETHOD(TTProfile, valueForKey):(NSString*)key {
     if ([key hasSuffix:@"Colour"]) return [self colourForKey:key];
-    else return [self TerminalColours_TTProfile_valueForKey:key];
+    else return [self SMETHOD(TTProfile, valueForKey):key];
 }
 
--(void) TerminalColours_TTProfile_setValue:(id)value forKey:(NSString*)key;
-{
+-(void) SMETHOD(TTProfile, setValue):(id)value forKey:(NSString*)key {
     if ([key hasSuffix:@"Colour"]) [self setColour:value forKey:key];
-    else [self TerminalColours_TTProfile_setValue:value forKey:key];
+    else [self SMETHOD(TTProfile, setValue):value forKey:key];
 }
 
 // ==================
@@ -114,9 +111,8 @@ static NSString* colourKeys[] = {
 // ==================
 
 // Save our custom colours into the profile plist
--(id) TerminalColours_propertyListRepresentation;
-{
-    NSMutableDictionary* plist = [[self TerminalColours_propertyListRepresentation] mutableCopy];
+-(id) SMETHOD(TTProfile, propertyListRepresentation) {
+    NSMutableDictionary* plist = [[self SMETHOD(TTProfile, propertyListRepresentation)] mutableCopy];
     size_t index;
 
     for (index = 0; index < sizeof(colourKeys) / sizeof(colourKeys[0]); index++) {
@@ -130,9 +126,8 @@ static NSString* colourKeys[] = {
 
 @implementation NSWindowController (PrefsWindowDidLoad)
 // Add the “More…” button to the text preferences section
--(void) TerminalColours_TTAppPrefsController_windowDidLoad;
-{
-    [self TerminalColours_TTAppPrefsController_windowDidLoad];
+-(void) SMETHOD(TTAppPrefsController, windowDidLoad) {
+    [self SMETHOD(TTAppPrefsController, windowDidLoad)];
 
     id prefsController = [NSClassFromString (@"TTAppPrefsController")sharedPreferencesController];
     NSView* windowSettingsView = [[[prefsController valueForKey:@"tabView"] tabViewItemAtIndex:1] view];
@@ -154,15 +149,19 @@ static NSString* colourKeys[] = {
 }
 @end
 
-@implementation TotalTerminal (TerminalColours)
+@implementation TotalTerminal (TotalTerminal)
 +(void) loadTerminalColours {
-    [NSClassFromString (@"TTProfile") jr_swizzleMethod:@selector(valueForKey:) withMethod:@selector(TerminalColours_TTProfile_valueForKey:) error:NULL];
-    [NSClassFromString (@"TTProfile") jr_swizzleMethod:@selector(setValue:forKey:) withMethod:@selector(TerminalColours_TTProfile_setValue:forKey:) error:NULL];
+    AUTO_LOGGER();
+    
+    SWIZZLE(TTProfile, valueForKey:);
+    SWIZZLE(TTProfile, setValue:forKey:);
+    SWIZZLE(TTProfile, propertyListRepresentation);
 
-    [NSClassFromString (@"TTView") jr_swizzleMethod:@selector(colorForANSIColor:) withMethod:@selector(TerminalColours_colorForANSIColor:) error:NULL];
-    [NSClassFromString (@"TTView") jr_swizzleMethod:@selector(colorForANSIColor:adjustedRelativeToColor:) withMethod:@selector(TerminalColours_colorForANSIColor:adjustedRelativeToColor:) error:NULL];
-    [NSClassFromString (@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(TerminalColours_TTAppPrefsController_windowDidLoad) error:NULL];
-    [NSClassFromString (@"TTProfile") jr_swizzleMethod:@selector(propertyListRepresentation) withMethod:@selector(TerminalColours_propertyListRepresentation) error:NULL];
+    SWIZZLE(TTView, colorForANSIColor:);
+    SWIZZLE(TTView, colorForANSIColor:adjustedRelativeToColor:);
+
+    SWIZZLE(TTAppPrefsController, windowDidLoad);
+    LOG(@"TerminalColours installed");
 }
 
 -(void) orderFrontColourConfiguration:(id)sender {

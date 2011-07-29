@@ -1,4 +1,24 @@
 #import "GTMCarbonEvent.h"
+#import "SRCommon.h"
+
+typedef enum  {
+    eUnknownShortcut = -1,
+    eToggleVisor = 0,
+    ePinVisor,
+    eShortcutsCount
+} TShortcuts;
+
+@interface ModifierButtonImageView : NSImageView { }
+-(void)mouseDown:(NSEvent*)event;
+@end
+
+@interface NSView (TotalTerminal)
+-(NSView*)TotalTerminal_findSRRecorderFor:(NSString*)shortcut;
+-(void)TotalTerminal_refreshSRRecorders;
+@end
+
+NSDictionary* makeKeyModifiersDictionary(NSInteger code, NSUInteger flags);
+KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
 
 @interface TotalTerminal : NSObject {
     NSWindow* window_;        // the one visorized terminal window (may be nil)
@@ -8,19 +28,25 @@
     IBOutlet NSWindow* settingsWindow;
     IBOutlet NSPanel* transparencyHelpPanel;
     IBOutlet WebView* infoLine; // bottom info line on Visor preferences pane
-    EventHotKeyRef hotKey_;
+    IBOutlet ModifierButtonImageView* modifierIcon1_;
+    IBOutlet ModifierButtonImageView* modifierIcon2_;
+    IBOutlet NSView* preferencesView;
+    GTMCarbonHotKey* hotKey_;
+    GTMCarbonHotKey* escapeHotKey;
     NSUInteger hotModifiers_;
     NSUInteger hotModifiersState_;
     NSTimeInterval lastHotModifiersEventCheckedTime_;
-    EventHotKeyRef escapeHotKey;
     NSString* previouslyActiveAppPath;
     NSNumber* previouslyActiveAppPID;
     BOOL isHidden;
     BOOL isMain;
     BOOL isKey;
-    BOOL isPinned;
     NSImage* activeIcon;
     NSImage* inactiveIcon;
+    NSImage* modifiersOption_;
+    NSImage* modifiersControl_;
+    NSImage* modifiersCommand_;
+    NSImage* modifiersShift_;
     NSScreen* cachedScreen;
     NSString* cachedPosition;
     NSString* lastPosition;
@@ -29,12 +55,12 @@
     BOOL ignoreResizeNotifications;
     id runningApplicationClass_;
     BOOL runningOnLeopard_;
-    BOOL dontShowOnFirstTab;
     NSSize originalPreferencesSize;
     NSSize prefPaneSize;
     BOOL isActiveAlternativeIcon;
     NSImage* originalDockIcon;
     NSImage* alternativeDockIcon;
+    BOOL preventShortcutUpdates_;
 }
 
 -(NSWindow*)window;
@@ -42,6 +68,8 @@
 -(NSWindow*)background;
 -(void)setBackground:(NSWindow*)newBackground;
 -(BOOL)isHidden;
+-(BOOL) isVisorWindow:(id)win;
+-(BOOL) status;
 
 -(NSSize)originalPreferencesSize;
 -(void)setOriginalPreferencesSize:(NSSize)size;
@@ -50,7 +78,6 @@
 -(IBAction)showTransparencyHelpPanel:(id)sender;
 -(IBAction)closeTransparencyHelpPanel:(id)sender;
 -(IBAction)chooseBackgroundComposition:(id)sender;
--(IBAction)pinAction:(id)sender;
 -(IBAction)toggleVisor:(id)sender;
 -(IBAction)showPrefs:(id)sender;
 -(IBAction)visitHomepage:(id)sender;
