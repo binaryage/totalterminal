@@ -1,31 +1,31 @@
 BASIC DMG LAYOUT
 ================
 .
-[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal Uninstaller.app
-[drwxr-xr-x darwin   wheel            170]  ./TotalTerminal Uninstaller.app/Contents
-[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal Uninstaller.app/Contents/MacOS
-[-rwxr-xr-x darwin   wheel          48164]  ./TotalTerminal Uninstaller.app/Contents/MacOS/Uninstall TotalTerminal
-[drwxr-xr-x darwin   wheel            238]  ./TotalTerminal Uninstaller.app/Contents/Resources
-[drwxr-xr-x darwin   wheel            136]  ./TotalTerminal Uninstaller.app/Contents/Resources/English.lproj
-[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib
-[-rwxr-xr-x darwin   wheel          32583]  ./TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib/keyedobjects.nib
-[-rw-r--r-- darwin   wheel            239]  ./TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/InfoPlist.strings
-[-rw-r--r-- darwin   wheel            833]  ./TotalTerminal Uninstaller.app/Contents/Resources/AppSettings.plist
-[-rw-r--r-- darwin   wheel         321560]  ./TotalTerminal Uninstaller.app/Contents/Resources/appIcon.icns
-[-rw-r--r-- darwin   wheel           1397]  ./TotalTerminal Uninstaller.app/Contents/Resources/script
-[-rw-r--r-- darwin   wheel           1397]  ./TotalTerminal Uninstaller.app/Contents/Resources/uninstall.applescript
-[-rw-r--r-- darwin   wheel           1411]  ./TotalTerminal Uninstaller.app/Contents/Info.plist
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal\ Uninstaller.app
+[drwxr-xr-x darwin   wheel            170]  ./TotalTerminal\ Uninstaller.app/Contents
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal\ Uninstaller.app/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          48164]  ./TotalTerminal\ Uninstaller.app/Contents/MacOS/Uninstall\ TotalTerminal
+[drwxr-xr-x darwin   wheel            238]  ./TotalTerminal\ Uninstaller.app/Contents/Resources
+[drwxr-xr-x darwin   wheel            136]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib
+[-rwxr-xr-x darwin   wheel          32583]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib/keyedobjects.nib
+[-rw-r--r-- darwin   wheel            239]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/InfoPlist.strings
+[-rw-r--r-- darwin   wheel            833]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/AppSettings.plist
+[-rw-r--r-- darwin   wheel         321560]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/appIcon.icns
+[-rw-r--r-- darwin   wheel           1397]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/script
+[-rw-r--r-- darwin   wheel           1397]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/uninstall.applescript
+[-rw-r--r-- darwin   wheel           1411]  ./TotalTerminal\ Uninstaller.app/Contents/Info.plist
 [drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg
 [drwxr-xr-x darwin   wheel            170]  ./TotalTerminal.mpkg/Contents
 [drwxr-xr-x darwin   wheel            102]  ./TotalTerminal.mpkg/Contents/Packages
-[-rw-r--r-- darwin   wheel        1377393]  ./TotalTerminal.mpkg/Contents/Packages/TotalTerminal Plugin.pkg
+[-rw-r--r-- darwin   wheel        1377393]  ./TotalTerminal.mpkg/Contents/Packages/TotalTerminal\ Plugin.pkg
 [drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg/Contents/Resources
 [drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj
 [-rw-r--r-- darwin   wheel            426]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj/Localizable.strings
 [-r-xr-xr-x darwin   wheel           2653]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj/welcome.rtf
 [-r-xr-xr-x darwin   wheel           9423]  ./TotalTerminal.mpkg/Contents/Resources/background
 [-rw-r--r-- darwin   wheel           3591]  ./TotalTerminal.mpkg/Contents/distribution.dist
-[-rw-r--r-- darwin   wheel              0]  ./TotalTerminal.mpkg/Icon^M
+[-rw-r--r-- darwin   wheel              0]  ./TotalTerminal.mpkg/Icon\r
 [-rw-r--r-- darwin   wheel         193321]  ./Readme.pdf
 
 11 directories, 15 files
@@ -174,20 +174,20 @@ TotalTerminal Plugin.pkg
 [-rw-r--r-- darwin   wheel            452]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/VisorInactive.png
 [-rw-r--r-- darwin   wheel            654]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Resources/dsa_pub.pem
 [-rw-r--r-- darwin   wheel           1372]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal/Contents/Info.plist
-[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app
-[drwxr-xr-x darwin   wheel            170]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents
-[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/MacOS
-[-rwxr-xr-x darwin   wheel          48164]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/MacOS/Uninstall TotalTerminal
-[drwxr-xr-x darwin   wheel            238]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources
-[drwxr-xr-x darwin   wheel            136]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/English.lproj
-[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib
-[-rwxr-xr-x darwin   wheel          32583]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib/keyedobjects.nib
-[-rw-r--r-- darwin   wheel            239]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/English.lproj/InfoPlist.strings
-[-rw-r--r-- darwin   wheel            833]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/AppSettings.plist
-[-rw-r--r-- darwin   wheel         321560]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/appIcon.icns
-[-rw-r--r-- darwin   wheel           1397]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/script
-[-rw-r--r-- darwin   wheel           1397]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Resources/uninstall.applescript
-[-rw-r--r-- darwin   wheel           1411]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal Uninstaller.app/Contents/Info.plist
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app
+[drwxr-xr-x darwin   wheel            170]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          48164]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/MacOS/Uninstall\ TotalTerminal
+[drwxr-xr-x darwin   wheel            238]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources
+[drwxr-xr-x darwin   wheel            136]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib
+[-rwxr-xr-x darwin   wheel          32583]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib/keyedobjects.nib
+[-rw-r--r-- darwin   wheel            239]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/InfoPlist.strings
+[-rw-r--r-- darwin   wheel            833]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/AppSettings.plist
+[-rw-r--r-- darwin   wheel         321560]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/appIcon.icns
+[-rw-r--r-- darwin   wheel           1397]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/script
+[-rw-r--r-- darwin   wheel           1397]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/uninstall.applescript
+[-rw-r--r-- darwin   wheel           1411]  ./Applications/TotalTerminal.app/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Info.plist
 [drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/description.rtfd
 [-rw-r--r-- darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/description.rtfd/TXT.rtf
 [-rw-r--r-- darwin   wheel         155296]  ./Applications/TotalTerminal.app/Contents/Resources/applet.icns
