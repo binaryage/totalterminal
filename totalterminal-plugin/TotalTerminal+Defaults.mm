@@ -15,7 +15,7 @@
     CONVERT_KEY(@"VisorShowStatusItem", @"TotalTerminalShowStatusItem");
     CONVERT_KEY(@"VisorShowOnReopen", @"TotalTerminalVisorShowOnReopen");
     CONVERT_KEY(@"VisorCopyOnSelect", @"TotalTerminalCopyOnSelect");
-    CONVERT_KEY(@"VisorVisorPasteOnRightclick", @"TotalTerminalPasteOnRightClick");
+    CONVERT_KEY(@"VisorPasteOnRightclick", @"TotalTerminalPasteOnRightClick");
     CONVERT_KEY(@"VisorScreen", @"TotalTerminalVisorScreen");
     CONVERT_KEY(@"VisorOnEverySpace", @"TotalTerminalVisorOnEverySpace");
     CONVERT_KEY(@"VisorPosition", @"TotalTerminalVisorPosition");
