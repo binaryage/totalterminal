@@ -66,9 +66,9 @@
                forKey:@"TotalTerminalShortcuts"];
     }
     // convert old visor HotKey structure if available
-    if ([ud objectForKey:@"TotalTerminalHotKey"]) {
-        NSDictionary* hotKey = [ud objectForKey:@"TotalTerminalHotKey"];
-        BOOL enabled = [ud boolForKey:@"TotalTerminalHotKeyEnabled"];
+    if ([ud objectForKey:@"TotalTerminalVisorHotKey"]) {
+        NSDictionary* hotKey = [ud objectForKey:@"TotalTerminalVisorHotKey"];
+        BOOL enabled = [ud boolForKey:@"TotalTerminalVisorHotKeyEnabled"];
         NSDictionary* shortcuts = [ud objectForKey:@"TotalTerminalShortcuts"];
         if (shortcuts) {
             NSMutableDictionary* ns = [NSMutableDictionary dictionaryWithDictionary:shortcuts];
@@ -80,8 +80,8 @@
                 [ns removeObjectForKey:@"ToggleVisor"];
             }
             [ud setObject:ns forKey:@"TotalTerminalShortcuts"];
-            [ud removeObjectForKey:@"TotalTerminalHotKey"];
-            [ud removeObjectForKey:@"TotalTerminalHotKeyEnabled"];
+            [ud removeObjectForKey:@"TotalTerminalVisorHotKey"];
+            [ud removeObjectForKey:@"TotalTerminalVisorHotKeyEnabled"];
         }
     }
 
