@@ -369,16 +369,9 @@ task :retag do
     tags = `git tag`.split("\n").reject {|x| x =~ /^v0/ }  # skip v0.x.x 
     puts "found #{tags.size} tags..."
     
-    retag_submodule(tags, "totalterminal-features")
+    retag_submodule(tags, "totalterminal-i18n")
     retag_submodule(tags, "totalterminal-installer")
     retag_submodule(tags, "totalterminal-osax")
-    retag_submodule(tags, "totalterminal-kext")
-    
-    Dir.chdir("totalterminal-features") do
-        tags = `git tag`.split("\n").reject {|x| x =~ /^v0/ }  # skip v0.x.x 
-        puts "found internal #{tags.size} tags..."
-        retag_submodule(tags, "totalterminal-i18n")
-    end
     
     `git push --tags`
 end
