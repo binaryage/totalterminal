@@ -46,7 +46,7 @@
 #define INFO(format, ...) NSLog(format, ## __VA_ARGS__)
 
 #ifdef _DEBUG_MODE
-# define DCHECK(condition) (condition) ? ((void)0) : (NSLOG(@"Check failed: %s", # condition), ERROR(@ "Check failed: %s [%s:%d]", # condition, __FILE__, __LINE__))
+# define DCHECK(condition) (condition) ? ((void)0) : (NSLOG(@ "Check failed: %s", # condition), ERROR(@ "Check failed: %s [%s:%d]", # condition, __FILE__, __LINE__))
 #else
 # define DCHECK(condition)
 #endif
@@ -62,18 +62,18 @@ class IndentingLoggerF {
 public:
     IndentingLoggerF(const char* filename, int lineNumber, const char* functionName, NSString* domain, int l, NSString* format, ...) {
         va_list ap;
-        
+
         va_start(ap, format);
         NSString* print = [[NSString alloc] initWithFormat : format arguments:ap];
         va_end(ap);
-        
+
         NSMutableDictionary* ts = [[NSThread currentThread] threadDictionary];
         NSNumber* indent = [ts objectForKey:@ "indent"];
-        
+
         if (!indent) {
             indent = [NSNumber numberWithInt:0];
         }
-        
+
         LogMessageF(filename, lineNumber, functionName, domain, l, @ "%*s%@", [indent intValue] * 3, "", print);
     }
 };
@@ -126,25 +126,25 @@ class AutoFunctionLogger {
 public:
     AutoFunctionLogger(const char* file, int line, const char* fn, NSString* tag, NSString* format, ...) {
         va_list ap;
-        
+
         va_start(ap, format);
         NSString* print = [[NSString alloc] initWithFormat : format arguments:ap];
         va_end(ap);
         init(file, line, fn, tag, print);
     }
-    
+
     AutoFunctionLogger(const char* file, int line, const char* fn, NSString* tag) {
         init(file, line, fn, tag, nil);
     }
-    
+
     void init(const char* file, int line, const char* fn, NSString* tag, NSString* print) {
         NSMutableDictionary* ts = [[NSThread currentThread] threadDictionary];
         NSNumber* indent = [ts objectForKey:@ "indent"];
-        
+
         if (!indent) {
             indent = [NSNumber numberWithInt:0];
         }
-        
+
         print_ = print;
         file_ = file;
         line_ = line;
@@ -157,18 +157,18 @@ public:
         indent = [NSNumber numberWithInt:[indent intValue] + 1];
         [ts setObject : indent forKey : @ "indent"];
     }
-    
+
     ~AutoFunctionLogger() {
         NSMutableDictionary* ts = [[NSThread currentThread] threadDictionary];
         NSNumber* indent = [ts objectForKey:@ "indent"];
-        
+
         indent = [NSNumber numberWithInt:[indent intValue] - 1];
         [ts setObject : indent forKey : @ "indent"];
         if (print_) {
             [print_ release];
         }
     }
-    
+
     NSString* print_;
     const char* file_;
     int line_;

@@ -1,10 +1,10 @@
 #include "TotalTerminal+Defaults.h"
 
 #define CONVERT_KEY(from, to) \
-if ([ud objectForKey:from]) { \
-    [ud setObject:[ud objectForKey:from] forKey:to]; \
-    [ud removeObjectForKey:from]; \
-}
+    if ([ud objectForKey:from]) { \
+        [ud setObject:[ud objectForKey:from] forKey:to]; \
+        [ud removeObjectForKey:from]; \
+    }
 
 @implementation TotalTerminal (Defaults)
 
@@ -35,7 +35,7 @@ if ([ud objectForKey:from]) { \
 +(void) sanitizeDefaults:(NSUserDefaults*)ud {
     AUTO_LOGGER();
     [self convertDefaultsFromPastVersions:ud];
-    
+
     if (![ud objectForKey:@"TotalTerminalShowStatusItem"]) {
         [ud setBool:YES forKey:@"TotalTerminalShowStatusItem"];
     }
@@ -84,9 +84,9 @@ if ([ud objectForKey:from]) { \
             [ud removeObjectForKey:@"TotalTerminalHotKeyEnabled"];
         }
     }
-    
+
     // by default disable HotKey2 but set it to double Control
-    if (![ud objectForKey:@"TotalTerminalVisorHotKey2"] || ![[ud objectForKey:@"TotalTerminalVisorHotKey2"] isKindOfClass:[NSDictionary class]]) {
+    if (![ud objectForKey:@"TotalTerminalVisorHotKey2"] || ![[ud objectForKey:@"TotalTerminalVisorHotKey2"] isKindOfClass:[NSDictionary class ]]) {
         [ud setObject:[NSDictionary dictionaryWithObjectsAndKeys: \
                        [NSNumber numberWithUnsignedInt:NSControlKeyMask], \
                        @"Modifiers", \

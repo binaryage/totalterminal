@@ -17,7 +17,7 @@
 -(IBAction) uninstallMe:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
     NSAlert* alert = [[[NSAlert alloc] init] autorelease];
-    
+
     [alert setIcon:alternativeDockIcon];
     [alert addButtonWithTitle:(@"Uninstall")];
     [alert addButtonWithTitle:(@"Cancel")];
@@ -27,18 +27,17 @@
     NSInteger returnCode = [alert runModal];
     if (returnCode == NSAlertFirstButtonReturn) {
         NSString* uninstallerPath =
-        [[[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"TotalTerminal Uninstaller.app"] stringByStandardizingPath];
+            [[[[NSBundle bundleForClass:[self class ]] resourcePath] stringByAppendingPathComponent:@"TotalTerminal Uninstaller.app"] stringByStandardizingPath];
         [[NSWorkspace sharedWorkspace] launchApplication:uninstallerPath];
     }
 }
 
-
 -(IBAction) updateMe:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
     TTUpdater* updater = [TTUpdater sharedUpdater];
-    
+
     if (!updater) return;
-    
+
     [self refreshFeedURLInUpdater];
     [updater resetUpdateCycle];
     [updater checkForUpdates:sender];
@@ -71,12 +70,11 @@
             if (isKey) {
                 [self hideVisor:false];
             } else {
-                [window_ makeKeyWindow]; 
+                [window_ makeKeyWindow];
             }
         } else {
             [self hideVisor:false];
         }
-    
     }
 }
 
@@ -86,7 +84,7 @@
     id terminalApp = [NSClassFromString (@"TTApplication")sharedApplication];
     [terminalApp showPreferencesWindow:nil];
     id prefsController = [NSClassFromString (@"TTAppPrefsController")sharedPreferencesController];
-    [prefsController SMETHOD(TTAppPrefsController, selectVisorPane)];
+    [prefsController SMETHOD (TTAppPrefsController, selectVisorPane)];
 }
 
 -(IBAction) visitHomepage:(id)sender {
@@ -97,7 +95,7 @@
 -(IBAction) chooseBackgroundComposition:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
     NSOpenPanel* panel = [NSOpenPanel openPanel];
-    
+
     [panel setTitle:@"Select a Quartz Composer (qtz) file"];
     if ([panel runModalForTypes:[NSArray arrayWithObject:@"qtz"]]) {
         NSString* path = [panel filename];
@@ -126,36 +124,36 @@
         INFO(@"Visor profile already exists.");
         return;
     }
-    
+
     // create visor profile in case it does not exist yet, use startup profile as a template
     id startupProfile = [profileManager startupProfile];
     visorProfile = [startupProfile copyWithZone:nil];
-    
+
     // apply Darwin's preferred Visor settings
-    NSData *plistData;
-    NSString *error;
+    NSData* plistData;
+    NSString* error;
     NSPropertyListFormat format;
     id plist;
-    
+
     NSString* filename = @"Visor-SnowLeopard";
-    if (terminalVersion()>=FIRST_LION_VERSION) {
+    if (terminalVersion() >= FIRST_LION_VERSION) {
         filename = @"Visor-Lion";
     }
-    
-    NSString *path = [[NSBundle bundleForClass:[TotalTerminal class]] pathForResource:filename ofType:@"terminal"]; 
-    plistData = [NSData dataWithContentsOfFile:path]; 
+
+    NSString* path = [[NSBundle bundleForClass:[TotalTerminal class ]] pathForResource:filename ofType:@"terminal"];
+    plistData = [NSData dataWithContentsOfFile:path];
     plist = [NSPropertyListSerialization propertyListFromData:plistData mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
     if (!plist) {
         LOG(@"Error reading plist from file '%s', error = '%s'", [path UTF8String], [error UTF8String]);
         [error release];
-        [visorProfile release]; 
+        [visorProfile release];
         return;
     }
     [visorProfile setPropertyListRepresentation:plist];
-    
+
     // set profile into manager
     [profileManager setProfile:visorProfile forName:@"Visor"];
-    [visorProfile release]; 
+    [visorProfile release];
 
     // apply visor profile to the opening window
     TotalTerminal* tt = [TotalTerminal sharedInstance];

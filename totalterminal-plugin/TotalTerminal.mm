@@ -17,7 +17,7 @@
 
 +(void) install {
     AUTO_LOGGER();
-    
+
     [self initDebugSubsystems];
 
     // under 10.7 when TotalTerminal is injected during Terminal launch some windows may be going through restoration process
@@ -32,12 +32,12 @@
     [self closeExistingWindows];
 
     SWIZZLE(TTAppPrefsController, windowDidLoad);
-    SWIZZLE(TTAppPrefsController, toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:);
-    SWIZZLE(TTAppPrefsController, windowWillReturnFieldEditor:toObject:);
-    SWIZZLE(TTAppPrefsController, tabView:didSelectTabViewItem:);
+    SWIZZLE(TTAppPrefsController, toolbar: itemForItemIdentifier: willBeInsertedIntoToolbar:);
+    SWIZZLE(TTAppPrefsController, windowWillReturnFieldEditor: toObject:);
+    SWIZZLE(TTAppPrefsController, tabView: didSelectTabViewItem:);
 
     [self loadFeatures];
-    
+
     TotalTerminal* tt = [TotalTerminal sharedInstance];
 
     [tt openVisor];
@@ -45,7 +45,7 @@
 
 -(id) init {
     AUTO_LOGGER();
-    
+
     self = [super init];
     if (!self) return self;
 
@@ -53,14 +53,14 @@
     originalPreferencesSize.width = 0;
 
     [self refreshFeedURLInUpdater];
-    
+
     statusMenu = [[NSMenu alloc] initWithTitle:@"Status Menu"];
-    
+
     runningApplicationClass_ = NSClassFromString(@"NSRunningApplication"); // 10.6
     runningOnLeopard_ = !runningApplicationClass_;
     if (runningOnLeopard_) {
         // 10.5 path
-        NSString* path = [[NSBundle bundleForClass:[self class]] pathForResource:@"RestoreApp" ofType:@"scpt"];
+        NSString* path = [[NSBundle bundleForClass:[self class ]] pathForResource:@"RestoreApp" ofType:@"scpt"];
         restoreAppAppleScriptSource = [[NSString alloc] initWithContentsOfFile:path encoding:NSMacOSRomanStringEncoding error:NULL];
         scriptError = [[NSDictionary alloc] init];
     }
@@ -81,14 +81,14 @@
     [NSBundle loadNibNamed:@"TotalTerminal" owner:self];
 
     isActiveAlternativeIcon = FALSE;
-    alternativeDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"TotalTerminal"]];
-    originalDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"Terminal"]];
+    alternativeDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"TotalTerminal"]];
+    originalDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"Terminal"]];
 
     modifiersOption_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"ModifiersOption"]];
     modifiersCommand_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"ModifiersCommand"]];
     modifiersControl_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"ModifiersControl"]];
     modifiersShift_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"ModifiersShift"]];
-    
+
     [self setupDockIcon];
 
     [self initStatusMenu];
@@ -101,14 +101,14 @@
     if ([ud boolForKey:@"TotalTerminalShowStatusItem"]) {
         [self activateStatusMenu];
     }
-    
+
     [self augumentMainMenu];
     [self registerObservers];
 
     if ([ud boolForKey:@"TotalTerminalVisorUseBackgroundAnimation"]) {
         [self background];
     }
-    
+
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(inputSourceChanged) name:(NSString*)kTISNotifySelectedKeyboardInputSourceChanged object:nil];
 
     return self;

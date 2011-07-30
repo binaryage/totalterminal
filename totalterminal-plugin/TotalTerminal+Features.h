@@ -1,6 +1,6 @@
 #import "TotalTerminal.h"
 
 @interface TotalTerminal (Features)
-+(BOOL) shouldLoadFeature:(NSString*)feature;
-+(void) loadFeatures;
++(BOOL)shouldLoadFeature:(NSString*)feature;
++(void)loadFeatures;
 @end

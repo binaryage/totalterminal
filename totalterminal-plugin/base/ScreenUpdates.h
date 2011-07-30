@@ -12,7 +12,7 @@
 extern void NSEnableScreenUpdatesx(const char* fn);
 extern void NSDisableScreenUpdatesx(const char* fn);
 
-# ifdef __cplusplus
+#ifdef __cplusplus
 
 class ScopedNSDisableScreenUpdates {
 public:
@@ -21,7 +21,7 @@ public:
         fn_ = fn;
         NSDisableScreenUpdatesx(fn_);
     }
-    
+
     ~ScopedNSDisableScreenUpdates() {
         NSEnableScreenUpdatesx(fn_);
     }
@@ -36,10 +36,10 @@ public:
         delay_ = delay;
         NSDisableScreenUpdatesx(fn_);
     }
-    
+
     ~ScopedNSDisableScreenUpdatesWithDelay() {
         TimingHelper* timingHelper = [[TimingHelper alloc] initWithFn:fn_];
-        
+
         [timingHelper performSelector : @selector(fire) withObject : nil afterDelay : delay_ inModes :[NSArray arrayWithObjects : NSDefaultRunLoopMode, NSModalPanelRunLoopMode,
                                                                                                        NSEventTrackingRunLoopMode, nil]];
     }

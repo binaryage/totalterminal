@@ -4,7 +4,7 @@
 
 +(BOOL) shouldLoadFeature:(NSString*)feature {
     BOOL enabled = ![[NSUserDefaults standardUserDefaults] boolForKey:[@"TotalTerminalDisable" stringByAppendingString:feature]];
-    
+
     return enabled;
 }
 

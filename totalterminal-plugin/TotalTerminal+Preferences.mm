@@ -23,11 +23,11 @@
             return self;
         }
     }
-    
+
     NSArray* subviews = [self subviews];
     DCHECK(subviews);
     if (!subviews) return nil;
-    
+
     size_t count = [subviews count];
     for (size_t i = 0; i < count; ++i) {
         NSView* view = [subviews objectAtIndex:i];
@@ -43,11 +43,11 @@
     if ([[self className] isEqualToString:@"SRRecorderControl"]) {
         [self setNeedsDisplay:YES];
     }
-    
+
     NSArray* subviews = [self subviews];
     DCHECK(subviews);
     if (!subviews) return;
-    
+
     size_t count = [subviews count];
     for (size_t i = 0; i < count; ++i) {
         NSView* view = [subviews objectAtIndex:i];
@@ -63,14 +63,14 @@
 // TTAppPrefsController hacks
 
 // Add Visor preference pane into Preferences window
--(void) SMETHOD(TTAppPrefsController, windowDidLoad) {
+-(void) SMETHOD (TTAppPrefsController, windowDidLoad) {
     AUTO_LOGGER();
-    [self SMETHOD(TTAppPrefsController, windowDidLoad)];
+    [self SMETHOD (TTAppPrefsController, windowDidLoad)];
     TotalTerminal* tt = [TotalTerminal sharedInstance];
     [tt updatePreferencesUI];
 }
 
--(void) SMETHOD(TTAppPrefsController, selectVisorPane) {
+-(void) SMETHOD (TTAppPrefsController, selectVisorPane) {
     AUTO_LOGGER();
     TotalTerminal* tt = [TotalTerminal sharedInstance]; // for some reason this function may be not called in rare case we started visor and created Visor profile
     [tt updatePreferencesUI];
@@ -82,19 +82,19 @@
     [tabView selectTabViewItemWithIdentifier:@"VisorPane"];
 }
 
--(id) SMETHOD(TTAppPrefsController, toolbar):(id)arg1 itemForItemIdentifier:(id)arg2 willBeInsertedIntoToolbar:(BOOL)arg3 {
+-(id) SMETHOD (TTAppPrefsController, toolbar):(id)arg1 itemForItemIdentifier:(id)arg2 willBeInsertedIntoToolbar:(BOOL)arg3 {
     AUTO_LOGGERF(@"item=%@", arg2);
     if ([arg2 isEqualToString:@"Visor"]) {
         TotalTerminal* tt = [TotalTerminal sharedInstance];
         NSToolbarItem* toolbarItem = [tt getVisorToolbarItem];
         [toolbarItem setTarget:self];
-        [toolbarItem setAction:@selector(SMETHOD(TTAppPrefsController, selectVisorPane))];
+        [toolbarItem setAction:@selector(SMETHOD(TTAppPrefsController,selectVisorPane))];
         return toolbarItem;
     }
-    return [self SMETHOD(TTAppPrefsController, toolbar):arg1 itemForItemIdentifier:arg2 willBeInsertedIntoToolbar:arg3];
+    return [self SMETHOD (TTAppPrefsController, toolbar):arg1 itemForItemIdentifier:arg2 willBeInsertedIntoToolbar:arg3];
 }
 
--(void) SMETHOD(TTAppPrefsController, tabView):(id)view didSelectTabViewItem:(NSTabViewItem*)tab {
+-(void) SMETHOD (TTAppPrefsController, tabView):(id)view didSelectTabViewItem:(NSTabViewItem*)tab {
     AUTO_LOGGERF(@"tab=%@", tab);
     TotalTerminal* tt = [TotalTerminal sharedInstance];
     NSSize originalSize;
@@ -108,7 +108,7 @@
     if ([[tab identifier] isEqualToString:@"VisorPane"]) {
         NSRect viewItemFrame = [[[[self valueForKey:@"tabView"] tabViewItemAtIndex:0] view] frame];
         NSSize visorPrefpanelSize = [tt prefPaneSize];
-        /// frame.size.width += visorPrefpanelSize.width - viewItemFrame.size.width;
+        // / frame.size.width += visorPrefpanelSize.width - viewItemFrame.size.width;
         frame.size.height += visorPrefpanelSize.height - viewItemFrame.size.height;
         frame.origin.y -= visorPrefpanelSize.height - viewItemFrame.size.height;
     } else {
@@ -117,15 +117,15 @@
     }
     frame = [prefsWindow frameRectForContentRect:frame];
     [prefsWindow setFrame:frame display:YES animate:NO];
-    return [self SMETHOD(TTAppPrefsController, tabView):view didSelectTabViewItem:tab];
+    return [self SMETHOD (TTAppPrefsController, tabView):view didSelectTabViewItem:tab];
 }
 
--(id) SMETHOD(TTAppPrefsController, windowWillReturnFieldEditor):(NSWindow*)sender toObject:(id)client {
-    if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
+-(id) SMETHOD (TTAppPrefsController, windowWillReturnFieldEditor):(NSWindow*)sender toObject:(id)client {
+    if ([client isKindOfClass:[GTMHotKeyTextField class ]]) {
         LOG(@"TTAppPrefsController windowWillReturnFieldEditor called with GTMHotKeyTextField");
         return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
     }
-    return [self SMETHOD(TTAppPrefsController, windowWillReturnFieldEditor):sender toObject:client];
+    return [self SMETHOD (TTAppPrefsController, windowWillReturnFieldEditor):sender toObject:client];
 }
 
 -(id) windowWillReturnFieldEditor:(NSWindow*)sender toObject:(id)client {
@@ -137,14 +137,14 @@
 @implementation TotalTerminal (Preferences)
 
 -(id) windowWillReturnFieldEditor:(NSWindow*)sender toObject:(id)client {
-    if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
+    if ([client isKindOfClass:[GTMHotKeyTextField class ]]) {
         return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
     }
     return nil;
 }
 
 -(void) webView:(WebView*)sender decidePolicyForNavigationAction:(NSDictionary*)actionInformation request:(NSURLRequest*)request frame:(WebFrame*)frame decisionListener:(id<WebPolicyDecisionListener> )
-listener {
+   listener {
     LOG(@"webView:decidePolicyForNavigationAction...");
     if ([[actionInformation objectForKey:WebActionNavigationTypeKey] intValue] != WebNavigationTypeOther) {
         [listener ignore];
@@ -164,15 +164,16 @@ listener {
 
 -(void) enahanceTerminalPreferencesWindow {
     static bool alreadyEnhanced = NO;
+
     if (alreadyEnhanced) return;
-    
+
     AUTO_LOGGER();
-    
+
     id prefsController = [NSClassFromString (@"TTAppPrefsController")sharedPreferencesController];
     if (!prefsController) {
         return;
     }
-    
+
     NSTabView* tabView = nil;
     @try {
         tabView = [prefsController valueForKey:@"tabView"];
@@ -182,13 +183,13 @@ listener {
     } @catch (NSException* exception) {
         ERROR(@"enahanceTerminalPreferencesWindow: Caught %@: %@", [exception name], [exception reason]);
         return;
-    }        
-    
+    }
+
     NSWindow* prefsWindow = [prefsController window];
     if (!prefsWindow) {
         return;
     }
-    
+
     NSTabView* sourceTabView = [[[settingsWindow contentView] subviews] objectAtIndex:0];
     if (!sourceTabView) {
         return;
@@ -197,7 +198,7 @@ listener {
     if (!item) {
         return;
     }
-    
+
     NSToolbar* toolbar = [prefsWindow toolbar];
     if (!toolbar) {
         return;
@@ -223,6 +224,7 @@ listener {
     // Store size of Visor preferences panel as it was set in IB
     NSTabView* sourceTabView = [[[settingsWindow contentView] subviews] objectAtIndex:0];
     NSTabViewItem* item = [sourceTabView tabViewItemAtIndex:0];
+
     prefPaneSize = [[item view] frame].size;
 }
 
@@ -250,7 +252,7 @@ listener {
     AUTO_LOGGER();
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSInteger mask = [ud integerForKey:@"TotalTerminalVisorHotKey2Mask"];
-    
+
     if (mask == NSAlternateKeyMask) {
         mask = NSCommandKeyMask;
     } else if (mask == NSCommandKeyMask) {
@@ -266,17 +268,18 @@ listener {
 -(void) updatePreferencesUIForHotkeys {
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSDictionary* hotkeys = [ud objectForKey:@"TotalTerminalShortcuts"];
+
     AUTO_LOGGERF(@"hotkeys=%@", hotkeys);
-    
+
     if (!hotkeys) return;
     preventShortcutUpdates_ = TRUE;
-    
+
     NSArray* keys = [hotkeys allKeys];
     for (size_t i = 0; i < [keys count]; ++i) {
         NSString* keyName = [keys objectAtIndex:i];
         NSDictionary* kd = [hotkeys objectForKey:keyName];
         KeyCombo combo = makeKeyComboFromDictionary(kd);
-        
+
         SRRecorderControl* recorder = (SRRecorderControl*)[preferencesView TotalTerminal_findSRRecorderFor:keyName];
         if (recorder) {
             [recorder setKeyCombo:combo];
@@ -306,13 +309,13 @@ listener {
     [modifierIcon1_ setNeedsDisplay:YES];
     [modifierIcon2_ setImage:modifiersIcon];
     [modifierIcon2_ setNeedsDisplay:YES];
-    
+
     if ([TotalTerminal hasVisorProfile]) {
         [createProfileButton_ setEnabled:NO];
     } else {
         [createProfileButton_ setEnabled:YES];
     }
-    
+
     [self updatePreferencesUIForHotkeys];
 }
 

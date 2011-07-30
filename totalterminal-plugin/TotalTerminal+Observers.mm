@@ -10,7 +10,7 @@
 -(void) registerObservers {
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
-    
+
     // watch for hotkey changes
     [udc addObserver:self forKeyPath:@"values.TotalTerminalShowStatusItem" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorHotKey" options:0 context:nil];
@@ -31,9 +31,9 @@
     [udc addObserver:self forKeyPath:@"values.TotalTerminalShortcuts" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.TotalTerminalUsePreReleases" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorPinned" options:0 context:nil];
-    
+
     // ----------
-    [[[self class] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:@"UpdateBackground"];
+    [[[self class ] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:@"UpdateBackground"];
 }
 
 -(void) observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context {
@@ -90,7 +90,7 @@
         [self updateAnimationAlpha];
         [self updateShouldShowTransparencyAlert];
     }
-    
+
     [self updateMainMenuState];
     [self updateStatusMenu];
     [self updateHotKeyRegistration];

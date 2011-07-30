@@ -1,6 +1,6 @@
 #import "TotalTerminal.h"
 
 @interface TotalTerminal (Debug)
-+(bool) initDebugSubsystems;
-+(void) injectFScript;
++(bool)initDebugSubsystems;
++(void)injectFScript;
 @end

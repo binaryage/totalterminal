@@ -9,7 +9,7 @@ NSDictionary* makeKeyModifiersDictionary(NSInteger code, NSUInteger flags) {
 
 NSInteger readKeyFromDictionary(NSDictionary* dictionary) {
     NSNumber* x = [dictionary objectForKey:@"KeyCode"];
-    
+
     if (!x) return -1;
     if (![x respondsToSelector:@selector(intValue)]) return -1;
     return [x intValue];
@@ -17,7 +17,7 @@ NSInteger readKeyFromDictionary(NSDictionary* dictionary) {
 
 NSUInteger readModifiersFromDictionary(NSDictionary* dictionary) {
     NSNumber* x = [dictionary objectForKey:@"Modifiers"];
-    
+
     if (!x) return -1;
     if (![x respondsToSelector:@selector(unsignedIntValue)]) return 0;
     return [x unsignedIntValue];
@@ -25,7 +25,7 @@ NSUInteger readModifiersFromDictionary(NSDictionary* dictionary) {
 
 KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey) {
     KeyCombo res;
-    
+
     res.flags = readModifiersFromDictionary(hotkey);
     res.code = readKeyFromDictionary(hotkey);
     return res;

@@ -1,8 +1,8 @@
 /*******************************************************************************
- JRSwizzle.h
- Copyright (c) 2007 Jonathan 'Wolf' Rentzsch: <http://rentzsch.com>
- Some rights reserved: <http://opensource.org/licenses/mit-license.php>
- 
+   JRSwizzle.h
+   Copyright (c) 2007 Jonathan 'Wolf' Rentzsch: <http://rentzsch.com>
+   Some rights reserved: <http://opensource.org/licenses/mit-license.php>
+
  ***************************************************************************/
 
 #import <Foundation/Foundation.h>

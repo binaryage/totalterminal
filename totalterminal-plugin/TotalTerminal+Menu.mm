@@ -19,7 +19,7 @@
 
 -(NSMenuItem*) findMenuItem:(NSMenu*)menu withSelector:(SEL)selector {
     size_t count = [menu numberOfItems];
-    
+
     for (size_t i = 0; i < count; ++i) {
         NSMenuItem* item = [menu itemAtIndex:i];
         if (!item) continue;
@@ -31,7 +31,7 @@
 
 -(size_t) findMenuItemIndex:(NSMenu*)menu withSelector:(SEL)selector {
     size_t count = [menu numberOfItems];
-    
+
     for (size_t i = 0; i < count; ++i) {
         NSMenuItem* item = [menu itemAtIndex:i];
         if (!item) continue;
@@ -47,11 +47,11 @@
     } else {
         NSString* key = SRKeyEquivalentForKeyCode(combo.code, combo.flags);
         [menuItem setKeyEquivalent:key];
-        
+
         // The NSShiftKeyMask constant is only used in conjunction with special keys, such as the F1 and F2 function keys,
         // and navigation keys like Page Up, Home, and arrow keys. It is not used for letters or symbols painted on the
         // key caps. As another example, use @"#" as the key equivalent instead of using @"3" with the NSShiftKeyMask set.
-        
+
         NSUInteger flags = combo.flags;
         if (![key isEqualToString:[key lowercaseString]]) {
             flags &= ~NSShiftKeyMask;
@@ -67,7 +67,7 @@
 -(void) updateMainMenuWindowState:(NSMenu*)menu {
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSMenuItem* menuItem;
-    
+
     menuItem = [menu itemWithTag:4101]; // Pin Visor
     if (menuItem) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorPinned"]) {
@@ -81,9 +81,9 @@
 
 -(void) updateMainMenuState {
     NSMenu* menu = [NSApp mainMenu];
-    
+
     AUTO_LOGGER();
-    
+
     NSInteger menuIndex;
     NSMenuItem* viewMenuItem = [menu itemAtIndex:4]; // @"Window"
     DCHECK(viewMenuItem);

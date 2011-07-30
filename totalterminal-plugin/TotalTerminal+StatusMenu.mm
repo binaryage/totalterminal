@@ -4,7 +4,7 @@
 
 -(void) initStatusMenu {
     DCHECK(!statusItem);
-    
+
     AUTO_LOGGER();
     [self updateStatusMenu];
 }
@@ -16,12 +16,12 @@
     NSStatusBar* bar = [NSStatusBar systemStatusBar];
     statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
     [statusItem retain];
-    
+
     [statusItem setHighlightMode:YES];
     [statusItem setTarget:self];
     [statusItem setAction:@selector(toggleVisor:)];
     [statusItem setDoubleAction:@selector(toggleVisor:)];
-    
+
     [statusItem setMenu:statusMenu];
     [self updateStatusMenu];
 }
@@ -67,7 +67,7 @@
 
 -(void) updateStatusMenu {
     static bool firstTime = true;
-    
+
     if (firstTime) {
         NSMenuItem* item;
         item = [[NSMenuItem alloc] initWithTitle:(@"Show Visor") action:@selector(toggleVisor:) keyEquivalent:@""];
@@ -89,7 +89,7 @@
         [updateItem setTarget:self];
         [statusMenu insertItem:updateItem atIndex:4];
         [statusMenu insertItem:[NSMenuItem separatorItem] atIndex:5];
-        
+
 #ifdef _DEBUG_MODE
         NSMenuItem* crashItem = [[NSMenuItem alloc] initWithTitle:@"Crash me!" action:@selector(crashMe:) keyEquivalent:@""];
         [crashItem setTarget:self];
@@ -99,7 +99,7 @@
         [statusMenu addItem:exitItem];
 #endif
     }
-    
+
     // update first menu item
     NSMenuItem* showItem = [statusMenu itemAtIndex:0];
     BOOL status = [self status];
@@ -114,7 +114,7 @@
         [statusItem setImage:inactiveIcon];
         [showItem setTitle:(@"Open Visor")];
     }
-    
+
     firstTime = false;
 }
 

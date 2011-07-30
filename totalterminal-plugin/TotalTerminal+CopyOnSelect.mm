@@ -4,8 +4,8 @@
 #import "TotalTerminal+CopyOnSelect.h"
 
 @implementation NSView (TotalTerminal)
--(void) SMETHOD(TTView, mouseUp):(NSEvent*)theEvent {
-    [self SMETHOD(TTView, mouseUp):theEvent];
+-(void) SMETHOD (TTView, mouseUp):(NSEvent*)theEvent {
+    [self SMETHOD (TTView, mouseUp):theEvent];
     bool copyOnSelect = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalCopyOnSelect"];
     if (!copyOnSelect) return;
     NSString* selectedText = [[(id) self performSelector:@selector(selectedText)] retain];

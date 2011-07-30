@@ -69,8 +69,8 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
 -(NSWindow*)background;
 -(void)setBackground:(NSWindow*)newBackground;
 -(BOOL)isHidden;
--(BOOL) isVisorWindow:(id)win;
--(BOOL) status;
+-(BOOL)isVisorWindow:(id)win;
+-(BOOL)status;
 
 -(NSSize)originalPreferencesSize;
 -(void)setOriginalPreferencesSize:(NSSize)size;
@@ -83,7 +83,7 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
 -(IBAction)showPrefs:(id)sender;
 -(IBAction)visitHomepage:(id)sender;
 -(IBAction)updateMe:(id)sender;
--(IBAction) createVisorProfile:(id)sender;
+-(IBAction)createVisorProfile:(id)sender;
 
 @property (readonly, nonatomic) NSNumber* shouldShowTransparencyAlert;
 @end

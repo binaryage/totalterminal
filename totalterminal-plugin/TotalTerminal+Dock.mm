@@ -3,7 +3,7 @@
 @implementation TotalTerminal (Dock)
 -(void) setupDockIcon {
     BOOL hasOriginalIcon = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalDontCustomizeDockIcon"];
-    
+
     if (!hasOriginalIcon) {
         if (!isActiveAlternativeIcon) {
             isActiveAlternativeIcon = TRUE;

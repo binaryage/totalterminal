@@ -4,6 +4,7 @@
 
 -(bool) isCurrentylyActive {
     NSRunningApplication* app = [NSRunningApplication currentApplication];
+
     DCHECK(app);
     if (!app) return false;
     return [app isActive];
@@ -61,7 +62,7 @@
     id wins = [[NSClassFromString (@"TTApplication")sharedApplication] windows];
     int winCount = [wins count];
     int i;
-    
+
     for (i = 0; i < winCount; i++) {
         id win = [wins objectAtIndex:i];
         if (!win) continue;
@@ -70,7 +71,7 @@
                 [win close];
             } @catch (NSException* exception) {
                 ERROR(@"closeExistingWindows: Caught %@: %@", [exception name], [exception reason]);
-            }        
+            }
         }
     }
 }
@@ -78,17 +79,18 @@
 +(BOOL) hasVisorProfile {
     id profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
+
     return !!visorProfile;
 }
 
 +(id) getVisorProfile {
     id profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
+
     if (visorProfile) {
         return visorProfile;
     }
     return [profileManager defaultProfile];
 }
-
 
 @end

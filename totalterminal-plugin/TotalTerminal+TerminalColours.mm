@@ -23,12 +23,12 @@ static NSString* colourKeys[] = {
     @"brightWhiteColour",
 };
 
-//@interface NSObject (TTAppPrefsController_Methods)
-//+(id) sharedPreferencesController;
-//@end
+// @interface NSObject (TTAppPrefsController_Methods)
+// +(id) sharedPreferencesController;
+// @end
 
 @implementation NSView (TotalTerminal)
--(id) SMETHOD(TTView, colorForANSIColor):(unsigned int)index;
+-(id) SMETHOD (TTView, colorForANSIColor):(unsigned int)index;
 {
     id colour = nil;
 
@@ -36,10 +36,10 @@ static NSString* colourKeys[] = {
         colour = [[self performSelector:@selector(profile)] valueForKey:colourKeys[index]];
     }
 
-    return colour ? : [self SMETHOD(TTView, colorForANSIColor):index];
+    return colour ? : [self SMETHOD (TTView, colorForANSIColor):index];
 }
 
--(id) SMETHOD(TTView, colorForANSIColor):(unsigned int)index adjustedRelativeToColor:(id)arg2;
+-(id) SMETHOD (TTView, colorForANSIColor):(unsigned int)index adjustedRelativeToColor:(id)arg2;
 {
     id colour = nil;
 
@@ -47,7 +47,7 @@ static NSString* colourKeys[] = {
         colour = [[self performSelector:@selector(profile)] valueForKey:colourKeys[index]];
     }
 
-    return colour ? : [self SMETHOD(TTView, colorForANSIColor):index adjustedRelativeToColor:arg2];
+    return colour ? : [self SMETHOD (TTView, colorForANSIColor):index adjustedRelativeToColor:arg2];
 }
 @end
 
@@ -75,7 +75,7 @@ static NSString* colourKeys[] = {
     NSMutableDictionary* values = [self valueForKey:@"values"];
     id colour = [values objectForKey:key];
 
-    if ([colour isKindOfClass:[NSData class]]) {
+    if ([colour isKindOfClass:[NSData class ]]) {
         // We can’t swizzle initWithPropertyListRepresentation before the settings are loaded
         // so we need to check and unarchive data here
         [self setColour:[NSUnarchiver unarchiveObjectWithData:colour] forKey:key];
@@ -96,14 +96,14 @@ static NSString* colourKeys[] = {
     These two are swizzled so that we can use bindings to set the colour values
     from the nib
  */
--(id) SMETHOD(TTProfile, valueForKey):(NSString*)key {
+-(id) SMETHOD (TTProfile, valueForKey):(NSString*)key {
     if ([key hasSuffix:@"Colour"]) return [self colourForKey:key];
-    else return [self SMETHOD(TTProfile, valueForKey):key];
+    else return [self SMETHOD (TTProfile, valueForKey):key];
 }
 
--(void) SMETHOD(TTProfile, setValue):(id)value forKey:(NSString*)key {
+-(void) SMETHOD (TTProfile, setValue):(id)value forKey:(NSString*)key {
     if ([key hasSuffix:@"Colour"]) [self setColour:value forKey:key];
-    else [self SMETHOD(TTProfile, setValue):value forKey:key];
+    else [self SMETHOD (TTProfile, setValue):value forKey:key];
 }
 
 // ==================
@@ -111,8 +111,8 @@ static NSString* colourKeys[] = {
 // ==================
 
 // Save our custom colours into the profile plist
--(id) SMETHOD(TTProfile, propertyListRepresentation) {
-    NSMutableDictionary* plist = [[self SMETHOD(TTProfile, propertyListRepresentation)] mutableCopy];
+-(id) SMETHOD (TTProfile, propertyListRepresentation) {
+    NSMutableDictionary* plist = [[self SMETHOD (TTProfile, propertyListRepresentation)] mutableCopy];
     size_t index;
 
     for (index = 0; index < sizeof(colourKeys) / sizeof(colourKeys[0]); index++) {
@@ -122,12 +122,13 @@ static NSString* colourKeys[] = {
 
     return [plist autorelease];
 }
+
 @end
 
 @implementation NSWindowController (PrefsWindowDidLoad)
 // Add the “More…” button to the text preferences section
--(void) SMETHOD(TTAppPrefsController, windowDidLoad) {
-    [self SMETHOD(TTAppPrefsController, windowDidLoad)];
+-(void) SMETHOD (TTAppPrefsController, windowDidLoad) {
+    [self SMETHOD (TTAppPrefsController, windowDidLoad)];
 
     id prefsController = [NSClassFromString (@"TTAppPrefsController")sharedPreferencesController];
     NSView* windowSettingsView = [[[prefsController valueForKey:@"tabView"] tabViewItemAtIndex:1] view];
@@ -147,18 +148,19 @@ static NSString* colourKeys[] = {
     }
     [configureButton release];
 }
+
 @end
 
 @implementation TotalTerminal (TotalTerminal)
 +(void) loadTerminalColours {
     AUTO_LOGGER();
-    
+
     SWIZZLE(TTProfile, valueForKey:);
-    SWIZZLE(TTProfile, setValue:forKey:);
+    SWIZZLE(TTProfile, setValue: forKey:);
     SWIZZLE(TTProfile, propertyListRepresentation);
 
     SWIZZLE(TTView, colorForANSIColor:);
-    SWIZZLE(TTView, colorForANSIColor:adjustedRelativeToColor:);
+    SWIZZLE(TTView, colorForANSIColor: adjustedRelativeToColor:);
 
     SWIZZLE(TTAppPrefsController, windowDidLoad);
     LOG(@"TerminalColours installed");

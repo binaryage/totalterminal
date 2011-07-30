@@ -1,5 +1,5 @@
 #import "TotalTerminal.h"
 
 @interface TotalTerminal (Dock)
--(void) setupDockIcon;
+-(void)setupDockIcon;
 @end
