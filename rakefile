@@ -23,8 +23,8 @@ TMP_BIN_TOTALTERMINAL_FRAMEWORKS = File.join(TMP_BIN_DIR, 'TotalTerminal.app/Con
 
 PLUGIN_INFO_PLIST = File.join(TMP_DIR, 'totalterminal-plugin', 'Info.plist')
 PLUGIN_VISOR_M = File.join(TMP_DIR, 'totalterminal-plugin', 'TotalTerminal.mm')
+PLUGIN_PREFERENCES_MM = File.join(TMP_DIR, 'totalterminal-plugin', 'TotalTerminal+Preferences.mm')
 PLUGIN_VISOR_XIB = File.join(TMP_DIR, 'totalterminal-i18n', 'plugin', 'TotalTerminal.xib')
-PLUGIN_TOTALTERMINAL_H = File.join(TMP_DIR, 'totalterminal-plugin', 'plugin', 'TotalTerminal.h')
 OSAX_INFO_PLIST = File.join(TMP_DIR, 'totalterminal-osax', 'Info.plist')
 SPARKLE_PCH = File.join(TMP_DIR, 'sparkle', 'Sparkle.pch')
 
@@ -257,6 +257,7 @@ task :release do
         patch(PLUGIN_VISOR_XIB, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
         patch(PLUGIN_INFO_PLIST, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
         patch(PLUGIN_VISOR_M, [['##VERSION##', $version], ['##REVISION##', $short_revision], ['##SHA##', $revision]])
+        patch(PLUGIN_PREFERENCES_MM, [['##VERSION##', $version], ['##REVISION##', $short_revision], ['##SHA##', $revision]])
         patch(OSAX_INFO_PLIST, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
         patch(SPARKLE_PCH, [['##SPARKLE_BUNDLE_IDENTIFIER##', "com.binaryage.totalterminal.sparkle"]])
         
