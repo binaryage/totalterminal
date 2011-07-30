@@ -307,6 +307,12 @@ listener {
     [modifierIcon2_ setImage:modifiersIcon];
     [modifierIcon2_ setNeedsDisplay:YES];
     
+    if ([TotalTerminal hasVisorProfile]) {
+        [createProfileButton_ setEnabled:NO];
+    } else {
+        [createProfileButton_ setEnabled:YES];
+    }
+    
     [self updatePreferencesUIForHotkeys];
 }
 

@@ -31,6 +31,7 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
     IBOutlet ModifierButtonImageView* modifierIcon1_;
     IBOutlet ModifierButtonImageView* modifierIcon2_;
     IBOutlet NSView* preferencesView;
+    IBOutlet NSButton* createProfileButton_;
     GTMCarbonHotKey* hotKey_;
     GTMCarbonHotKey* escapeHotKey;
     NSUInteger hotModifiers_;
@@ -82,6 +83,7 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
 -(IBAction)showPrefs:(id)sender;
 -(IBAction)visitHomepage:(id)sender;
 -(IBAction)updateMe:(id)sender;
+-(IBAction) createVisorProfile:(id)sender;
 
 @property (readonly, nonatomic) NSNumber* shouldShowTransparencyAlert;
 @end

@@ -118,4 +118,51 @@
     *((char*)0) = 0;
 }
 
+-(IBAction) createVisorProfile:(id)sender {
+    AUTO_LOGGERF(@"sender=%@", sender);
+    id profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
+    id visorProfile = [profileManager profileWithName:@"Visor"];
+    if (visorProfile) {
+        INFO(@"Visor profile already exists.");
+        return;
+    }
+    
+    // create visor profile in case it does not exist yet, use startup profile as a template
+    id startupProfile = [profileManager startupProfile];
+    visorProfile = [startupProfile copyWithZone:nil];
+    
+    // apply Darwin's preferred Visor settings
+    NSData *plistData;
+    NSString *error;
+    NSPropertyListFormat format;
+    id plist;
+    
+    NSString* filename = @"Visor-SnowLeopard";
+    if (terminalVersion()>=FIRST_LION_VERSION) {
+        filename = @"Visor-Lion";
+    }
+    
+    NSString *path = [[NSBundle bundleForClass:[TotalTerminal class]] pathForResource:filename ofType:@"terminal"]; 
+    plistData = [NSData dataWithContentsOfFile:path]; 
+    plist = [NSPropertyListSerialization propertyListFromData:plistData mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
+    if (!plist) {
+        LOG(@"Error reading plist from file '%s', error = '%s'", [path UTF8String], [error UTF8String]);
+        [error release];
+        [visorProfile release]; 
+        return;
+    }
+    [visorProfile setPropertyListRepresentation:plist];
+    
+    // set profile into manager
+    [profileManager setProfile:visorProfile forName:@"Visor"];
+    [visorProfile release]; 
+
+    // apply visor profile to the opening window
+    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    if ([tt window]) {
+        [[[tt window] windowController] applyProfileToAllShellsInWindow:visorProfile];
+        [tt updatePreferencesUI];
+    }
+}
+
 @end

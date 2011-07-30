@@ -31,6 +31,8 @@
 		26C7384F11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		D62204AF1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */; };
+		D62A1D1C13E4B7F100221A33 /* Visor-Lion.terminal in Resources */ = {isa = PBXBuildFile; fileRef = D62A1D1A13E4B7F100221A33 /* Visor-Lion.terminal */; };
+		D62A1D1D13E4B7F100221A33 /* Visor-SnowLeaopard.terminal in Resources */ = {isa = PBXBuildFile; fileRef = D62A1D1B13E4B7F100221A33 /* Visor-SnowLeaopard.terminal */; };
 		D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C167FFE841241C02AAC07 /* AppKit.framework */; };
 		D6716ED210659A6300970560 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6716ED110659A6300970560 /* WebKit.framework */; };
 		D6716FBD1065B54100970560 /* Control.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6716FBC1065B54100970560 /* Control.pdf */; };
@@ -152,6 +154,8 @@
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+TerminalColours.h"; sourceTree = "<group>"; };
 		D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+TerminalColours.mm"; sourceTree = "<group>"; };
+		D62A1D1A13E4B7F100221A33 /* Visor-Lion.terminal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Visor-Lion.terminal"; path = "../totalterminal-i18n/plugin/Visor-Lion.terminal"; sourceTree = "<group>"; };
+		D62A1D1B13E4B7F100221A33 /* Visor-SnowLeaopard.terminal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Visor-SnowLeaopard.terminal"; path = "../totalterminal-i18n/plugin/Visor-SnowLeaopard.terminal"; sourceTree = "<group>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = "../totalterminal-i18n/plugin/Control.pdf"; sourceTree = "<group>"; };
 		D671706A1065D14300970560 /* RestoreApp.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RestoreApp.scpt; path = "../totalterminal-i18n/plugin/RestoreApp.scpt"; sourceTree = "<group>"; };
@@ -290,6 +294,8 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D62A1D1A13E4B7F100221A33 /* Visor-Lion.terminal */,
+				D62A1D1B13E4B7F100221A33 /* Visor-SnowLeaopard.terminal */,
 				D6AF5AB913E35F9B00C44014 /* ModifiersCommand.png */,
 				D6AF5ABA13E35F9B00C44014 /* ModifiersControl.png */,
 				D6AF5ABB13E35F9B00C44014 /* ModifiersOption.png */,
@@ -622,6 +628,8 @@
 				D6AF5ABE13E35F9B00C44014 /* ModifiersControl.png in Resources */,
 				D6AF5ABF13E35F9B00C44014 /* ModifiersOption.png in Resources */,
 				D6AF5AC013E35F9B00C44014 /* ModifiersShift.png in Resources */,
+				D62A1D1C13E4B7F100221A33 /* Visor-Lion.terminal in Resources */,
+				D62A1D1D13E4B7F100221A33 /* Visor-SnowLeaopard.terminal in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
