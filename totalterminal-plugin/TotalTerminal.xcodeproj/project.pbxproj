@@ -16,6 +16,7 @@
 				D6C7F70513D6531C00DAC2BC /* Debug Install */,
 			);
 			dependencies = (
+				D66A092213E746DD0030CD39 /* PBXTargetDependency */,
 				D6C7F70313D64C7200DAC2BC /* PBXTargetDependency */,
 			);
 			name = TotalTerminal.app;
@@ -87,6 +88,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D66A091F13E746A80030CD39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D66A091713E746A80030CD39 /* CrashWatcher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D685C57613A36BE000A23F94;
+			remoteInfo = CrashWatcher;
+		};
+		D66A092113E746DD0030CD39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D66A091713E746A80030CD39 /* CrashWatcher.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D6BDB635139E1B6F00501FAA;
+			remoteInfo = CrashWatcher;
+		};
 		D6C7F6F613D64BEA00DAC2BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
@@ -156,6 +171,7 @@
 		D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+TerminalColours.mm"; sourceTree = "<group>"; };
 		D62A1D1A13E4B7F100221A33 /* Visor-Lion.terminal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Visor-Lion.terminal"; path = "../totalterminal-i18n/plugin/Visor-Lion.terminal"; sourceTree = "<group>"; };
 		D62A1D1B13E4B7F100221A33 /* Visor-SnowLeaopard.terminal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Visor-SnowLeaopard.terminal"; path = "../totalterminal-i18n/plugin/Visor-SnowLeaopard.terminal"; sourceTree = "<group>"; };
+		D66A091713E746A80030CD39 /* CrashWatcher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CrashWatcher.xcodeproj; path = ../crashwatcher/CrashWatcher.xcodeproj; sourceTree = "<group>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = "../totalterminal-i18n/plugin/Control.pdf"; sourceTree = "<group>"; };
 		D671706A1065D14300970560 /* RestoreApp.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RestoreApp.scpt; path = "../totalterminal-i18n/plugin/RestoreApp.scpt"; sourceTree = "<group>"; };
@@ -271,6 +287,7 @@
 		089C166AFE841209C02AAC07 /* Visor */ = {
 			isa = PBXGroup;
 			children = (
+				D66A08DC13E7467B0030CD39 /* Tools */,
 				D6757D5813D69AFC00F2FB8D /* Sparkle.framework */,
 				D6C7F6D613D64B7700DAC2BC /* Frameworks */,
 				08FB77AFFE84173DC02AAC07 /* Sources */,
@@ -402,6 +419,22 @@
 				D6FB34420F3844D80067F941 /* TotalTerminalShared.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		D66A08DC13E7467B0030CD39 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				D66A091713E746A80030CD39 /* CrashWatcher.xcodeproj */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
+		D66A091813E746A80030CD39 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D66A092013E746A80030CD39 /* TotalFinderCrashWatcher.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D6AF5A7B13E2FB0400C44014 /* Logger */ = {
@@ -556,6 +589,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = D66A091813E746A80030CD39 /* Products */;
+					ProjectRef = D66A091713E746A80030CD39 /* CrashWatcher.xcodeproj */;
+				},
+				{
 					ProductGroup = D6C7F6EA13D64BEA00DAC2BC /* Products */;
 					ProjectRef = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
 				},
@@ -569,6 +606,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D66A092013E746A80030CD39 /* TotalFinderCrashWatcher.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = TotalFinderCrashWatcher.app;
+			remoteRef = D66A091F13E746A80030CD39 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D6C7F6F713D64BEA00DAC2BC /* Sparkle.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -648,7 +692,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TTINSTALLER_SRC=\"$PROJECT_DIR/../totalterminal-installer\"\nTTBIN=\"$PROJECT_DIR/../bin\"\nTTAPP=\"$TTBIN/TotalTerminal.app\"\nTTOSAX=\"$TTBIN/TotalTerminal.osax\"\nTTBUNDLE=\"$TTOSAX/Contents/Resources/TotalTerminal.bundle\"\nTTBINARY=\"$TTBUNDLE/Contents/MacOS/TotalTerminal\"\nTTRESOURCES=\"$TTBUNDLE/Contents/Resources\"\nTTFRAMEWORKS=\"$TTBUNDLE/Contents/Frameworks\"\n\necho \"assembling final products in $TTBIN\"\n\nmkdir -p \"$TTBIN\"\n\nrm -rf \"$TTAPP\"\ncp -Rf \"$TTINSTALLER_SRC/TotalTerminal.app/\" \"$TTAPP\"\n\nrm -rf \"$TTOSAX\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.osax/\" \"$TTOSAX\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.bundle/\" \"$TTBUNDLE\"\n\nmkdir -p \"$TTFRAMEWORKS\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/Sparkle.framework\" \"$TTFRAMEWORKS\"\n\n# WARNING! may break autoupdater if done incorectly\necho \"com.binaryage.totalterminal.sparkle\"\nSPARKLE_PLIST=\"$TTFRAMEWORKS/Sparkle.framework/Resources/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.binaryage.totalterminal.sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleName\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleName string Sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleExecutable\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleExecutable string Sparkle\" \"$SPARKLE_PLIST\"\n\ninstall_name_tool -change \"/Library/Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"@loader_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"$TTBINARY\"\n\nexit 0";
+			shellScript = "TTINSTALLER_SRC=\"$PROJECT_DIR/../totalterminal-installer\"\nTTBIN=\"$PROJECT_DIR/../bin\"\nTTAPP=\"$TTBIN/TotalTerminal.app\"\nTTOSAX=\"$TTBIN/TotalTerminal.osax\"\nTTBUNDLE=\"$TTOSAX/Contents/Resources/TotalTerminal.bundle\"\nTTBINARY=\"$TTBUNDLE/Contents/MacOS/TotalTerminal\"\nTTRESOURCES=\"$TTBUNDLE/Contents/Resources\"\nTTFRAMEWORKS=\"$TTBUNDLE/Contents/Frameworks\"\nTTCRASHWATCHER=\"$TTRESOURCES/TotalTerminalCrashWatcher.app\"\n\necho \"assembling final products in $TTBIN\"\n\nmkdir -p \"$TTBIN\"\n\nrm -rf \"$TTAPP\"\ncp -Rf \"$TTINSTALLER_SRC/TotalTerminal.app/\" \"$TTAPP\"\n\nrm -rf \"$TTOSAX\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.osax/\" \"$TTOSAX\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.bundle/\" \"$TTBUNDLE\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/CrashWatcher.app/\" \"$TTCRASHWATCHER\"\n\nCRASHWATCHER_PLIST=\"$TTCRASHWATCHER/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.binaryage.totalterminal.crashwatcher\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ##VERSION##\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :TargetApp TotalTerminal\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CrashLogPrefix Terminal\" \"$CRASHWATCHER_PLIST\"\n\nmkdir -p \"$TTFRAMEWORKS\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/Sparkle.framework\" \"$TTFRAMEWORKS\"\n\n# WARNING! may break autoupdater if done incorectly\necho \"com.binaryage.totalterminal.sparkle\"\nSPARKLE_PLIST=\"$TTFRAMEWORKS/Sparkle.framework/Resources/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.binaryage.totalterminal.sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleName\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleName string Sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleExecutable\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleExecutable string Sparkle\" \"$SPARKLE_PLIST\"\n\ninstall_name_tool -change \"/Library/Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"@loader_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"$TTBINARY\"\n\nexit 0";
 		};
 		D6C7F70413D652C000DAC2BC /* Compile main.scpt */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -728,6 +772,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D66A092213E746DD0030CD39 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CrashWatcher;
+			targetProxy = D66A092113E746DD0030CD39 /* PBXContainerItemProxy */;
+		};
 		D6C7F70113D64C2E00DAC2BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Sparkle;

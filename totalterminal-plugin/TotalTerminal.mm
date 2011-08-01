@@ -15,8 +15,22 @@
     return plugin;
 }
 
++(void) launchCrashWatcher {
+    AUTO_LOGGER();
+
+#ifndef _DEBUG_MODE
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalDoNotLaunchCrashWatcher"]) {
+        NSString* path = [[NSBundle bundleForClass:[self class ]] pathForResource:@"TotalTerminalCrashWatcher" ofType:@"app"];
+        INFO(@"Launching TotalTerminalCrashWatcher from '%@'", path);
+        [[NSWorkspace sharedWorkspace] launchApplication:path];
+    }
+#endif
+}
+
 +(void) install {
     AUTO_LOGGER();
+    
+    [self launchCrashWatcher];
 
     [self initDebugSubsystems];
 
