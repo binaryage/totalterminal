@@ -10,3 +10,6 @@
 [submodule "totalterminal-i18n"]
 	path = totalterminal-i18n
 	url = git://github.com/binaryage/totalterminal-i18n.git
+[submodule "crashwatcher"]
+	path = crashwatcher
+	url = git://github.com/binaryage/crashwatcher.git

@@ -372,6 +372,7 @@ task :retag do
     retag_submodule(tags, "totalterminal-i18n")
     retag_submodule(tags, "totalterminal-installer")
     retag_submodule(tags, "totalterminal-osax")
+    # NO! retag_submodule(tags, "crashwatcher") # crashwatcher is shared between TotalTerminal and TotalFinder
     
     `git push --tags`
 end
@@ -394,6 +395,10 @@ task :pull do
         puts "in " + Dir.pwd
         sys("git pull")
     end
+    Dir.chdir("crashwatcher") do
+        puts "in " + Dir.pwd
+        sys("git pull")
+    end
     puts "in " + Dir.pwd
     sys("git pull")
 end
@@ -413,6 +418,10 @@ task :push do
         sys("git push")
     end
     Dir.chdir("sparkle") do
+        puts "in " + Dir.pwd
+        sys("git push")
+    end
+    Dir.chdir("crashwatcher") do
         puts "in " + Dir.pwd
         sys("git push")
     end
