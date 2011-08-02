@@ -432,7 +432,7 @@
 		D66A091813E746A80030CD39 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D66A092013E746A80030CD39 /* TotalFinderCrashWatcher.app */,
+				D66A092013E746A80030CD39 /* CrashWatcher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -606,10 +606,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D66A092013E746A80030CD39 /* TotalFinderCrashWatcher.app */ = {
+		D66A092013E746A80030CD39 /* CrashWatcher.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = TotalFinderCrashWatcher.app;
+			path = CrashWatcher.app;
 			remoteRef = D66A091F13E746A80030CD39 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
