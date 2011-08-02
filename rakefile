@@ -373,6 +373,7 @@ task :retag do
     retag_submodule(tags, "totalterminal-installer")
     retag_submodule(tags, "totalterminal-osax")
     # NO! retag_submodule(tags, "crashwatcher") # crashwatcher is shared between TotalTerminal and TotalFinder
+    # NO! retag_submodule(tags, "sparkle") # sparkle is shared between TotalTerminal and TotalFinder
     
     `git push --tags`
 end
