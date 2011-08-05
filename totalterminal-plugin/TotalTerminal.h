@@ -47,8 +47,6 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
     NSImage* modifiersControl_;
     NSImage* modifiersCommand_;
     NSImage* modifiersShift_;
-    NSScreen* cachedScreen;
-    NSString* cachedPosition;
     NSString* lastPosition;
     NSString* restoreAppAppleScriptSource;
     NSDictionary* scriptError;

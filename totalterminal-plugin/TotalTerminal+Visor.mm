@@ -386,8 +386,6 @@
         float offset = 1.0f;
         if (isHidden) offset = 0.0f;
         LOG(@"resetWindowPlacement %@ %f", window_, offset);
-        [self cacheScreen];
-        [self cachePosition];
         [self applyVisorPositioning];
         [self slideWindows:!isHidden fast:YES];
     } else {
@@ -395,23 +393,26 @@
     }
 }
 
--(void) cachePosition {
-    cachedPosition = [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorPosition"];
+-(NSString*) position {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorPosition"];
 }
 
--(void) cacheScreen {
+-(NSScreen*) screen {
     int screenIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"TotalTerminalVisorScreen"];
     NSArray* screens = [NSScreen screens];
-
-    if (!((screenIndex > 0) && (screenIndex < [screens count]))) screenIndex = 0;
-    cachedScreen = [screens objectAtIndex:screenIndex];
-    LOG(@"Cached screen %d %@", screenIndex, cachedScreen);
+    if (screenIndex >= [screens count]) {
+        screenIndex = 0;
+    }
+    if ([screens count]<=0) {
+        return nil; // safety net
+    }
+    return [screens objectAtIndex:screenIndex];
 }
 
 // offset==0.0 means window is "hidden" above top screen edge
 // offset==1.0 means window is visible right under top screen edge
 -(void) placeWindow:(id)win offset:(float)offset {
-    NSScreen* screen = cachedScreen;
+    NSScreen* screen = [self screen];
     NSRect screenRect = [screen frame];
     NSRect frame = [win frame];
     int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
@@ -419,16 +420,17 @@
     if (screen == [[NSScreen screens] objectAtIndex:0]) {
         shift = 21;                                                  // menu area
     }
-    if ([cachedPosition hasPrefix:@"Top"]) {
+    NSString* position = [self position];
+    if ([position hasPrefix:@"Top"]) {
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - round(offset * (NSHeight(frame) + shift));
     }
-    if ([cachedPosition hasPrefix:@"Left"]) {
+    if ([position hasPrefix:@"Left"]) {
         frame.origin.x = screenRect.origin.x - NSWidth(frame) + round(offset * NSWidth(frame));
     }
-    if ([cachedPosition hasPrefix:@"Right"]) {
+    if ([position hasPrefix:@"Right"]) {
         frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - round(offset * NSWidth(frame));
     }
-    if ([cachedPosition hasPrefix:@"Bottom"]) {
+    if ([position hasPrefix:@"Bottom"]) {
         frame.origin.y = screenRect.origin.y - NSHeight(frame) + round(offset * NSHeight(frame));
     }
     [win setFrame:frame display:YES];
@@ -471,7 +473,7 @@
 -(void) applyVisorPositioning {
     NSDisableScreenUpdates();
     [self setupExposeTags:window_];
-    NSScreen* screen = cachedScreen;
+    NSScreen* screen = [self screen];
     NSRect screenRect = [screen frame];
     NSString* position = [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorPosition"];
     if (![position isEqualToString:lastPosition]) {
@@ -618,8 +620,6 @@
     if (!isHidden) return;
     isHidden = false;
     [self updateStatusMenu];
-    [self cacheScreen]; // performs screen pointer caching at this point
-    [self cachePosition];
     [self storePreviouslyActiveApp];
     [NSApp activateIgnoringOtherApps:YES];
     [window_ makeKeyAndOrderFront:self];
