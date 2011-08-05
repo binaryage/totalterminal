@@ -175,24 +175,14 @@
 
 -(BOOL) SMETHOD (TTApplication, applicationShouldHandleReopen):(id)fp8 hasVisibleWindows:(BOOL)fp12 {
     AUTO_LOGGER();
+    
+    // XLOG(@"%@", [NSThread callStackSymbols]);
+    
     TotalTerminal* tt = [TotalTerminal sharedInstance];
-
-    if (![tt reopenVisor] && ![self mainTerminalWindow]) {
-        [self newShell:nil];
+    if ([tt reopenVisor]) {
+        return NO;
     }
-
     return [self SMETHOD (TTApplication, applicationShouldHandleReopen):fp8 hasVisibleWindows:(BOOL)fp12];
-}
-
--(id) SMETHOD (TTApplication, mainTerminalWindow) {
-    BOOL showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorShowOnReopen"];
-    id currentWindow = [self SMETHOD (TTApplication, mainTerminalWindow)];
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
-
-    if (!showOnReopen && [[tt window] isEqual:currentWindow]) {
-        currentWindow = nil;
-    }
-    return currentWindow;
 }
 
 @end
@@ -604,9 +594,11 @@
     BOOL showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorShowOnReopen"];
 
     if (!showOnReopen) {
+        LOG(@"  no-op because showOnReopen is false");
         return NO;
     }
     if (!isHidden) {
+        LOG(@"  no-op because the Visor is already visible");
         return NO;
     }
     [self toggleVisor:NO];
@@ -1053,7 +1045,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
     SWIZZLE(TTApplication, sendEvent:);
     SWIZZLE(TTApplication, applicationShouldHandleReopen: hasVisibleWindows:);
-// SWIZZLE(TTApplication, mainTerminalWindow); // TODO: this is causing troubles when quiting terminal with running processes under Lion
 
     LOG(@"Visor installed");
 }
