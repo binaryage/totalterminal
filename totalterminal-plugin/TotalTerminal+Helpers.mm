@@ -15,13 +15,12 @@
     if ([bundleIdentifier compare:@"com.apple.Terminal"]) {
         previouslyActiveAppPID_ = [[activeAppDict objectForKey:@"NSApplicationProcessIdentifier"] intValue];
     }
-    LOG(@"  -> pid=%d", previouslyActiveAppPID_);
+    LOG(@"  remember pid=%d", previouslyActiveAppPID_);
 }
 
 -(void) restorePreviouslyActiveApp {
-    AUTO_LOGGER();
+    AUTO_LOGGERF(@"pid=%d", previouslyActiveAppPID_);
     if (!previouslyActiveAppPID_) return;
-    LOG(@"restorePreviouslyActiveApp %d", previouslyActiveAppPID_);
     id app = [NSRunningApplication runningApplicationWithProcessIdentifier:previouslyActiveAppPID_];
     LOG(@"  ... activating %@", app);
     [app activateWithOptions:0];
@@ -29,13 +28,9 @@
 }
 
 +(void) closeExistingWindows {
+    AUTO_LOGGER();
     id wins = [[NSClassFromString (@"TTApplication")sharedApplication] windows];
-    int winCount = [wins count];
-    int i;
-
-    for (i = 0; i < winCount; i++) {
-        id win = [wins objectAtIndex:i];
-        if (!win) continue;
+    for (id win in wins) {
         if ([[win className] isEqualToString:@"TTWindow"]) {
             @try {
                 [win close];
@@ -49,14 +44,12 @@
 +(BOOL) hasVisorProfile {
     id profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
-
     return !!visorProfile;
 }
 
 +(id) getVisorProfile {
     id profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
-
     if (visorProfile) {
         return visorProfile;
     }

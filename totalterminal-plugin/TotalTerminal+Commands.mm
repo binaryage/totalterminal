@@ -65,7 +65,7 @@
             if (![self isCurrentylyActive]) {
                 [NSApp activateIgnoringOtherApps:YES];
             }
-            // imagine visor window + one classic terminal window, when classic window has key status, we want out visor window to steal key status first time the toggle is executed
+            // imagine visor window + one classic terminal window, when classic window has key status, we want our visor window to steal key status first time the toggle is executed
             bool isKey = [window_ isKeyWindow];
             if (isKey) {
                 [self hideVisor:false];
