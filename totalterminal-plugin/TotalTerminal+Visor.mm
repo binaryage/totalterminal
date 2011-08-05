@@ -326,7 +326,7 @@
     CGSConnection cid;
     CGSWindow wid;
     CGSWindowTag tags[2];
-    bool showOnEverySpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalOnEverySpace"];
+    bool showOnEverySpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorOnEverySpace"];
 
     wid = [win windowNumber];
     if (wid > 0) {
