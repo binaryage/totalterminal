@@ -366,7 +366,13 @@
 
     [self setWindow:win];
 
-    [window_ setLevel:NSMainMenuWindowLevel - 1];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorWindowOnHighLevel"]) {
+        // https://github.com/binaryage/totalterminal/issues/15
+        [window_ setLevel:NSFloatingWindowLevel];
+    } else {
+        [window_ setLevel:NSMainMenuWindowLevel - 1];
+    }
+
     [window_ setOpaque:NO];
 
     [self updateStatusMenu];
