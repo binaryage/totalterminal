@@ -319,4 +319,10 @@
     [self updatePreferencesUIForHotkeys];
 }
 
+-(void) inputSourceChanged {
+    AUTO_LOGGER();
+    [self updatePreferencesUI];
+    [preferencesView TotalTerminal_refreshSRRecorders];
+}
+
 @end

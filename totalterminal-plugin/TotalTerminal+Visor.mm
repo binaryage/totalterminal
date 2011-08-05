@@ -261,6 +261,7 @@
     [dnc removeObserver:self name:NSWindowDidBecomeMainNotification object:window_];
     [dnc removeObserver:self name:NSWindowDidResignMainNotification object:window_];
     [dnc removeObserver:self name:NSWindowWillCloseNotification object:window_];
+    [dnc removeObserver:self name:NSApplicationDidChangeScreenParametersNotification object:nil];
 
     [window_ release];
     window_ = inWindow;
@@ -271,6 +272,7 @@
         [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window_];
         [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window_];
         [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window_];
+        [dnc addObserver:self selector:@selector(didChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
     } else {
         isHidden = YES;
     }
@@ -741,14 +743,8 @@
     isMain = true;
 }
 
--(void) inputSourceChanged {
-    AUTO_LOGGER();
-    [self updatePreferencesUI];
-    [preferencesView TotalTerminal_refreshSRRecorders];
-}
-
 -(void) didChangeScreenScreenParameters:(id)sender {
-    LOG(@"didChangeScreenScreenParameters %@", sender);
+    AUTO_LOGGERF(@"sender=%@", sender);
     [self resetWindowPlacement];
 }
 
