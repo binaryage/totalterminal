@@ -14,8 +14,6 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>##VERSION##</string>
 	<key>NSPrincipalClass</key>
@@ -28,5 +26,9 @@
 	<string>dsa_pub.pem</string>
 	<key>CFBundleIconFile</key>
 	<string>TotalTerminal.icns</string>
+	<key>CFBundleShortVersionString</key>
+	<string>##VERSION##</string>
+	<key>CFBundleSignature</key>
+	<string>BAGE</string>
 </dict>
 </plist>
