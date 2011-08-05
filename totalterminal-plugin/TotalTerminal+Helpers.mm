@@ -4,32 +4,28 @@
 
 -(bool) isCurrentylyActive {
     NSRunningApplication* app = [NSRunningApplication currentApplication];
-
-    DCHECK(app);
-    if (!app) return false;
     return [app isActive];
 }
 
 -(void) storePreviouslyActiveApp {
-    LOG(@"storePreviouslyActiveApp");
+    AUTO_LOGGER();
     NSDictionary* activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
-    previouslyActiveAppPID = nil;
+    previouslyActiveAppPID_ = 0;
     NSString* bundleIdentifier = [activeAppDict objectForKey:@"NSApplicationBundleIdentifier"];
     if ([bundleIdentifier compare:@"com.apple.Terminal"]) {
-        previouslyActiveAppPID = [activeAppDict objectForKey:@"NSApplicationProcessIdentifier"];
+        previouslyActiveAppPID_ = [[activeAppDict objectForKey:@"NSApplicationProcessIdentifier"] intValue];
     }
-    LOG(@"  (10.6) -> %@", previouslyActiveAppPID);
+    LOG(@"  -> pid=%d", previouslyActiveAppPID_);
 }
 
 -(void) restorePreviouslyActiveApp {
-    if (!previouslyActiveAppPID) return;
-    LOG(@"restorePreviouslyActiveApp %@", previouslyActiveAppPID);
-    id app = [NSRunningApplication runningApplicationWithProcessIdentifier:[previouslyActiveAppPID intValue]];
-    if (app) {
-        LOG(@"  ... activating %@", app);
-        [app activateWithOptions:0];
-    }
-    previouslyActiveAppPID = nil;
+    AUTO_LOGGER();
+    if (!previouslyActiveAppPID_) return;
+    LOG(@"restorePreviouslyActiveApp %d", previouslyActiveAppPID_);
+    id app = [NSRunningApplication runningApplicationWithProcessIdentifier:previouslyActiveAppPID_];
+    LOG(@"  ... activating %@", app);
+    [app activateWithOptions:0];
+    previouslyActiveAppPID_ = 0;
 }
 
 +(void) closeExistingWindows {

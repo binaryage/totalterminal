@@ -78,7 +78,7 @@
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
 
-    previouslyActiveAppPath = nil;
+    previouslyActiveAppPID_= 0;
     isHidden = true;
     isMain = false;
     isKey = false;

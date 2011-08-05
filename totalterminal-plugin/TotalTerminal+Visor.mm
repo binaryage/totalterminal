@@ -450,7 +450,6 @@
 
 -(void) resetVisorWindowSize:(id)win {
     LOG(@"resetVisorWindowSize");
-    // 10.6 path
     // this block is needed to prevent "<NSSplitView>: the delegate <InterfaceController> was sent -splitView:resizeSubviewsWithOldSize: and left the subview frames in an inconsistent state" type of message
     // http://cocoadev.com/forums/comments.php?DiscussionID=1092
     // this issue is only on Snow Leopard (10.6), because it is newly using NSSplitViews
