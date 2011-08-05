@@ -54,8 +54,6 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
     NSString* restoreAppAppleScriptSource;
     NSDictionary* scriptError;
     BOOL ignoreResizeNotifications;
-    id runningApplicationClass_;
-    BOOL runningOnLeopard_;
     NSSize originalPreferencesSize;
     NSSize prefPaneSize;
     BOOL isActiveAlternativeIcon;

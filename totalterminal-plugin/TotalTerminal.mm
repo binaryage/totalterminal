@@ -70,15 +70,6 @@
 
     statusMenu = [[NSMenu alloc] initWithTitle:@"Status Menu"];
 
-    runningApplicationClass_ = NSClassFromString(@"NSRunningApplication"); // 10.6
-    runningOnLeopard_ = !runningApplicationClass_;
-    if (runningOnLeopard_) {
-        // 10.5 path
-        NSString* path = [[NSBundle bundleForClass:[self class ]] pathForResource:@"RestoreApp" ofType:@"scpt"];
-        restoreAppAppleScriptSource = [[NSString alloc] initWithContentsOfFile:path encoding:NSMacOSRomanStringEncoding error:NULL];
-        scriptError = [[NSDictionary alloc] init];
-    }
-
     [self setWindow:nil];
 
     activeIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorActive"]];

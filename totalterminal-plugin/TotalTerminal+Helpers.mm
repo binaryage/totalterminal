@@ -12,50 +12,24 @@
 
 -(void) storePreviouslyActiveApp {
     LOG(@"storePreviouslyActiveApp");
-    if (runningOnLeopard_) {
-        // 10.5 path
-        NSDictionary* activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
-        previouslyActiveAppPath = nil;
-        NSString* bundleIdentifier = [activeAppDict objectForKey:@"NSApplicationBundleIdentifier"];
-        if ([bundleIdentifier compare:@"com.apple.Terminal"]) {
-            previouslyActiveAppPath = [activeAppDict objectForKey:@"NSApplicationPath"];
-        }
-        LOG(@"  (10.5) -> %@", previouslyActiveAppPath);
-    } else {
-        // 10.6+ path
-        NSDictionary* activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
-        previouslyActiveAppPID = nil;
-        NSString* bundleIdentifier = [activeAppDict objectForKey:@"NSApplicationBundleIdentifier"];
-        if ([bundleIdentifier compare:@"com.apple.Terminal"]) {
-            previouslyActiveAppPID = [activeAppDict objectForKey:@"NSApplicationProcessIdentifier"];
-        }
-        LOG(@"  (10.6) -> %@", previouslyActiveAppPID);
+    NSDictionary* activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
+    previouslyActiveAppPID = nil;
+    NSString* bundleIdentifier = [activeAppDict objectForKey:@"NSApplicationBundleIdentifier"];
+    if ([bundleIdentifier compare:@"com.apple.Terminal"]) {
+        previouslyActiveAppPID = [activeAppDict objectForKey:@"NSApplicationProcessIdentifier"];
     }
+    LOG(@"  (10.6) -> %@", previouslyActiveAppPID);
 }
 
 -(void) restorePreviouslyActiveApp {
-    if (runningOnLeopard_) {
-        if (!previouslyActiveAppPath) return;
-        LOG(@"restorePreviouslyActiveApp %@", previouslyActiveAppPath);
-        // 10.5 path
-        // Visor crashes when trying to return focus to non-running application? (http://github.com/darwin/visor/issues#issue/12)
-        NSString* scriptSource = [[NSString alloc] initWithFormat:restoreAppAppleScriptSource, previouslyActiveAppPath];
-        NSAppleScript* appleScript = [[NSAppleScript alloc] initWithSource:scriptSource];
-        [appleScript executeAndReturnError:&scriptError];
-        [appleScript release];
-        [scriptSource release];
-        previouslyActiveAppPath = nil;
-    } else {
-        // 10.6+ path
-        if (!previouslyActiveAppPID) return;
-        LOG(@"restorePreviouslyActiveApp %@", previouslyActiveAppPID);
-        id app = [runningApplicationClass_ runningApplicationWithProcessIdentifier:[previouslyActiveAppPID intValue]];
-        if (app) {
-            LOG(@"  ... activating %@", app);
-            [app activateWithOptions:0];
-        }
-        previouslyActiveAppPID = nil;
+    if (!previouslyActiveAppPID) return;
+    LOG(@"restorePreviouslyActiveApp %@", previouslyActiveAppPID);
+    id app = [NSRunningApplication runningApplicationWithProcessIdentifier:[previouslyActiveAppPID intValue]];
+    if (app) {
+        LOG(@"  ... activating %@", app);
+        [app activateWithOptions:0];
     }
+    previouslyActiveAppPID = nil;
 }
 
 +(void) closeExistingWindows {
