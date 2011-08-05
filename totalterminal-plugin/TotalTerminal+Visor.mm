@@ -381,7 +381,8 @@
 }
 
 -(void) resetWindowPlacement {
-    lastPosition = nil;
+    [lastPosition_ release];
+    lastPosition_ = nil;
     if (window_) {
         float offset = 1.0f;
         if (isHidden) offset = 0.0f;
@@ -476,12 +477,13 @@
     NSScreen* screen = [self screen];
     NSRect screenRect = [screen frame];
     NSString* position = [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorPosition"];
-    if (![position isEqualToString:lastPosition]) {
+    if (![position isEqualToString:lastPosition_]) {
         // note: cursor may jump during this operation, so do it only in rare cases when position changes
         // for more info see http://github.com/darwindow/visor/issues#issue/27
         [self resetVisorWindowSize:window_];
     }
-    lastPosition = position;
+    [lastPosition_ release];
+    lastPosition_ = [position retain];
     LOG(@"applyVisorPositioning %@", position);
     int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
     if (screen == [[NSScreen screens] objectAtIndex:0]) {

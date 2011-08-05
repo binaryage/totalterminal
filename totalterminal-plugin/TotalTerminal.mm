@@ -65,6 +65,7 @@
 
     preventShortcutUpdates_ = FALSE;
     originalPreferencesSize.width = 0;
+    lastPosition_ = nil;
 
     [self refreshFeedURLInUpdater];
 
