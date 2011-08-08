@@ -26,6 +26,7 @@ PLUGIN_VISOR_M = File.join(TMP_DIR, 'totalterminal-plugin', 'TotalTerminal.mm')
 PLUGIN_PREFERENCES_MM = File.join(TMP_DIR, 'totalterminal-plugin', 'TotalTerminal+Preferences.mm')
 PLUGIN_VISOR_XIB = File.join(TMP_DIR, 'totalterminal-i18n', 'plugin', 'TotalTerminal.xib')
 OSAX_INFO_PLIST = File.join(TMP_DIR, 'totalterminal-osax', 'Info.plist')
+CRASHWATCHER_INFO_PLIST = File.join(TMP_DIR, 'crashwatcher', 'CrashWatcher-Info.plist')
 
 PUBLISH_PREFIX_URL = "http://downloads.binaryage.com"
 CHANGELOG_PREFIX_URL = "http://totalterminal.binaryage.com"
@@ -258,6 +259,8 @@ task :release do
         patch(PLUGIN_VISOR_M, [['##VERSION##', $version], ['##REVISION##', $short_revision], ['##SHA##', $revision]])
         patch(PLUGIN_PREFERENCES_MM, [['##VERSION##', $version], ['##REVISION##', $short_revision], ['##SHA##', $revision]])
         patch(OSAX_INFO_PLIST, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
+        patch(OSAX_INFO_PLIST, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
+        patch(CRASHWATCHER_INFO_PLIST, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
         
         sys("rm -rf \"#{TMP_BIN_DIR}\"") unless ENV["noclean"]
         sys("rm -rf ~/Library/Developer/Xcode/DerivedData/TotalTerminal-*") unless ENV["noclean"]
