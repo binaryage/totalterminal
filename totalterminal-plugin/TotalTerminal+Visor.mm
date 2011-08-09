@@ -175,9 +175,9 @@
 
 -(BOOL) SMETHOD (TTApplication, applicationShouldHandleReopen):(id)fp8 hasVisibleWindows:(BOOL)fp12 {
     AUTO_LOGGER();
-    
+
     // XLOG(@"%@", [NSThread callStackSymbols]);
-    
+
     TotalTerminal* tt = [TotalTerminal sharedInstance];
     if ([tt reopenVisor]) {
         return NO;
@@ -401,10 +401,11 @@
 -(NSScreen*) screen {
     int screenIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"TotalTerminalVisorScreen"];
     NSArray* screens = [NSScreen screens];
+
     if (screenIndex >= [screens count]) {
         screenIndex = 0;
     }
-    if ([screens count]<=0) {
+    if ([screens count] <= 0) {
         return nil; // safety net
     }
     return [screens objectAtIndex:screenIndex];
@@ -654,12 +655,12 @@
     if (background) {
         [[background contentView] stopRendering];
     }
-    
+
     // this is important to return focus some other classic Terminal window in case it was active prior Visor sliding down
     // => https://github.com/binaryage/totalterminal/issues/13 and http://getsatisfaction.com/binaryage/topics/return_focus_to_other_terminal_window
-    [window_ orderOut:self]; 
-    
-    [self restorePreviouslyActiveApp]; // this is no-op in case Terminal was active app prior Visor sliding down 
+    [window_ orderOut:self];
+
+    [self restorePreviouslyActiveApp]; // this is no-op in case Terminal was active app prior Visor sliding down
 }
 
 -(void) slideWindows:(BOOL)direction fast:(bool)fast {

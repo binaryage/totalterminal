@@ -29,7 +29,7 @@
 
 +(void) install {
     AUTO_LOGGER();
-    
+
     [self launchCrashWatcher];
 
     [self initDebugSubsystems];
@@ -79,7 +79,7 @@
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
 
-    previouslyActiveAppPID_= 0;
+    previouslyActiveAppPID_ = 0;
     isHidden = true;
     isMain = false;
     isKey = false;

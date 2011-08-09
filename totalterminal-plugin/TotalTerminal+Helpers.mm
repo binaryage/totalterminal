@@ -4,6 +4,7 @@
 
 -(bool) isCurrentylyActive {
     NSRunningApplication* app = [NSRunningApplication currentApplication];
+
     return [app isActive];
 }
 
@@ -44,12 +45,14 @@
 +(BOOL) hasVisorProfile {
     id profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
+
     return !!visorProfile;
 }
 
 +(id) getVisorProfile {
     id profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
+
     if (visorProfile) {
         return visorProfile;
     }
