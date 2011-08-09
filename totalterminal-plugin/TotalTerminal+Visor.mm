@@ -367,9 +367,9 @@
     bool showOnEverySpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorOnEverySpace"];
     
     if (showOnEverySpace) {
-        [window_ setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+        [window_ setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces|NSWindowCollectionBehaviorTransient|NSWindowCollectionBehaviorIgnoresCycle];
     } else {
-        [window_ setCollectionBehavior:NSWindowCollectionBehaviorDefault];
+        [window_ setCollectionBehavior:NSWindowCollectionBehaviorDefault|NSWindowCollectionBehaviorTransient|NSWindowCollectionBehaviorIgnoresCycle];
     }
 }
 
@@ -378,8 +378,8 @@
     if (!window_) {
         return;
     }
+    // https://github.com/binaryage/totalterminal/issues/15
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorWindowOnHighLevel"]) {
-        // https://github.com/binaryage/totalterminal/issues/15
         [window_ setLevel:NSFloatingWindowLevel];
     } else {
         [window_ setLevel:NSMainMenuWindowLevel - 1];
@@ -395,8 +395,6 @@
     [self setWindow:win];
     [self updateVisorWindowLevel];
     [self updateVisorWindowSpacesSettings];
-
-    [window_ setOpaque:NO];
 
     [self updateStatusMenu];
 }
@@ -650,11 +648,11 @@
     [window_ makeKeyAndOrderFront:self];
     [window_ setHasShadow:YES];
     [self applyVisorPositioning];
-    [window_ update];
     if (background) {
         [[background contentView] startRendering];
     }
     [NSApp activateIgnoringOtherApps:YES];
+    [window_ update];
     [self slideWindows:1 fast:fast];
     [window_ invalidateShadow];
     [window_ update];
