@@ -38,7 +38,6 @@
 		D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C167FFE841241C02AAC07 /* AppKit.framework */; };
 		D6716ED210659A6300970560 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6716ED110659A6300970560 /* WebKit.framework */; };
 		D6716FBD1065B54100970560 /* Control.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6716FBC1065B54100970560 /* Control.pdf */; };
-		D67170711065D19D00970560 /* RestoreApp.scpt in Resources */ = {isa = PBXBuildFile; fileRef = D671706A1065D14300970560 /* RestoreApp.scpt */; };
 		D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391740F93EB3F0037E3BC /* VisorActive.png */; };
 		D673917A0F93EB3F0037E3BC /* VisorInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391750F93EB3F0037E3BC /* VisorInactive.png */; };
 		D673917B0F93EB3F0037E3BC /* ToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391760F93EB3F0037E3BC /* ToolbarIcon.png */; };
@@ -175,7 +174,6 @@
 		D66A091713E746A80030CD39 /* CrashWatcher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CrashWatcher.xcodeproj; path = ../crashwatcher/CrashWatcher.xcodeproj; sourceTree = "<group>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = "../totalterminal-i18n/plugin/Control.pdf"; sourceTree = "<group>"; };
-		D671706A1065D14300970560 /* RestoreApp.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RestoreApp.scpt; path = "../totalterminal-i18n/plugin/RestoreApp.scpt"; sourceTree = "<group>"; };
 		D67391740F93EB3F0037E3BC /* VisorActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorActive.png; path = "../totalterminal-i18n/plugin/VisorActive.png"; sourceTree = "<group>"; };
 		D67391750F93EB3F0037E3BC /* VisorInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorInactive.png; path = "../totalterminal-i18n/plugin/VisorInactive.png"; sourceTree = "<group>"; };
 		D67391760F93EB3F0037E3BC /* ToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToolbarIcon.png; path = "../totalterminal-i18n/plugin/ToolbarIcon.png"; sourceTree = "<group>"; };
@@ -324,7 +322,6 @@
 				D6757D5613D69AB000F2FB8D /* dsa_pub.pem */,
 				07CA8BD612B499F600A6D8BF /* Error.png */,
 				07CA8A0612ADAC6C00A6D8BF /* Visor.qtz */,
-				D671706A1065D14300970560 /* RestoreApp.scpt */,
 				D6716FBC1065B54100970560 /* Control.pdf */,
 				D6F5F1E910521A9B0047CFF8 /* Configuration.xib */,
 				D67391740F93EB3F0037E3BC /* VisorActive.png */,
@@ -657,7 +654,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6757D6213D6B00600F2FB8D /* TotalTerminal.icns in Resources */,
-				D67170711065D19D00970560 /* RestoreApp.scpt in Resources */,
 				07CA8BD712B499F600A6D8BF /* Error.png in Resources */,
 				D6FB33E90F3843E20067F941 /* TotalTerminal.xib in Resources */,
 				D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */,
