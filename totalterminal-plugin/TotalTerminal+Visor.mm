@@ -677,11 +677,17 @@
         [[background contentView] stopRendering];
     }
 
-    // this is important to return focus some other classic Terminal window in case it was active prior Visor sliding down
-    // => https://github.com/binaryage/totalterminal/issues/13 and http://getsatisfaction.com/binaryage/topics/return_focus_to_other_terminal_window
-    [window_ orderOut:self];
-
-    [self restorePreviouslyActiveApp]; // this is no-op in case Terminal was active app prior Visor sliding down
+    {
+        // in case of Visor and classic Terminal.app window
+        // this will prevent a brief window blinking before final focus gets restored
+        ScopedNSDisableScreenUpdatesWithDelay disabler(0.1, __FUNCTION__);
+        
+        // this is important to return focus some other classic Terminal window in case it was active prior Visor sliding down
+        // => https://github.com/binaryage/totalterminal/issues/13 and http://getsatisfaction.com/binaryage/topics/return_focus_to_other_terminal_window
+        [window_ orderOut:self];
+        
+        [self restorePreviouslyActiveApp]; // this is no-op in case Terminal was active app prior Visor sliding down
+    }
 }
 
 -(void) slideWindows:(BOOL)direction fast:(bool)fast {
