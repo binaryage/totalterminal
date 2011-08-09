@@ -647,7 +647,6 @@
     isHidden = false;
     [self updateStatusMenu];
     [self storePreviouslyActiveApp];
-    [NSApp activateIgnoringOtherApps:YES];
     [window_ makeKeyAndOrderFront:self];
     [window_ setHasShadow:YES];
     [self applyVisorPositioning];
@@ -655,6 +654,7 @@
     if (background) {
         [[background contentView] startRendering];
     }
+    [NSApp activateIgnoringOtherApps:YES];
     [self slideWindows:1 fast:fast];
     [window_ invalidateShadow];
     [window_ update];
