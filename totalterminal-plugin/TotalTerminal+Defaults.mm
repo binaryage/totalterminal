@@ -133,6 +133,9 @@
     if (![ud objectForKey:@"TotalTerminalVisorPinned"]) {
         [ud setBool:NO forKey:@"TotalTerminalVisorPinned"];
     }
+    if (![ud objectForKey:@"TotalTerminalVisorWindowOnHighLevel"]) {
+        [ud setBool:NO forKey:@"TotalTerminalVisorWindowOnHighLevel"];
+    }
 }
 
 @end

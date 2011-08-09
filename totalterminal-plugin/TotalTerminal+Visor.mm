@@ -360,6 +360,19 @@
     return bckColor ? [bckColor alphaComponent] : 1.0;
 }
 
+-(void) updateVisorWindowLevel {
+    AUTO_LOGGER();
+    if (!window_) {
+        return;
+    }
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorWindowOnHighLevel"]) {
+        // https://github.com/binaryage/totalterminal/issues/15
+        [window_ setLevel:NSFloatingWindowLevel];
+    } else {
+        [window_ setLevel:NSMainMenuWindowLevel - 1];
+    }
+}
+
 -(void) adoptTerminal:(id)win {
     LOG(@"adoptTerminal window=%@", win);
     if (window_) {
@@ -367,13 +380,7 @@
     }
 
     [self setWindow:win];
-
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorWindowOnHighLevel"]) {
-        // https://github.com/binaryage/totalterminal/issues/15
-        [window_ setLevel:NSFloatingWindowLevel];
-    } else {
-        [window_ setLevel:NSMainMenuWindowLevel - 1];
-    }
+    [self updateVisorWindowLevel];
 
     [window_ setOpaque:NO];
 

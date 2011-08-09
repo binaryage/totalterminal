@@ -31,6 +31,7 @@
     [udc addObserver:self forKeyPath:@"values.TotalTerminalShortcuts" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.TotalTerminalUsePreReleases" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorPinned" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorWindowOnHighLevel" options:0 context:nil];
 
     // ----------
     [[[self class ] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:@"UpdateBackground"];
@@ -81,6 +82,9 @@
     }
     if ([keyPath isEqualToString:@"values.TotalTerminalVisorHotKey2Mask"]) {
         [self updatePreferencesUI];
+    }
+    if ([keyPath isEqualToString:@"values.TotalTerminalVisorWindowOnHighLevel"]) {
+        [self updateVisorWindowLevel];
     }
 
     // ----------
