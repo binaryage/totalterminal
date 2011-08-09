@@ -56,6 +56,7 @@
         [self resetWindowPlacement];
     }
     if ([keyPath isEqualToString:@"values.TotalTerminalVisorOnEverySpace"]) {
+        [self updateVisorWindowSpacesSettings];
         [self resetWindowPlacement];
     }
     if ([keyPath isEqualToString:@"values.TotalTerminalVisorHideOnEscape"]) {

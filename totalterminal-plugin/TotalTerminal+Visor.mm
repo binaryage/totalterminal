@@ -83,7 +83,6 @@
 -(NSRect) SMETHOD (TTWindowController, window):(NSWindow*)window willPositionSheet:(NSWindow*)sheet usingRect:(NSRect)rect {
     AUTO_LOGGER();
     TotalTerminal* tt = [TotalTerminal sharedInstance];
-    [tt setupExposeTags:sheet];
     return rect;
 }
 
@@ -360,6 +359,20 @@
     return bckColor ? [bckColor alphaComponent] : 1.0;
 }
 
+-(void) updateVisorWindowSpacesSettings {
+    AUTO_LOGGER();
+    if (!window_) {
+        return;
+    }
+    bool showOnEverySpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorOnEverySpace"];
+    
+    if (showOnEverySpace) {
+        [window_ setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+    } else {
+        [window_ setCollectionBehavior:NSWindowCollectionBehaviorDefault];
+    }
+}
+
 -(void) updateVisorWindowLevel {
     AUTO_LOGGER();
     if (!window_) {
@@ -381,6 +394,7 @@
 
     [self setWindow:win];
     [self updateVisorWindowLevel];
+    [self updateVisorWindowSpacesSettings];
 
     [window_ setOpaque:NO];
 
@@ -457,8 +471,8 @@
     }
 }
 
--(void) resetVisorWindowSize:(id)win {
-    LOG(@"resetVisorWindowSize");
+-(void) resetVisorWindowSize {
+    AUTO_LOGGER();
     // this block is needed to prevent "<NSSplitView>: the delegate <InterfaceController> was sent -splitView:resizeSubviewsWithOldSize: and left the subview frames in an inconsistent state" type of message
     // http://cocoadev.com/forums/comments.php?DiscussionID=1092
     // this issue is only on Snow Leopard (10.6), because it is newly using NSSplitViews
@@ -467,7 +481,7 @@
     safeFrame.origin.y = 0;
     safeFrame.size.width = 1000;
     safeFrame.size.height = 1000;
-    [win setFrame:safeFrame display:NO];
+    [window_ setFrame:safeFrame display:NO];
 
     // this is a better way of 10.5 path for Terminal on Snow Leopard
     // we may call returnToDefaultSize method on our window's view
@@ -480,19 +494,21 @@
 }
 
 -(void) applyVisorPositioning {
+    AUTO_LOGGER();
+    if (!window_) {
+        return; // safety net
+    }
     NSDisableScreenUpdates();
-    [self setupExposeTags:window_];
     NSScreen* screen = [self screen];
     NSRect screenRect = [screen frame];
     NSString* position = [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorPosition"];
     if (![position isEqualToString:lastPosition_]) {
         // note: cursor may jump during this operation, so do it only in rare cases when position changes
         // for more info see http://github.com/darwindow/visor/issues#issue/27
-        [self resetVisorWindowSize:window_];
+        [self resetVisorWindowSize];
     }
     [lastPosition_ release];
     lastPosition_ = [position retain];
-    LOG(@"applyVisorPositioning %@", position);
     int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
     if (screen == [[NSScreen screens] objectAtIndex:0]) {
         shift = 21;                                                  // menu area
