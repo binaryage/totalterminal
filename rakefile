@@ -303,13 +303,13 @@ task :release do
   puts "Don't forget: ".red+"git tag -a v#{$version} -m \"Release #{$version}\"".green
   puts "#{PUBLISH_PREFIX_URL}/TotalTerminal-#{$version}.dmg".blue
   
-  Dir.chdir(ROOT_DIR) do
-      sys("mkdir -p ttdata")
-      sys("mount -t smbfs //guest:@whale/Store/ttdata ttdata")
-      sys("rsync -av --delete release ttdata")
-      sys("umount ttdata")
-      sys("rm -rf ttdata")
-  end
+  # Dir.chdir(ROOT_DIR) do
+  #     sys("mkdir -p ttdata")
+  #     sys("mount -t smbfs //guest:@whale/Store/ttdata ttdata")
+  #     sys("rsync -av --delete release ttdata")
+  #     sys("umount ttdata")
+  #     sys("rm -rf ttdata")
+  # end
 end
   
 desc "removes intermediate build files"
