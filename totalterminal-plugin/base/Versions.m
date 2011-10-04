@@ -34,6 +34,9 @@ TSupportedTerminalVersions initializeTerminalVersion() {
     } else if ([terminalVersion isEqualToString:@"297"]) {
         // 10.7 (GM)
         version = v297;
+    } else if ([terminalVersion isEqualToString:@"299"]) {
+        // 10.7.2 update
+        version = v299;
     }
     if (version == vUnknown) {
         // try to parse it and detect historical version
