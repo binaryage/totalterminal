@@ -42,7 +42,6 @@
 		D673917A0F93EB3F0037E3BC /* VisorInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391750F93EB3F0037E3BC /* VisorInactive.png */; };
 		D673917B0F93EB3F0037E3BC /* ToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391760F93EB3F0037E3BC /* ToolbarIcon.png */; };
 		D6757D5713D69AB000F2FB8D /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = D6757D5613D69AB000F2FB8D /* dsa_pub.pem */; };
-		D6757D5913D69AFC00F2FB8D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6757D5813D69AFC00F2FB8D /* Sparkle.framework */; };
 		D6757D5E13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png in Resources */ = {isa = PBXBuildFile; fileRef = D6757D5D13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png */; };
 		D6757D6213D6B00600F2FB8D /* TotalTerminal.icns in Resources */ = {isa = PBXBuildFile; fileRef = D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */; };
 		D6757D6413D6B29300F2FB8D /* Terminal.icns in Resources */ = {isa = PBXBuildFile; fileRef = D6757D6313D6B29300F2FB8D /* Terminal.icns */; };
@@ -102,6 +101,13 @@
 			remoteGlobalIDString = D6BDB635139E1B6F00501FAA;
 			remoteInfo = CrashWatcher;
 		};
+		D676DE5014EFEFE10009E9A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55C14BB7136EEF1500649790;
+			remoteInfo = finish_installation;
+		};
 		D6C7F6F613D64BEA00DAC2BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
@@ -115,13 +121,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 61B5F90209C4CEE200B25A18;
 			remoteInfo = "Sparkle Test App";
-		};
-		D6C7F6FA13D64BEA00DAC2BC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D6C7F6E913D64BEA00DAC2BC /* Sparkle.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DAAEFC960DA571DF0051E0D0;
-			remoteInfo = "relaunch tool";
 		};
 		D6C7F6FC13D64BEA00DAC2BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -178,7 +177,6 @@
 		D67391750F93EB3F0037E3BC /* VisorInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VisorInactive.png; path = "../totalterminal-i18n/plugin/VisorInactive.png"; sourceTree = "<group>"; };
 		D67391760F93EB3F0037E3BC /* ToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToolbarIcon.png; path = "../totalterminal-i18n/plugin/ToolbarIcon.png"; sourceTree = "<group>"; };
 		D6757D5613D69AB000F2FB8D /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = ../keys/dsa_pub.pem; sourceTree = "<group>"; };
-		D6757D5813D69AFC00F2FB8D /* Sparkle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		D6757D5D13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ChangeThemeBackgroundColor.png; path = "../totalterminal-i18n/plugin/ChangeThemeBackgroundColor.png"; sourceTree = "<group>"; };
 		D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TotalTerminal.icns; path = "../totalterminal-i18n/plugin/TotalTerminal.icns"; sourceTree = "<group>"; };
 		D6757D6313D6B29300F2FB8D /* Terminal.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Terminal.icns; path = "../totalterminal-i18n/plugin/Terminal.icns"; sourceTree = "<group>"; };
@@ -271,7 +269,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6757D5913D69AFC00F2FB8D /* Sparkle.framework in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				D6716ED210659A6300970560 /* WebKit.framework in Frameworks */,
 				D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */,
@@ -287,7 +284,6 @@
 			isa = PBXGroup;
 			children = (
 				D66A08DC13E7467B0030CD39 /* Tools */,
-				D6757D5813D69AFC00F2FB8D /* Sparkle.framework */,
 				D6C7F6D613D64B7700DAC2BC /* Frameworks */,
 				08FB77AFFE84173DC02AAC07 /* Sources */,
 				32C88E010371C26100C91783 /* Other Sources */,
@@ -342,14 +338,7 @@
 				D6E5F58A13E205100069D886 /* base */,
 				D6E5F58613E204D20069D886 /* QSB */,
 				D6E5F57213E2045E0069D886 /* GTM */,
-				D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */,
-				D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */,
-				D6AF5A9113E2FF5500C44014 /* TotalTerminal+Shortcuts.mm */,
-				D6AF5A9013E2FF5500C44014 /* TotalTerminal+Shortcuts.h */,
-				D6FCDC671002BA42000FDA45 /* TotalTerminal+CopyOnSelect.h */,
-				D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.mm */,
-				26C7384D11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.h */,
-				26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm */,
+				D6AF5AB313E3166D00C44014 /* main.m */,
 				D68AA7000F371C810094AA92 /* TotalTerminal.h */,
 				D68AA7010F371C810094AA92 /* TotalTerminal.mm */,
 				D6AF5A9313E302C400C44014 /* TotalTerminal+Defaults.h */,
@@ -372,11 +361,18 @@
 				D6AF5AAE13E3154F00C44014 /* TotalTerminal+Dock.mm */,
 				D6AF5AB013E3156000C44014 /* TotalTerminal+Sparkle.h */,
 				D6AF5AB113E3156000C44014 /* TotalTerminal+Sparkle.mm */,
-				D6AF5AB313E3166D00C44014 /* main.m */,
 				D6AF5AB513E3171A00C44014 /* TotalTerminal+Features.h */,
 				D6AF5AB613E3171B00C44014 /* TotalTerminal+Features.mm */,
 				D69D315813E44CD50013A750 /* TotalTerminal+Menu.h */,
 				D69D315913E44CD50013A750 /* TotalTerminal+Menu.mm */,
+				D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */,
+				D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */,
+				D6AF5A9113E2FF5500C44014 /* TotalTerminal+Shortcuts.mm */,
+				D6AF5A9013E2FF5500C44014 /* TotalTerminal+Shortcuts.h */,
+				D6FCDC671002BA42000FDA45 /* TotalTerminal+CopyOnSelect.h */,
+				D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.mm */,
+				26C7384D11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.h */,
+				26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -475,9 +471,9 @@
 			children = (
 				D6C7F6F713D64BEA00DAC2BC /* Sparkle.framework */,
 				D6C7F6F913D64BEA00DAC2BC /* Sparkle Test App.app */,
-				D6C7F6FB13D64BEA00DAC2BC /* relaunch */,
 				D6C7F6FD13D64BEA00DAC2BC /* Sparkle Unit Tests.octest */,
 				D6C7F6FF13D64BEA00DAC2BC /* BinaryDelta */,
+				D676DE5114EFEFE10009E9A6 /* finish_installation.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -611,6 +607,13 @@
 			remoteRef = D66A091F13E746A80030CD39 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D676DE5114EFEFE10009E9A6 /* finish_installation.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = finish_installation.app;
+			remoteRef = D676DE5014EFEFE10009E9A6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D6C7F6F713D64BEA00DAC2BC /* Sparkle.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -623,13 +626,6 @@
 			fileType = wrapper.application;
 			path = "Sparkle Test App.app";
 			remoteRef = D6C7F6F813D64BEA00DAC2BC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D6C7F6FB13D64BEA00DAC2BC /* relaunch */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = relaunch;
-			remoteRef = D6C7F6FA13D64BEA00DAC2BC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D6C7F6FD13D64BEA00DAC2BC /* Sparkle Unit Tests.octest */ = {
