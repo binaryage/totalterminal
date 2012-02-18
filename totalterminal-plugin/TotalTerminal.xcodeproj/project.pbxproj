@@ -36,6 +36,7 @@
 		D62A1D1C13E4B7F100221A33 /* Visor-Lion.terminal in Resources */ = {isa = PBXBuildFile; fileRef = D62A1D1A13E4B7F100221A33 /* Visor-Lion.terminal */; };
 		D62A1D1D13E4B7F100221A33 /* Visor-SnowLeaopard.terminal in Resources */ = {isa = PBXBuildFile; fileRef = D62A1D1B13E4B7F100221A33 /* Visor-SnowLeaopard.terminal */; };
 		D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C167FFE841241C02AAC07 /* AppKit.framework */; };
+		D65192E014F013EB002B562B /* TotalTerminal+AutoSlide.mm in Sources */ = {isa = PBXBuildFile; fileRef = D65192DF14F013EB002B562B /* TotalTerminal+AutoSlide.mm */; };
 		D6716ED210659A6300970560 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6716ED110659A6300970560 /* WebKit.framework */; };
 		D6716FBD1065B54100970560 /* Control.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D6716FBC1065B54100970560 /* Control.pdf */; };
 		D67391790F93EB3F0037E3BC /* VisorActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D67391740F93EB3F0037E3BC /* VisorActive.png */; };
@@ -171,6 +172,8 @@
 		D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+TerminalColours.mm"; sourceTree = "<group>"; };
 		D62A1D1A13E4B7F100221A33 /* Visor-Lion.terminal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Visor-Lion.terminal"; path = "../totalterminal-i18n/plugin/Visor-Lion.terminal"; sourceTree = "<group>"; };
 		D62A1D1B13E4B7F100221A33 /* Visor-SnowLeaopard.terminal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Visor-SnowLeaopard.terminal"; path = "../totalterminal-i18n/plugin/Visor-SnowLeaopard.terminal"; sourceTree = "<group>"; };
+		D65192DE14F013EA002B562B /* TotalTerminal+AutoSlide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+AutoSlide.h"; sourceTree = "<group>"; };
+		D65192DF14F013EB002B562B /* TotalTerminal+AutoSlide.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+AutoSlide.mm"; sourceTree = "<group>"; };
 		D66A091713E746A80030CD39 /* CrashWatcher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CrashWatcher.xcodeproj; path = ../crashwatcher/CrashWatcher.xcodeproj; sourceTree = "<group>"; };
 		D6716ED110659A6300970560 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D6716FBC1065B54100970560 /* Control.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Control.pdf; path = "../totalterminal-i18n/plugin/Control.pdf"; sourceTree = "<group>"; };
@@ -375,6 +378,8 @@
 				D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.mm */,
 				26C7384D11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.h */,
 				26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm */,
+				D65192DE14F013EA002B562B /* TotalTerminal+AutoSlide.h */,
+				D65192DF14F013EB002B562B /* TotalTerminal+AutoSlide.mm */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -775,6 +780,7 @@
 				D6AF5AB713E3171B00C44014 /* TotalTerminal+Features.mm in Sources */,
 				D69D315A13E44CD50013A750 /* TotalTerminal+Menu.mm in Sources */,
 				D69D315D13E46F000013A750 /* ScreenUpdates.mm in Sources */,
+				D65192E014F013EB002B562B /* TotalTerminal+AutoSlide.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

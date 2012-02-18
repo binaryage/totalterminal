@@ -23,6 +23,9 @@
     if ([self shouldLoadFeature:@"Visor"]) {
         [self loadVisor];
     }
+    if ([self shouldLoadFeature:@"AutoSlide"]) {
+        [self loadAutoSlide];
+    }
 }
 
 @end
