@@ -45,7 +45,9 @@
     AUTO_LOGGER();
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     [self sanitizeDefaults:ud];
-    [self closeExistingWindows];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalCloseWindowsOnStart"]) {
+        [self closeExistingWindows];
+    }
 
     SWIZZLE(TTAppPrefsController, windowDidLoad);
     SWIZZLE(TTAppPrefsController, toolbar: itemForItemIdentifier: willBeInsertedIntoToolbar:);
