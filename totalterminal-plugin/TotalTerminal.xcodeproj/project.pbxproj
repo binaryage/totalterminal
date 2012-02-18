@@ -45,6 +45,7 @@
 		D6757D5E13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png in Resources */ = {isa = PBXBuildFile; fileRef = D6757D5D13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png */; };
 		D6757D6213D6B00600F2FB8D /* TotalTerminal.icns in Resources */ = {isa = PBXBuildFile; fileRef = D6757D6113D6AD1C00F2FB8D /* TotalTerminal.icns */; };
 		D6757D6413D6B29300F2FB8D /* Terminal.icns in Resources */ = {isa = PBXBuildFile; fileRef = D6757D6313D6B29300F2FB8D /* Terminal.icns */; };
+		D6761BD214EFF5E9009CD9D4 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6C7F6F713D64BEA00DAC2BC /* Sparkle.framework */; };
 		D68AA7020F371C810094AA92 /* TotalTerminal.mm in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* TotalTerminal.mm */; };
 		D69D315A13E44CD50013A750 /* TotalTerminal+Menu.mm in Sources */ = {isa = PBXBuildFile; fileRef = D69D315913E44CD50013A750 /* TotalTerminal+Menu.mm */; };
 		D69D315D13E46F000013A750 /* ScreenUpdates.mm in Sources */ = {isa = PBXBuildFile; fileRef = D69D315C13E46F000013A750 /* ScreenUpdates.mm */; };
@@ -269,6 +270,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6761BD214EFF5E9009CD9D4 /* Sparkle.framework in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				D6716ED210659A6300970560 /* WebKit.framework in Frameworks */,
 				D648D9FA106DBF7300EA640F /* AppKit.framework in Frameworks */,
