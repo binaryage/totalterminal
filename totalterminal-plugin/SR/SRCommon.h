@@ -15,10 +15,6 @@
 #import <Carbon/Carbon.h>
 #import <CoreServices/CoreServices.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #pragma mark Dummy class
 
 @interface SRDummyClass : NSObject { }
@@ -141,8 +137,6 @@ enum {
 // SRReadableString... X - X -
 // SRCharacter...      - X - -
 //
-
-NSString* SRKeyEquivalentForKeyCode(NSInteger keyCode, NSUInteger flags);
 NSString* SRStringForKeyCode(NSInteger keyCode);
 NSString* SRStringForCarbonModifierFlags(NSUInteger flags);
 NSString* SRStringForCarbonModifierFlagsAndKeyCode(NSUInteger flags, NSInteger keyCode);
@@ -196,7 +190,3 @@ FOUNDATION_STATIC_INLINE BOOL SRIsSpecialKey(NSInteger keyCode) {
 @interface SRSharedImageProvider : NSObject
 +(NSImage*)supportingImageWithName:(NSString*)name;
 @end
-
-#ifdef __cplusplus
-}
-#endif

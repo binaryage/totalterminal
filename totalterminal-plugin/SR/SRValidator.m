@@ -2,7 +2,7 @@
 // SRValidator.h
 // ShortcutRecorder
 //
-// Copyright 2006-2007 Contributors. All rights reserved.
+// Copyright 2006-2011 Contributors. All rights reserved.
 //
 // License: BSD
 //
@@ -10,10 +10,10 @@
 // David Dauer
 // Jesper
 // Jamie Kirkpatrick
+// Andy Kim
 
 #import "SRValidator.h"
 #import "SRCommon.h"
-#import "SRRecorderControl.h"
 
 @implementation SRValidator
 
@@ -62,11 +62,19 @@
     }
 
     // then our implementation...
-    NSArray* globalHotKeys;
+    CFArrayRef tempArray = NULL;
+    OSStatus err = noErr;
 
     // get global hot keys...
-    if (CopySymbolicHotKeys((CFArrayRef*)&globalHotKeys) != noErr) return YES;
+    err = CopySymbolicHotKeys(&tempArray);
 
+    if (err != noErr) return YES;
+
+    // Not copying the array like this results in a leak on according to the Leaks Instrument
+    NSArray* globalHotKeys = [NSArray arrayWithArray:(NSArray*)tempArray];
+
+    if (tempArray)
+        CFRelease(tempArray);
     NSEnumerator* globalHotKeysEnumerator = [globalHotKeys objectEnumerator];
     NSDictionary* globalHotKeyInfoDictionary;
     int32_t globalHotKeyFlags;
@@ -105,9 +113,9 @@
         if (globalHotKeyFlags & controlKey)
             globalCtrlMod = YES;
         NSString* localKeyString = SRStringForKeyCode(keyCode);
-        if (![localKeyString length]) {
-            continue;                            // compare unichar value and modifier flags
-        }
+        if (![localKeyString length]) return YES;
+
+        // compare unichar value and modifier flags
         if ((globalHotKeyCharCode == keyCode) &&
             (globalCommandMod == localCommandMod) &&
             (globalOptionMod == localOptionMod) &&
@@ -159,18 +167,12 @@
         localShiftMod = YES;
     if (flags & controlKey)
         localCtrlMod = YES;
-    SRRecorderControl* control = [[self delegate] delegate];
-
     while ((menuItem = [menuItemsEnumerator nextObject])) {
         // rescurse into all submenus...
         if ([menuItem hasSubmenu]) {
             if ([self isKeyCode:keyCode andFlags:flags takenInMenu:[menuItem submenu] error:error]) {
                 return YES;
             }
-        }
-
-        if ([menuItem tag] == [control menuTag]) {
-            continue;
         }
 
         if ((menuItemKeyEquivalent = [menuItem keyEquivalent]) &&
@@ -190,15 +192,10 @@
                 menuItemShiftMod = YES;
             if (menuItemModifierFlags & NSControlKeyMask)
                 menuItemCtrlMod = YES;
-            NSString* localKeyString = SRKeyEquivalentForKeyCode(keyCode, menuItemModifierFlags);
-            // Menu item key equivalents are nearly all stored without modifiers. The
-            // exception is shift, which is included in the key and not in the modifiers
-            // for printable characters (but not for stuff like arrow keys etc).
-            NSString* menuItemKeyEquivalentLowerCase = [menuItemKeyEquivalent lowercaseString];
-            menuItemShiftMod = menuItemShiftMod || ![menuItemKeyEquivalentLowerCase isEqualToString:menuItemKeyEquivalent];
+            NSString* localKeyString = SRStringForKeyCode(keyCode);
 
             // Compare translated keyCode and modifier flags
-            if (([menuItemKeyEquivalentLowerCase isEqualToString:localKeyString]) &&
+            if (([[menuItemKeyEquivalent uppercaseString] isEqualToString:localKeyString]) &&
                 (menuItemCommandMod == localCommandMod) &&
                 (menuItemOptionMod == localOptionMod) &&
                 (menuItemShiftMod == localShiftMod) &&
@@ -209,7 +206,7 @@
                                              SRStringForCarbonModifierFlagsAndKeyCode(flags, keyCode)];
                     NSString* recoverySuggestion = [NSString stringWithFormat:
                                                     SRLoc(@"The key combination \"%@\" can't be used because it's already used by the menu item \"%@\"."),
-                                                    SRStringForCarbonModifierFlagsAndKeyCode(flags, keyCode),
+                                                    SRReadableStringForCocoaModifierFlagsAndKeyCode(menuItemModifierFlags, keyCode),
                                                     [menuItem title]];
                     NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                               description, NSLocalizedDescriptionKey,

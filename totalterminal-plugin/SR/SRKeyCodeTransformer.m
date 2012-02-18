@@ -31,7 +31,8 @@ static NSArray* padKeysArray = nil;
 // ----------------------------------------------------------
 // initialize
 // ----------------------------------------------------------
-+(void) initialize {
++(void) initialize;
+{
     if (self != [SRKeyCodeTransformer class]) return;
 
     // Some keys need a special glyph
@@ -132,13 +133,6 @@ static NSArray* padKeysArray = nil;
 }
 
 // ----------------------------------------------------------
-// reloadCache
-// ----------------------------------------------------------
--(void) reloadCache:(id)sender {
-    [SRKeyCodeTransformer regenerateStringToKeyCodeMapping];
-}
-
-// ----------------------------------------------------------
 // transformedValue:
 // ----------------------------------------------------------
 -(id) transformedValue:(id)value {
@@ -161,10 +155,11 @@ static NSArray* padKeysArray = nil;
     CFDataRef layoutData;
     UInt32 keysDown = 0;
     layoutData = (CFDataRef)TISGetInputSourceProperty(tisSource, kTISPropertyUnicodeKeyLayoutData);
+
     CFRelease(tisSource);
 
+    // For non-unicode layouts such as Chinese, Japanese, and Korean, get the ASCII capable layout
     if (!layoutData) {
-        // problem japonskych a cinskych klavesnic ktere nemaji unicode keylayout, pouziju alespon US
         tisSource = TISCopyCurrentASCIICapableKeyboardLayoutInputSource();
         layoutData = (CFDataRef)TISGetInputSourceProperty(tisSource, kTISPropertyUnicodeKeyLayoutData);
         CFRelease(tisSource);
@@ -214,9 +209,9 @@ static NSArray* padKeysArray = nil;
 // ----------------------------------------------------------
 // regenerateStringToKeyCodeMapping:
 // ----------------------------------------------------------
-+(void) regenerateStringToKeyCodeMapping {
++(void) regenerateStringToKeyCodeMapping;
+{
     SRKeyCodeTransformer* transformer = [[[self alloc] init] autorelease];
-
     [stringToKeyCodeDict removeAllObjects];
 
     // loop over every keycode (0 - 127) finding its current string mapping...

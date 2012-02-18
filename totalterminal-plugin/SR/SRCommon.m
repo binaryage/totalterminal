@@ -2,7 +2,7 @@
 // SRCommon.m
 // ShortcutRecorder
 //
-// Copyright 2006-2007 Contributors. All rights reserved.
+// Copyright 2006-2011 Contributors. All rights reserved.
 //
 // License: BSD
 //
@@ -10,6 +10,7 @@
 // David Dauer
 // Jesper
 // Jamie Kirkpatrick
+// Andy Kim
 
 #import "SRCommon.h"
 #import "SRKeyCodeTransformer.h"
@@ -41,50 +42,6 @@ NSString* SRStringForKeyCode(NSInteger keyCode) {
     if (!keyCodeTransformer)
         keyCodeTransformer = [[SRKeyCodeTransformer alloc] init];
     return [keyCodeTransformer transformedValue:[NSNumber numberWithShort:keyCode]];
-}
-
-NSString* SRKeyEquivalentForKeyCode(NSInteger keyCode, NSUInteger flags) {
-    TISInputSourceRef layout = TISCopyCurrentKeyboardLayoutInputSource();
-    CFDataRef uchr = (CFDataRef)TISGetInputSourceProperty(layout, kTISPropertyUnicodeKeyLayoutData);
-
-    CFRelease(layout);
-
-    if (!uchr) {
-        // problem japonskych a cinskych klavesnic ktere nemaji unicode keylayout, pouziju alespon US
-        layout = TISCopyCurrentASCIICapableKeyboardLayoutInputSource();
-        uchr = (CFDataRef)TISGetInputSourceProperty(layout, kTISPropertyUnicodeKeyLayoutData);
-        CFRelease(layout);
-    }
-
-    if (!uchr) return @"";
-
-    UCKeyboardLayout* keyLayout = (UCKeyboardLayout*)CFDataGetBytePtr(uchr);
-
-    EventModifiers modifiers = 0;
-    if (flags & NSAlternateKeyMask)
-        modifiers |= optionKey;
-    if (flags & NSShiftKeyMask)
-        modifiers |= shiftKey;
-    if (flags & NSCommandKeyMask)
-        modifiers |= cmdKey;
-    if (flags & NSControlKeyMask)
-        modifiers |= controlKey;
-    UInt32 deadKeyState = 0;
-    OSStatus err = noErr;
-    UniCharCount maxStringLength = 4, actualStringLength;
-    UniChar unicodeString[4];
-    UCKeyTranslate(keyLayout,
-            (UInt16)keyCode,
-            kUCKeyActionDisplay,
-            modifiers >> 8,
-            LMGetKbdType(),
-            kUCKeyTranslateNoDeadKeysBit,
-            &deadKeyState,
-            maxStringLength,
-            &actualStringLength,
-            unicodeString);
-// DCHECK(err == noErr);
-    return [NSString stringWithCharacters:unicodeString length:1];
 }
 
 // ----------------------------------------------------------
@@ -219,8 +176,6 @@ NSString* SRCharacterForKeyCodeAndCocoaFlags(NSInteger keyCode, NSUInteger cocoa
     CFLocaleRef locale = CFLocaleCopyCurrent();
     [(id)CFMakeCollectable(locale) autorelease];     // Autorelease here so that it gets released no matter what
 
-    CFMutableStringRef resultString;
-
     TISInputSourceRef tisSource = TISCopyCurrentKeyboardInputSource();
     if (!tisSource) return FailWithNaiveString;
 
@@ -241,14 +196,19 @@ NSString* SRCharacterForKeyCodeAndCocoaFlags(NSInteger keyCode, NSUInteger cocoa
     if (err != noErr) return FailWithNaiveString;
 
     CFStringRef temp = CFStringCreateWithCharacters(kCFAllocatorDefault, unicodeString, 1);
-    resultString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, temp);
+    CFMutableStringRef mutableTemp = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, temp);
+
+    CFStringCapitalize(mutableTemp, locale);
+
+    NSString* resultString = [NSString stringWithString:(NSString*)mutableTemp];
+
     if (temp)
         CFRelease(temp);
-    CFStringCapitalize(resultString, locale);
-
+    if (mutableTemp)
+        CFRelease(mutableTemp);
     PUDNSLog(@"character: -%@-", (NSString*)resultString);
 
-    return (NSString*)resultString;
+    return resultString;
 }
 
 #pragma mark Animation Easing
