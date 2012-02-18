@@ -8,10 +8,7 @@
     
     // when selecting Terminal icon via CMD+TAB or clicking on icon in the dock while Terminal.app is not active app
     bool activationEvent = type == NSAppKitDefined && [event subtype] == NSApplicationActivatedEventType && [event modifierFlags] == 0x50;
-    // when clicking icon in the dock and Terminal.app is active app
-    bool reactivationEvent = type == NSSystemDefined && [event subtype] == 7 && [event modifierFlags] == 0x100 && [event data1] == 1 && [event data2] == 1;
-    if (activationEvent || reactivationEvent) {
-        NSLOG1(@"! %@", event);
+    if (activationEvent) {
         if ([[TotalTerminal sharedInstance] window] && [[TotalTerminal sharedInstance] isHidden]) {
             NSArray* windows = [[NSClassFromString (@"TTApplication")sharedApplication] windows];
             int count = 0;
