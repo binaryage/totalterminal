@@ -1,13 +1,15 @@
 /*
  * LoggerCommon.h
  *
- * version 1.0b9 2010-12-17
+ * version 1.0 2011-10-30
  *
- * Definitions common to NSLogger and NSLoggerClient for the binary messages format
+ * Definitions common to NSLogger Viewer and NSLoggerClient
+ * for the binary messages format
+ * https://github.com/fpillet/NSLogger
  *
  * BSD license follows (http://www.opensource.org/licenses/bsd-license.php)
- *
- * Copyright (c) 2010 Florent Pillet <fpillet@gmail.com> All Rights Reserved.
+ * 
+ * Copyright (c) 2010-2011 Florent Pillet All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -30,7 +32,7 @@
  * LIABILITY,  WHETHER  IN CONTRACT,  STRICT  LIABILITY,  OR TORT  (INCLUDING
  * NEGLIGENCE  OR OTHERWISE)  ARISING  IN ANY  WAY  OUT OF  THE  USE OF  THIS
  * SOFTWARE,   EVEN  IF   ADVISED  OF   THE  POSSIBILITY   OF  SUCH   DAMAGE.
- *
+ * 
  */
 
 /* NSLogger native binary message format:
@@ -64,48 +66,48 @@
  */
 
 // Constants for the "part key" field
-#define PART_KEY_MESSAGE_TYPE 0
-#define PART_KEY_TIMESTAMP_S 1                          // "seconds" component of timestamp
-#define PART_KEY_TIMESTAMP_MS 2                         // milliseconds component of timestamp (optional, mutually exclusive with PART_KEY_TIMESTAMP_US)
-#define PART_KEY_TIMESTAMP_US 3                         // microseconds component of timestamp (optional, mutually exclusive with PART_KEY_TIMESTAMP_MS)
-#define PART_KEY_THREAD_ID 4
-#define PART_KEY_TAG 5
-#define PART_KEY_LEVEL 6
-#define PART_KEY_MESSAGE 7
-#define PART_KEY_IMAGE_WIDTH 8                          // messages containing an image should also contain a part with the image size
-#define PART_KEY_IMAGE_HEIGHT 9                         // (this is mainly for the desktop viewer to compute the cell size without having to immediately decode the image)
-#define PART_KEY_MESSAGE_SEQ 10                         // the sequential number of this message which indicates the order in which messages are generated
-#define PART_KEY_FILENAME 11                                    // when logging, message can contain a file name
-#define PART_KEY_LINENUMBER 12                                  // as well as a line number
-#define PART_KEY_FUNCTIONNAME 13                        // and a function or method name
+#define	PART_KEY_MESSAGE_TYPE	0
+#define	PART_KEY_TIMESTAMP_S	1			// "seconds" component of timestamp
+#define PART_KEY_TIMESTAMP_MS	2			// milliseconds component of timestamp (optional, mutually exclusive with PART_KEY_TIMESTAMP_US)
+#define PART_KEY_TIMESTAMP_US	3			// microseconds component of timestamp (optional, mutually exclusive with PART_KEY_TIMESTAMP_MS)
+#define PART_KEY_THREAD_ID		4
+#define	PART_KEY_TAG			5
+#define	PART_KEY_LEVEL			6
+#define	PART_KEY_MESSAGE		7
+#define PART_KEY_IMAGE_WIDTH	8			// messages containing an image should also contain a part with the image size
+#define PART_KEY_IMAGE_HEIGHT	9			// (this is mainly for the desktop viewer to compute the cell size without having to immediately decode the image)
+#define PART_KEY_MESSAGE_SEQ	10			// the sequential number of this message which indicates the order in which messages are generated
+#define PART_KEY_FILENAME		11			// when logging, message can contain a file name
+#define PART_KEY_LINENUMBER		12			// as well as a line number
+#define PART_KEY_FUNCTIONNAME	13			// and a function or method name
 
 // Constants for parts in LOGMSG_TYPE_CLIENTINFO
-#define PART_KEY_CLIENT_NAME 20
-#define PART_KEY_CLIENT_VERSION 21
-#define PART_KEY_OS_NAME 22
-#define PART_KEY_OS_VERSION 23
-#define PART_KEY_CLIENT_MODEL 24                        // For iPhone, device model (i.e 'iPhone', 'iPad', etc)
-#define PART_KEY_UNIQUEID 25                                    // for remote device identification, part of LOGMSG_TYPE_CLIENTINFO
+#define PART_KEY_CLIENT_NAME	20
+#define PART_KEY_CLIENT_VERSION	21
+#define PART_KEY_OS_NAME		22
+#define PART_KEY_OS_VERSION		23
+#define PART_KEY_CLIENT_MODEL	24			// For iPhone, device model (i.e 'iPhone', 'iPad', etc)
+#define PART_KEY_UNIQUEID		25			// for remote device identification, part of LOGMSG_TYPE_CLIENTINFO
 
 // Area starting at which you may define your own constants
-#define PART_KEY_USER_DEFINED 100
+#define PART_KEY_USER_DEFINED	100
 
 // Constants for the "partType" field
-#define PART_TYPE_STRING 0                                      // Strings are stored as UTF-8 data
-#define PART_TYPE_BINARY 1                                      // A block of binary data
-#define PART_TYPE_INT16 2
-#define PART_TYPE_INT32 3
-#define PART_TYPE_INT64 4
-#define PART_TYPE_IMAGE 5                                       // An image, stored in PNG format
+#define	PART_TYPE_STRING		0			// Strings are stored as UTF-8 data
+#define PART_TYPE_BINARY		1			// A block of binary data
+#define PART_TYPE_INT16			2
+#define PART_TYPE_INT32			3
+#define	PART_TYPE_INT64			4
+#define PART_TYPE_IMAGE			5			// An image, stored in PNG format
 
 // Data values for the PART_KEY_MESSAGE_TYPE parts
-#define LOGMSG_TYPE_LOG 0                                       // A standard log message
-#define LOGMSG_TYPE_BLOCKSTART 1                        // The start of a "block" (a group of log entries)
-#define LOGMSG_TYPE_BLOCKEND 2                          // The end of the last started "block"
-#define LOGMSG_TYPE_CLIENTINFO 3                        // Information about the client app
-#define LOGMSG_TYPE_DISCONNECT 4                        // Pseudo-message on the desktop side to identify client disconnects
-#define LOGMSG_TYPE_MARK 5                                      // Pseudo-message that defines a "mark" that users can place in the log flow
+#define LOGMSG_TYPE_LOG			0			// A standard log message
+#define	LOGMSG_TYPE_BLOCKSTART	1			// The start of a "block" (a group of log entries)
+#define	LOGMSG_TYPE_BLOCKEND	2			// The end of the last started "block"
+#define LOGMSG_TYPE_CLIENTINFO	3			// Information about the client app
+#define LOGMSG_TYPE_DISCONNECT	4			// Pseudo-message on the desktop side to identify client disconnects
+#define LOGMSG_TYPE_MARK		5			// Pseudo-message that defines a "mark" that users can place in the log flow
 
 // Default Bonjour service identifiers
-#define LOGGER_SERVICE_TYPE_SSL CFSTR("_nslogger-ssl._tcp")
-#define LOGGER_SERVICE_TYPE CFSTR("_nslogger._tcp")
+#define LOGGER_SERVICE_TYPE_SSL	CFSTR("_nslogger-ssl._tcp")
+#define LOGGER_SERVICE_TYPE		CFSTR("_nslogger._tcp")
