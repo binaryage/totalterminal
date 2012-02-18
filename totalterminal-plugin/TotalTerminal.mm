@@ -11,7 +11,9 @@
 +(TotalTerminal*) sharedInstance {
     static TotalTerminal* plugin = nil;
 
-    if (plugin == nil) plugin = [[TotalTerminal alloc] init];
+    if (!plugin) {
+        plugin = [[TotalTerminal alloc] init];
+    }
     return plugin;
 }
 

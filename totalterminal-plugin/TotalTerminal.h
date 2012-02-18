@@ -22,6 +22,7 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
 
 @interface TotalTerminal : NSObject {
     NSWindow* window_;        // the one visorized terminal window (may be nil)
+    IBOutlet NSWindow* colorsWindow_;
     NSWindow* background; // background window for quartz animations (will be nil if not enabled in settings!)
     NSStatusItem* statusItem;
     IBOutlet NSMenu* statusMenu;
@@ -78,6 +79,10 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
 -(IBAction)visitHomepage:(id)sender;
 -(IBAction)updateMe:(id)sender;
 -(IBAction)createVisorProfile:(id)sender;
+
+// terminal colours feature
+-(IBAction)orderFrontColourConfiguration:(id)sender;
+-(IBAction)orderOutConfiguration:(id)sender;
 
 @property (readonly, nonatomic) NSNumber* shouldShowTransparencyAlert;
 @end

@@ -222,10 +222,29 @@
 
 -(void) storePreferencesPaneSize {
     // Store size of Visor preferences panel as it was set in IB
-    NSTabView* sourceTabView = [[[settingsWindow contentView] subviews] objectAtIndex:0];
+    NSView* contentView = [settingsWindow contentView];
+    if (!contentView) {
+        return; // safety net
+    }
+    NSArray* subviews = [contentView subviews];
+    if (!subviews || [subviews count]<=0) {
+        return; // safety net
+    }
+    
+    NSTabView* sourceTabView = [subviews objectAtIndex:0];
+    if (!sourceTabView || [[sourceTabView tabViewItems] count]<=0) {
+        return; // safety net
+    }
     NSTabViewItem* item = [sourceTabView tabViewItemAtIndex:0];
+    if (!item) {
+        return; // safety net
+    }
+    NSView* itemView = [item view];
+    if (!itemView) {
+        return; // safety net
+    }
 
-    prefPaneSize = [[item view] frame].size;
+    prefPaneSize = [itemView frame].size;
 }
 
 -(NSInteger) numberOfItemsInComboBox:(NSComboBox*)aComboBox {

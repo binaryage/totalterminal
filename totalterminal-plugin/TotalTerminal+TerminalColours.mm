@@ -23,10 +23,6 @@ static NSString* colourKeys[] = {
     @"brightWhiteColour",
 };
 
-// @interface NSObject (TTAppPrefsController_Methods)
-// +(id) sharedPreferencesController;
-// @end
-
 @implementation NSView (TotalTerminal)
 -(id) SMETHOD (TTView, colorForANSIColor):(unsigned int)index;
 {
@@ -126,6 +122,7 @@ static NSString* colourKeys[] = {
 @end
 
 @implementation NSWindowController (TotalTerminal)
+
 // Add the “More…” button to the text preferences section
 -(void) SMETHOD (TTAppPrefsController, windowDidLoad) {
     [self SMETHOD (TTAppPrefsController, windowDidLoad)];
@@ -136,16 +133,14 @@ static NSString* colourKeys[] = {
     NSView* textPrefsView = [[tabView tabViewItemAtIndex:0] view];
 
     NSButton* configureButton = [[NSButton alloc] init];
-    {
-        [configureButton setBezelStyle:NSRoundedBezelStyle];
-        [[configureButton cell] setControlSize:NSSmallControlSize];
-        [configureButton setTitle:@"More…"];
-        [configureButton sizeToFit];
-        [configureButton setTarget:[TotalTerminal sharedInstance]];
-        [configureButton setAction:@selector(orderFrontColourConfiguration:)];
-        [configureButton setFrameOrigin:NSMakePoint(233, 128)];
-        [textPrefsView addSubview:configureButton];
-    }
+    [configureButton setBezelStyle:NSRoundedBezelStyle];
+    [[configureButton cell] setControlSize:NSSmallControlSize];
+    [configureButton setTitle:@"More…"];
+    [configureButton sizeToFit];
+    [configureButton setTarget:[TotalTerminal sharedInstance]];
+    [configureButton setAction:@selector(orderFrontColourConfiguration:)];
+    [configureButton setFrameOrigin:NSMakePoint(233, 128)];
+    [textPrefsView addSubview:configureButton];
     [configureButton release];
 }
 
@@ -167,9 +162,11 @@ static NSString* colourKeys[] = {
     LOG(@"TerminalColours installed");
 }
 
--(void) orderFrontColourConfiguration:(id)sender {
-    if (![self window]) [NSBundle loadNibNamed:@"Configuration" owner:self];
-    [NSApp beginSheet:[self window] modalForWindow:[sender window] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+-(IBAction) orderFrontColourConfiguration:(id)sender {
+    if (!colorsWindow_) {
+        [NSBundle loadNibNamed:@"Configuration" owner:self];
+    }
+    [NSApp beginSheet:colorsWindow_ modalForWindow:[sender window] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
 }
 
 -(IBAction) orderOutConfiguration:(id)sender;
