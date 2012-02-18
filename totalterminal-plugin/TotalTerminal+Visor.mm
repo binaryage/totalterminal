@@ -442,17 +442,40 @@
     return [screens objectAtIndex:screenIndex];
 }
 
+- (NSRect)menubarFrame {
+    NSArray *screens = [NSScreen screens];
+    
+    if (!screens)
+        return NSZeroRect;
+    
+    // menubar is the 0th screen (according to the NSScreen docs)
+    NSScreen *mainScreen = [screens objectAtIndex:0];
+    NSRect frame = [mainScreen frame];
+    
+    // since the dock can only be on the bottom or the sides, calculate the difference
+    // between the frame and the visibleFrame at the top
+    NSRect visibleFrame = [mainScreen visibleFrame];
+    NSRect menubarFrame;
+    
+    menubarFrame.origin.x = NSMinX(frame);
+    menubarFrame.origin.y = NSMaxY(visibleFrame);
+    menubarFrame.size.width = NSWidth(frame);
+    menubarFrame.size.height = NSMaxY(frame) - NSMaxY(visibleFrame);
+    
+    return menubarFrame;
+}
+
 // offset==0.0 means window is "hidden" above top screen edge
 // offset==1.0 means window is visible right under top screen edge
 -(void) placeWindow:(id)win offset:(float)offset {
     NSScreen* screen = [self screen];
     NSRect screenRect = [screen frame];
     NSRect frame = [win frame];
-    int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
-
-    if (screen == [[NSScreen screens] objectAtIndex:0]) {
-        shift = 21;                                                  // menu area
-    }
+    // respect menubar area
+    // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
+    NSRect menubar = [self menubarFrame];
+    int shift = menubar.size.height - 1; // -1px to hide bright horizontal line on the edge of chromeless terminal window
+    
     NSString* position = [self position];
     if ([position hasPrefix:@"Top"]) {
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - round(offset * (NSHeight(frame) + shift));
@@ -466,7 +489,7 @@
     if ([position hasPrefix:@"Bottom"]) {
         frame.origin.y = screenRect.origin.y - NSHeight(frame) + round(offset * NSHeight(frame));
     }
-    [win setFrame:frame display:YES];
+    [win setFrameOrigin:frame.origin];
     [self updateBackgroundFrame];
 }
 
@@ -519,10 +542,10 @@
     }
     [lastPosition_ release];
     lastPosition_ = [position retain];
-    int shift = 0; // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
-    if (screen == [[NSScreen screens] objectAtIndex:0]) {
-        shift = 21;                                                  // menu area
-    }
+    // respect menubar area
+    // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
+    NSRect menubar = [self menubarFrame];
+    int shift = menubar.size.height - 1; // -1px to hide bright horizontal line on the edge of chromeless terminal window
     if ([position isEqualToString:@"Top-Stretch"]) {
         NSRect frame = [window_ frame];
         frame.size.width = screenRect.size.width;
