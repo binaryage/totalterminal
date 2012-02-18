@@ -22,7 +22,8 @@
 
     for (size_t i = 0; i < count; ++i) {
         NSMenuItem* item = [menu itemAtIndex:i];
-        if (!item) continue;
+        if (!item)
+            continue;
         SEL sel = [item action];
         if ([item action] == selector) return item;
     }
@@ -34,7 +35,8 @@
 
     for (size_t i = 0; i < count; ++i) {
         NSMenuItem* item = [menu itemAtIndex:i];
-        if (!item) continue;
+        if (!item)
+            continue;
         if ([item action] == selector) return i;
     }
     return NULL;

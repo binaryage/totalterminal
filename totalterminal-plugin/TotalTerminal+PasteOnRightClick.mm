@@ -7,7 +7,8 @@
 -(void) SMETHOD (TTView, rightMouseDown):(NSEvent*)theEvent {
     bool pasteOnRightclick = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalPasteOnRightClick"];
 
-    if (pasteOnRightclick) [(id) self performSelector:@selector(paste:) withObject:nil];
+    if (pasteOnRightclick)
+        [(id) self performSelector:@selector(paste:) withObject:nil];
     else [self SMETHOD (TTView, rightMouseDown):theEvent];
 }
 

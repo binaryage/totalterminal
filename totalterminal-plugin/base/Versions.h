@@ -21,4 +21,3 @@ extern TSupportedTerminalVersions terminalVersion();
 #ifdef __cplusplus
 } // extern "C"
 #endif
-

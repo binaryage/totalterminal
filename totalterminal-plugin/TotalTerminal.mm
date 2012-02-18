@@ -22,7 +22,7 @@
 
 #ifndef _DEBUG_MODE
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalDoNotLaunchCrashWatcher"]) {
-        NSString* path = [[NSBundle bundleForClass:[self class ]] pathForResource:@"TotalTerminalCrashWatcher" ofType:@"app"];
+        NSString* path = [[NSBundle bundleForClass:[self class]] pathForResource:@"TotalTerminalCrashWatcher" ofType:@"app"];
         INFO(@"Launching TotalTerminalCrashWatcher from '%@'", path);
         [[NSWorkspace sharedWorkspace] launchApplication:path];
     }
@@ -91,13 +91,13 @@
     [NSBundle loadNibNamed:@"TotalTerminal" owner:self];
 
     isActiveAlternativeIcon = FALSE;
-    alternativeDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"TotalTerminal"]];
-    originalDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"Terminal"]];
+    alternativeDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"TotalTerminal"]];
+    originalDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"Terminal"]];
 
-    modifiersOption_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"ModifiersOption"]];
-    modifiersCommand_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"ModifiersCommand"]];
-    modifiersControl_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"ModifiersControl"]];
-    modifiersShift_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class ]] pathForImageResource:@"ModifiersShift"]];
+    modifiersOption_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersOption"]];
+    modifiersCommand_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersCommand"]];
+    modifiersControl_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersControl"]];
+    modifiersShift_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersShift"]];
 
     [self setupDockIcon];
 

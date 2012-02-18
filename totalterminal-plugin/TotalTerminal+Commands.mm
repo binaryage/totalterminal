@@ -27,7 +27,7 @@
     NSInteger returnCode = [alert runModal];
     if (returnCode == NSAlertFirstButtonReturn) {
         NSString* uninstallerPath =
-            [[[[NSBundle bundleForClass:[self class ]] resourcePath] stringByAppendingPathComponent:@"TotalTerminal Uninstaller.app"] stringByStandardizingPath];
+            [[[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"TotalTerminal Uninstaller.app"] stringByStandardizingPath];
         [[NSWorkspace sharedWorkspace] launchApplication:uninstallerPath];
     }
 }
@@ -46,6 +46,7 @@
 -(void) togglePinVisor:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
     if (!window_) return;
+
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     BOOL val = [ud boolForKey:@"TotalTerminalVisorPinned"];
     [ud setBool:(val ? NO:YES) forKey:@"TotalTerminalVisorPinned"];
@@ -145,7 +146,7 @@
         filename = @"Visor-Lion";
     }
 
-    NSString* path = [[NSBundle bundleForClass:[TotalTerminal class ]] pathForResource:filename ofType:@"terminal"];
+    NSString* path = [[NSBundle bundleForClass:[TotalTerminal class]] pathForResource:filename ofType:@"terminal"];
     plistData = [NSData dataWithContentsOfFile:path];
     plist = [NSPropertyListSerialization propertyListFromData:plistData mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
     if (!plist) {

@@ -234,6 +234,7 @@ static CFStringRef kGTM_TISPropertyUnicodeKeyLayoutData = NULL;
                                                 useGlyph:NO
                                           resourceBundle:bundle];
     if (!keystroke || ![keystroke length]) return nil;
+
     if ([[self class] doesKeyCodeRequireModifier:keycode] &&
         ![mods length]) {
         return nil;
@@ -314,11 +315,16 @@ static CFStringRef kGTM_TISPropertyUnicodeKeyLayoutData = NULL;
     unsigned int charCount = 0;
 
     // These are in the same order as the menu manager shows them
-    if (flags & NSControlKeyMask) modChars[charCount++] = kControlUnicode;
-    if (flags & NSAlternateKeyMask) modChars[charCount++] = kOptionUnicode;
-    if (flags & NSShiftKeyMask) modChars[charCount++] = kShiftUnicode;
-    if (flags & NSCommandKeyMask) modChars[charCount++] = kCommandUnicode;
+    if (flags & NSControlKeyMask)
+        modChars[charCount++] = kControlUnicode;
+    if (flags & NSAlternateKeyMask)
+        modChars[charCount++] = kOptionUnicode;
+    if (flags & NSShiftKeyMask)
+        modChars[charCount++] = kShiftUnicode;
+    if (flags & NSCommandKeyMask)
+        modChars[charCount++] = kCommandUnicode;
     if (charCount == 0) return @"";
+
     return [NSString stringWithCharacters:modChars length:charCount];
 }
 
@@ -702,6 +708,7 @@ static CFStringRef kGTM_TISPropertyUnicodeKeyLayoutData = NULL;
             // COV_NF_END
         }
         if (uchrCharLength < 1) return nil;
+
         keystrokeString = [NSString stringWithCharacters:uchrChars
                                                   length:uchrCharLength];
     }
@@ -976,10 +983,14 @@ GTMOBJECT_SINGLETON_BOILERPLATE(GTMHotKeyFieldEditor, sharedHotKeyFieldEditor)
 
     // Clean the flags to only contain things we care about
     UInt32 cleanFlags = 0;
-    if (flags & NSCommandKeyMask) cleanFlags |= NSCommandKeyMask;
-    if (flags & NSAlternateKeyMask) cleanFlags |= NSAlternateKeyMask;
-    if (flags & NSControlKeyMask) cleanFlags |= NSControlKeyMask;
-    if (flags & NSShiftKeyMask) cleanFlags |= NSShiftKeyMask;
+    if (flags & NSCommandKeyMask)
+        cleanFlags |= NSCommandKeyMask;
+    if (flags & NSAlternateKeyMask)
+        cleanFlags |= NSAlternateKeyMask;
+    if (flags & NSControlKeyMask)
+        cleanFlags |= NSControlKeyMask;
+    if (flags & NSShiftKeyMask)
+        cleanFlags |= NSShiftKeyMask;
     return [GTMHotKey hotKeyWithKeyCode:keycode
                               modifiers:cleanFlags
                      useDoubledModifier:NO];

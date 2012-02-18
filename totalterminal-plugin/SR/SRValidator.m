@@ -75,13 +75,18 @@
     BOOL localCommandMod = NO, localOptionMod = NO, localShiftMod = NO, localCtrlMod = NO;
 
     // Prepare local carbon comparison flags
-    if (flags & cmdKey) localCommandMod = YES;
-    if (flags & optionKey) localOptionMod = YES;
-    if (flags & shiftKey) localShiftMod = YES;
-    if (flags & controlKey) localCtrlMod = YES;
+    if (flags & cmdKey)
+        localCommandMod = YES;
+    if (flags & optionKey)
+        localOptionMod = YES;
+    if (flags & shiftKey)
+        localShiftMod = YES;
+    if (flags & controlKey)
+        localCtrlMod = YES;
     while ((globalHotKeyInfoDictionary = [globalHotKeysEnumerator nextObject])) {
         // Only check if global hotkey is enabled
-        if ((CFBooleanRef)[globalHotKeyInfoDictionary objectForKey : (NSString*)kHISymbolicHotKeyEnabled] != kCFBooleanTrue) continue;
+        if ((CFBooleanRef)[globalHotKeyInfoDictionary objectForKey : (NSString*)kHISymbolicHotKeyEnabled] != kCFBooleanTrue)
+            continue;
         globalCommandMod = NO;
         globalOptionMod = NO;
         globalShiftMod = NO;
@@ -91,10 +96,14 @@
 
         CFNumberGetValue((CFNumberRef)[globalHotKeyInfoDictionary objectForKey: (NSString*)kHISymbolicHotKeyModifiers], kCFNumberSInt32Type, &globalHotKeyFlags);
 
-        if (globalHotKeyFlags & cmdKey) globalCommandMod = YES;
-        if (globalHotKeyFlags & optionKey) globalOptionMod = YES;
-        if (globalHotKeyFlags & shiftKey) globalShiftMod = YES;
-        if (globalHotKeyFlags & controlKey) globalCtrlMod = YES;
+        if (globalHotKeyFlags & cmdKey)
+            globalCommandMod = YES;
+        if (globalHotKeyFlags & optionKey)
+            globalOptionMod = YES;
+        if (globalHotKeyFlags & shiftKey)
+            globalShiftMod = YES;
+        if (globalHotKeyFlags & controlKey)
+            globalCtrlMod = YES;
         NSString* localKeyString = SRStringForKeyCode(keyCode);
         if (![localKeyString length]) {
             continue;                            // compare unichar value and modifier flags
@@ -142,10 +151,14 @@
     BOOL localCommandMod = NO, localOptionMod = NO, localShiftMod = NO, localCtrlMod = NO;
 
     // Prepare local carbon comparison flags
-    if (flags & cmdKey) localCommandMod = YES;
-    if (flags & optionKey) localOptionMod = YES;
-    if (flags & shiftKey) localShiftMod = YES;
-    if (flags & controlKey) localCtrlMod = YES;
+    if (flags & cmdKey)
+        localCommandMod = YES;
+    if (flags & optionKey)
+        localOptionMod = YES;
+    if (flags & shiftKey)
+        localShiftMod = YES;
+    if (flags & controlKey)
+        localCtrlMod = YES;
     SRRecorderControl* control = [[self delegate] delegate];
 
     while ((menuItem = [menuItemsEnumerator nextObject])) {
@@ -169,10 +182,14 @@
 
             menuItemModifierFlags = [menuItem keyEquivalentModifierMask];
 
-            if (menuItemModifierFlags & NSCommandKeyMask) menuItemCommandMod = YES;
-            if (menuItemModifierFlags & NSAlternateKeyMask) menuItemOptionMod = YES;
-            if (menuItemModifierFlags & NSShiftKeyMask) menuItemShiftMod = YES;
-            if (menuItemModifierFlags & NSControlKeyMask) menuItemCtrlMod = YES;
+            if (menuItemModifierFlags & NSCommandKeyMask)
+                menuItemCommandMod = YES;
+            if (menuItemModifierFlags & NSAlternateKeyMask)
+                menuItemOptionMod = YES;
+            if (menuItemModifierFlags & NSShiftKeyMask)
+                menuItemShiftMod = YES;
+            if (menuItemModifierFlags & NSControlKeyMask)
+                menuItemCtrlMod = YES;
             NSString* localKeyString = SRKeyEquivalentForKeyCode(keyCode, menuItemModifierFlags);
             // Menu item key equivalents are nearly all stored without modifiers. The
             // exception is shift, which is included in the key and not in the modifiers

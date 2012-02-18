@@ -38,7 +38,8 @@
 NSString* SRStringForKeyCode(NSInteger keyCode) {
     static SRKeyCodeTransformer* keyCodeTransformer = nil;
 
-    if (!keyCodeTransformer) keyCodeTransformer = [[SRKeyCodeTransformer alloc] init];
+    if (!keyCodeTransformer)
+        keyCodeTransformer = [[SRKeyCodeTransformer alloc] init];
     return [keyCodeTransformer transformedValue:[NSNumber numberWithShort:keyCode]];
 }
 
@@ -60,10 +61,14 @@ NSString* SRKeyEquivalentForKeyCode(NSInteger keyCode, NSUInteger flags) {
     UCKeyboardLayout* keyLayout = (UCKeyboardLayout*)CFDataGetBytePtr(uchr);
 
     EventModifiers modifiers = 0;
-    if (flags & NSAlternateKeyMask) modifiers |= optionKey;
-    if (flags & NSShiftKeyMask) modifiers |= shiftKey;
-    if (flags & NSCommandKeyMask) modifiers |= cmdKey;
-    if (flags & NSControlKeyMask) modifiers |= controlKey;
+    if (flags & NSAlternateKeyMask)
+        modifiers |= optionKey;
+    if (flags & NSShiftKeyMask)
+        modifiers |= shiftKey;
+    if (flags & NSCommandKeyMask)
+        modifiers |= cmdKey;
+    if (flags & NSControlKeyMask)
+        modifiers |= controlKey;
     UInt32 deadKeyState = 0;
     OSStatus err = noErr;
     UniCharCount maxStringLength = 4, actualStringLength;
@@ -160,11 +165,16 @@ NSString* SRReadableStringForCocoaModifierFlagsAndKeyCode(NSUInteger flags, NSIn
 NSUInteger SRCarbonToCocoaFlags(NSUInteger carbonFlags) {
     NSUInteger cocoaFlags = ShortcutRecorderEmptyFlags;
 
-    if (carbonFlags & cmdKey) cocoaFlags |= NSCommandKeyMask;
-    if (carbonFlags & optionKey) cocoaFlags |= NSAlternateKeyMask;
-    if (carbonFlags & controlKey) cocoaFlags |= NSControlKeyMask;
-    if (carbonFlags & shiftKey) cocoaFlags |= NSShiftKeyMask;
-    if (carbonFlags & NSFunctionKeyMask) cocoaFlags += NSFunctionKeyMask;
+    if (carbonFlags & cmdKey)
+        cocoaFlags |= NSCommandKeyMask;
+    if (carbonFlags & optionKey)
+        cocoaFlags |= NSAlternateKeyMask;
+    if (carbonFlags & controlKey)
+        cocoaFlags |= NSControlKeyMask;
+    if (carbonFlags & shiftKey)
+        cocoaFlags |= NSShiftKeyMask;
+    if (carbonFlags & NSFunctionKeyMask)
+        cocoaFlags += NSFunctionKeyMask;
     return cocoaFlags;
 }
 
@@ -174,11 +184,16 @@ NSUInteger SRCarbonToCocoaFlags(NSUInteger carbonFlags) {
 NSUInteger SRCocoaToCarbonFlags(NSUInteger cocoaFlags) {
     NSUInteger carbonFlags = ShortcutRecorderEmptyFlags;
 
-    if (cocoaFlags & NSCommandKeyMask) carbonFlags |= cmdKey;
-    if (cocoaFlags & NSAlternateKeyMask) carbonFlags |= optionKey;
-    if (cocoaFlags & NSControlKeyMask) carbonFlags |= controlKey;
-    if (cocoaFlags & NSShiftKeyMask) carbonFlags |= shiftKey;
-    if (cocoaFlags & NSFunctionKeyMask) carbonFlags |= NSFunctionKeyMask;
+    if (cocoaFlags & NSCommandKeyMask)
+        carbonFlags |= cmdKey;
+    if (cocoaFlags & NSAlternateKeyMask)
+        carbonFlags |= optionKey;
+    if (cocoaFlags & NSControlKeyMask)
+        carbonFlags |= controlKey;
+    if (cocoaFlags & NSShiftKeyMask)
+        carbonFlags |= shiftKey;
+    if (cocoaFlags & NSFunctionKeyMask)
+        carbonFlags |= NSFunctionKeyMask;
     return carbonFlags;
 }
 
@@ -216,8 +231,10 @@ NSString* SRCharacterForKeyCodeAndCocoaFlags(NSInteger keyCode, NSUInteger cocoa
     if (!keyLayout) return FailWithNaiveString;
 
     EventModifiers modifiers = 0;
-    if (cocoaFlags & NSAlternateKeyMask) modifiers |= optionKey;
-    if (cocoaFlags & NSShiftKeyMask) modifiers |= shiftKey;
+    if (cocoaFlags & NSAlternateKeyMask)
+        modifiers |= optionKey;
+    if (cocoaFlags & NSShiftKeyMask)
+        modifiers |= shiftKey;
     UniCharCount maxStringLength = 4, actualStringLength;
     UniChar unicodeString[4];
     err = UCKeyTranslate(keyLayout, (UInt16)keyCode, kUCKeyActionDisplay, modifiers, LMGetKbdType(), kUCKeyTranslateNoDeadKeysBit, &deadKeyState, maxStringLength, &actualStringLength, unicodeString);
@@ -225,7 +242,8 @@ NSString* SRCharacterForKeyCodeAndCocoaFlags(NSInteger keyCode, NSUInteger cocoa
 
     CFStringRef temp = CFStringCreateWithCharacters(kCFAllocatorDefault, unicodeString, 1);
     resultString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, temp);
-    if (temp) CFRelease(temp);
+    if (temp)
+        CFRelease(temp);
     CFStringCapitalize(resultString, locale);
 
     PUDNSLog(@"character: -%@-", (NSString*)resultString);

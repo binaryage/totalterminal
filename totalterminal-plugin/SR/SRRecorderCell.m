@@ -561,8 +561,10 @@
 
     // We're not to be tracked if we're not enabled
     if (![self isEnabled]) {
-        if (removeTrackingRectTag != 0) [controlView removeTrackingRect:removeTrackingRectTag];
-        if (snapbackTrackingRectTag != 0) [controlView removeTrackingRect:snapbackTrackingRectTag];
+        if (removeTrackingRectTag != 0)
+            [controlView removeTrackingRect:removeTrackingRectTag];
+        if (snapbackTrackingRectTag != 0)
+            [controlView removeTrackingRect:snapbackTrackingRectTag];
         return;
     }
 
@@ -572,7 +574,8 @@
         NSRect removeButtonRect = [self _removeButtonRectForFrame:cellFrame];
         BOOL mouseInside = [controlView mouse:mouseLocation inRect:removeButtonRect];
 
-        if (removeTrackingRectTag != 0) [controlView removeTrackingRect:removeTrackingRectTag];
+        if (removeTrackingRectTag != 0)
+            [controlView removeTrackingRect:removeTrackingRectTag];
         removeTrackingRectTag = [controlView addTrackingRect:removeButtonRect owner:self userData:nil assumeInside:mouseInside];
 
         if (mouseInsideTrackingArea != mouseInside) mouseInsideTrackingArea = mouseInside;
@@ -581,7 +584,8 @@
         NSRect snapbackRect = [self _snapbackRectForFrame:cellFrame];
         BOOL mouseInside = [controlView mouse:mouseLocation inRect:snapbackRect];
 
-        if (snapbackTrackingRectTag != 0) [controlView removeTrackingRect:snapbackTrackingRectTag];
+        if (snapbackTrackingRectTag != 0)
+            [controlView removeTrackingRect:snapbackTrackingRectTag];
         snapbackTrackingRectTag = [controlView addTrackingRect:snapbackRect owner:self userData:nil assumeInside:mouseInside];
 
         if (mouseInsideTrackingArea != mouseInside) mouseInsideTrackingArea = mouseInside;
@@ -614,7 +618,8 @@
     NSRect leftRect = cellFrame;
 
     // Determine the area without any badge
-    if (!NSEqualRects(trackingRect, NSZeroRect)) leftRect.size.width -= NSWidth(trackingRect) + 4;
+    if (!NSEqualRects(trackingRect, NSZeroRect))
+        leftRect.size.width -= NSWidth(trackingRect) + 4;
     do                                                                                                 {
         mouseLocation = [controlView convertPoint:[currentEvent locationInWindow] fromView:nil];
 
@@ -1138,7 +1143,8 @@
         }
 
         // Notify delegate
-        if ((delegate != nil) && [delegate respondsToSelector:@selector(shortcutRecorderCell:keyComboDidChange:)]) [delegate shortcutRecorderCell:self keyComboDidChange:keyCombo];
+        if ((delegate != nil) && [delegate respondsToSelector:@selector(shortcutRecorderCell:keyComboDidChange:)])
+            [delegate shortcutRecorderCell:self keyComboDidChange:keyCombo];
         [[self controlView] display];
     }
 }
@@ -1176,16 +1182,26 @@
     NSUInteger a = allowedFlags;
     NSUInteger m = requiredFlags;
 
-    if (m & NSCommandKeyMask) filteredFlags |= NSCommandKeyMask;
-    else if ((flags & NSCommandKeyMask) && (a & NSCommandKeyMask)) filteredFlags |= NSCommandKeyMask;
-    if (m & NSAlternateKeyMask) filteredFlags |= NSAlternateKeyMask;
-    else if ((flags & NSAlternateKeyMask) && (a & NSAlternateKeyMask)) filteredFlags |= NSAlternateKeyMask;
-    if ((m & NSControlKeyMask)) filteredFlags |= NSControlKeyMask;
-    else if ((flags & NSControlKeyMask) && (a & NSControlKeyMask)) filteredFlags |= NSControlKeyMask;
-    if ((m & NSShiftKeyMask)) filteredFlags |= NSShiftKeyMask;
-    else if ((flags & NSShiftKeyMask) && (a & NSShiftKeyMask)) filteredFlags |= NSShiftKeyMask;
-    if ((m & NSFunctionKeyMask)) filteredFlags |= NSFunctionKeyMask;
-    else if ((flags & NSFunctionKeyMask) && (a & NSFunctionKeyMask)) filteredFlags |= NSFunctionKeyMask;
+    if (m & NSCommandKeyMask)
+        filteredFlags |= NSCommandKeyMask;
+    else if ((flags & NSCommandKeyMask) && (a & NSCommandKeyMask))
+        filteredFlags |= NSCommandKeyMask;
+    if (m & NSAlternateKeyMask)
+        filteredFlags |= NSAlternateKeyMask;
+    else if ((flags & NSAlternateKeyMask) && (a & NSAlternateKeyMask))
+        filteredFlags |= NSAlternateKeyMask;
+    if ((m & NSControlKeyMask))
+        filteredFlags |= NSControlKeyMask;
+    else if ((flags & NSControlKeyMask) && (a & NSControlKeyMask))
+        filteredFlags |= NSControlKeyMask;
+    if ((m & NSShiftKeyMask))
+        filteredFlags |= NSShiftKeyMask;
+    else if ((flags & NSShiftKeyMask) && (a & NSShiftKeyMask))
+        filteredFlags |= NSShiftKeyMask;
+    if ((m & NSFunctionKeyMask))
+        filteredFlags |= NSFunctionKeyMask;
+    else if ((flags & NSFunctionKeyMask) && (a & NSFunctionKeyMask))
+        filteredFlags |= NSFunctionKeyMask;
     return filteredFlags;
 }
 
@@ -1199,13 +1215,17 @@
     NSUInteger carbonFlags = ShortcutRecorderEmptyFlags;
     NSUInteger filteredFlags = [self _filteredCocoaFlags:cocoaFlags];
 
-    if (filteredFlags & NSCommandKeyMask) carbonFlags |= cmdKey;
-    if (filteredFlags & NSAlternateKeyMask) carbonFlags |= optionKey;
-    if (filteredFlags & NSControlKeyMask) carbonFlags |= controlKey;
+    if (filteredFlags & NSCommandKeyMask)
+        carbonFlags |= cmdKey;
+    if (filteredFlags & NSAlternateKeyMask)
+        carbonFlags |= optionKey;
+    if (filteredFlags & NSControlKeyMask)
+        carbonFlags |= controlKey;
     if (filteredFlags & NSShiftKeyMask) {
         carbonFlags |= shiftKey;                                  // I couldn't find out the equivalent constant in Carbon, but apparently it must use the same one as Cocoa. -AK
     }
-    if (filteredFlags & NSFunctionKeyMask) carbonFlags |= NSFunctionKeyMask;
+    if (filteredFlags & NSFunctionKeyMask)
+        carbonFlags |= NSFunctionKeyMask;
     return carbonFlags;
 }
 

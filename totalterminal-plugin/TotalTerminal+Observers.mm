@@ -4,6 +4,7 @@
 
 +(BOOL) automaticallyNotifiesObserversForKey:(NSString*)theKey {
     if ([theKey isEqualToString:@"shouldShowTransparencyAlert"]) return NO;
+
     return [super automaticallyNotifiesObserversForKey:theKey];
 }
 
@@ -34,7 +35,7 @@
     [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorWindowOnHighLevel" options:0 context:nil];
 
     // ----------
-    [[[self class ] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:@"UpdateBackground"];
+    [[[self class] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:@"UpdateBackground"];
 }
 
 -(void) observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context {

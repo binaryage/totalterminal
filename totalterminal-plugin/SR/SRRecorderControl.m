@@ -75,14 +75,16 @@
 -(BOOL) becomeFirstResponder {
     BOOL okToChange = [SRCell becomeFirstResponder];
 
-    if (okToChange) [super setKeyboardFocusRingNeedsDisplayInRect:[self bounds]];
+    if (okToChange)
+        [super setKeyboardFocusRingNeedsDisplayInRect:[self bounds]];
     return okToChange;
 }
 
 -(BOOL) resignFirstResponder {
     BOOL okToChange = [SRCell resignFirstResponder];
 
-    if (okToChange) [super setKeyboardFocusRingNeedsDisplayInRect:[self bounds]];
+    if (okToChange)
+        [super setKeyboardFocusRingNeedsDisplayInRect:[self bounds]];
     return okToChange;
 }
 
@@ -124,7 +126,8 @@
     NSSize correctedSize = newSize;
 
     correctedSize.height = SRMaxHeight;
-    if (correctedSize.width < SRMinWidth) correctedSize.width = SRMinWidth;
+    if (correctedSize.width < SRMinWidth)
+        correctedSize.width = SRMinWidth;
     [super setFrameSize:correctedSize];
 }
 
@@ -132,7 +135,8 @@
     NSRect correctedFrarme = frameRect;
 
     correctedFrarme.size.height = SRMaxHeight;
-    if (correctedFrarme.size.width < SRMinWidth) correctedFrarme.size.width = SRMinWidth;
+    if (correctedFrarme.size.width < SRMinWidth)
+        correctedFrarme.size.width = SRMinWidth;
     [super setFrame:correctedFrarme];
 }
 
@@ -255,7 +259,8 @@
 
 -(BOOL) shortcutRecorderCell:(SRRecorderCell*)aRecorderCell isKeyCode:(NSInteger)keyCode andFlagsTaken:(NSUInteger)flags reason:(NSString**)aReason {
     if ((delegate != nil) &&
-        [delegate respondsToSelector:@selector(shortcutRecorder:isKeyCode:andFlagsTaken:reason:)]) return [delegate shortcutRecorder:self isKeyCode:keyCode andFlagsTaken:flags reason:aReason];
+        [delegate respondsToSelector:@selector(shortcutRecorder:isKeyCode:andFlagsTaken:reason:)])
+        return [delegate shortcutRecorder:self isKeyCode:keyCode andFlagsTaken:flags reason:aReason];
     else return NO;
 }
 

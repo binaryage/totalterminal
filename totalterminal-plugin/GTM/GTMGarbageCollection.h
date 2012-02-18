@@ -68,4 +68,3 @@ GTM_INLINE BOOL GTMIsGarbageCollectionEnabled(void) {
 // of. Done as a define instead of an inline so that tools like Clang's
 // scan-build don't report code as leaking.
 #define GTMCFAutorelease(cf) ([GTMNSMakeCollectable(cf) autorelease])
-

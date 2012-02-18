@@ -8,6 +8,7 @@
     [self SMETHOD (TTView, mouseUp):theEvent];
     bool copyOnSelect = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalCopyOnSelect"];
     if (!copyOnSelect) return;
+
     NSString* selectedText = [[(id) self performSelector:@selector(selectedText)] retain];
     if ([selectedText length] > 0) {
         [(id) self performSelector:@selector(copy:) withObject:nil];

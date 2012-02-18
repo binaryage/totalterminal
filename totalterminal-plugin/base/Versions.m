@@ -5,7 +5,7 @@ static TSupportedTerminalVersions terminalImageVersion = vUnknown;
 TSupportedTerminalVersions initializeTerminalVersion() {
     NSBundle* mainBundle = [NSBundle mainBundle];
     id terminalVersion = [mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
-    
+
     if (!terminalVersion || ![terminalVersion isKindOfClass:[NSString class]]) {
         return vUnknown;
     }
@@ -44,4 +44,3 @@ TSupportedTerminalVersions terminalVersion() {
     }
     return terminalImageVersion;
 }
-

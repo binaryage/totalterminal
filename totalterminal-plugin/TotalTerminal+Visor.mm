@@ -24,7 +24,8 @@
     if (flags & NSAlphaShiftKeyMask) {
         flags -= NSAlphaShiftKeyMask;                               // Ignore numeric lock if it's set http://b/issue?id=637380
     }
-    if (flags & NSNumericPadKeyMask) flags -= NSNumericPadKeyMask;
+    if (flags & NSNumericPadKeyMask)
+        flags -= NSNumericPadKeyMask;
     return flags;
 }
 
@@ -34,7 +35,7 @@
 
 +(Class) transformedValueClass {
     LOG(@"transformedValueClass");
-    return [NSNumber class ];
+    return [NSNumber class];
 }
 
 +(BOOL) allowsReverseTransformation {
@@ -182,7 +183,8 @@
                 count++;
             }
         }
-        if (count==1) { // auto-slide only when visor is the only terminal window
+        if (count == 1) {
+            // auto-slide only when visor is the only terminal window
             NSLOG1(@"Showing visor because of applicationShouldHandleReopen");
             [[TotalTerminal sharedInstance] performSelector:@selector(showVisor:) withObject:nil afterDelay:0];
         }
@@ -286,7 +288,7 @@
 -(NSWindow*) background {
     if (background) return [[background retain] autorelease];
 
-    background = [[[NSWindow class ] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+    background = [[[NSWindow class] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
     [background orderFront:nil];
     [background setLevel:NSMainMenuWindowLevel - 2];
     [background setIgnoresMouseEvents:YES];
@@ -313,11 +315,12 @@
     }
 
     if (!path) {
-        path = [[NSBundle bundleForClass:[self class ]] pathForResource:@"Visor" ofType:@"qtz"];
+        path = [[NSBundle bundleForClass:[self class]] pathForResource:@"Visor" ofType:@"qtz"];
     }
     [content loadCompositionFromFile:path];
     [content setMaxRenderingFrameRate:15.0];
-    if (!isHidden) [content startRendering];
+    if (!isHidden)
+        [content startRendering];
     return [[background retain] autorelease];
 }
 
@@ -341,8 +344,10 @@
         tags[0] = CGSTagSticky;
         tags[1] = (CGSWindowTag)0;
 
-        if (showOnEverySpace) CGSSetWindowTags(cid, wid, tags, 32);
-        else CGSClearWindowTags(cid, wid, tags, 32);
+        if (showOnEverySpace)
+            CGSSetWindowTags(cid, wid, tags, 32);
+        else
+            CGSClearWindowTags(cid, wid, tags, 32);
         tags[0] = (CGSWindowTag)CGSTagExposeFade;
         CGSSetWindowTags(cid, wid, tags, 32);
     }
@@ -360,7 +365,7 @@
 }
 
 -(float) getVisorProfileBackgroundAlpha {
-    id bckColor = background ? [[[self class ] getVisorProfile] valueForKey:@"BackgroundColor"] : nil;
+    id bckColor = background ? [[[self class] getVisorProfile] valueForKey:@"BackgroundColor"] : nil;
 
     return bckColor ? [bckColor alphaComponent] : 1.0;
 }
@@ -371,11 +376,11 @@
         return;
     }
     bool showOnEverySpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorOnEverySpace"];
-    
+
     if (showOnEverySpace) {
-        [window_ setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces|NSWindowCollectionBehaviorTransient|NSWindowCollectionBehaviorIgnoresCycle];
+        [window_ setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorTransient | NSWindowCollectionBehaviorIgnoresCycle];
     } else {
-        [window_ setCollectionBehavior:NSWindowCollectionBehaviorDefault|NSWindowCollectionBehaviorTransient|NSWindowCollectionBehaviorIgnoresCycle];
+        [window_ setCollectionBehavior:NSWindowCollectionBehaviorDefault | NSWindowCollectionBehaviorTransient | NSWindowCollectionBehaviorIgnoresCycle];
     }
 }
 
@@ -410,7 +415,8 @@
     lastPosition_ = nil;
     if (window_) {
         float offset = 1.0f;
-        if (isHidden) offset = 0.0f;
+        if (isHidden)
+            offset = 0.0f;
         LOG(@"resetWindowPlacement %@ %f", window_, offset);
         [self applyVisorPositioning];
         [self slideWindows:!isHidden fast:YES];
@@ -632,6 +638,7 @@
 -(void) showVisor:(BOOL)fast {
     AUTO_LOGGERF(@"fast=%d isHidden=%d", fast, isHidden);
     if (!isHidden) return;
+
     isHidden = false;
     [self updateStatusMenu];
     [self storePreviouslyActiveApp];
@@ -655,6 +662,7 @@
 
 -(void) hideVisor:(BOOL)fast {
     if (isHidden) return;
+
     AUTO_LOGGER();
     isHidden = true;
     [self updateStatusMenu];
@@ -671,13 +679,13 @@
         // in case of Visor and classic Terminal.app window
         // this will prevent a brief window blinking before final focus gets restored
         ScopedNSDisableScreenUpdatesWithDelay disabler(0.1, __FUNCTION__);
-        
+
         BOOL hadKeyStatus = [window_ isKeyWindow];
-        
+
         // this is important to return focus some other classic Terminal window in case it was active prior Visor sliding down
         // => https://github.com/binaryage/totalterminal/issues/13 and http://getsatisfaction.com/binaryage/topics/return_focus_to_other_terminal_window
         [window_ orderOut:self];
-        
+
         // if visor window loses key status during open-session, do not transfer key status back to previous app
         // see https://github.com/binaryage/totalterminal/issues/26
         if (hadKeyStatus) {
@@ -705,7 +713,8 @@
             if (!doFade && direction) {
                 // setup final alpha state in case of no alpha
                 float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
-                if (background) [background setAlphaValue:alpha * bkgAlpha];
+                if (background)
+                    [background setAlphaValue:alpha * bkgAlpha];
                 [window_ setAlphaValue:alpha];
             }
             NSTimeInterval t;
@@ -719,7 +728,8 @@
                 }
                 if (doFade) {
                     float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(k));
-                    if (background) [background setAlphaValue:alpha * bkgAlpha];
+                    if (background)
+                        [background setAlphaValue:alpha * bkgAlpha];
                     [window_ setAlphaValue:alpha];
                 }
                 usleep(background ? 1000 : 5000); // 1 or 5ms

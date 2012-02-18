@@ -121,7 +121,7 @@
 }
 
 -(id) SMETHOD (TTAppPrefsController, windowWillReturnFieldEditor):(NSWindow*)sender toObject:(id)client {
-    if ([client isKindOfClass:[GTMHotKeyTextField class ]]) {
+    if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
         LOG(@"TTAppPrefsController windowWillReturnFieldEditor called with GTMHotKeyTextField");
         return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
     }
@@ -137,7 +137,7 @@
 @implementation TotalTerminal (Preferences)
 
 -(id) windowWillReturnFieldEditor:(NSWindow*)sender toObject:(id)client {
-    if ([client isKindOfClass:[GTMHotKeyTextField class ]]) {
+    if ([client isKindOfClass:[GTMHotKeyTextField class]]) {
         return [GTMHotKeyFieldEditor sharedHotKeyFieldEditor];
     }
     return nil;
@@ -223,16 +223,17 @@
 -(void) storePreferencesPaneSize {
     // Store size of Visor preferences panel as it was set in IB
     NSView* contentView = [settingsWindow contentView];
+
     if (!contentView) {
         return; // safety net
     }
     NSArray* subviews = [contentView subviews];
-    if (!subviews || [subviews count]<=0) {
+    if (!subviews || ([subviews count] <= 0)) {
         return; // safety net
     }
-    
+
     NSTabView* sourceTabView = [subviews objectAtIndex:0];
-    if (!sourceTabView || [[sourceTabView tabViewItems] count]<=0) {
+    if (!sourceTabView || ([[sourceTabView tabViewItems] count] <= 0)) {
         return; // safety net
     }
     NSTabViewItem* item = [sourceTabView tabViewItemAtIndex:0];
@@ -291,6 +292,7 @@
     AUTO_LOGGERF(@"hotkeys=%@", hotkeys);
 
     if (!hotkeys) return;
+
     preventShortcutUpdates_ = TRUE;
 
     NSArray* keys = [hotkeys allKeys];

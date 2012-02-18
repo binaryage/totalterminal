@@ -71,7 +71,7 @@ static NSString* colourKeys[] = {
     NSMutableDictionary* values = [self valueForKey:@"values"];
     id colour = [values objectForKey:key];
 
-    if ([colour isKindOfClass:[NSData class ]]) {
+    if ([colour isKindOfClass:[NSData class]]) {
         // We can’t swizzle initWithPropertyListRepresentation before the settings are loaded
         // so we need to check and unarchive data here
         [self setColour:[NSUnarchiver unarchiveObjectWithData:colour] forKey:key];
@@ -93,12 +93,14 @@ static NSString* colourKeys[] = {
     from the nib
  */
 -(id) SMETHOD (TTProfile, valueForKey):(NSString*)key {
-    if ([key hasSuffix:@"Colour"]) return [self colourForKey:key];
+    if ([key hasSuffix:@"Colour"])
+        return [self colourForKey:key];
     else return [self SMETHOD (TTProfile, valueForKey):key];
 }
 
 -(void) SMETHOD (TTProfile, setValue):(id)value forKey:(NSString*)key {
-    if ([key hasSuffix:@"Colour"]) [self setColour:value forKey:key];
+    if ([key hasSuffix:@"Colour"])
+        [self setColour:value forKey:key];
     else [self SMETHOD (TTProfile, setValue):value forKey:key];
 }
 

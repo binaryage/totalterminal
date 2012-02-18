@@ -11,7 +11,9 @@ NSInteger readKeyFromDictionary(NSDictionary* dictionary) {
     NSNumber* x = [dictionary objectForKey:@"KeyCode"];
 
     if (!x) return -1;
+
     if (![x respondsToSelector:@selector(intValue)]) return -1;
+
     return [x intValue];
 }
 
@@ -19,7 +21,9 @@ NSUInteger readModifiersFromDictionary(NSDictionary* dictionary) {
     NSNumber* x = [dictionary objectForKey:@"Modifiers"];
 
     if (!x) return -1;
+
     if (![x respondsToSelector:@selector(unsignedIntValue)]) return 0;
+
     return [x unsignedIntValue];
 }
 
@@ -33,6 +37,7 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey) {
 
 bool testKeyCombo(KeyCombo combo, NSInteger code, NSUInteger flags) {
     if (combo.code == -1) return false;
+
     return combo.code == code && combo.flags == flags;
 }
 
@@ -57,7 +62,8 @@ bool testKeyCombo(KeyCombo combo, NSInteger code, NSUInteger flags) {
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSDictionary* shortcuts = [ud objectForKey:@"TotalTerminalShortcuts"];
 
-    if (!shortcuts) shortcuts = [NSDictionary dictionary];
+    if (!shortcuts)
+        shortcuts = [NSDictionary dictionary];
     NSMutableDictionary* ns = [NSMutableDictionary dictionaryWithDictionary:shortcuts];
     [ns setObject:makeKeyModifiersDictionary(combo.code, combo.flags) forKey:name];
     [ud setObject:ns forKey:@"TotalTerminalShortcuts"];
@@ -100,6 +106,7 @@ bool testKeyCombo(KeyCombo combo, NSInteger code, NSUInteger flags) {
 
 -(void) shortcutRecorder:(SRRecorderControl*)aRecorder keyComboDidChange:(KeyCombo)newKeyCombo {
     if (preventShortcutUpdates_) return;
+
     AUTO_LOGGERF(@"shortcutRecorder=%@ keyComboDidChange=%08x code=%d value=%@", aRecorder, newKeyCombo.flags, newKeyCombo.code, [aRecorder shortcut]);
     [self updateShortcut:[aRecorder shortcut] withCombo:newKeyCombo];
 }

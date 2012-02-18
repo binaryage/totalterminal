@@ -82,7 +82,7 @@
     }
 
     // by default disable HotKey2 but set it to double Control
-    if (![ud objectForKey:@"TotalTerminalVisorHotKey2"] || ![[ud objectForKey:@"TotalTerminalVisorHotKey2"] isKindOfClass:[NSDictionary class ]]) {
+    if (![ud objectForKey:@"TotalTerminalVisorHotKey2"] || ![[ud objectForKey:@"TotalTerminalVisorHotKey2"] isKindOfClass:[NSDictionary class]]) {
         [ud setObject:[NSDictionary dictionaryWithObjectsAndKeys: \
                        [NSNumber numberWithUnsignedInt:NSControlKeyMask], \
                        @"Modifiers", \

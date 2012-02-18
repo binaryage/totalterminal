@@ -29,6 +29,7 @@
 -(void) deactivateStatusMenu {
     AUTO_LOGGER();
     if (!statusItem) return;
+
     [statusItem release];
     statusItem = nil;
 }
