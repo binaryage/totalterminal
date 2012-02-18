@@ -67,6 +67,11 @@
             }
             // imagine visor window + one classic terminal window, when classic window has key status, we want our visor window to steal key status first time the toggle is executed
             bool isKey = [window_ isKeyWindow];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorForceHide"]) {
+                // some users didn't like it, here is a workaround
+                // https://github.com/binaryage/totalterminal/issues/21
+                isKey = true;
+            }
             if (isKey) {
                 [self hideVisor:false];
             } else {
