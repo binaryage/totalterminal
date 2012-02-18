@@ -47,13 +47,15 @@
         [menuItem setKeyEquivalent:@""];
         [menuItem setKeyEquivalentModifierMask:0];
     } else {
-        NSString* key = SRKeyEquivalentForKeyCode(combo.code, combo.flags);
+        NSString* key = [SRCharacterForKeyCodeAndCocoaFlags(combo.code, combo.flags) lowercaseString];
+        if (combo.flags & NSShiftKeyMask) {
+            key = [key uppercaseString];
+        }
         [menuItem setKeyEquivalent:key];
 
         // The NSShiftKeyMask constant is only used in conjunction with special keys, such as the F1 and F2 function keys,
         // and navigation keys like Page Up, Home, and arrow keys. It is not used for letters or symbols painted on the
         // key caps. As another example, use @"#" as the key equivalent instead of using @"3" with the NSShiftKeyMask set.
-
         NSUInteger flags = combo.flags;
         if (![key isEqualToString:[key lowercaseString]]) {
             flags &= ~NSShiftKeyMask;

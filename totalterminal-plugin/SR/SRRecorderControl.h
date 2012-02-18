@@ -17,6 +17,8 @@
 @interface SRRecorderControl : NSControl
 {
     IBOutlet id delegate;
+    NSString* shortcut;
+    NSInteger menuTag;
 }
 
 #pragma mark *** Aesthetics ***
@@ -69,6 +71,9 @@
 
 -(NSDictionary*)objectValue;
 -(void)setObjectValue:(NSDictionary*)shortcut;
+
+@property (retain) NSString* shortcut;
+@property NSInteger menuTag;
 
 @end
 

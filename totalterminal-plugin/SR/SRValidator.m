@@ -192,6 +192,7 @@
                 menuItemShiftMod = YES;
             if (menuItemModifierFlags & NSControlKeyMask)
                 menuItemCtrlMod = YES;
+            menuItemShiftMod = menuItemShiftMod || ![[menuItemKeyEquivalent lowercaseString] isEqualToString:menuItemKeyEquivalent];
             NSString* localKeyString = SRStringForKeyCode(keyCode);
 
             // Compare translated keyCode and modifier flags

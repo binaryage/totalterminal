@@ -15,6 +15,10 @@
 #import <Carbon/Carbon.h>
 #import <CoreServices/CoreServices.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #pragma mark Dummy class
 
 @interface SRDummyClass : NSObject { }
@@ -190,3 +194,7 @@ FOUNDATION_STATIC_INLINE BOOL SRIsSpecialKey(NSInteger keyCode) {
 @interface SRSharedImageProvider : NSObject
 +(NSImage*)supportingImageWithName:(NSString*)name;
 @end
+
+#ifdef __cplusplus
+}
+#endif

@@ -22,6 +22,9 @@
 
 @implementation SRRecorderControl
 
+@synthesize shortcut;
+@synthesize menuTag;
+
 +(void) initialize {
     if (self == [SRRecorderControl class]) {
         [self setCellClass:[SRRecorderCell class]];
