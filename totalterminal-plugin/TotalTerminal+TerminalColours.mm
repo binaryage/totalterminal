@@ -125,7 +125,7 @@ static NSString* colourKeys[] = {
 
 @end
 
-@implementation NSWindowController (PrefsWindowDidLoad)
+@implementation NSWindowController (TotalTerminal)
 // Add the “More…” button to the text preferences section
 -(void) SMETHOD (TTAppPrefsController, windowDidLoad) {
     [self SMETHOD (TTAppPrefsController, windowDidLoad)];
@@ -152,6 +152,7 @@ static NSString* colourKeys[] = {
 @end
 
 @implementation TotalTerminal (TotalTerminal)
+
 +(void) loadTerminalColours {
     AUTO_LOGGER();
 
