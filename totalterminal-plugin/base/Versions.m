@@ -1,32 +1,16 @@
-#import <dlfcn.h>
-#import <mach-o/dyld.h>
-
 #include "Versions.h"
 
 static TSupportedTerminalVersions terminalImageVersion = vUnknown;
 
 TSupportedTerminalVersions initializeTerminalVersion() {
-    Dl_info dlinfo;
-
-    void* x = NSClassFromString(@"TTApplication"); // this should be some class we believe exists in all versions, ideally NSPrincipalClass
-
-    if ((dladdr(x, &dlinfo) == 0) || (dlinfo.dli_fbase == NULL)) {
-        NSLog(@"Cannot find Terminal's image base address (very odd)");
+    NSBundle* mainBundle = [NSBundle mainBundle];
+    id terminalVersion = [mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
+    
+    if (!terminalVersion || ![terminalVersion isKindOfClass:[NSString class]]) {
         return vUnknown;
     }
 
-    NSString* terminalInfoPlistPath = [[NSString stringWithCString:dlinfo.dli_fname encoding:NSASCIIStringEncoding] stringByStandardizingPath];
-    terminalInfoPlistPath = [[[terminalInfoPlistPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Info.plist"];
-    NSDictionary* terminalInfoPlist = [NSDictionary dictionaryWithContentsOfFile:terminalInfoPlistPath];
-    if (!terminalInfoPlist) {
-        NSLog(@"Cannot load Terminal's Info.plist: %@", terminalInfoPlistPath);
-        return vUnknown;
-    }
-    NSString* terminalVersion = [terminalInfoPlist objectForKey:@"CFBundleVersion"];
-    if (!terminalVersion) {
-        return vUnknown;
-    }
-
+    // TODO: here should be more intelligent parsing code
     TSupportedTerminalVersions version = vUnknown;
     if ([terminalVersion isEqualToString:@"273.1"]) {
         version = v273_1;
