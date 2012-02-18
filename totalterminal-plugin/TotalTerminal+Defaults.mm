@@ -13,7 +13,6 @@
 
     // conversion from TotalTerminal 1.0, Visor 2.2 (and prior) to new TotalTerminal-prefixed keys for 1.0.1 and later
     CONVERT_KEY(@"VisorShowStatusItem", @"TotalTerminalShowStatusItem");
-    CONVERT_KEY(@"VisorShowOnReopen", @"TotalTerminalVisorShowOnReopen");
     CONVERT_KEY(@"VisorCopyOnSelect", @"TotalTerminalCopyOnSelect");
     CONVERT_KEY(@"VisorPasteOnRightclick", @"TotalTerminalPasteOnRightClick");
     CONVERT_KEY(@"VisorScreen", @"TotalTerminalVisorScreen");
@@ -38,9 +37,6 @@
 
     if (![ud objectForKey:@"TotalTerminalShowStatusItem"]) {
         [ud setBool:YES forKey:@"TotalTerminalShowStatusItem"];
-    }
-    if (![ud objectForKey:@"TotalTerminalVisorShowOnReopen"]) {
-        [ud setBool:YES forKey:@"TotalTerminalVisorShowOnReopen"];
     }
     if (![ud objectForKey:@"TotalTerminalCopyOnSelect"]) {
         [ud setBool:NO forKey:@"TotalTerminalCopyOnSelect"];

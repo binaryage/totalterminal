@@ -172,18 +172,6 @@
     [self SMETHOD (TTApplication, sendEvent):theEvent];
 }
 
--(BOOL) SMETHOD (TTApplication, applicationShouldHandleReopen):(id)fp8 hasVisibleWindows:(BOOL)fp12 {
-    AUTO_LOGGER();
-
-    // XLOG(@"%@", [NSThread callStackSymbols]);
-
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
-    if ([tt reopenVisor]) {
-        return NO;
-    }
-    return [self SMETHOD (TTApplication, applicationShouldHandleReopen):fp8 hasVisibleWindows:(BOOL)fp12];
-}
-
 @end
 
 @implementation NSWindow (TotalTerminal)
@@ -621,22 +609,6 @@
     }
     [self updateBackgroundFrame];
     NSEnableScreenUpdates();
-}
-
--(BOOL) reopenVisor {
-    AUTO_LOGGER();
-    BOOL showOnReopen = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorShowOnReopen"];
-
-    if (!showOnReopen) {
-        LOG(@"  no-op because showOnReopen is false");
-        return NO;
-    }
-    if (!isHidden) {
-        LOG(@"  no-op because the Visor is already visible");
-        return NO;
-    }
-    [self toggleVisor:NO];
-    return YES;
 }
 
 -(void) showVisor:(BOOL)fast {
@@ -1082,7 +1054,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     SWIZZLE(TTWindow, performClose:);
 
     SWIZZLE(TTApplication, sendEvent:);
-    SWIZZLE(TTApplication, applicationShouldHandleReopen: hasVisibleWindows:);
 
     LOG(@"Visor installed");
 }
