@@ -682,11 +682,17 @@
         // this will prevent a brief window blinking before final focus gets restored
         ScopedNSDisableScreenUpdatesWithDelay disabler(0.1, __FUNCTION__);
         
+        BOOL hadKeyStatus = [window_ isKeyWindow];
+        
         // this is important to return focus some other classic Terminal window in case it was active prior Visor sliding down
         // => https://github.com/binaryage/totalterminal/issues/13 and http://getsatisfaction.com/binaryage/topics/return_focus_to_other_terminal_window
         [window_ orderOut:self];
         
-        [self restorePreviouslyActiveApp]; // this is no-op in case Terminal was active app prior Visor sliding down
+        // if visor window loses key status during open-session, do not transfer key status back to previous app
+        // see https://github.com/binaryage/totalterminal/issues/26
+        if (hadKeyStatus) {
+            [self restorePreviouslyActiveApp]; // this is no-op in case Terminal was active app prior Visor sliding down
+        }
     }
 }
 

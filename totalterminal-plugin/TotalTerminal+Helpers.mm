@@ -21,7 +21,11 @@
 
 -(void) restorePreviouslyActiveApp {
     AUTO_LOGGERF(@"pid=%d", previouslyActiveAppPID_);
-    if (!previouslyActiveAppPID_) return;
+    if (!previouslyActiveAppPID_) {
+        // no previous app recorded
+        return;
+    }
+
     id app = [NSRunningApplication runningApplicationWithProcessIdentifier:previouslyActiveAppPID_];
     LOG(@"  ... activating %@", app);
     [app activateWithOptions:0];
