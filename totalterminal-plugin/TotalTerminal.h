@@ -35,6 +35,7 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
     IBOutlet NSButton* createProfileButton_;
     GTMCarbonHotKey* hotKey_;
     GTMCarbonHotKey* escapeHotKey;
+    GTMCarbonHotKey* fullScreenKey_;
     NSUInteger hotModifiers_;
     NSUInteger hotModifiersState_;
     NSTimeInterval lastHotModifiersEventCheckedTime_;

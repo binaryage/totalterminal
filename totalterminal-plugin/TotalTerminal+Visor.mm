@@ -537,7 +537,7 @@
     NSString* position = [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorPosition"];
     if (![position isEqualToString:lastPosition_]) {
         // note: cursor may jump during this operation, so do it only in rare cases when position changes
-        // for more info see http://github.com/darwindow/visor/issues#issue/27
+        // for more info see http://github.com/darwin/visor/issues#issue/27
         [self resetVisorWindowSize];
     }
     [lastPosition_ release];
@@ -646,7 +646,8 @@
         frame.origin.y = screenRect.origin.y - NSHeight(frame);
         [window_ setFrame:frame display:YES];
     }
-    if ([position isEqualToString:@"Full Screen"]) {
+    BOOL shouldForceFullScreenWindow = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorFullScreen"];
+    if ([position isEqualToString:@"Full Screen"] || shouldForceFullScreenWindow) {
         NSRect frame = [window_ frame];
         frame.size.width = screenRect.size.width;
         frame.size.height = screenRect.size.height - shift;
@@ -778,6 +779,7 @@
     LOG(@"resignKey %@", sender);
     isKey = false;
     [self updateEscapeHotKeyRegistration];
+    [self updateFullScreenHotKeyRegistration];
     if (!isMain && !isKey && !isHidden && ![self isPinned]) {
         [self hideVisor:false];
     }
@@ -795,6 +797,7 @@
     LOG(@"becomeKey %@", sender);
     isKey = true;
     [self updateEscapeHotKeyRegistration];
+    [self updateFullScreenHotKeyRegistration];
 }
 
 -(void) becomeMain:(id)sender {
@@ -882,7 +885,7 @@
     if (hideOnEscape && isKey) {
         if (!escapeHotKey) {
             GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-            escapeHotKey = [dispatcher registerHotKey:53
+            escapeHotKey = [dispatcher registerHotKey:53 // ESC
                                             modifiers:0
                                                target:self
                                                action:@selector(hideOnEscape)
@@ -894,6 +897,28 @@
             GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
             [dispatcher unregisterHotKey:escapeHotKey];
             escapeHotKey = nil;
+        }
+    }
+}
+
+-(void) updateFullScreenHotKeyRegistration {
+    AUTO_LOGGER();
+    if (isKey) {
+        if (!fullScreenKey_) {
+            // setting hotModifiers_ means we're not looking for a double tap
+            GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
+            fullScreenKey_ = [dispatcher registerHotKey:0x3 // F
+                                              modifiers:NSCommandKeyMask|NSAlternateKeyMask
+                                                 target:self
+                                                 action:@selector(fullScreenToggle:)
+                                               userInfo:nil
+                                            whenPressed:YES];
+        }
+    } else {
+        if (fullScreenKey_) {
+            GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
+            [dispatcher unregisterHotKey:fullScreenKey_];
+            fullScreenKey_ = nil;
         }
     }
 }

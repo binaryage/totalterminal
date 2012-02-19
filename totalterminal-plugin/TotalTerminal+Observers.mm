@@ -32,6 +32,7 @@
     [udc addObserver:self forKeyPath:@"values.TotalTerminalShortcuts" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.TotalTerminalUsePreReleases" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorPinned" options:0 context:nil];
+    [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorFullScreen" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorWindowOnHighLevel" options:0 context:nil];
 
     // ----------
@@ -75,6 +76,9 @@
     }
     if ([keyPath isEqualToString:@"values.TotalTerminalVisorPinned"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:VisorPinStateDidChangeNotification object:self];
+    }
+    if ([keyPath isEqualToString:@"values.TotalTerminalVisorFullScreen"]) {
+        [self resetWindowPlacement];
     }
     if ([keyPath isEqualToString:@"values.TotalTerminalUsePreReleases"]) {
         [self refreshFeedURLInUpdater];

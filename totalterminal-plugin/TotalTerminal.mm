@@ -70,6 +70,9 @@
     preventShortcutUpdates_ = FALSE;
     originalPreferencesSize.width = 0;
     lastPosition_ = nil;
+    hotKey_ = nil;
+    escapeHotKey = nil;
+    fullScreenKey_ = nil;
 
     [self refreshFeedURLInUpdater];
 
@@ -106,6 +109,7 @@
     [self updateStatusMenu];
     [self updateHotKeyRegistration];
     [self updateEscapeHotKeyRegistration];
+    [self updateFullScreenHotKeyRegistration];
     [self startEventMonitoring];
 
     if ([ud boolForKey:@"TotalTerminalShowStatusItem"]) {
@@ -123,5 +127,7 @@
 
     return self;
 }
+
+
 
 @end

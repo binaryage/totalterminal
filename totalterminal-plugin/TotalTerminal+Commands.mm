@@ -84,6 +84,15 @@
     }
 }
 
+-(IBAction) fullScreenToggle:(id)sender {
+    AUTO_LOGGERF(@"sender=%@", sender);
+    if (!window_) return;
+    
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
+    BOOL val = [ud boolForKey:@"TotalTerminalVisorFullScreen"];
+    [ud setBool:(val ? NO:YES) forKey:@"TotalTerminalVisorFullScreen"];
+}
+
 -(IBAction) showPrefs:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
     [NSApp activateIgnoringOtherApps:YES];
