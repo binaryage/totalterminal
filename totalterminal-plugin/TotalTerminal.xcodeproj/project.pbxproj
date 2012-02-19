@@ -216,7 +216,7 @@
 		D6AF5AA113E30A4E00C44014 /* TotalTerminal+Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Preferences.h"; sourceTree = "<group>"; };
 		D6AF5AA213E30A4E00C44014 /* TotalTerminal+Preferences.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Preferences.mm"; sourceTree = "<group>"; };
 		D6AF5AA413E3109500C44014 /* TotalTerminal+Visor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Visor.h"; sourceTree = "<group>"; };
-		D6AF5AA513E3109500C44014 /* TotalTerminal+Visor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Visor.mm"; sourceTree = "<group>"; };
+		D6AF5AA513E3109500C44014 /* TotalTerminal+Visor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = "TotalTerminal+Visor.mm"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D6AF5AA713E311EE00C44014 /* TotalTerminal+Commands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Commands.h"; sourceTree = "<group>"; };
 		D6AF5AA813E311EE00C44014 /* TotalTerminal+Commands.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Commands.mm"; sourceTree = "<group>"; };
 		D6AF5AAA13E314F000C44014 /* TotalTerminal+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Helpers.h"; sourceTree = "<group>"; };

@@ -103,6 +103,7 @@
 
     [self setupDockIcon];
 
+    [self initializeBackground];
     [self initStatusMenu];
     [self updateCachedShortcuts];
     [self updateStatusMenu];
@@ -118,10 +119,6 @@
 
     [self augumentMainMenu];
     [self registerObservers];
-
-    if ([ud boolForKey:@"TotalTerminalVisorUseBackgroundAnimation"]) {
-        [self background];
-    }
 
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(inputSourceChanged) name:(NSString*)kTISNotifySelectedKeyboardInputSourceChanged object:nil];
 

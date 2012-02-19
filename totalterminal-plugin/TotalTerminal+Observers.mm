@@ -64,7 +64,7 @@
         [self updateEscapeHotKeyRegistration];
     }
     if ([keyPath isEqualToString:@"values.TotalTerminalVisorUseBackgroundAnimation"]) {
-        [self updateBackgroundFrame];
+        [self initializeBackground];
         [self updateShouldShowTransparencyAlert];
     }
     if ([keyPath isEqualToString:@"values.TotalTerminalVisorBackgroundAnimationOpacity"]) {
@@ -96,7 +96,7 @@
     if ([keyPath isEqualToString:@"BackgroundColor"] &&
         (context != nil) &&
         [context isEqualToString:@"UpdateBackground"]) {
-        [self updateAnimationAlpha];
+        [self initializeBackground];
         [self updateShouldShowTransparencyAlert];
     }
 

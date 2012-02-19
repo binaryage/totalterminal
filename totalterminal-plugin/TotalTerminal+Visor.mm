@@ -285,25 +285,32 @@
     }
 }
 
+// this is called by TTAplication::sendEvent
 -(NSWindow*) background {
-    if (background) return [[background retain] autorelease];
+    return background_;
+}
 
-    background = [[[NSWindow class] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-    [background orderFront:nil];
-    [background setLevel:NSMainMenuWindowLevel - 2];
-    [background setIgnoresMouseEvents:YES];
-    [background setOpaque:NO];
-    [background setHasShadow:NO];
-    [background setReleasedWhenClosed:YES];
-    [background setLevel:NSFloatingWindowLevel];
-    [background setHasShadow:NO];
-    [self updateAnimationAlpha];
+-(void) createBackground {
+    if (background_) {
+        [self destroyBackground];
+    }
 
-    QCView* content = [[[QCView alloc] init] autorelease];
+    background_ = [[[NSWindow class] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+    [background_ orderFront:nil];
+    [background_ setLevel:NSMainMenuWindowLevel - 2];
+    [background_ setIgnoresMouseEvents:YES];
+    [background_ setOpaque:NO];
+    [background_ setHasShadow:NO];
+    [background_ setReleasedWhenClosed:YES];
+    [background_ setLevel:NSFloatingWindowLevel];
+    [background_ setHasShadow:NO];
+
+    QCView* content = [[QCView alloc] init];
 
     [content setEventForwardingMask:NSMouseMovedMask];
-    [background setContentView:content];
-    [background makeFirstResponder:content];
+    [background_ setContentView:content];
+    [content release];
+    [background_ makeFirstResponder:content];
 
     NSString* path = [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorBackgroundAnimationFile"];
     path = [path stringByStandardizingPath];
@@ -313,22 +320,24 @@
         NSLog(@"animation does not exist: %@", path);
         path = nil;
     }
-
     if (!path) {
         path = [[NSBundle bundleForClass:[self class]] pathForResource:@"Visor" ofType:@"qtz"];
     }
     [content loadCompositionFromFile:path];
     [content setMaxRenderingFrameRate:15.0];
-    if (!isHidden)
-        [content startRendering];
-    return [[background retain] autorelease];
+    [self updateAnimationAlpha];
+    if (window_ && ![self isHidden]) {
+        [window_ orderFront:nil];
+    }
 }
 
--(void) setBackground:(NSWindow*)newBackgroundWindow {
-    if (background != newBackgroundWindow) {
-        [background release];
-        background = [newBackgroundWindow retain];
+-(void) destroyBackground {
+    if (!background_) {
+        return;
     }
+    
+    [background_ release];
+    background_ = nil;
 }
 
 // credit: http://tonyarnold.com/entries/fixing-an-annoying-expose-bug-with-nswindows/
@@ -358,14 +367,14 @@
 }
 
 -(void) updateAnimationAlpha {
-    if ((background != nil) && !isHidden) {
+    if ((background_ != nil) && !isHidden) {
         float bkgAlpha = [self getVisorAnimationBackgroundAlpha];
-        [background setAlphaValue:bkgAlpha];
+        [background_ setAlphaValue:bkgAlpha];
     }
 }
 
 -(float) getVisorProfileBackgroundAlpha {
-    id bckColor = background ? [[[self class] getVisorProfile] valueForKey:@"BackgroundColor"] : nil;
+    id bckColor = background_ ? [[[self class] getVisorProfile] valueForKey:@"BackgroundColor"] : nil;
 
     return bckColor ? [bckColor alphaComponent] : 1.0;
 }
@@ -421,7 +430,6 @@
             offset = 0.0f;
         LOG(@"resetWindowPlacement %@ %f", window_, offset);
         [self applyVisorPositioning];
-        [self slideWindows:!isHidden fast:YES];
     } else {
         LOG(@"resetWindowPlacement called for nil window");
     }
@@ -492,18 +500,19 @@
         frame.origin.y = screenRect.origin.y - NSHeight(frame) + round(offset * NSHeight(frame));
     }
     [win setFrameOrigin:frame.origin];
-    [self updateBackgroundFrame];
+    if (background_) {
+        [background_ setFrame:[window_ frame] display:YES];
+    }
 }
 
--(void) updateBackgroundFrame {
+-(void) initializeBackground {
     BOOL useBackground = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorUseBackgroundAnimation"];
-
     if (useBackground) {
-        [self background];
-        [background setFrame:[window_ frame] display:YES];
+        [self createBackground];
     } else {
-        [self setBackground:nil];
+        [self destroyBackground];
     }
+    [self applyVisorPositioning];
 }
 
 -(void) resetVisorWindowSize {
@@ -657,7 +666,10 @@
         frame.origin.y = screenRect.origin.y;
         [window_ setFrame:frame display:YES];
     }
-    [self updateBackgroundFrame];
+    if (background_) {
+        [[background_ contentView] startRendering];
+    }
+    [self slideWindows:!isHidden fast:YES];
     NSEnableScreenUpdates();
 }
 
@@ -665,15 +677,13 @@
     AUTO_LOGGERF(@"fast=%d isHidden=%d", fast, isHidden);
     if (!isHidden) return;
 
-    isHidden = false;
     [self updateStatusMenu];
     [self storePreviouslyActiveApp];
+    [self applyVisorPositioning];
+
+    isHidden = false;
     [window_ makeKeyAndOrderFront:self];
     [window_ setHasShadow:YES];
-    [self applyVisorPositioning];
-    if (background) {
-        [[background contentView] startRendering];
-    }
     [NSApp activateIgnoringOtherApps:YES];
     [window_ update];
     [self slideWindows:1 fast:fast];
@@ -697,8 +707,8 @@
     [window_ setHasShadow:NO];
     [window_ invalidateShadow];
     [window_ update];
-    if (background) {
-        [[background contentView] stopRendering];
+    if (background_) {
+        [[background_ contentView] stopRendering];
     }
 
     {
@@ -739,8 +749,9 @@
             if (!doFade && direction) {
                 // setup final alpha state in case of no alpha
                 float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
-                if (background)
-                    [background setAlphaValue:alpha * bkgAlpha];
+                if (background_) {
+                    [background_ setAlphaValue:alpha * bkgAlpha];
+                }
                 [window_ setAlphaValue:alpha];
             }
             NSTimeInterval t;
@@ -754,11 +765,12 @@
                 }
                 if (doFade) {
                     float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(k));
-                    if (background)
-                        [background setAlphaValue:alpha * bkgAlpha];
+                    if (background_) {
+                        [background_ setAlphaValue:alpha * bkgAlpha];
+                    }
                     [window_ setAlphaValue:alpha];
                 }
-                usleep(background ? 1000 : 5000); // 1 or 5ms
+                usleep(background_ ? 1000 : 5000); // 1 or 5ms
             }
         }
     }
@@ -768,8 +780,8 @@
     [self placeWindow:window_ offset:offset];
     float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
     [window_ setAlphaValue:alpha];
-    if (background) {
-        [background setAlphaValue:alpha * bkgAlpha];
+    if (background_) {
+        [background_ setAlphaValue:alpha * bkgAlpha];
     }
 }
 

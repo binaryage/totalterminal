@@ -24,7 +24,6 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
     NSWindow* window_;        // the one visorized terminal window (may be nil)
     IBOutlet NSWindow* colorsWindow_;
     NSWindow* background_; // background window for quartz animations (will be nil if not enabled in settings!)
-    NSWindow* background; // background window for quartz animations (will be nil if not enabled in settings!)
     NSStatusItem* statusItem_;
     NSMenu* statusMenu_;
     NSStatusItem* statusItem;
