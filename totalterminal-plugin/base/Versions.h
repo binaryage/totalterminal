@@ -14,6 +14,7 @@ typedef enum {
 } TSupportedTerminalVersions;
 
 #define FIRST_LION_VERSION v297
+#define FIRST_MOUNTAIN_LION_VERSION v304
 
 extern TSupportedTerminalVersions initializeTerminalVersion();
 extern TSupportedTerminalVersions terminalVersion();

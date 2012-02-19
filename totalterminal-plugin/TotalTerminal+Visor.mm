@@ -146,6 +146,27 @@
     return [self SMETHOD (TTWindowController, newTabWithProfile):arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
 }
 
+// Mountain Lion renaming since v304
+-(id) SMETHOD (TTWindowController, makeTabWithProfile):(id)arg1 {
+    AUTO_LOGGER();
+    id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
+    if (profile) {
+        arg1 = profile;
+    }
+    return [self SMETHOD (TTWindowController, makeTabWithProfile):arg1];
+}
+
+-(id) SMETHOD (TTWindowController, makeTabWithProfile):(id)arg1 customFont:(id)arg2 command:(id)arg3 runAsShell:(BOOL)arg4 restorable:(BOOL)arg5 workingDirectory:(id)arg6 sessionClass:(id)arg7
+restoreSession                                    :(id)arg8 {
+    id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
+    
+    AUTO_LOGGERF(@"profile=%@", profile);
+    if (profile) {
+        arg1 = profile;
+    }
+    return [self SMETHOD (TTWindowController, makeTabWithProfile):arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
+}
+
 @end
 
 @interface NSApplication (TotalTerminal)
@@ -1129,12 +1150,18 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 }
 
 +(void) loadVisor {
-    SWIZZLE(TTWindowController, newTabWithProfile:);
-    if (terminalVersion() < FIRST_LION_VERSION) {
-        SWIZZLE(TTWindowController, newTabWithProfile: command: runAsShell:);
+    if (terminalVersion() < FIRST_MOUNTAIN_LION_VERSION) {
+        SWIZZLE(TTWindowController, newTabWithProfile:);
+        if (terminalVersion() < FIRST_LION_VERSION) {
+            SWIZZLE(TTWindowController, newTabWithProfile: command: runAsShell:);
+        } else {
+            SWIZZLE(TTWindowController, newTabWithProfile: customFont: command: runAsShell: restorable: workingDirectory: sessionClass: restoreSession:);
+        }
     } else {
-        SWIZZLE(TTWindowController, newTabWithProfile: customFont: command: runAsShell: restorable: workingDirectory: sessionClass: restoreSession:);
+        SWIZZLE(TTWindowController, makeTabWithProfile:);
+        SWIZZLE(TTWindowController, makeTabWithProfile: customFont: command: runAsShell: restorable: workingDirectory: sessionClass: restoreSession:);
     }
+    
     SWIZZLE(TTWindowController, setCloseDialogExpected:);
     SWIZZLE(TTWindowController, window: willPositionSheet: usingRect:);
 
@@ -1155,7 +1182,11 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
     id visorProfile = [TotalTerminal getVisorProfile];
     id app = [NSClassFromString (@"TTApplication")sharedApplication];
-    id controller = [app newWindowControllerWithProfile:visorProfile]; // TODO: make static analyzer happy here, this is not a leak, controller goes away with window close
+    if (terminalVersion()<FIRST_MOUNTAIN_LION_VERSION) {
+        id controller = [app newWindowControllerWithProfile:visorProfile]; // TODO: make static analyzer happy here, this is not a leak, controller goes away with window close
+    } else {
+        id controller = [app makeWindowControllerWithProfile:visorProfile]; // ah, Ben started following Cocoa naming conventions, good! :-)
+    }
 
     [self resetWindowPlacement];
     [self updatePreferencesUI];
