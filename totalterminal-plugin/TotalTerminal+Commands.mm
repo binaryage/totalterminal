@@ -128,7 +128,7 @@
 
 -(IBAction) crashMe:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
-    *((char*)0) = 0;
+    abort();
 }
 
 -(IBAction) createVisorProfile:(id)sender {

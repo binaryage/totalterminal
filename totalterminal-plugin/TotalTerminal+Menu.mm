@@ -24,7 +24,6 @@
         NSMenuItem* item = [menu itemAtIndex:i];
         if (!item)
             continue;
-        SEL sel = [item action];
         if ([item action] == selector) return item;
     }
     return NULL;
@@ -69,7 +68,6 @@
 #pragma mark -
 
 -(void) updateMainMenuWindowState:(NSMenu*)menu {
-    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSMenuItem* menuItem;
 
     menuItem = [menu itemWithTag:4101]; // Pin Visor
@@ -125,6 +123,7 @@
                     [menuItem setTag:4101];
                     [menuItem setTarget:self];
                     [windowMenu insertItem:menuItem atIndex:menuIndex + 2];
+                    [menuItem release];
                 }
             }
         }

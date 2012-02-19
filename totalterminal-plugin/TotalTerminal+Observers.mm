@@ -9,7 +9,6 @@
 }
 
 -(void) registerObservers {
-    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
 
     // watch for hotkey changes

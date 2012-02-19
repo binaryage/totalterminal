@@ -83,7 +83,7 @@
 
 -(NSRect) SMETHOD (TTWindowController, window):(NSWindow*)window willPositionSheet:(NSWindow*)sheet usingRect:(NSRect)rect {
     AUTO_LOGGER();
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    [TotalTerminal sharedInstance];
     return rect;
 }
 
@@ -1143,7 +1143,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
     id visorProfile = [TotalTerminal getVisorProfile];
     id app = [NSClassFromString (@"TTApplication")sharedApplication];
-    id controller = [app newWindowControllerWithProfile:visorProfile];
+    id controller = [app newWindowControllerWithProfile:visorProfile]; // TODO: make static analyzer happy here, this is not a leak, controller goes away with window close
 
     [self resetWindowPlacement];
     [self updatePreferencesUI];

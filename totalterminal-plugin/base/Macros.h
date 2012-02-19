@@ -75,6 +75,7 @@ public:
         }
 
         LogMessageF(filename, lineNumber, functionName, domain, l, @ "%*s%@", [indent intValue] * 3, "", print);
+        [print release];
     }
 };
 

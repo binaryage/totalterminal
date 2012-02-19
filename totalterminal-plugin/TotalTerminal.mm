@@ -83,9 +83,6 @@
     activeIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorActive"]];
     inactiveIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorInactive"]];
 
-    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
-    NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
-
     previouslyActiveAppPID_ = 0;
     isHidden = true;
     isMain = false;
@@ -112,6 +109,7 @@
     [self updateFullScreenHotKeyRegistration];
     [self startEventMonitoring];
 
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     if ([ud boolForKey:@"TotalTerminalShowStatusItem"]) {
         [self activateStatusMenu];
     }
