@@ -2,4 +2,6 @@
 
 @interface TotalTerminal (Defaults)
 
++(void)sanitizeDefaults:(NSUserDefaults*)ud;
+
 @end

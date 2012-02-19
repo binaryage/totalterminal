@@ -18,10 +18,6 @@
                                      userInfo:[NSDictionary dictionaryWithObject:errStr forKey:NSLocalizedDescriptionKey]]; \
     }
 
-@interface NSObject ()
-+(BOOL) TotalTerminal_jr_swizzleInClass:(Class)class_ method:(SEL)origSel_ withMethod:(SEL)altSel_ error:(NSError**)error_;
-@end
-
 @implementation NSObject (TotalTerminal_Swizzling)
 
 +(BOOL) TotalTerminal_jr_swizzleInClass:(Class)class_ method:(SEL)origSel_ withMethod:(SEL)altSel_ error:(NSError**)error_;

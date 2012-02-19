@@ -13,10 +13,6 @@
 
 @implementation TotalTerminal (Menu)
 
-#pragma mark -
-#pragma mark Menu Helpers
-#pragma mark -
-
 -(NSMenuItem*) findMenuItem:(NSMenu*)menu withSelector:(SEL)selector {
     size_t count = [menu numberOfItems];
 
@@ -46,7 +42,7 @@
         [menuItem setKeyEquivalent:@""];
         [menuItem setKeyEquivalentModifierMask:0];
     } else {
-        NSString* key = [SRCharacterForKeyCodeAndCocoaFlags(combo.code, combo.flags) lowercaseString];
+        NSString* key = [SRCharacterForKeyCodeAndCocoaFlags (combo.code, combo.flags)lowercaseString];
         if (combo.flags & NSShiftKeyMask) {
             key = [key uppercaseString];
         }
@@ -62,10 +58,6 @@
         [menuItem setKeyEquivalentModifierMask:flags];
     }
 }
-
-#pragma mark -
-#pragma mark Menu manipulation
-#pragma mark -
 
 -(void) updateMainMenuWindowState:(NSMenu*)menu {
     NSMenuItem* menuItem;

@@ -1,0 +1,2 @@
+@interface TTAccessibleView : NSView { }
+@end

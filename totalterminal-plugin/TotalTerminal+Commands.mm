@@ -1,11 +1,22 @@
-#include "TotalTerminal+Commands.h"
-#include "Updater.h"
+#import "TTAppPrefsController.h"
+#import "TTApplication.h"
+#import "TTProfileManager.h"
+#import "TTProfile.h"
+#import "TTWindowController.h"
+
+#import "TotalTerminal+Commands.h"
+#import "Updater.h"
 
 @implementation TotalTerminal (Commands)
+
 -(IBAction) showTransparencyHelpPanel:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
-    [NSApp beginSheet:transparencyHelpPanel modalForWindow:[[NSClassFromString (@"TTAppPrefsController")
-                                                             sharedPreferencesController] window] modalDelegate:self didEndSelector:NULL contextInfo:nil];
+    NSWindow* window = [[NSClassFromString (@"TTAppPrefsController")sharedPreferencesController] window];
+    [NSApp beginSheet:transparencyHelpPanel
+       modalForWindow:window
+        modalDelegate:self
+       didEndSelector:NULL
+          contextInfo:nil];
 }
 
 -(IBAction) closeTransparencyHelpPanel:(id)sender {
@@ -43,7 +54,7 @@
     [updater checkForUpdates:sender];
 }
 
--(void) togglePinVisor:(id)sender {
+-(IBAction) togglePinVisor:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
     if (!window_) return;
 
@@ -53,12 +64,12 @@
 }
 
 -(IBAction) toggleVisor:(id)sender {
-    AUTO_LOGGERF(@"sender=%@ isHidden=%d", sender, isHidden);
+    AUTO_LOGGERF(@"sender=%@ isHidden=%d", sender, isHidden_);
     if (!window_) {
-        isHidden = YES;
+        isHidden_ = YES;
         [self openVisor];
     }
-    if (isHidden) {
+    if (isHidden_) {
         [self showVisor:false];
     } else {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorPinned"]) {
@@ -87,7 +98,7 @@
 -(IBAction) fullScreenToggle:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
     if (!window_) return;
-    
+
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
     BOOL val = [ud boolForKey:@"TotalTerminalVisorFullScreen"];
     [ud setBool:(val ? NO:YES) forKey:@"TotalTerminalVisorFullScreen"];
@@ -98,7 +109,7 @@
     [NSApp activateIgnoringOtherApps:YES];
     id terminalApp = [NSClassFromString (@"TTApplication")sharedApplication];
     [terminalApp showPreferencesWindow:nil];
-    id prefsController = [NSClassFromString (@"TTAppPrefsController")sharedPreferencesController];
+    TTAppPrefsController* prefsController = (TTAppPrefsController*)[NSClassFromString (@"TTAppPrefsController")sharedPreferencesController];
     [prefsController SMETHOD (TTAppPrefsController, selectVisorPane)];
 }
 
@@ -112,9 +123,9 @@
     NSOpenPanel* panel = [NSOpenPanel openPanel];
 
     [panel setTitle:@"Select a Quartz Composer (qtz) file"];
-    if ([panel runModalForTypes:[NSArray arrayWithObject:@"qtz"]]) {
-        NSString* path = [panel filename];
-        path = [path stringByAbbreviatingWithTildeInPath];
+    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"qtz"]];
+    if ([panel runModal]) {
+        NSString* path = [[[panel URL] path] stringByAbbreviatingWithTildeInPath];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"TotalTerminalVisorUseBackgroundAnimation"];
         [[NSUserDefaults standardUserDefaults] setObject:path forKey:@"TotalTerminalVisorBackgroundAnimationFile"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TotalTerminalVisorUseBackgroundAnimation"];
@@ -133,15 +144,15 @@
 
 -(IBAction) createVisorProfile:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
-    id profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
-    id visorProfile = [profileManager profileWithName:@"Visor"];
+    TTProfileManager* profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
+    TTProfile* visorProfile = [profileManager profileWithName:@"Visor"];
     if (visorProfile) {
         INFO(@"Visor profile already exists.");
         return;
     }
 
     // create visor profile in case it does not exist yet, use startup profile as a template
-    id startupProfile = [profileManager startupProfile];
+    TTProfile* startupProfile = [profileManager startupProfile];
     visorProfile = [startupProfile copyWithZone:nil];
 
     // apply Darwin's preferred Visor settings
@@ -173,7 +184,8 @@
     // apply visor profile to the opening window
     TotalTerminal* tt = [TotalTerminal sharedInstance];
     if ([tt window]) {
-        [[[tt window] windowController] applyProfileToAllShellsInWindow:visorProfile];
+        TTWindowController* c = (TTWindowController*)[[tt window] windowController];
+        [c applyProfileToAllShellsInWindow:visorProfile];
         [tt updatePreferencesUI];
     }
 }

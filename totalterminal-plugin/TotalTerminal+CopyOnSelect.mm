@@ -1,9 +1,11 @@
 // taken from http://github.com/genki/terminalcopyonselect
-
-#define PROJECT CopyOnSelect
 #import "TotalTerminal+CopyOnSelect.h"
 
+#undef PROJECT
+#define PROJECT CopyOnSelect
+
 @implementation NSView (TotalTerminal)
+
 -(void) SMETHOD (TTView, mouseUp):(NSEvent*)theEvent {
     [self SMETHOD (TTView, mouseUp):theEvent];
     bool copyOnSelect = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalCopyOnSelect"];
@@ -19,6 +21,7 @@
 @end
 
 @implementation TotalTerminal (CopyOnSelect)
+
 +(void) loadCopyOnSelect {
     SWIZZLE(TTView, mouseUp:);
     LOG(@"CopyOnSelect installed");

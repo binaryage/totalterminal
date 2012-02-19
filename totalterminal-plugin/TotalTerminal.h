@@ -1,33 +1,14 @@
 #import "GTMCarbonEvent.h"
 #import "SRCommon.h"
 
-typedef enum  {
-    eUnknownShortcut = -1,
-    eToggleVisor = 0,
-    ePinVisor,
-    eShortcutsCount
-} TShortcuts;
-
-@interface ModifierButtonImageView : NSImageView { }
--(void)mouseDown:(NSEvent*)event;
-@end
-
-@interface NSView (TotalTerminal)
--(NSView*)TotalTerminal_findSRRecorderFor:(NSString*)shortcut;
--(void)TotalTerminal_refreshSRRecorders;
-@end
-
-NSDictionary* makeKeyModifiersDictionary(NSInteger code, NSUInteger flags);
-KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
+@class ModifierButtonImageView;
 
 @interface TotalTerminal : NSObject {
-    NSWindow* window_;        // the one visorized terminal window (may be nil)
+    NSWindow* window_; // the one visorized terminal window (may be nil)
     IBOutlet NSWindow* colorsWindow_;
     NSWindow* background_; // background window for quartz animations (will be nil if not enabled in settings!)
     NSStatusItem* statusItem_;
     NSMenu* statusMenu_;
-    NSStatusItem* statusItem;
-    NSMenu* statusMenu;
     IBOutlet NSWindow* settingsWindow;
     IBOutlet NSPanel* transparencyHelpPanel;
     IBOutlet WebView* infoLine; // bottom info line on Visor preferences pane
@@ -42,54 +23,47 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
     NSUInteger hotModifiersState_;
     NSTimeInterval lastHotModifiersEventCheckedTime_;
     int previouslyActiveAppPID_;
-    BOOL isHidden;
-    BOOL isMain;
-    BOOL isKey;
-    NSImage* activeIcon;
-    NSImage* inactiveIcon;
+    BOOL isHidden_;
+    BOOL isMain_;
+    BOOL isKey_;
+    NSImage* activeIcon_;
+    NSImage* inactiveIcon_;
     NSImage* modifiersOption_;
     NSImage* modifiersControl_;
     NSImage* modifiersCommand_;
     NSImage* modifiersShift_;
     NSString* lastPosition_;
-    NSDictionary* scriptError;
-    BOOL ignoreResizeNotifications;
     NSSize originalPreferencesSize;
     NSSize prefPaneSize;
-    BOOL isActiveAlternativeIcon;
+    BOOL isActiveAlternativeIcon_;
     NSImage* originalDockIcon;
     NSImage* alternativeDockIcon;
     BOOL preventShortcutUpdates_;
     NSTimer* universalTimer_;
 }
 
--(NSWindow*)window;
--(void)setWindow:(NSWindow*)inWindow;
--(NSWindow*)background;
--(void)setBackground:(NSWindow*)newBackground;
--(BOOL)isHidden;
--(BOOL)isVisorWindow:(id)win;
--(BOOL)status;
++(TotalTerminal*)sharedInstance;
 
--(NSSize)originalPreferencesSize;
--(void)setOriginalPreferencesSize:(NSSize)size;
--(NSSize)prefPaneSize;
-
--(IBAction)showTransparencyHelpPanel:(id)sender;
--(IBAction)closeTransparencyHelpPanel:(id)sender;
--(IBAction)chooseBackgroundComposition:(id)sender;
--(IBAction)toggleVisor:(id)sender;
--(IBAction)showPrefs:(id)sender;
--(IBAction)visitHomepage:(id)sender;
--(IBAction)updateMe:(id)sender;
--(IBAction)createVisorProfile:(id)sender;
-
-// terminal colours feature
--(IBAction)orderFrontColourConfiguration:(id)sender;
--(IBAction)orderOutConfiguration:(id)sender;
+-(void)updateShouldShowTransparencyAlert;
 
 @property (readonly, nonatomic) NSNumber* shouldShowTransparencyAlert;
+
 @end
 
-# import "TotalTerminal+Helpers.h"
-
+#import "TotalTerminal+Defaults.h"
+#import "TotalTerminal+Debug.h"
+#import "TotalTerminal+Observers.h"
+#import "TotalTerminal+StatusMenu.h"
+#import "TotalTerminal+Preferences.h"
+#import "TotalTerminal+Commands.h"
+#import "TotalTerminal+Helpers.h"
+#import "TotalTerminal+Dock.h"
+#import "TotalTerminal+Sparkle.h"
+#import "TotalTerminal+Shortcuts.h"
+#import "TotalTerminal+Menu.h"
+#import "TotalTerminal+Features.h"
+#import "TotalTerminal+Visor.h"
+#import "TotalTerminal+TerminalColours.h"
+#import "TotalTerminal+CopyOnSelect.h"
+#import "TotalTerminal+PasteOnRightClick.h"
+#import "TotalTerminal+AutoSlide.h"

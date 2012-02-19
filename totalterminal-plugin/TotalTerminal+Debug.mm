@@ -1,5 +1,9 @@
 #include "TotalTerminal+Debug.h"
 
+@interface NSObject ()
++(void) insertInMainMenu;
+@end
+
 @implementation TotalTerminal (Debug)
 
 +(bool) initDebugSubsystems {

@@ -38,7 +38,7 @@
 }
 
 -(void) observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context {
-    AUTO_LOGGERF(@"keyPath=%@", keyPath);
+    AUTO_LOGGERF(@"keyPath=%@ object=%@ change=%@ context=%p", keyPath, object, change, context);
 
     if ([keyPath isEqualToString:@"values.TotalTerminalShowStatusItem"]) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalShowStatusItem"]) {
@@ -87,11 +87,14 @@
     if ([keyPath isEqualToString:@"values.TotalTerminalVisorWindowOnHighLevel"]) {
         [self updateVisorWindowLevel];
     }
-    if ([keyPath isEqualToString:@"BackgroundColor"] &&
-        (context != nil) &&
-        [context isEqualToString:@"UpdateBackground"]) {
-        [self initializeBackground];
-        [self updateShouldShowTransparencyAlert];
+    if ([keyPath isEqualToString:@"BackgroundColor"]) {
+        if (context) {
+            NSString* name = (NSString*)context;
+            if ([name isEqualToString:@"UpdateBackground"]) {
+                [self initializeBackground];
+                [self updateShouldShowTransparencyAlert];
+            }
+        }
     }
 
     [self updateMainMenuState];

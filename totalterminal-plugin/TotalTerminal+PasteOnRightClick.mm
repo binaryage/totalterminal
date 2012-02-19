@@ -1,5 +1,6 @@
 // Created by Anmol Khirbat on 1/18/10.
 
+#undef PROJECT
 #define PROJECT PasteOnRightClick
 #import "TotalTerminal+PasteOnRightClick.h"
 

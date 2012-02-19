@@ -1,8 +1,10 @@
-#include "TotalTerminal+Preferences.h"
-#include "TotalTerminal+Visor.h"
+#import "TTAppPrefsController.h"
 
 #import "GTMHotKeyTextField.h"
 #import "SRRecorderControl.h"
+
+#include "TotalTerminal+Preferences.h"
+#include "TotalTerminal+Visor.h"
 
 @implementation ModifierButtonImageView
 
@@ -19,7 +21,8 @@
 
 -(NSView*) TotalTerminal_findSRRecorderFor:(NSString*)shortcut {
     if ([[self className] isEqualToString:@"SRRecorderControl"]) {
-        if ([[self shortcut] isEqualToString:shortcut]) {
+        SRRecorderControl* me = (SRRecorderControl*)self;
+        if ([[me shortcut] isEqualToString:shortcut]) {
             return self;
         }
     }
@@ -85,8 +88,7 @@
 -(id) SMETHOD (TTAppPrefsController, toolbar):(id)arg1 itemForItemIdentifier:(id)arg2 willBeInsertedIntoToolbar:(BOOL)arg3 {
     AUTO_LOGGERF(@"item=%@", arg2);
     if ([arg2 isEqualToString:@"Visor"]) {
-        TotalTerminal* tt = [TotalTerminal sharedInstance];
-        NSToolbarItem* toolbarItem = [tt getVisorToolbarItem];
+        NSToolbarItem* toolbarItem = [[TotalTerminal sharedInstance] getVisorToolbarItem];
         [toolbarItem setTarget:self];
         [toolbarItem setAction:@selector(SMETHOD(TTAppPrefsController,selectVisorPane))];
         return toolbarItem;
@@ -169,7 +171,7 @@
 
     AUTO_LOGGER();
 
-    id prefsController = [NSClassFromString (@"TTAppPrefsController")sharedPreferencesController];
+    TTAppPrefsController* prefsController = (TTAppPrefsController*)[NSClassFromString (@"TTAppPrefsController")sharedPreferencesController];
     if (!prefsController) {
         return;
     }

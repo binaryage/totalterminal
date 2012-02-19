@@ -1,5 +1,7 @@
+#include "TotalTerminal+AutoSlide.h"
+
+#undef PROJECT
 #define PROJECT AutoSlide
-#import "TotalTerminal+AutoSlide.h"
 
 @implementation NSApplication (TotalTerminal)
 

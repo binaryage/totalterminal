@@ -1,7 +1,10 @@
 // taken from http://github.com/evanphx/terminalcolours/commit/20eb738a5c81349a3b0189ee7eb25de589abf987
 
+#undef PROJECT
 #define PROJECT TerminalColours
 #import "TotalTerminal+TerminalColours.h"
+
+#import "TTAppPrefsController.h"
 
 static NSString* colourKeys[] = {
     @"noColour",
@@ -88,10 +91,7 @@ static NSString* colourKeys[] = {
     return colour;
 }
 
-/*
-    These two are swizzled so that we can use bindings to set the colour values
-    from the nib
- */
+// These two are swizzled so that we can use bindings to set the colour values from the nib
 -(id) SMETHOD (TTProfile, valueForKey):(NSString*)key {
     if ([key hasSuffix:@"Colour"])
         return [self colourForKey:key];
@@ -129,7 +129,7 @@ static NSString* colourKeys[] = {
 -(void) SMETHOD (TTAppPrefsController, windowDidLoad) {
     [self SMETHOD (TTAppPrefsController, windowDidLoad)];
 
-    id prefsController = [NSClassFromString (@"TTAppPrefsController")sharedPreferencesController];
+    TTAppPrefsController* prefsController = (TTAppPrefsController*)[NSClassFromString (@"TTAppPrefsController")sharedPreferencesController];
     NSView* windowSettingsView = [[[prefsController valueForKey:@"tabView"] tabViewItemAtIndex:1] view];
     NSTabView* tabView = [[windowSettingsView subviews] objectAtIndex:0];
     NSView* textPrefsView = [[tabView tabViewItemAtIndex:0] view];
@@ -178,7 +178,7 @@ static NSString* colourKeys[] = {
 }
 
 // For binding in the nib
--(id) profilesController {
+-(TTAppPrefsController*) profilesController {
     return [[NSClassFromString (@"TTAppPrefsController")sharedPreferencesController] performSelector:@selector(profilesController)];
 }
 

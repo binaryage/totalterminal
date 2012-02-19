@@ -32,38 +32,6 @@
     statusItem_ = nil;
 }
 
--(BOOL) validateMenuItem:(NSMenuItem*)menuItem {
-    AUTO_LOGGERF(@"menuItem=%@", menuItem);
-    [self updateStatusMenu];
-    if ([menuItem action] == @selector(toggleVisor:)) {
-        return YES;
-    }
-    if ([menuItem action] == @selector(visitHomepage:)) {
-        return YES;
-    }
-    if ([menuItem action] == @selector(restartMe:)) {
-        return YES;
-    }
-    if ([menuItem action] == @selector(uninstallMe:)) {
-        return YES;
-    }
-    if ([menuItem action] == @selector(updateMe:)) {
-        return YES;
-    }
-    if ([menuItem action] == @selector(togglePinVisor:)) {
-        return !!window_;
-    }
-#ifdef _DEBUG_MODE
-    if ([menuItem action] == @selector(crashMe:)) {
-        return YES;
-    }
-    if ([menuItem action] == @selector(exitMe:)) {
-        return YES;
-    }
-#endif
-    return YES;
-}
-
 -(void) updateStatusMenu {
     static bool firstTime = true;
 
@@ -112,20 +80,52 @@
         if (showItem) {
             BOOL status = [self status];
             if (status) {
-                [statusItem_ setImage:activeIcon];
-                if (isHidden) {
+                [statusItem_ setImage:activeIcon_];
+                if (isHidden_) {
                     [showItem setTitle:(@"Show Visor")];
                 } else {
                     [showItem setTitle:(@"Hide Visor")];
                 }
             } else {
-                [statusItem_ setImage:inactiveIcon];
+                [statusItem_ setImage:inactiveIcon_];
                 [showItem setTitle:(@"Open Visor")];
             }
         }
     }
 
     firstTime = false;
+}
+
+-(BOOL) validateMenuItem:(NSMenuItem*)menuItem {
+    AUTO_LOGGERF(@"menuItem=%@", menuItem);
+    [self updateStatusMenu];
+    if ([menuItem action] == @selector(toggleVisor:)) {
+        return YES;
+    }
+    if ([menuItem action] == @selector(visitHomepage:)) {
+        return YES;
+    }
+    if ([menuItem action] == @selector(restartMe:)) {
+        return YES;
+    }
+    if ([menuItem action] == @selector(uninstallMe:)) {
+        return YES;
+    }
+    if ([menuItem action] == @selector(updateMe:)) {
+        return YES;
+    }
+    if ([menuItem action] == @selector(togglePinVisor:)) {
+        return !!window_;
+    }
+#ifdef _DEBUG_MODE
+    if ([menuItem action] == @selector(crashMe:)) {
+        return YES;
+    }
+    if ([menuItem action] == @selector(exitMe:)) {
+        return YES;
+    }
+#endif
+    return YES;
 }
 
 @end

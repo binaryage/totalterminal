@@ -170,6 +170,15 @@
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+TerminalColours.h"; sourceTree = "<group>"; };
 		D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+TerminalColours.mm"; sourceTree = "<group>"; };
+		D622F34F14F1AF8A00EF758A /* TTAppPrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAppPrefsController.h; sourceTree = "<group>"; };
+		D622F35014F1AFBC00EF758A /* TTProfileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTProfileManager.h; sourceTree = "<group>"; };
+		D622F35114F1B03900EF758A /* TTWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWindowController.h; sourceTree = "<group>"; };
+		D622F35414F1B16600EF758A /* TTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; };
+		D622F35514F1B35300EF758A /* TTTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTabController.h; sourceTree = "<group>"; };
+		D622F35614F1B36F00EF758A /* TTPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPane.h; sourceTree = "<group>"; };
+		D622F35714F1B38A00EF758A /* TTAccessibleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAccessibleView.h; sourceTree = "<group>"; };
+		D622F35814F1B4AC00EF758A /* TTProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTProfile.h; sourceTree = "<group>"; };
+		D622F35914F1B61E00EF758A /* TTView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTView.h; sourceTree = "<group>"; };
 		D62A1D1A13E4B7F100221A33 /* Visor-Lion.terminal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Visor-Lion.terminal"; path = "../totalterminal-i18n/plugin/Visor-Lion.terminal"; sourceTree = "<group>"; };
 		D62A1D1B13E4B7F100221A33 /* Visor-SnowLeaopard.terminal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Visor-SnowLeaopard.terminal"; path = "../totalterminal-i18n/plugin/Visor-SnowLeaopard.terminal"; sourceTree = "<group>"; };
 		D65192DE14F013EA002B562B /* TotalTerminal+AutoSlide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+AutoSlide.h"; sourceTree = "<group>"; };
@@ -336,6 +345,7 @@
 		08FB77AFFE84173DC02AAC07 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D622F34E14F1AF8A00EF758A /* Terminal */,
 				D6AF5A8013E2FB1B00C44014 /* ShortcutRecorder */,
 				D6AF5A7B13E2FB0400C44014 /* Logger */,
 				D6E5F58B13E205470069D886 /* lib */,
@@ -419,6 +429,22 @@
 				D6FB34420F3844D80067F941 /* TotalTerminalShared.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		D622F34E14F1AF8A00EF758A /* Terminal */ = {
+			isa = PBXGroup;
+			children = (
+				D622F34F14F1AF8A00EF758A /* TTAppPrefsController.h */,
+				D622F35014F1AFBC00EF758A /* TTProfileManager.h */,
+				D622F35114F1B03900EF758A /* TTWindowController.h */,
+				D622F35414F1B16600EF758A /* TTApplication.h */,
+				D622F35514F1B35300EF758A /* TTTabController.h */,
+				D622F35614F1B36F00EF758A /* TTPane.h */,
+				D622F35714F1B38A00EF758A /* TTAccessibleView.h */,
+				D622F35814F1B4AC00EF758A /* TTProfile.h */,
+				D622F35914F1B61E00EF758A /* TTView.h */,
+			);
+			path = Terminal;
 			sourceTree = "<group>";
 		};
 		D66A08DC13E7467B0030CD39 /* Tools */ = {
@@ -810,7 +836,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TotalTerminalShared.pch;
 				INFOPLIST_FILE = Info.plist;
@@ -827,7 +852,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TotalTerminalShared.pch;
 				INFOPLIST_FILE = Info.plist;

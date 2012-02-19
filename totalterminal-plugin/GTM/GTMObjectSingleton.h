@@ -60,7 +60,7 @@
     -(NSUInteger)retainCount { \
         return NSUIntegerMax; \
     } \
-    -(void)release { \
+    -(oneway void)release { \
     } \
     -(id)autorelease { \
         return self; \

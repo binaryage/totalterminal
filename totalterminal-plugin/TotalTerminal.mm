@@ -1,5 +1,4 @@
 #import "TotalTerminal.h"
-#include "TotalTerminal.h"
 
 @implementation TotalTerminal
 
@@ -56,9 +55,7 @@
 
     [self loadFeatures];
 
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
-
-    [tt openVisor];
+    [[TotalTerminal sharedInstance] openVisor];
 }
 
 -(id) init {
@@ -82,17 +79,17 @@
 
     [self setWindow:nil];
 
-    activeIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorActive"]];
-    inactiveIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorInactive"]];
+    activeIcon_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorActive"]];
+    inactiveIcon_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorInactive"]];
 
     previouslyActiveAppPID_ = 0;
-    isHidden = true;
-    isMain = false;
-    isKey = false;
+    isHidden_ = true;
+    isMain_ = false;
+    isKey_ = false;
 
     [NSBundle loadNibNamed:@"TotalTerminal" owner:self];
 
-    isActiveAlternativeIcon = FALSE;
+    isActiveAlternativeIcon_ = FALSE;
     alternativeDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"TotalTerminal"]];
     originalDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"Terminal"]];
 
@@ -133,6 +130,17 @@
     if (![self isHidden]) {
         [self updatePreviouslyActiveApp];
     }
+}
+
+-(void) updateShouldShowTransparencyAlert {
+    [self willChangeValueForKey:@"shouldShowTransparencyAlert"];
+    [self didChangeValueForKey:@"shouldShowTransparencyAlert"];
+}
+
+-(NSNumber*) shouldShowTransparencyAlert {
+    return ([[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorUseBackgroundAnimation"] &&
+            ((float)[self getVisorProfileBackgroundAlpha] >= 1.0f))
+           ? (NSNumber*)kCFBooleanTrue : (NSNumber*)kCFBooleanFalse;
 }
 
 @end
