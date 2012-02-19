@@ -411,6 +411,8 @@
 }
 
 -(void) resetWindowPlacement {
+    ScopedNSDisableScreenUpdatesWithDelay disabler(0.2, __FUNCTION__); // prevent ocasional flickering
+
     [lastPosition_ release];
     lastPosition_ = nil;
     if (window_) {
