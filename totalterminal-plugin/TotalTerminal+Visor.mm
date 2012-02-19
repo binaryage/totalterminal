@@ -441,7 +441,7 @@ restoreSession                                    :(id)arg8 {
 }
 
 -(void) resetWindowPlacement {
-    ScopedNSDisableScreenUpdatesWithDelay disabler(0.2, __FUNCTION__); // prevent ocasional flickering
+    ScopedNSDisableScreenUpdatesWithDelay disabler(0.05, __FUNCTION__); // prevent ocasional flickering
 
     [lastPosition_ release];
     lastPosition_ = nil;
@@ -759,6 +759,13 @@ restoreSession                                    :(id)arg8 {
         BOOL doSlide = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorUseSlide"];
         BOOL doFade = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorUseFade"];
         float animSpeed = [[NSUserDefaults standardUserDefaults] floatForKey:@"TotalTerminalVisorAnimationSpeed"];
+        
+        // HACK for Mountain Lion, fading crashes windowing server on my machine
+        if (terminalVersion()>FIRST_MOUNTAIN_LION_VERSION) {
+            if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalDisableMountainLionFadingHack"]) {
+                doFade = false;
+            }
+        }
 
         // animation loop
         if (doFade || doSlide) {
