@@ -60,6 +60,7 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
     NSImage* originalDockIcon;
     NSImage* alternativeDockIcon;
     BOOL preventShortcutUpdates_;
+    NSTimer* universalTimer_;
 }
 
 -(NSWindow*)window;
@@ -89,3 +90,6 @@ KeyCombo makeKeyComboFromDictionary(NSDictionary* hotkey);
 
 @property (readonly, nonatomic) NSNumber* shouldShowTransparencyAlert;
 @end
+
+# import "TotalTerminal+Helpers.h"
+

@@ -122,7 +122,17 @@
 
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(inputSourceChanged) name:(NSString*)kTISNotifySelectedKeyboardInputSourceChanged object:nil];
 
+    universalTimer_ = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(universalTimerFired:) userInfo:nil repeats:YES];
+
     return self;
+}
+
+-(void) universalTimerFired:(NSTimer*)timer {
+    // this polling code is used to track previous app when visor is shown
+    // see updatePreviouslyActiveApp for more info
+    if (![self isHidden]) {
+        [self updatePreviouslyActiveApp];
+    }
 }
 
 @end
