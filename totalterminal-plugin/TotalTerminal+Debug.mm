@@ -1,4 +1,4 @@
-#include "TotalTerminal+Debug.h"
+#import "TotalTerminal+Debug.h"
 
 @interface NSObject ()
 +(void) insertInMainMenu;

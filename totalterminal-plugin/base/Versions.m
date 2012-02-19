@@ -1,4 +1,4 @@
-#include "Versions.h"
+#import "Versions.h"
 
 static TSupportedTerminalVersions terminalImageVersion = vUnknown;
 

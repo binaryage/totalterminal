@@ -1,4 +1,4 @@
-#include "TotalTerminal+Defaults.h"
+#import "TotalTerminal+Defaults.h"
 
 #define CONVERT_KEY(from, to) \
     if ([ud objectForKey:from]) { \

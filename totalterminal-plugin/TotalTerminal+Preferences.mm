@@ -3,8 +3,8 @@
 #import "GTMHotKeyTextField.h"
 #import "SRRecorderControl.h"
 
-#include "TotalTerminal+Preferences.h"
-#include "TotalTerminal+Visor.h"
+#import "TotalTerminal+Preferences.h"
+#import "TotalTerminal+Visor.h"
 
 @implementation ModifierButtonImageView
 

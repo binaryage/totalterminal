@@ -1,5 +1,5 @@
-#include "TotalTerminal+Sparkle.h"
-#include "Updater.h"
+#import "TotalTerminal+Sparkle.h"
+#import "Updater.h"
 
 @implementation TotalTerminal (Sparkle)
 -(void) refreshFeedURLInUpdater {

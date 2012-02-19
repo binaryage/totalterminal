@@ -1,4 +1,4 @@
-#include "TotalTerminal+Dock.h"
+#import "TotalTerminal+Dock.h"
 
 @implementation TotalTerminal (Dock)
 -(void) setupDockIcon {

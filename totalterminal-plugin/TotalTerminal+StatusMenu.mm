@@ -1,4 +1,4 @@
-#include "TotalTerminal+StatusMenu.h"
+#import "TotalTerminal+StatusMenu.h"
 
 @implementation TotalTerminal (StatusMenu)
 

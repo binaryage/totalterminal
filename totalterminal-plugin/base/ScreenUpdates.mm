@@ -1,5 +1,5 @@
-#include "CGSPrivate.h"
-#include "ScreenUpdates.h"
+#import "CGSPrivate.h"
+#import "ScreenUpdates.h"
 
 static int screenCounter = 0;
 

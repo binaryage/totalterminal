@@ -1,4 +1,4 @@
-#include "TotalTerminal+AutoSlide.h"
+#import "TotalTerminal+AutoSlide.h"
 
 #undef PROJECT
 #define PROJECT AutoSlide

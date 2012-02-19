@@ -1,4 +1,4 @@
-#include "TotalTerminal+Features.h"
+#import "TotalTerminal+Features.h"
 
 @implementation TotalTerminal (Features)
 

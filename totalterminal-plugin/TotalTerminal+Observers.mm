@@ -1,4 +1,4 @@
-#include "TotalTerminal+Observers.h"
+#import "TotalTerminal+Observers.h"
 
 @implementation TotalTerminal (Observers)
 
