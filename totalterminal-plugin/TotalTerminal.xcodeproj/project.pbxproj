@@ -706,7 +706,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "INSTALLER_SRC=\"$PROJECT_DIR/../totalterminal-installer\"\nBIN=\"$PROJECT_DIR/../bin\"\nAPP=\"$BIN/TotalTerminal.app\"\nOSAX=\"$BIN/TotalTerminal.osax\"\nBUNDLE=\"$OSAX/Contents/Resources/TotalTerminal.bundle\"\nBINARY=\"$BUNDLE/Contents/MacOS/TotalTerminal\"\nRESOURCES=\"$BUNDLE/Contents/Resources\"\nFRAMEWORKS=\"$BUNDLE/Contents/Frameworks\"\nCRASHWATCHER=\"$RESOURCES/TotalTerminalCrashWatcher.app\"\n\necho \"assembling final products into $BIN\"\n\ncp -Rf \"$INSTALLER_SRC/TotalTerminal.app/\" \"$APP\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.osax/\" \"$OSAX\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.bundle/\" \"$BUNDLE\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/CrashWatcher.app/\" \"$CRASHWATCHER\"\n\n# this is important rename, so our uninstaller's killall command works properly\nmv \"$CRASHWATCHER/Contents/MacOS/CrashWatcher\" \"$CRASHWATCHER/Contents/MacOS/TotalTerminalCrashWatcher\"\n\nCRASHWATCHER_PLIST=\"$CRASHWATCHER/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.binaryage.totalterminal.crashwatcher\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :TargetApp TotalTerminal\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CrashLogPrefix Terminal\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleExecutable\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleExecutable string TotalTerminalCrashWatcher\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleName\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleName string TotalTerminalCrashWatcher\" \"$CRASHWATCHER_PLIST\"\n\nmkdir -p \"$FRAMEWORKS\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/Sparkle.framework\" \"$FRAMEWORKS\"\n\n# WARNING! may break autoupdater if done incorectly\necho \"com.binaryage.totalterminal.sparkle\"\nSPARKLE_PLIST=\"$FRAMEWORKS/Sparkle.framework/Resources/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.binaryage.totalterminal.sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleName\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleName string Sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleExecutable\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleExecutable string Sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleSignature string BAGE\" \"$SPARKLE_PLIST\"\n\ninstall_name_tool -change \"/Library/Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"@loader_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"$BINARY\"\n\nexit 0";
+			shellScript = "INSTALLER_SRC=\"$PROJECT_DIR/../totalterminal-installer\"\nBIN=\"$PROJECT_DIR/../bin\"\nAPP=\"$BIN/TotalTerminal.app\"\nOSAX=\"$BIN/TotalTerminal.osax\"\nBUNDLE=\"$OSAX/Contents/Resources/TotalTerminal.bundle\"\nBINARY=\"$BUNDLE/Contents/MacOS/TotalTerminal\"\nRESOURCES=\"$BUNDLE/Contents/Resources\"\nFRAMEWORKS=\"$BUNDLE/Contents/Frameworks\"\nCRASHWATCHER=\"$RESOURCES/TotalTerminalCrashWatcher.app\"\n\necho \"build products dir is $BUILT_PRODUCTS_DIR\"\necho \"assembling final products in $BIN\"\n\ncp -Rf \"$INSTALLER_SRC/TotalTerminal.app/\" \"$APP\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.osax/\" \"$OSAX\"\nrm -rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.osax/\" # OSX is sometimes confused and would use incomplete osax in BUILT_PRODUCTS_DIR location on dev machine\ncp -Rf \"$BUILT_PRODUCTS_DIR/TotalTerminal.bundle/\" \"$BUNDLE\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/CrashWatcher.app/\" \"$CRASHWATCHER\"\n\n# this is important rename, so our uninstaller's killall command works properly\nmv \"$CRASHWATCHER/Contents/MacOS/CrashWatcher\" \"$CRASHWATCHER/Contents/MacOS/TotalTerminalCrashWatcher\"\n\nCRASHWATCHER_PLIST=\"$CRASHWATCHER/Contents/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.binaryage.totalterminal.crashwatcher\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :TargetApp TotalTerminal\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CrashLogPrefix Terminal\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleExecutable\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleExecutable string TotalTerminalCrashWatcher\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleName\" \"$CRASHWATCHER_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleName string TotalTerminalCrashWatcher\" \"$CRASHWATCHER_PLIST\"\n\nmkdir -p \"$FRAMEWORKS\"\ncp -Rf \"$BUILT_PRODUCTS_DIR/Sparkle.framework\" \"$FRAMEWORKS\"\n\n# WARNING! may break autoupdater if done incorectly\necho \"com.binaryage.totalterminal.sparkle\"\nSPARKLE_PLIST=\"$FRAMEWORKS/Sparkle.framework/Resources/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleIdentifier com.binaryage.totalterminal.sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ##VERSION##\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleName\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleName string Sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleExecutable\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleExecutable string Sparkle\" \"$SPARKLE_PLIST\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleSignature string BAGE\" \"$SPARKLE_PLIST\"\n\ninstall_name_tool -change \"/Library/Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"@loader_path/../Frameworks/Sparkle.framework/Versions/A/Sparkle\" \"$BINARY\"\n\nexit 0";
 		};
 		D6C7F70413D652C000DAC2BC /* Compile main.scpt */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -736,7 +736,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "BIN=\"$PROJECT_DIR/../bin\"\n\n# build final package\nrm -rf \"/Applications/TotalTerminal.app\"\ncp -Rf \"$BIN/TotalTerminal.app\" \"/Applications\"\n\n# install osax, also make sure you don't have it in /Library/ScriptingAdditions/TotalTerminal.osax already\nrm -rf ~/Library/ScriptingAdditions/TotalTerminal.osax\ncp -r \"$BIN/TotalTerminal.osax\" ~/Library/ScriptingAdditions";
+			shellScript = "BIN=\"$PROJECT_DIR/../bin\"\n\n# build final package\nrm -rf \"/Applications/TotalTerminal.app\"\ncp -Rf \"$BIN/TotalTerminal.app\" \"/Applications\"\n\n# use ~/Library/ScriptingAdditions because\n# copying to /Library/ScriptingAdditions under Lion must be done with sudo\nrm -rf ~/Library/ScriptingAdditions/TotalTerminal.osax\nmkdir -p ~/Library/ScriptingAdditions/TotalTerminal.osax\nchmod ugo+rw ~/Library/ScriptingAdditions/TotalTerminal.osax\nln -s \"$BIN/TotalTerminal.osax/Contents\" ~/Library/ScriptingAdditions/TotalTerminal.osax/Contents # faster than copy";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -816,6 +816,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TotalTerminalShared.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
@@ -841,6 +842,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TotalTerminalShared.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = Info.plist;
@@ -855,6 +857,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG_MODE;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = "-fnested-functions";
 				OTHER_LDFLAGS = (
@@ -867,6 +870,7 @@
 		1DEB914008733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = "-fnested-functions";
 				OTHER_LDFLAGS = (

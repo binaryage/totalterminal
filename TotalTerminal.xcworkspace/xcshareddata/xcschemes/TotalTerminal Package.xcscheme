@@ -64,19 +64,15 @@
             </ActionContent>
          </ExecutionAction>
       </PreActions>
-      <PostActions>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Run Script"
-               scriptText = "sleep 5&#10;osascript -e &quot;tell application \&quot;Terminal\&quot; to &#171;event BATTinit&#187;&quot;">
-            </ActionContent>
-         </ExecutionAction>
-      </PostActions>
       <PathRunnable
          FilePath = "/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal">
       </PathRunnable>
       <AdditionalOptions>
+         <AdditionalOption
+            key = "OBJC_PRINT_EXCEPTIONS"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
          <AdditionalOption
             key = "NSExceptionLoggingEnabled"
             value = "YES"

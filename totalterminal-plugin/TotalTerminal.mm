@@ -73,10 +73,12 @@
     hotKey_ = nil;
     escapeHotKey = nil;
     fullScreenKey_ = nil;
+    background_ = nil;
+    statusItem_ = nil;
 
     [self refreshFeedURLInUpdater];
 
-    statusMenu = [[NSMenu alloc] initWithTitle:@"Status Menu"];
+    statusMenu_ = [[NSMenu alloc] initWithTitle:@"Status Menu"];
 
     [self setWindow:nil];
 

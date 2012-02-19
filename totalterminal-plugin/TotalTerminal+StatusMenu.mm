@@ -3,7 +3,7 @@
 @implementation TotalTerminal (StatusMenu)
 
 -(void) initStatusMenu {
-    DCHECK(!statusItem);
+    DCHECK(!statusItem_);
 
     AUTO_LOGGER();
     [self updateStatusMenu];
@@ -11,27 +11,25 @@
 
 -(void) activateStatusMenu {
     AUTO_LOGGER();
-    if (statusItem) return;
+    if (statusItem_) return;
 
     NSStatusBar* bar = [NSStatusBar systemStatusBar];
-    statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
-    [statusItem retain];
+    statusItem_ = [bar statusItemWithLength:NSVariableStatusItemLength];
+    [statusItem_ retain];
 
-    [statusItem setHighlightMode:YES];
-    [statusItem setTarget:self];
-    [statusItem setAction:@selector(toggleVisor:)];
-    [statusItem setDoubleAction:@selector(toggleVisor:)];
+    [statusItem_ setHighlightMode:YES];
+    [statusItem_ setTarget:self];
 
-    [statusItem setMenu:statusMenu];
+    [statusItem_ setMenu:statusMenu_];
     [self updateStatusMenu];
 }
 
 -(void) deactivateStatusMenu {
     AUTO_LOGGER();
-    if (!statusItem) return;
+    if (!statusItem_) return;
 
-    [statusItem release];
-    statusItem = nil;
+    [statusItem_ release];
+    statusItem_ = nil;
 }
 
 -(BOOL) validateMenuItem:(NSMenuItem*)menuItem {
@@ -73,54 +71,58 @@
         NSMenuItem* item;
         item = [[NSMenuItem alloc] initWithTitle:(@"Show Visor") action:@selector(toggleVisor:) keyEquivalent:@""];
         [item setTarget:self];
-        [statusMenu addItem:item];
+        [statusMenu_ addItem:item];
         [item release];
-        [statusMenu addItem:[NSMenuItem separatorItem]];
+        [statusMenu_ addItem:[NSMenuItem separatorItem]];
         item = [[NSMenuItem alloc] initWithTitle:(@"TotalTerminal Preferences…") action:@selector(showPrefs:) keyEquivalent:@""];
         [item setTarget:self];
-        [statusMenu addItem:item];
+        [statusMenu_ addItem:item];
         [item release];
-        [statusMenu addItem:[NSMenuItem separatorItem]];
+        [statusMenu_ addItem:[NSMenuItem separatorItem]];
         item = [[NSMenuItem alloc] initWithTitle:(@"Visit Homepage…") action:@selector(visitHomepage:) keyEquivalent:@""];
         [item setTarget:self];
-        [statusMenu addItem:item];
+        [statusMenu_ addItem:item];
         [item release];
 
         NSMenuItem* uninstallItem = [[NSMenuItem alloc] initWithTitle:(@"Uninstall TotalTerminal") action:@selector(uninstallMe:) keyEquivalent:@""];
         [uninstallItem setTarget:self];
-        [statusMenu insertItem:uninstallItem atIndex:4];
+        [statusMenu_ insertItem:uninstallItem atIndex:4];
         [uninstallItem release];
         NSMenuItem* updateItem = [[NSMenuItem alloc] initWithTitle:(@"Check for Updates") action:@selector(updateMe:) keyEquivalent:@""];
         [updateItem setTarget:self];
-        [statusMenu insertItem:updateItem atIndex:4];
+        [statusMenu_ insertItem:updateItem atIndex:4];
         [updateItem release];
-        [statusMenu insertItem:[NSMenuItem separatorItem] atIndex:5];
+        [statusMenu_ insertItem:[NSMenuItem separatorItem] atIndex:5];
 
 #ifdef _DEBUG_MODE
         NSMenuItem* crashItem = [[NSMenuItem alloc] initWithTitle:@"Crash me!" action:@selector(crashMe:) keyEquivalent:@""];
         [crashItem setTarget:self];
-        [statusMenu addItem:crashItem];
+        [statusMenu_ addItem:crashItem];
         [crashItem release];
         NSMenuItem* exitItem = [[NSMenuItem alloc] initWithTitle:@"Exit" action:@selector(exitMe:) keyEquivalent:@""];
         [exitItem setTarget:self];
-        [statusMenu addItem:exitItem];
+        [statusMenu_ addItem:exitItem];
         [exitItem release];
 #endif
     }
 
     // update first menu item
-    NSMenuItem* showItem = [statusMenu itemAtIndex:0];
-    BOOL status = [self status];
-    if (status) {
-        [statusItem setImage:activeIcon];
-        if (isHidden) {
-            [showItem setTitle:(@"Show Visor")];
-        } else {
-            [showItem setTitle:(@"Hide Visor")];
+    if (statusItem_) {
+        NSMenuItem* showItem = [statusMenu_ itemAtIndex:0];
+        if (showItem) {
+            BOOL status = [self status];
+            if (status) {
+                [statusItem_ setImage:activeIcon];
+                if (isHidden) {
+                    [showItem setTitle:(@"Show Visor")];
+                } else {
+                    [showItem setTitle:(@"Hide Visor")];
+                }
+            } else {
+                [statusItem_ setImage:inactiveIcon];
+                [showItem setTitle:(@"Open Visor")];
+            }
         }
-    } else {
-        [statusItem setImage:inactiveIcon];
-        [showItem setTitle:(@"Open Visor")];
     }
 
     firstTime = false;
