@@ -3,7 +3,6 @@
 
 #import "JRSwizzle.h"
 #import "LoggerClient.h"
-#import "Notifications.h"
 #import "ScreenUpdates.h"
 
 #define PROJECT Core

@@ -9,7 +9,9 @@
 }
 
 -(void) storePreviouslyActiveApp {
-    AUTO_LOGGER();
+    AUTO_LOGGERF(@"front-most=%@", [[NSWorkspace sharedWorkspace] frontmostApplication]);
+    
+    // TODO: use frontmostApplication in 10.7+
     NSDictionary* activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
     previouslyActiveAppPID_ = 0;
     NSString* bundleIdentifier = [activeAppDict objectForKey:@"NSApplicationBundleIdentifier"];

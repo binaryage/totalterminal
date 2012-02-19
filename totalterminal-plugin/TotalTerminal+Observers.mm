@@ -11,7 +11,6 @@
 -(void) registerObservers {
     NSUserDefaultsController* udc = [NSUserDefaultsController sharedUserDefaultsController];
 
-    // watch for hotkey changes
     [udc addObserver:self forKeyPath:@"values.TotalTerminalShowStatusItem" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorHotKey" options:0 context:nil];
     [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorHotKeyEnabled" options:0 context:nil];
@@ -73,9 +72,6 @@
     if ([keyPath isEqualToString:@"values.TotalTerminalDontCustomizeDockIcon"]) {
         [self setupDockIcon];
     }
-    if ([keyPath isEqualToString:@"values.TotalTerminalVisorPinned"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:VisorPinStateDidChangeNotification object:self];
-    }
     if ([keyPath isEqualToString:@"values.TotalTerminalVisorFullScreen"]) {
         [self resetWindowPlacement];
     }
@@ -91,8 +87,6 @@
     if ([keyPath isEqualToString:@"values.TotalTerminalVisorWindowOnHighLevel"]) {
         [self updateVisorWindowLevel];
     }
-
-    // ----------
     if ([keyPath isEqualToString:@"BackgroundColor"] &&
         (context != nil) &&
         [context isEqualToString:@"UpdateBackground"]) {

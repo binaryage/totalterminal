@@ -300,7 +300,7 @@ restoreSession                                    :(id)arg8 {
         [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window_];
         [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window_];
         [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window_];
-        [dnc addObserver:self selector:@selector(didChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
+        [dnc addObserver:self selector:@selector(applicationDidChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
     } else {
         isHidden = YES;
     }
@@ -818,7 +818,7 @@ restoreSession                                    :(id)arg8 {
 }
 
 -(void) resignKey:(id)sender {
-    LOG(@"resignKey %@", sender);
+    LOG(@"resignKey %@ isMain=%d isKey=%d isHidden=%d isPinned=%d", sender, isMain, isKey, isHidden, [self isPinned]);
     isKey = false;
     [self updateEscapeHotKeyRegistration];
     [self updateFullScreenHotKeyRegistration];
@@ -828,7 +828,7 @@ restoreSession                                    :(id)arg8 {
 }
 
 -(void) resignMain:(id)sender {
-    LOG(@"resignMain %@", sender);
+    LOG(@"resignMain %@ isMain=%d isKey=%d isHidden=%d isPinned=%d", sender, isMain, isKey, isHidden, [self isPinned]);
     isMain = false;
     if (!isMain && !isKey && !isHidden && ![self isPinned]) {
         [self hideVisor:false];
@@ -847,13 +847,13 @@ restoreSession                                    :(id)arg8 {
     isMain = true;
 }
 
--(void) didChangeScreenScreenParameters:(id)sender {
-    AUTO_LOGGERF(@"sender=%@", sender);
+-(void) applicationDidChangeScreenScreenParameters:(NSNotification*)notification {
+    AUTO_LOGGERF(@"notification=%@", notification);
     [self resetWindowPlacement];
 }
 
--(void) willClose:(NSNotification*)inNotification {
-    AUTO_LOGGERF(@"notification=%@", inNotification);
+-(void) willClose:(NSNotification*)notification {
+    AUTO_LOGGERF(@"notification=%@", notification);
     [self setWindow:nil];
     [self updateStatusMenu];
     [self updateMainMenuState];
@@ -1156,6 +1156,24 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     return status;
 }
 
+-(void) openVisor {
+    // prevents showing misplaced visor window briefly
+    ScopedNSDisableScreenUpdates disabler(__FUNCTION__);
+    
+    id visorProfile = [TotalTerminal getVisorProfile];
+    id app = [NSClassFromString (@"TTApplication")sharedApplication];
+    if (terminalVersion()<FIRST_MOUNTAIN_LION_VERSION) {
+        id controller = [app newWindowControllerWithProfile:visorProfile]; // TODO: make static analyzer happy here, this is not a leak, controller goes away with window close
+    } else {
+        id controller = [app makeWindowControllerWithProfile:visorProfile]; // ah, Ben started following Cocoa naming conventions, good! :-)
+    }
+    
+    [self resetWindowPlacement];
+    [self updatePreferencesUI];
+    [self updateStatusMenu];
+    [self updateMainMenuState];
+}
+
 +(void) loadVisor {
     if (terminalVersion() < FIRST_MOUNTAIN_LION_VERSION) {
         SWIZZLE(TTWindowController, newTabWithProfile:);
@@ -1179,26 +1197,8 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
     SWIZZLE(TTApplication, sendEvent:);
     SWIZZLE(TTApplication, applicationShouldHandleReopen: hasVisibleWindows:);
-
+    
     LOG(@"Visor installed");
-}
-
--(void) openVisor {
-    // prevents showing misplaced visor window briefly
-    ScopedNSDisableScreenUpdates disabler(__FUNCTION__);
-
-    id visorProfile = [TotalTerminal getVisorProfile];
-    id app = [NSClassFromString (@"TTApplication")sharedApplication];
-    if (terminalVersion()<FIRST_MOUNTAIN_LION_VERSION) {
-        id controller = [app newWindowControllerWithProfile:visorProfile]; // TODO: make static analyzer happy here, this is not a leak, controller goes away with window close
-    } else {
-        id controller = [app makeWindowControllerWithProfile:visorProfile]; // ah, Ben started following Cocoa naming conventions, good! :-)
-    }
-
-    [self resetWindowPlacement];
-    [self updatePreferencesUI];
-    [self updateStatusMenu];
-    [self updateMainMenuState];
 }
 
 @end

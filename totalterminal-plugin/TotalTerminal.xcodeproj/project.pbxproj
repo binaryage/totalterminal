@@ -228,7 +228,6 @@
 		D6AF5AB313E3166D00C44014 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D6AF5AB513E3171A00C44014 /* TotalTerminal+Features.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+Features.h"; sourceTree = "<group>"; };
 		D6AF5AB613E3171B00C44014 /* TotalTerminal+Features.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Features.mm"; sourceTree = "<group>"; };
-		D6AF5AB813E351CB00C44014 /* Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
 		D6AF5AB913E35F9B00C44014 /* ModifiersCommand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ModifiersCommand.png; path = "../totalterminal-i18n/plugin/ModifiersCommand.png"; sourceTree = "<group>"; };
 		D6AF5ABA13E35F9B00C44014 /* ModifiersControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ModifiersControl.png; path = "../totalterminal-i18n/plugin/ModifiersControl.png"; sourceTree = "<group>"; };
 		D6AF5ABB13E35F9B00C44014 /* ModifiersOption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ModifiersOption.png; path = "../totalterminal-i18n/plugin/ModifiersOption.png"; sourceTree = "<group>"; };
@@ -528,7 +527,6 @@
 				D6E5F58E13E205880069D886 /* Updater.m */,
 				D6E5F58F13E205880069D886 /* Versions.h */,
 				D6E5F59013E205880069D886 /* Versions.m */,
-				D6AF5AB813E351CB00C44014 /* Notifications.h */,
 			);
 			name = base;
 			sourceTree = "<group>";
