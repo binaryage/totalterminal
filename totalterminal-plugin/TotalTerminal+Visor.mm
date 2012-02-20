@@ -769,7 +769,7 @@ restoreSession                                    :(id)arg8 {
         float animSpeed = [[NSUserDefaults standardUserDefaults] floatForKey:@"TotalTerminalVisorAnimationSpeed"];
         
         // HACK for Mountain Lion, fading crashes windowing server on my machine
-        if (terminalVersion()>FIRST_MOUNTAIN_LION_VERSION) {
+        if (terminalVersion()>=FIRST_MOUNTAIN_LION_VERSION) {
             if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalDisableMountainLionFadingHack"]) {
                 doFade = false;
             }
