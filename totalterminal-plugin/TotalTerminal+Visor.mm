@@ -1170,9 +1170,9 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     id visorProfile = [TotalTerminal getVisorProfile];
     TTApplication* app = (TTApplication*)[NSClassFromString (@"TTApplication")sharedApplication];
     if (terminalVersion()<FIRST_MOUNTAIN_LION_VERSION) {
-        id controller = [app newWindowControllerWithProfile:visorProfile]; // TODO: make static analyzer happy here, this is not a leak, controller goes away with window close
+        [app newWindowControllerWithProfile:visorProfile];
     } else {
-        id controller = [app makeWindowControllerWithProfile:visorProfile]; // ah, Ben started following Cocoa naming conventions, good! :-)
+        [app makeWindowControllerWithProfile:visorProfile]; // ah, Ben started following Cocoa naming conventions, good! :-)
     }
     
     [self resetWindowPlacement];
