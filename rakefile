@@ -116,7 +116,7 @@ def generate_payload_for_pkg(tmp, pkg)
         `rm \"#{name}\"`
         tree = `tree --dirsfirst -apsugif`
         exes = ""
-        Dir.glob("**/Contents/MacOS/*") do |exe|
+        Dir.glob("**/MacOS/*") do |exe|
             exes += `file "#{exe}"` + "\n"
         end
     end
