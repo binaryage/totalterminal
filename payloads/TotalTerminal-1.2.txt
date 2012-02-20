@@ -18,7 +18,7 @@ BASIC DMG LAYOUT
 [drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg
 [drwxr-xr-x darwin   wheel            170]  ./TotalTerminal.mpkg/Contents
 [drwxr-xr-x darwin   wheel            102]  ./TotalTerminal.mpkg/Contents/Packages
-[-rw-r--r-- darwin   wheel        1914317]  ./TotalTerminal.mpkg/Contents/Packages/TotalTerminal\ Plugin.pkg
+[-rw-r--r-- darwin   wheel        1914376]  ./TotalTerminal.mpkg/Contents/Packages/TotalTerminal\ Plugin.pkg
 [drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg/Contents/Resources
 [drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj
 [-rw-r--r-- darwin   wheel            426]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj/Localizable.strings
@@ -305,7 +305,7 @@ TotalTerminal Plugin.pkg
 [-rw-r--r-- darwin   staff          52189]  ./Bom
 [-rw-r--r-- darwin   staff           1557]  ./PackageInfo
 [-rw-r--r-- darwin   staff        3895808]  ./Payload
-[-rw-r--r-- darwin   staff            407]  ./Scripts
+[-rw-r--r-- darwin   staff            406]  ./Scripts
 
 92 directories, 181 files
 
