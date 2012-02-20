@@ -448,7 +448,7 @@ restoreSession                                    :(id)arg8 {
 }
 
 -(void) resetWindowPlacement {
-    ScopedNSDisableScreenUpdatesWithDelay disabler(0.05, __FUNCTION__); // prevent ocasional flickering
+    ScopedNSDisableScreenUpdatesWithDelay disabler(0, __FUNCTION__); // prevent ocasional flickering
 
     [lastPosition_ release];
     lastPosition_ = nil;
