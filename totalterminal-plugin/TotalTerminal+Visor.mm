@@ -714,6 +714,13 @@ restoreSession                                    :(id)arg8 {
     [window_ makeKeyAndOrderFront:self];
     [window_ setHasShadow:YES];
     [NSApp activateIgnoringOtherApps:YES];
+
+    // window will become key eventually, this is important for updatePreviouslyActiveApp to work properly
+    // becomeKey event may have delay and without this updatePreviouslyActiveApp could reset PID to 0 
+    // imagine: when timer fire imediately after showVisor and before becomeKey event
+    // see: https://github.com/binaryage/totalterminal/issues/35
+    isKey_ = true; 
+    
     [window_ update];
     [self slideWindows:1 fast:fast];
     [window_ invalidateShadow];

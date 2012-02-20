@@ -69,7 +69,7 @@
             LOG(@"  new previous app pid=%d", previouslyActiveAppPID_);
         }
     } else {
-        if (window_ && ![window_ isKeyWindow]) {
+        if (window_ && !isKey_) {
             // some other terminal window has key focus => reset
             int newPID = 0;
             if (newPID != previouslyActiveAppPID_) {
