@@ -112,8 +112,8 @@
 -(id) SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow) {
     AUTO_LOGGER();
     id res = nil;
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
-    BOOL isVisorWindow = [tt isVisorWindow:[self window]];
+    TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
+    BOOL isVisorWindow = [totalTerminal isVisorWindow:[self window]];
 
     if (isVisorWindow) {
         LOG(@"  in visor window ... so apply visor profile");
@@ -186,11 +186,11 @@ restoreSession                                    :(id)arg8 {
     NSUInteger type = [theEvent type];
 
     if (type == NSFlagsChanged) {
-        TotalTerminal* tt = [TotalTerminal sharedInstance];
-        [tt modifiersChangedWhileActive:theEvent];
+        TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
+        [totalTerminal modifiersChangedWhileActive:theEvent];
     } else if ((type == NSKeyDown) || (type == NSKeyUp)) {
-        TotalTerminal* tt = [TotalTerminal sharedInstance];
-        [tt keysChangedWhileActive:theEvent];
+        TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
+        [totalTerminal keysChangedWhileActive:theEvent];
     } else if (type == NSMouseMoved) {
         // TODO review this: it caused background intialization even if Quartz background was disabled in the preferences
         // => https://github.com/darwin/visor/issues/102#issuecomment-1508598
@@ -226,15 +226,15 @@ restoreSession                                    :(id)arg8 {
 
 -(id) SMETHOD (TTWindow, initWithContentRect):(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
     AUTO_LOGGER();
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
-    BOOL shouldBeVisorized = ![tt status];
+    TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
+    BOOL shouldBeVisorized = ![totalTerminal status];
     if (shouldBeVisorized) {
         aStyle = NSBorderlessWindowMask;
         bufferingType = NSBackingStoreBuffered;
     }
     self = [self SMETHOD (TTWindow, initWithContentRect):contentRect styleMask:aStyle backing:bufferingType defer:flag];
     if (shouldBeVisorized) {
-        [tt adoptTerminal:self];
+        [totalTerminal adoptTerminal:self];
     }
     return self;
 }
@@ -242,9 +242,9 @@ restoreSession                                    :(id)arg8 {
 -(BOOL) SMETHOD (TTWindow, canBecomeKeyWindow) {
     BOOL canBecomeKeyWindow = YES;
 
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
 
-    if ([[tt window] isEqual:self] && [tt isHidden]) {
+    if ([[totalTerminal window] isEqual:self] && [totalTerminal isHidden]) {
         canBecomeKeyWindow = NO;
     }
 
@@ -254,9 +254,9 @@ restoreSession                                    :(id)arg8 {
 -(BOOL) SMETHOD (TTWindow, canBecomeMainWindow) {
     BOOL canBecomeMainWindow = YES;
 
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
 
-    if ([[tt window] isEqual:self] && [tt isHidden]) {
+    if ([[totalTerminal window] isEqual:self] && [totalTerminal isHidden]) {
         canBecomeMainWindow = NO;
     }
 
@@ -265,10 +265,9 @@ restoreSession                                    :(id)arg8 {
 
 -(void) SMETHOD (TTWindow, performClose):(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
-    // XLOG(@"%@", [NSThread callStackSymbols]);
     // close Visor window hard way, for some reason performClose fails for Visor window under Lion
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
-    if ([[tt window] isEqual:self]) {
+    TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
+    if ([[totalTerminal window] isEqual:self]) {
         // this check is needed for case when there are running shell commands and Terminal shows closing prompt dialog
         if ([[self windowController] windowShouldClose:sender]) {
             [self close];

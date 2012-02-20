@@ -10,8 +10,7 @@
 
 -(void) mouseDown:(NSEvent*)event {
     AUTO_LOGGER();
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
-    [tt rotateModifierHotKey];
+    [[TotalTerminal sharedInstance] rotateModifierHotKey];
     [NSApp sendAction:[self action] to:[self target] from:self];
 }
 
@@ -69,14 +68,13 @@
 -(void) SMETHOD (TTAppPrefsController, windowDidLoad) {
     AUTO_LOGGER();
     [self SMETHOD (TTAppPrefsController, windowDidLoad)];
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
-    [tt updatePreferencesUI];
+    [[TotalTerminal sharedInstance] updatePreferencesUI];
 }
 
 -(void) SMETHOD (TTAppPrefsController, selectVisorPane) {
     AUTO_LOGGER();
-    TotalTerminal* tt = [TotalTerminal sharedInstance]; // for some reason this function may be not called in rare case we started visor and created Visor profile
-    [tt updatePreferencesUI];
+    // for some reason this function may be not called in rare case we started visor and created Visor profile
+    [[TotalTerminal sharedInstance] updatePreferencesUI];
     NSWindow* prefsWindow = [self window];
     [prefsWindow setTitle:@"Visor"];
     NSToolbar* toolbar = [prefsWindow toolbar];
@@ -98,18 +96,18 @@
 
 -(void) SMETHOD (TTAppPrefsController, tabView):(id)view didSelectTabViewItem:(NSTabViewItem*)tab {
     AUTO_LOGGERF(@"tab=%@", tab);
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
+    TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
     NSSize originalSize;
-    originalSize = (NSSize)[tt originalPreferencesSize];
+    originalSize = (NSSize)[totalTerminal originalPreferencesSize];
     NSWindow* prefsWindow = [self window];
     NSRect frame = [prefsWindow contentRectForFrameRect:[prefsWindow frame]];
     if (originalSize.width == 0) {
-        [tt setOriginalPreferencesSize:frame.size];
+        [totalTerminal setOriginalPreferencesSize:frame.size];
         originalSize = frame.size;
     }
     if ([[tab identifier] isEqualToString:@"VisorPane"]) {
         NSRect viewItemFrame = [[[[self valueForKey:@"tabView"] tabViewItemAtIndex:0] view] frame];
-        NSSize visorPrefpanelSize = [tt prefPaneSize];
+        NSSize visorPrefpanelSize = [totalTerminal prefPaneSize];
         // / frame.size.width += visorPrefpanelSize.width - viewItemFrame.size.width;
         frame.size.height += visorPrefpanelSize.height - viewItemFrame.size.height;
         frame.origin.y -= visorPrefpanelSize.height - viewItemFrame.size.height;

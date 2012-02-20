@@ -182,11 +182,11 @@
     [visorProfile release];
 
     // apply visor profile to the opening window
-    TotalTerminal* tt = [TotalTerminal sharedInstance];
-    if ([tt window]) {
-        TTWindowController* c = (TTWindowController*)[[tt window] windowController];
-        [c applyProfileToAllShellsInWindow:visorProfile];
-        [tt updatePreferencesUI];
+    TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
+    if ([totalTerminal window]) {
+        TTWindowController* windowController = (TTWindowController*)[[totalTerminal window] windowController];
+        [windowController applyProfileToAllShellsInWindow:visorProfile];
+        [totalTerminal updatePreferencesUI];
     }
 }
 
