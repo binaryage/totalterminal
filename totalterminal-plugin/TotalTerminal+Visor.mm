@@ -1203,7 +1203,10 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     SWIZZLE(TTWindow, performClose:);
 
     SWIZZLE(TTApplication, sendEvent:);
-    SWIZZLE(TTApplication, applicationShouldHandleReopen: hasVisibleWindows:);
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorNoReopen"]) {
+        SWIZZLE(TTApplication, applicationShouldHandleReopen: hasVisibleWindows:);
+    }
     
     LOG(@"Visor installed");
 }
