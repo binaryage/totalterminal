@@ -480,19 +480,23 @@ restoreSession                                    :(id)arg8 {
     return [screens objectAtIndex:screenIndex];
 }
 
-- (NSRect)menubarFrame {
+- (NSRect)menubarFrame:(NSScreen*)screen {
     NSArray *screens = [NSScreen screens];
     
     if (!screens)
         return NSZeroRect;
     
     // menubar is the 0th screen (according to the NSScreen docs)
-    NSScreen *mainScreen = [screens objectAtIndex:0];
-    NSRect frame = [mainScreen frame];
+    NSScreen *menubarScreen = [screens objectAtIndex:0];
+    if (screen != menubarScreen) {
+        return NSZeroRect;
+    }
+    
+    NSRect frame = [menubarScreen frame];
     
     // since the dock can only be on the bottom or the sides, calculate the difference
     // between the frame and the visibleFrame at the top
-    NSRect visibleFrame = [mainScreen visibleFrame];
+    NSRect visibleFrame = [menubarScreen visibleFrame];
     NSRect menubarFrame;
     
     menubarFrame.origin.x = NSMinX(frame);
@@ -511,9 +515,9 @@ restoreSession                                    :(id)arg8 {
     NSRect frame = [win frame];
     // respect menubar area
     // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
-    NSRect menubar = [self menubarFrame];
+    NSRect menubar = [self menubarFrame:screen];
     int shift = menubar.size.height - 1; // -1px to hide bright horizontal line on the edge of chromeless terminal window
-    
+
     NSString* position = [self position];
     if ([position hasPrefix:@"Top"]) {
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - round(offset * (NSHeight(frame) + shift));
@@ -583,7 +587,7 @@ restoreSession                                    :(id)arg8 {
     lastPosition_ = [position retain];
     // respect menubar area
     // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
-    NSRect menubar = [self menubarFrame];
+    NSRect menubar = [self menubarFrame:screen];
     int shift = menubar.size.height - 1; // -1px to hide bright horizontal line on the edge of chromeless terminal window
     if ([position isEqualToString:@"Top-Stretch"]) {
         NSRect frame = [window_ frame];
