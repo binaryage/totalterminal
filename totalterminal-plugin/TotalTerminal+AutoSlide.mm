@@ -9,7 +9,7 @@
     NSUInteger type = [event type];
 
     // when selecting Terminal icon via CMD+TAB or clicking on icon in the dock while Terminal.app is not active app
-    bool activationEvent = type == NSAppKitDefined && [event subtype] == NSApplicationActivatedEventType && [event modifierFlags] == 0x50;
+    bool activationEvent = type == NSAppKitDefined && [event subtype] == NSApplicationActivatedEventType;
 
     if (activationEvent) {
         if ([[TotalTerminal sharedInstance] window] && [[TotalTerminal sharedInstance] isHidden]) {

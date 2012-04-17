@@ -201,25 +201,6 @@ restoreSession                                    :(id)arg8 {
     [self SMETHOD (TTApplication, sendEvent):theEvent];
 }
 
--(BOOL) SMETHOD (TTApplication, applicationShouldHandleReopen):(id)fp8 hasVisibleWindows:(BOOL)fp12 {
-    AUTO_LOGGER();
-    if ([[TotalTerminal sharedInstance] window] && [[TotalTerminal sharedInstance] isHidden]) {
-        NSArray* windows = [[NSClassFromString (@"TTApplication")sharedApplication] windows];
-        int count = 0;
-        for (id window in windows) {
-            if ([[window className] isEqualToString:@"TTWindow"]) {
-                count++;
-            }
-        }
-        if (count == 1) {
-            // auto-slide only when visor is the only terminal window
-            NSLOG1(@"Showing visor because of applicationShouldHandleReopen");
-            [[TotalTerminal sharedInstance] performSelector:@selector(showVisor:) withObject:nil afterDelay:0];
-        }
-    }
-    return [self SMETHOD (TTApplication, applicationShouldHandleReopen):fp8 hasVisibleWindows:(BOOL)fp12];
-}
-
 @end
 
 @implementation NSWindow (TotalTerminal)
@@ -1207,10 +1188,6 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     SWIZZLE(TTWindow, performClose:);
 
     SWIZZLE(TTApplication, sendEvent:);
-    
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorNoReopen"]) {
-        SWIZZLE(TTApplication, applicationShouldHandleReopen: hasVisibleWindows:);
-    }
     
     LOG(@"Visor installed");
 }
