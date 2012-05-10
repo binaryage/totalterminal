@@ -1,0 +1,333 @@
+BASIC DMG LAYOUT
+================
+.
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal\ Uninstaller.app
+[drwxr-xr-x darwin   wheel            170]  ./TotalTerminal\ Uninstaller.app/Contents
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal\ Uninstaller.app/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          48164]  ./TotalTerminal\ Uninstaller.app/Contents/MacOS/Uninstall\ TotalTerminal
+[drwxr-xr-x darwin   wheel            238]  ./TotalTerminal\ Uninstaller.app/Contents/Resources
+[drwxr-xr-x darwin   wheel            136]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib
+[-rwxr-xr-x darwin   wheel          32583]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib/keyedobjects.nib
+[-rw-r--r-- darwin   wheel            239]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/InfoPlist.strings
+[-rw-r--r-- darwin   wheel            833]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/AppSettings.plist
+[-rw-r--r-- darwin   wheel         321560]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/appIcon.icns
+[-rw-r--r-- darwin   wheel           1671]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/script
+[-rw-r--r-- darwin   wheel           1671]  ./TotalTerminal\ Uninstaller.app/Contents/Resources/uninstall.applescript
+[-rw-r--r-- darwin   wheel           1411]  ./TotalTerminal\ Uninstaller.app/Contents/Info.plist
+[drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg
+[drwxr-xr-x darwin   wheel            170]  ./TotalTerminal.mpkg/Contents
+[drwxr-xr-x darwin   wheel            102]  ./TotalTerminal.mpkg/Contents/Packages
+[-rw-r--r-- darwin   wheel        1913719]  ./TotalTerminal.mpkg/Contents/Packages/TotalTerminal\ Plugin.pkg
+[drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg/Contents/Resources
+[drwxr-xr-x darwin   wheel            136]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj
+[-rw-r--r-- darwin   wheel            430]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj/Localizable.strings
+[-r-xr-xr-x darwin   wheel           2653]  ./TotalTerminal.mpkg/Contents/Resources/English.lproj/welcome.rtf
+[-r-xr-xr-x darwin   wheel           9423]  ./TotalTerminal.mpkg/Contents/Resources/background
+[-rw-r--r-- darwin   wheel           3607]  ./TotalTerminal.mpkg/Contents/distribution.dist
+[-rw-r--r-- darwin   wheel              0]  ./TotalTerminal.mpkg/Icon\r
+[-rw-r--r-- darwin   wheel         193359]  ./Readme.pdf
+
+11 directories, 15 files
+
+TotalTerminal Plugin.pkg
+=======================================================================
+.
+[drwxrwxr-x darwin   wheel            102]  ./Applications
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          34480]  ./Applications/TotalTerminal.app/Contents/MacOS/applet
+[drwxr-xr-x darwin   wheel            204]  ./Applications/TotalTerminal.app/Contents/Resources
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/Scripts
+[-rw-r--r-- darwin   wheel           2248]  ./Applications/TotalTerminal.app/Contents/Resources/Scripts/main.scpt
+[drwxr-xr-x darwin   wheel            102]  ./Applications/TotalTerminal.app/Contents/Resources/description.rtfd
+[-rw-r--r-- darwin   wheel             87]  ./Applications/TotalTerminal.app/Contents/Resources/description.rtfd/TXT.rtf
+[-rw-r--r-- darwin   wheel         155296]  ./Applications/TotalTerminal.app/Contents/Resources/applet.icns
+[-rw-r--r-- darwin   wheel            362]  ./Applications/TotalTerminal.app/Contents/Resources/applet.rsrc
+[-rw-r--r-- darwin   wheel            946]  ./Applications/TotalTerminal.app/Contents/Info.plist
+[-rw-r--r-- darwin   wheel              8]  ./Applications/TotalTerminal.app/Contents/PkgInfo
+[drwxrwxr-t darwin   wheel            102]  ./Library
+[drwxrwxr-x darwin   wheel            102]  ./Library/ScriptingAdditions
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax
+[drwxr-xr-x darwin   wheel            170]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          52804]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/MacOS/TotalTerminal
+[drwxr-xr-x darwin   wheel            170]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/English.lproj
+[-rw-r--r-- darwin   wheel             92]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/English.lproj/InfoPlist.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework
+[lrwxr-xr-x darwin   wheel             24]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Headers -> Versions/Current/Headers
+[lrwxr-xr-x darwin   wheel             26]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Resources -> Versions/Current/Resources
+[drwxr-xr-x darwin   wheel            136]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions
+[drwxr-xr-x darwin   wheel            170]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A
+[drwxr-xr-x darwin   wheel            272]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Headers
+[-rw-r--r-- darwin   wheel            722]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUAppcast.h
+[-rw-r--r-- darwin   wheel           1260]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUAppcastItem.h
+[-rw-r--r-- darwin   wheel           6615]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUUpdater.h
+[-rw-r--r-- darwin   wheel            771]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUVersionComparisonProtocol.h
+[-rw-r--r-- darwin   wheel            644]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/SUVersionDisplayProtocol.h
+[-rw-r--r-- darwin   wheel            536]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Headers/Sparkle.h
+[drwxr-xr-x darwin   wheel           1054]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj
+[-rw-r--r-- darwin   wheel           6904]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10078]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12473]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8642]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/cs.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj
+[-rw-r--r-- darwin   wheel           6942]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10211]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12373]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           9100]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/da.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj
+[-rw-r--r-- darwin   wheel           6974]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10223]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12389]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           9246]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/de.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj
+[-rw-r--r-- darwin   wheel           6880]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10095]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12160]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           9058]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/en.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj
+[-rw-r--r-- darwin   wheel           6917]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10329]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12562]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8956]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/es.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/MacOS
+[-rwxr-xr-x darwin   wheel         137908]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/MacOS/finish_installation
+[drwxr-xr-x darwin   wheel            816]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/cs.lproj
+[-rw-r--r-- darwin   wheel           8642]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/cs.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/da.lproj
+[-rw-r--r-- darwin   wheel           9100]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/da.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/de.lproj
+[-rw-r--r-- darwin   wheel           9246]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/de.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/en.lproj
+[-rw-r--r-- darwin   wheel           9058]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/en.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/es.lproj
+[-rw-r--r-- darwin   wheel           8956]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/es.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/fr.lproj
+[-rw-r--r-- darwin   wheel           9204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/fr.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/is.lproj
+[-rw-r--r-- darwin   wheel           6772]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/is.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/it.lproj
+[-rw-r--r-- darwin   wheel           9136]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/it.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/ja.lproj
+[-rw-r--r-- darwin   wheel           7518]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/ja.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/nl.lproj
+[-rw-r--r-- darwin   wheel           9374]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/nl.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/pl.lproj
+[-rw-r--r-- darwin   wheel           9532]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/pl.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/pt_BR.lproj
+[-rw-r--r-- darwin   wheel           8642]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/pt_BR.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/pt_PT.lproj
+[-rw-r--r-- darwin   wheel           8652]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/pt_PT.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/ro.lproj
+[-rw-r--r-- darwin   wheel           9402]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/ro.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/ru.lproj
+[-rw-r--r-- darwin   wheel           8674]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/ru.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/sl.lproj
+[-rw-r--r-- darwin   wheel           8794]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/sl.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/sv.lproj
+[-rw-r--r-- darwin   wheel           8600]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/sv.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/tr.lproj
+[-rw-r--r-- darwin   wheel           8858]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/tr.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/zh_CN.lproj
+[-rw-r--r-- darwin   wheel           6908]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/zh_CN.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/zh_TW.lproj
+[-rw-r--r-- darwin   wheel           6642]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/zh_TW.lproj/Sparkle.strings
+[-rw-r--r-- darwin   wheel           6533]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/SUStatus.nib
+[-rw-r--r-- darwin   wheel          50219]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Resources/Sparkle.icns
+[-rw-r--r-- darwin   wheel           1445]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/Info.plist
+[-rw-r--r-- darwin   wheel              8]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/PkgInfo
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj
+[-rw-r--r-- darwin   wheel           6941]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10273]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12548]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           9204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr.lproj/Sparkle.strings
+[lrwxr-xr-x darwin   wheel              8]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/fr_CA.lproj -> fr.lproj
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj
+[-rw-r--r-- darwin   wheel           6878]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10058]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12471]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           6772]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/is.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj
+[-rw-r--r-- darwin   wheel           6867]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10190]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12406]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           9136]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/it.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj
+[-rw-r--r-- darwin   wheel           6968]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10273]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12218]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           7518]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ja.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            170]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj
+[-rw-r--r-- darwin   wheel           6784]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel           9916]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12107]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ko.lproj/SUUpdatePermissionPrompt.nib
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj
+[-rw-r--r-- darwin   wheel           6872]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10170]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12205]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           9374]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/nl.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj
+[-rw-r--r-- darwin   wheel           6904]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10060]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12254]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           9532]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pl.lproj/Sparkle.strings
+[lrwxr-xr-x darwin   wheel             11]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt.lproj -> pt_BR.lproj
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj
+[-rw-r--r-- darwin   wheel           6890]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10091]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12452]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8642]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_BR.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj
+[-rw-r--r-- darwin   wheel           6959]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10350]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12576]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8652]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/pt_PT.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj
+[-rw-r--r-- darwin   wheel           6982]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10303]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12282]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           9402]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ro.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj
+[-rw-r--r-- darwin   wheel           6997]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10353]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12554]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8674]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/ru.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            170]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj
+[-rw-r--r-- darwin   wheel           6933]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10107]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12468]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sk.lproj/SUUpdatePermissionPrompt.nib
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj
+[-rw-r--r-- darwin   wheel           6968]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10069]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12441]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8794]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sl.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj
+[-rw-r--r-- darwin   wheel           6887]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10222]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12417]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8600]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/sv.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj
+[-rw-r--r-- darwin   wheel           7044]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10314]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12421]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           8858]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/tr.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj
+[-rw-r--r-- darwin   wheel           6803]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          10081]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12024]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           6908]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_CN.lproj/Sparkle.strings
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj
+[-rw-r--r-- darwin   wheel           6756]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUAutomaticUpdateAlert.nib
+[-rw-r--r-- darwin   wheel           9877]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdateAlert.nib
+[-rw-r--r-- darwin   wheel          12005]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/SUUpdatePermissionPrompt.nib
+[-rw-r--r-- darwin   wheel           6642]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/zh_TW.lproj/Sparkle.strings
+[-rw-r--r-- darwin   wheel           1155]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/Info.plist
+[-rw-r--r-- darwin   wheel           2530]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/License.txt
+[-rw-r--r-- darwin   wheel           6259]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUModelTranslation.plist
+[-rw-r--r-- darwin   wheel           6533]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/SUStatus.nib
+[-rwxr-xr-x darwin   wheel         380308]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Sparkle
+[lrwxr-xr-x darwin   wheel              1]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/Current -> A
+[lrwxr-xr-x darwin   wheel             24]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Sparkle -> Versions/Current/Sparkle
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/MacOS
+[-rwxr-xr-x darwin   wheel         703700]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/MacOS/TotalTerminal
+[drwxr-xr-x darwin   wheel            748]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app
+[drwxr-xr-x darwin   wheel            170]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          48164]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/MacOS/Uninstall\ TotalTerminal
+[drwxr-xr-x darwin   wheel            238]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources
+[drwxr-xr-x darwin   wheel            136]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib
+[-rwxr-xr-x darwin   wheel          32583]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/MainMenu.nib/keyedobjects.nib
+[-rw-r--r-- darwin   wheel            239]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/English.lproj/InfoPlist.strings
+[-rw-r--r-- darwin   wheel            833]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/AppSettings.plist
+[-rw-r--r-- darwin   wheel         321560]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/appIcon.icns
+[-rw-r--r-- darwin   wheel           1671]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/script
+[-rw-r--r-- darwin   wheel           1671]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Resources/uninstall.applescript
+[-rw-r--r-- darwin   wheel           1411]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal\ Uninstaller.app/Contents/Info.plist
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app
+[drwxr-xr-x darwin   wheel            204]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/MacOS
+[-rwxr-xr-x darwin   wheel          78256]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/MacOS/TotalTerminalCrashWatcher
+[drwxr-xr-x darwin   wheel            476]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/English.lproj
+[-rw-r--r-- darwin   wheel           2826]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/English.lproj/Localizable.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/German.lproj
+[-rw-r--r-- darwin   wheel           3094]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/German.lproj/Localizable.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/Italian.lproj
+[-rw-r--r-- darwin   wheel           3074]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/Italian.lproj/Localizable.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/Spanish.lproj
+[-rw-r--r-- darwin   wheel           2906]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/Spanish.lproj/Localizable.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/fi.lproj
+[-rw-r--r-- darwin   wheel           3004]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/fi.lproj/Localizable.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/zh_CN.lproj
+[-rw-r--r-- darwin   wheel           2564]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/zh_CN.lproj/Localizable.strings
+[drwxr-xr-x darwin   wheel            102]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/zh_TW.lproj
+[-rw-r--r-- darwin   wheel           2618]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/zh_TW.lproj/Localizable.strings
+[-rw-r--r-- darwin   wheel         286209]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/CrashWatcher.icns
+[-rw-r--r-- darwin   wheel           8474]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/CrashWatcher.nib
+[-rwxr-xr-x darwin   wheel            858]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/extract-crash-info.rb
+[-rwxr-xr-x darwin   wheel           1443]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/related-crash-report.rb
+[-rwxr-xr-x darwin   wheel           1891]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Resources/upload-gist.rb
+[-rw-r--r-- darwin   wheel           1925]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/Info.plist
+[-rw-r--r-- darwin   wheel              8]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/PkgInfo
+[-rw-r--r-- darwin   wheel          64716]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/ChangeThemeBackgroundColor.png
+[-rw-r--r-- darwin   wheel          15059]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/Configuration.nib
+[-rw-r--r-- darwin   wheel           9254]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/Control.pdf
+[-rwxr-xr-x darwin   wheel            666]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/Error.png
+[-rw-r--r-- darwin   wheel          13334]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/ModifiersCommand.png
+[-rw-r--r-- darwin   wheel           9756]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/ModifiersControl.png
+[-rw-r--r-- darwin   wheel           9482]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/ModifiersOption.png
+[-rw-r--r-- darwin   wheel           9595]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/ModifiersShift.png
+[-rw-r--r-- darwin   wheel         121922]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/Terminal.icns
+[-rw-r--r-- darwin   wheel           9614]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/ToolbarIcon.png
+[-rw-r--r-- darwin   wheel         155296]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal.icns
+[-rw-r--r-- darwin   wheel          35185]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal.nib
+[-rw-r--r-- darwin   wheel          11701]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/Visor-Lion.terminal
+[-rw-r--r-- darwin   wheel           5271]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/Visor-SnowLeaopard.terminal
+[-rw-r--r-- darwin   wheel           3227]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/Visor.qtz
+[-rw-r--r-- darwin   wheel            560]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/VisorActive.png
+[-rw-r--r-- darwin   wheel            452]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/VisorInactive.png
+[-rw-r--r-- darwin   wheel            654]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/dsa_pub.pem
+[-rw-r--r-- darwin   wheel           1475]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Info.plist
+[-rw-r--r-- darwin   wheel            560]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminalInjector.sdef
+[-rw-r--r-- darwin   wheel           1733]  ./Library/ScriptingAdditions/TotalTerminal.osax/Contents/Info.plist
+[-rw-r--r-- darwin   staff          52189]  ./Bom
+[-rw-r--r-- darwin   staff           1571]  ./PackageInfo
+[-rw-r--r-- darwin   staff        3895808]  ./Payload
+[-rw-r--r-- darwin   staff            403]  ./Scripts
+
+92 directories, 181 files
+
+Applications/TotalTerminal.app/Contents/MacOS/applet: Mach-O universal binary with 2 architectures
+Applications/TotalTerminal.app/Contents/MacOS/applet (for architecture x86_64):	Mach-O 64-bit executable x86_64
+Applications/TotalTerminal.app/Contents/MacOS/applet (for architecture i386):	Mach-O executable i386
+
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/MacOS/TotalTerminal: Mach-O universal binary with 2 architectures
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/MacOS/TotalTerminal (for architecture x86_64):	Mach-O 64-bit bundle x86_64
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/MacOS/TotalTerminal (for architecture i386):	Mach-O bundle i386
+
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/MacOS/finish_installation: Mach-O universal binary with 2 architectures
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/MacOS/finish_installation (for architecture i386):	Mach-O executable i386
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Frameworks/Sparkle.framework/Versions/A/Resources/finish_installation.app/Contents/MacOS/finish_installation (for architecture x86_64):	Mach-O 64-bit executable x86_64
+
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/MacOS/TotalTerminal: Mach-O universal binary with 2 architectures
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/MacOS/TotalTerminal (for architecture x86_64):	Mach-O 64-bit bundle x86_64
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/MacOS/TotalTerminal (for architecture i386):	Mach-O bundle i386
+
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminal Uninstaller.app/Contents/MacOS/Uninstall TotalTerminal: Mach-O executable i386
+
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/MacOS/TotalTerminalCrashWatcher: Mach-O universal binary with 2 architectures
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/MacOS/TotalTerminalCrashWatcher (for architecture x86_64):	Mach-O 64-bit executable x86_64
+Library/ScriptingAdditions/TotalTerminal.osax/Contents/Resources/TotalTerminal.bundle/Contents/Resources/TotalTerminalCrashWatcher.app/Contents/MacOS/TotalTerminalCrashWatcher (for architecture i386):	Mach-O executable i386
+

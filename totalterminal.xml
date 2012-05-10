@@ -6,6 +6,13 @@
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
+            <title>Version 1.2.3</title>
+            <sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog.html</sparkle:releaseNotesLink>
+            <pubDate>2012-05-10 00:23:04 -0700</pubDate>
+            <enclosure url="http://downloads.binaryage.com/TotalTerminal-1.2.3.dmg" sparkle:version="1.2.3" length="2740034" type="application/octet-stream" sparkle:dsaSignature="MC0CFB9cLkcyQWMLKPb76QEsWVFCMH4NAhUAo4ksp7MC42HO+TZ5DSr2VwkgaZ8="/>
+            <sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
+        </item>
+        <item>
             <title>Version 1.2.2</title>
             <sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog.html</sparkle:releaseNotesLink>
             <pubDate>2012-03-05 00:10:10 +0100</pubDate>

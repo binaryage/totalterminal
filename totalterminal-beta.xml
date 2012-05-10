@@ -5,27 +5,34 @@
         <link>http://updates.binaryage.com/totalterminal-beta.xml</link>
         <description>Most recent changes with links to updates.</description>
         <language>en</language>
-		<item>
-		    <title>Version 1.2.2</title>
-		    <sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog-beta.html</sparkle:releaseNotesLink>
-		    <pubDate>2012-02-22 00:10:10 +0100</pubDate>
-		    <enclosure url="http://downloads.binaryage.com/TotalTerminal-1.2.2.dmg" sparkle:version="1.2.2" length="2740709" type="application/octet-stream" sparkle:dsaSignature="MC0CFCErLYs4laXpZmswqSRiS50aloxkAhUAh3GOqHxLg7aJG56vEvsfFsqEFOA="/>
-		    <sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
-		</item>
-		<item>
-			<title>Version 1.2.1</title>
-			<sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog-beta.html</sparkle:releaseNotesLink>
-			<pubDate>2012-02-21 00:01:53 +0100</pubDate>
-			<enclosure url="http://downloads.binaryage.com/TotalTerminal-1.2.1.dmg" sparkle:version="1.2.1" length="2740307" type="application/octet-stream" sparkle:dsaSignature="MCwCFBHPPn8z4PtSYLsu1pvKdDlXp5GPAhR4O68MhL2vWGsQwTwLXYbX3vR13A=="/>
-			<sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
-		</item>
-		<item>
-			<title>Version 1.2</title>
-			<sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog-beta.html</sparkle:releaseNotesLink>
-			<pubDate>2012-02-20 02:18:41 +0100</pubDate>
-			<enclosure url="http://downloads.binaryage.com/TotalTerminal-1.2.dmg" sparkle:version="1.2" length="2740125" type="application/octet-stream" sparkle:dsaSignature="MCwCFDqtmBw9R2+NsmdgFZVhYXvfcDnCAhRyHs0i7jhoiJb7T6e98z3VafsWxg=="/>
-			<sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
-		</item>
+        <item>
+            <title>Version 1.2.3</title>
+            <sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog-beta.html</sparkle:releaseNotesLink>
+            <pubDate>2012-05-10 00:23:04 -0700</pubDate>
+            <enclosure url="http://downloads.binaryage.com/TotalTerminal-1.2.3.dmg" sparkle:version="1.2.3" length="2740034" type="application/octet-stream" sparkle:dsaSignature="MC0CFB9cLkcyQWMLKPb76QEsWVFCMH4NAhUAo4ksp7MC42HO+TZ5DSr2VwkgaZ8="/>
+            <sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
+        </item>
+        <item>
+            <title>Version 1.2.2</title>
+            <sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog-beta.html</sparkle:releaseNotesLink>
+            <pubDate>2012-02-22 00:10:10 +0100</pubDate>
+            <enclosure url="http://downloads.binaryage.com/TotalTerminal-1.2.2.dmg" sparkle:version="1.2.2" length="2740709" type="application/octet-stream" sparkle:dsaSignature="MC0CFCErLYs4laXpZmswqSRiS50aloxkAhUAh3GOqHxLg7aJG56vEvsfFsqEFOA="/>
+            <sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
+        </item>
+        <item>
+            <title>Version 1.2.1</title>
+            <sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog-beta.html</sparkle:releaseNotesLink>
+            <pubDate>2012-02-21 00:01:53 +0100</pubDate>
+            <enclosure url="http://downloads.binaryage.com/TotalTerminal-1.2.1.dmg" sparkle:version="1.2.1" length="2740307" type="application/octet-stream" sparkle:dsaSignature="MCwCFBHPPn8z4PtSYLsu1pvKdDlXp5GPAhR4O68MhL2vWGsQwTwLXYbX3vR13A=="/>
+            <sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
+        </item>
+        <item>
+            <title>Version 1.2</title>
+            <sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog-beta.html</sparkle:releaseNotesLink>
+            <pubDate>2012-02-20 02:18:41 +0100</pubDate>
+            <enclosure url="http://downloads.binaryage.com/TotalTerminal-1.2.dmg" sparkle:version="1.2" length="2740125" type="application/octet-stream" sparkle:dsaSignature="MCwCFDqtmBw9R2+NsmdgFZVhYXvfcDnCAhRyHs0i7jhoiJb7T6e98z3VafsWxg=="/>
+            <sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
+        </item>
         <item>
             <title>Version 1.1.4</title>
             <sparkle:releaseNotesLink>http://totalterminal.binaryage.com/changelog-beta.html</sparkle:releaseNotesLink>
