@@ -20,6 +20,10 @@ TSupportedTerminalVersions initializeTerminalVersion() {
         version = v299;
     } else if ([terminalVersion isEqualToString:@"303"]) {
         version = v303;
+    } else if ([terminalVersion isEqualToString:@"303.1"]) {
+        version = v303dot1;
+    } else if ([terminalVersion isEqualToString:@"303.2"]) {
+        version = v303dot2;
     } else if ([terminalVersion isEqualToString:@"304"]) {
         version = v304;
     }
@@ -29,7 +33,7 @@ TSupportedTerminalVersions initializeTerminalVersion() {
         if ((parsedVersion > 0) && (parsedVersion < 273)) {
             version = vHistorical;
         } else {
-            NSLog(@"Warning: Terminal has unknown version %@. Visor has not been tested with this Terminal version.", terminalVersion);
+            NSLog(@"Warning: Terminal has unknown version %@. TotalTerminal has not been tested with this Terminal version.", terminalVersion);
         }
     }
     return version;
