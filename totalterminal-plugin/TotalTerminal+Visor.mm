@@ -423,6 +423,7 @@ restoreSession                                    :(id)arg8 {
     [self setWindow:win];
     [self updateVisorWindowLevel];
     [self updateVisorWindowSpacesSettings];
+    [self applyVisorPositioning];
 
     [self updateStatusMenu];
 }
