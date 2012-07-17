@@ -11,6 +11,11 @@ typedef enum {
     v303dot1,     // ???
     v303dot2,     // 10.7.4 update
     v304,         // 10.8 (Mountain Lion Preview 1)
+    v305,         // ???
+    v306,         // ???
+    v307,         // ???
+    v308,         // ???
+    v309,         // 10.8 (Mountain Lion GM)
     vUnknown,     // this position is important for comparing, we assume unknown are future Terminal versions
     vMaxSupportedTerminalVersion
 } TSupportedTerminalVersions;

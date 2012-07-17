@@ -763,7 +763,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "BIN=\"$PROJECT_DIR/../bin\"\n\n# build final package\nrm -rf \"/Applications/TotalTerminal.app\"\ncp -Rf \"$BIN/TotalTerminal.app\" \"/Applications\"\n\n# use ~/Library/ScriptingAdditions because\n# copying to /Library/ScriptingAdditions under Lion must be done with sudo\nrm -rf ~/Library/ScriptingAdditions/TotalTerminal.osax\nmkdir -p ~/Library/ScriptingAdditions/TotalTerminal.osax\nchmod ugo+rw ~/Library/ScriptingAdditions/TotalTerminal.osax\nln -s \"$BIN/TotalTerminal.osax/Contents\" ~/Library/ScriptingAdditions/TotalTerminal.osax/Contents # faster than copy";
+			shellScript = "BIN=\"$PROJECT_DIR/../bin\"\n\n# build final package\nrm -rf ~/Applications/TotalTerminal.app\nmkdir -p ~/Applications\ncp -Rf \"$BIN/TotalTerminal.app\" ~/Applications\n\n# use ~/Library/ScriptingAdditions because\n# copying to /Library/ScriptingAdditions under Lion must be done with sudo\nrm -rf ~/Library/ScriptingAdditions/TotalTerminal.osax\nmkdir -p ~/Library/ScriptingAdditions/TotalTerminal.osax\nchmod ugo+rw ~/Library/ScriptingAdditions/TotalTerminal.osax\nln -s \"$BIN/TotalTerminal.osax/Contents\" ~/Library/ScriptingAdditions/TotalTerminal.osax/Contents # faster than copy";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

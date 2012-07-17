@@ -26,6 +26,16 @@ TSupportedTerminalVersions initializeTerminalVersion() {
         version = v303dot2;
     } else if ([terminalVersion isEqualToString:@"304"]) {
         version = v304;
+    } else if ([terminalVersion isEqualToString:@"305"]) {
+        version = v305;
+    } else if ([terminalVersion isEqualToString:@"306"]) {
+        version = v306;
+    } else if ([terminalVersion isEqualToString:@"307"]) {
+        version = v307;
+    } else if ([terminalVersion isEqualToString:@"308"]) {
+        version = v308;
+    } else if ([terminalVersion isEqualToString:@"309"]) {
+        version = v309;
     }
     if (version == vUnknown) {
         // try to parse it and detect historical version
