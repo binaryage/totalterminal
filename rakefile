@@ -300,7 +300,9 @@ task :release do
   
   puts snippet
   puts
-  puts "Don't forget: ".red+"git tag -a v#{$version} -m \"Release #{$version}\"".green
+  puts "Don't forget: ".red
+  puts "  git tag -a v#{$version} -m \"Release #{$version}\"".green
+  puts "  prepare totalterminal-test.xml and test sparkle updating on it, see totalterminal-plugin/TotalTerminal+Sparkle.mm"
   puts "#{PUBLISH_PREFIX_URL}/TotalTerminal-#{$version}.dmg".blue
   
   # Dir.chdir(ROOT_DIR) do
