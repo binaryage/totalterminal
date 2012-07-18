@@ -303,7 +303,7 @@ task :release do
   puts
   puts "Don't forget: ".red
   puts "  git tag -a v#{$version} -m \"Release #{$version}\"".green
-  puts "  prepare totalterminal-test.xml and test sparkle updating on it, see totalterminal-plugin/TotalTerminal+Sparkle.mm"
+  puts "  test sparkle updating on it via touch ~/.use-test-appcast, see totalterminal-plugin/TotalTerminal+Sparkle.mm"
   puts "#{PUBLISH_PREFIX_URL}/TotalTerminal-#{$version}.dmg".blue
   
   # Dir.chdir(ROOT_DIR) do
