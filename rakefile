@@ -97,7 +97,7 @@ def generate_payload_for_pkg(tmp, pkg)
     tree = ""
     exes = ""
 
-    tmp2 = File.join(tmp, File.basename(pkg))
+    tmp2 = File.join(tmp, "payload-extractor")
     sys("rm -rf \"#{tmp2}\"") if File.exist? tmp2
     sys("mkdir -p \"#{tmp2}\"")
     sys("cp \"#{pkg}\" \"#{tmp2}\"")
@@ -106,18 +106,19 @@ def generate_payload_for_pkg(tmp, pkg)
     
     Dir.chdir(tmp2) do
         sys("xar -xf \"#{name}\"")
-        
-        if (File.exist? "Payload") then
-            sys("mv Payload Payload.gz")
-            sys("gunzip Payload.gz")
-            sys("cpio -id < Payload")
-        end
 
-        `rm \"#{name}\"`
-        tree = `tree --dirsfirst -apsugif`
-        exes = ""
-        Dir.glob("**/MacOS/*") do |exe|
-            exes += `file "#{exe}"` + "\n"
+        Dir.chdir("TotalTerminal_Plugin.pkg") do
+            if (File.exist? "Payload") then
+                sys("mv Payload Payload.gz")
+                sys("gunzip Payload.gz")
+                sys("cpio -id < Payload")
+            end
+
+            tree = `tree --dirsfirst -apsugif`
+            exes = ""
+            Dir.glob("**/MacOS/*") do |exe|
+                exes += `file "#{exe}"` + "\n"
+            end
         end
     end
 
