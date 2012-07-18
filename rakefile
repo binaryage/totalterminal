@@ -216,7 +216,7 @@ end
 desc "prepare stage"
 task :stage do 
     puts "#{cmd_color('Cloning sources to stage ...')}"
-    `sudo rm -rf "#{TMP_DIR}"`
+    `rm -rf "#{TMP_DIR}"`
     `mkdir -p "#{TMP_ROOT}"`
     Dir.chdir(TMP_ROOT) do
       `git clone #{ROOT_DIR}`
