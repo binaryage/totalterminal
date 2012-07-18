@@ -168,9 +168,9 @@
 }
 
 -(id) SMETHOD (TTWindowController, makeTabWithProfile):(id)arg1 customFont:(id)arg2 command:(id)arg3 runAsShell:(BOOL)arg4 restorable:(BOOL)arg5 workingDirectory:(id)arg6 sessionClass:(id)arg7
-restoreSession                                    :(id)arg8 {
+   restoreSession                                     :(id)arg8 {
     id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
-    
+
     AUTO_LOGGERF(@"profile=%@", profile);
     if (profile) {
         arg1 = profile;
@@ -343,7 +343,7 @@ restoreSession                                    :(id)arg8 {
     if (!background_) {
         return;
     }
-    
+
     [background_ release];
     background_ = nil;
 }
@@ -462,30 +462,29 @@ restoreSession                                    :(id)arg8 {
     return [screens objectAtIndex:screenIndex];
 }
 
-- (NSRect)menubarFrame:(NSScreen*)screen {
-    NSArray *screens = [NSScreen screens];
-    
-    if (!screens)
-        return NSZeroRect;
-    
+-(NSRect) menubarFrame:(NSScreen*)screen {
+    NSArray* screens = [NSScreen screens];
+
+    if (!screens) return NSZeroRect;
+
     // menubar is the 0th screen (according to the NSScreen docs)
-    NSScreen *menubarScreen = [screens objectAtIndex:0];
+    NSScreen* menubarScreen = [screens objectAtIndex:0];
     if (screen != menubarScreen) {
         return NSZeroRect;
     }
-    
+
     NSRect frame = [menubarScreen frame];
-    
+
     // since the dock can only be on the bottom or the sides, calculate the difference
     // between the frame and the visibleFrame at the top
     NSRect visibleFrame = [menubarScreen visibleFrame];
     NSRect menubarFrame;
-    
+
     menubarFrame.origin.x = NSMinX(frame);
     menubarFrame.origin.y = NSMaxY(visibleFrame);
     menubarFrame.size.width = NSWidth(frame);
     menubarFrame.size.height = NSMaxY(frame) - NSMaxY(visibleFrame);
-    
+
     return menubarFrame;
 }
 
@@ -501,6 +500,7 @@ restoreSession                                    :(id)arg8 {
     int shift = menubar.size.height - 1; // -1px to hide bright horizontal line on the edge of chromeless terminal window
 
     NSString* position = [self position];
+
     if ([position hasPrefix:@"Top"]) {
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - round(offset * (NSHeight(frame) + shift));
     }
@@ -521,6 +521,7 @@ restoreSession                                    :(id)arg8 {
 
 -(void) initializeBackground {
     BOOL useBackground = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorUseBackgroundAnimation"];
+
     if (useBackground) {
         [self createBackground];
     } else {
@@ -701,11 +702,11 @@ restoreSession                                    :(id)arg8 {
     [NSApp activateIgnoringOtherApps:YES];
 
     // window will become key eventually, this is important for updatePreviouslyActiveApp to work properly
-    // becomeKey event may have delay and without this updatePreviouslyActiveApp could reset PID to 0 
+    // becomeKey event may have delay and without this updatePreviouslyActiveApp could reset PID to 0
     // imagine: when timer fire imediately after showVisor and before becomeKey event
     // see: https://github.com/binaryage/totalterminal/issues/35
-    isKey_ = true; 
-    
+    isKey_ = true;
+
     [window_ update];
     [self slideWindows:1 fast:fast];
     [window_ invalidateShadow];
@@ -759,9 +760,9 @@ restoreSession                                    :(id)arg8 {
         BOOL doSlide = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorUseSlide"];
         BOOL doFade = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorUseFade"];
         float animSpeed = [[NSUserDefaults standardUserDefaults] floatForKey:@"TotalTerminalVisorAnimationSpeed"];
-        
+
         // HACK for Mountain Lion, fading crashes windowing server on my machine
-        if (terminalVersion()>=FIRST_MOUNTAIN_LION_VERSION) {
+        if (terminalVersion() >= FIRST_MOUNTAIN_LION_VERSION) {
             if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalDisableMountainLionFadingHack"]) {
                 doFade = false;
             }
@@ -872,7 +873,7 @@ restoreSession                                    :(id)arg8 {
         hotKey_ = nil;
         hotModifiers_ = 0;
     }
-    
+
     DCHECK(statusMenu_);
     if (!statusMenu_) {
         return; // safety net
@@ -943,7 +944,7 @@ restoreSession                                    :(id)arg8 {
             // setting hotModifiers_ means we're not looking for a double tap
             GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
             fullScreenKey_ = [dispatcher registerHotKey:0x3 // F
-                                              modifiers:NSCommandKeyMask|NSAlternateKeyMask
+                                              modifiers:NSCommandKeyMask | NSAlternateKeyMask
                                                  target:self
                                                  action:@selector(fullScreenToggle:)
                                                userInfo:nil
@@ -1152,15 +1153,16 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 -(void) openVisor {
     // prevents showing misplaced visor window briefly
     ScopedNSDisableScreenUpdates disabler(__FUNCTION__);
-    
+
     id visorProfile = [TotalTerminal getVisorProfile];
     TTApplication* app = (TTApplication*)[NSClassFromString (@"TTApplication")sharedApplication];
-    if (terminalVersion()<FIRST_MOUNTAIN_LION_VERSION) {
+
+    if (terminalVersion() < FIRST_MOUNTAIN_LION_VERSION) {
         [app newWindowControllerWithProfile:visorProfile];
     } else {
         [app makeWindowControllerWithProfile:visorProfile]; // ah, Ben started following Cocoa naming conventions, good! :-)
     }
-    
+
     [self resetWindowPlacement];
     [self updatePreferencesUI];
     [self updateStatusMenu];
@@ -1179,7 +1181,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         SWIZZLE(TTWindowController, makeTabWithProfile:);
         SWIZZLE(TTWindowController, makeTabWithProfile: customFont: command: runAsShell: restorable: workingDirectory: sessionClass: restoreSession:);
     }
-    
+
     SWIZZLE(TTWindowController, setCloseDialogExpected:);
     SWIZZLE(TTWindowController, window: willPositionSheet: usingRect:);
 
@@ -1189,7 +1191,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     SWIZZLE(TTWindow, performClose:);
 
     SWIZZLE(TTApplication, sendEvent:);
-    
+
     LOG(@"Visor installed");
 }
 

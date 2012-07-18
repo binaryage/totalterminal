@@ -2,8 +2,10 @@
 #import "Updater.h"
 
 @implementation TotalTerminal (Sparkle)
+
 -(void) refreshFeedURLInUpdater {
     TTUpdater* updater = [TTUpdater sharedUpdater];
+
     if (!updater) return;
 
     // with every new release to be published it is recommended to test if Sparkle really works
@@ -27,7 +29,7 @@
         return;
     }
 
-    // normal screnario, check 
+    // normal screnario
     BOOL useBeta = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalUsePreReleases"];
     if (useBeta) {
         [updater setFeedURL:[NSURL URLWithString:@"http://updates.binaryage.com/totalterminal-beta.xml"]];

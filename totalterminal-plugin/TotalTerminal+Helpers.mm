@@ -21,14 +21,14 @@
 +(BOOL) hasVisorProfile {
     id profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
-    
+
     return !!visorProfile;
 }
 
 +(id) getVisorProfile {
     id profileManager = [NSClassFromString (@"TTProfileManager")sharedProfileManager];
     id visorProfile = [profileManager profileWithName:@"Visor"];
-    
+
     if (visorProfile) {
         return visorProfile;
     }
@@ -43,7 +43,7 @@
 
 -(void) storePreviouslyActiveApp {
     AUTO_LOGGERF(@"front-most=%@", [[NSWorkspace sharedWorkspace] frontmostApplication]);
-    
+
     // TODO: use frontmostApplication in 10.7+
     NSDictionary* activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
     previouslyActiveAppPID_ = 0;
@@ -62,6 +62,7 @@
     // TODO: use frontmostApplication in 10.7+
     NSDictionary* activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
     NSString* bundleIdentifier = [activeAppDict objectForKey:@"NSApplicationBundleIdentifier"];
+
     if ([bundleIdentifier compare:@"com.apple.Terminal"]) {
         int newPID = [[activeAppDict objectForKey:@"NSApplicationProcessIdentifier"] intValue];
         if (newPID != previouslyActiveAppPID_) {
