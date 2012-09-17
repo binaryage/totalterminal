@@ -49,7 +49,8 @@ static BOOL ConformsToNSObjectProtocol(Class cls) {
     if ((strncmp(className, "NS", 2) == 0) ||
         (strncmp(className, "_NS", 3) == 0) ||
         (strncmp(className, "__NS", 4) == 0) ||
-        (strcmp(className, "CFObject") == 0)
+        (strcmp(className, "CFObject") == 0) ||
+        (strcmp(className, "__IncompleteProtocol") == 0)
 #if GTM_IPHONE_SDK
         || (strcmp(className, "Object") == 0)
 #endif
@@ -57,9 +58,11 @@ static BOOL ConformsToNSObjectProtocol(Class cls) {
         return YES;
     }
 
-// iPhone SDK does not define the |Object| class, so we instead test for the
-// |NSObject| class.
-#if GTM_IPHONE_SDK
+    // iPhone and Mac OS X 10.8 with Obj-C 2 SDKs do not define the |Object|
+    // class, so we instead test for the |NSObject| class.
+#if GTM_IPHONE_SDK || \
+    (__OBJC2__ && defined(MAC_OS_X_VERSION_10_8) && \
+    MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_8)
     // Iterate through all the protocols |cls| supports looking for NSObject.
     if ((cls == [NSObject class]) ||
         class_conformsToProtocol(cls, @protocol(NSObject))) {
@@ -134,7 +137,7 @@ void GTMMethodCheckMethodChecker(void) {
                     // Don't know how to force this case in a unittest.
                     // Certainly hope we never see it.
                     _GTMDevLog(@"GTMMethodCheckMethodChecker: Unable to get dladdr info "
-                            "for GTMMethodCheckMethodChecker while introspecting +[%@ %@]]",
+                            "for GTMMethodCheckMethodChecker while introspecting +[%s %s]]",
                             class_getName(cls), name);
                     continue;
                     // COV_NF_END
@@ -146,7 +149,7 @@ void GTMMethodCheckMethodChecker(void) {
                     // Don't know how to force this case in a unittest
                     // Certainly hope we never see it.
                     _GTMDevLog(@"GTMMethodCheckMethodChecker: Unable to get dladdr info "
-                            "for %@ while introspecting +[%@ %@]]", name,
+                            "for %s while introspecting +[%s %s]]", name,
                             class_getName(cls), name);
                     continue;
                     // COV_NF_END

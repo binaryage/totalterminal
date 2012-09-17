@@ -18,7 +18,7 @@
 
 #import "GTMObjC2Runtime.h"
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+#if GTM_MACOS_SDK && (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5)
 # import <stdlib.h>
 # import <string.h>
 
@@ -180,4 +180,10 @@ struct objc_method_description protocol_getMethodDescription(Protocol* p,
     return desc;
 }
 
-#endif
+BOOL sel_isEqual(SEL lhs, SEL rhs) {
+    // Apple (informally) promises this will work in the future:
+    // http://twitter.com/#!/gparker/status/2400099786
+    return (lhs == rhs) ? YES : NO;
+}
+
+#endif  // GTM_MACOS_SDK && (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5)

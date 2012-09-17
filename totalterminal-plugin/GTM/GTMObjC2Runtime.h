@@ -51,7 +51,7 @@
 
 #import <libkern/OSAtomic.h>
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+#if GTM_MACOS_SDK && (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5)
 # import "objc/Protocol.h"
 
 OBJC_EXPORT Class object_getClass(id obj);
@@ -65,6 +65,7 @@ OBJC_EXPORT void method_exchangeImplementations(Method m1, Method m2);
 OBJC_EXPORT IMP method_getImplementation(Method method);
 OBJC_EXPORT IMP method_setImplementation(Method method, IMP imp);
 OBJC_EXPORT struct objc_method_description protocol_getMethodDescription(Protocol* p, SEL aSel, BOOL isRequiredMethod, BOOL isInstanceMethod);
+OBJC_EXPORT BOOL sel_isEqual(SEL lhs, SEL rhs);
 
 // If building for 10.4 but using the 10.5 SDK, don't include these.
 # if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5
@@ -90,9 +91,9 @@ GTM_INLINE bool OSAtomicCompareAndSwapPtrBarrier(void* predicate,
 }
 
 # endif // MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5
-#endif  // MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+#endif  // GTM_MACOS_SDK && (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5)
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+#if GTM_MACOS_SDK && (MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5)
 
 GTM_INLINE BOOL objc_atomicCompareAndSwapGlobalBarrier(id predicate,
         id replacement,
@@ -110,4 +111,4 @@ GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
             (void* volatile*)objectLocation);
 }
 
-#endif  // MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+#endif  // GTM_MACOS_SDK && (MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5)
