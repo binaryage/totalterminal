@@ -1,7 +1,7 @@
 /*
  * LoggerClient.m
  *
- * version 1.0.1 2011-12-03
+ * version 1.1 2012-03-31
  *
  * Main implementation of the NSLogger client side code
  * Part of NSLogger (client side)
@@ -9,7 +9,7 @@
  *
  * BSD license follows (http://www.opensource.org/licenses/bsd-license.php)
  *
- * Copyright (c) 2010-2011 Florent Pillet All Rights Reserved.
+ * Copyright (c) 2010-2012 Florent Pillet All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -570,9 +570,11 @@ static void LoggerLogToConsole(CFDataRef data) {
     // Decode and log a message to the console. Doing this from the worker thread
     // allow us to serialize logging, which is a benefit that NSLog() doesn't have.
     // Only drawback is that we have to decode our own message, but that is a minor hassle.
-
+    if (data == NULL) {
+        CFShow(CFSTR("LoggerLogToConsole: data is NULL"));
+        return;
+    }
     struct timeval timestamp;
-
     bzero(&timestamp, sizeof(timestamp));
     int type = LOGMSG_TYPE_LOG, contentsType = PART_TYPE_STRING;
     int imgWidth = 0, imgHeight = 0;
@@ -1407,6 +1409,11 @@ static void LoggerWriteStreamCallback(CFWriteStreamRef ws, CFStreamEventType eve
             else LoggerTryConnect(logger);
         }
         break;
+        // avoid warnings when building; cover all enum cases.
+        case kCFStreamEventNone:
+        case kCFStreamEventHasBytesAvailable: {
+            break;
+        }
     }
 }
 
@@ -1582,7 +1589,7 @@ static void LoggerMessageAddString(CFMutableDataRef data, CFStringRef aString, i
 }
 
 static void LoggerMessageAddData(CFMutableDataRef data, CFDataRef theData, int key, int partType) {
-    if (theData != nil) {
+    if (theData != NULL) {
         uint8_t keyAndType[2] = {
             (uint8_t)key, (uint8_t)partType
         };
@@ -1659,7 +1666,7 @@ static void LoggerPushClientInfoToFrontOfQueue(Logger* logger) {
         if ([NSThread isMultiThreaded] || [NSThread isMainThread]) {
             AUTORELEASE_POOL_BEGIN
             UIDevice* device = [UIDevice currentDevice];
-            LoggerMessageAddString(encoder, (CAST_TO_CFSTRING)device.uniqueIdentifier, PART_KEY_UNIQUEID);
+            LoggerMessageAddString(encoder, (CAST_TO_CFSTRING)device.name, PART_KEY_UNIQUEID);
             LoggerMessageAddString(encoder, (CAST_TO_CFSTRING)device.systemVersion, PART_KEY_OS_VERSION);
             LoggerMessageAddString(encoder, (CAST_TO_CFSTRING)device.systemName, PART_KEY_OS_NAME);
             LoggerMessageAddString(encoder, (CAST_TO_CFSTRING)device.model, PART_KEY_CLIENT_MODEL);
@@ -1735,6 +1742,7 @@ static void LoggerPushMessageToQueue(Logger* logger, CFDataRef message) {
             CFArrayRemoveValueAtIndex(logger->logQueue, 0);
         }
         pthread_mutex_unlock(&logger->logQueueMutex);
+        pthread_cond_broadcast(&logger->logQueueEmpty);                 // in case other threads are waiting for a flush
     }
 }
 
