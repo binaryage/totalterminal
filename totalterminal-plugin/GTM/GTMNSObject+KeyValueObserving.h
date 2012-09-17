@@ -35,7 +35,7 @@
 #ifndef GTM_PERFORM_KVO_CHECKS
 // Controls whether KVO checking code is on in debug. See
 // GTMNSObject+KeyValueObserving.m for details
-# define GTM_PERFORM_KVO_CHECKS 1
+# define GTM_PERFORM_KVO_CHECKS 0
 #endif
 
 // If you read the articles above you will see that doing KVO correctly
