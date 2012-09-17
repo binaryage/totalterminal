@@ -194,7 +194,7 @@ FOUNDATION_STATIC_INLINE BOOL SRIsSpecialKey(NSInteger keyCode) {
 @interface SRSharedImageProvider : NSObject
 +(NSImage*)supportingImageWithName:(NSString*)name;
 @end
-
+    
 #ifdef __cplusplus
 }
 #endif

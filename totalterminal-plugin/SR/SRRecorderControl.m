@@ -111,10 +111,11 @@
 -(void) viewDidMoveToWindow {
     NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
 
-    [center removeObserver:self];
-    [center addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:self];
-
-    [self resetTrackingRects];
+    if ([self window]) {
+        [center removeObserver:self];
+        [center addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:self];
+        [self resetTrackingRects];
+    }
 }
 
 -(void) viewFrameDidChange:(NSNotification*)aNotification {
@@ -185,12 +186,20 @@
     return [SRCell allowsKeyOnly];
 }
 
+-(void) setAllowsKeyOnly:(BOOL)nAllowsKeyOnly {
+    [self setAllowsKeyOnly:nAllowsKeyOnly escapeKeysRecord:NO];
+}
+
 -(void) setAllowsKeyOnly:(BOOL)nAllowsKeyOnly escapeKeysRecord:(BOOL)nEscapeKeysRecord {
     [SRCell setAllowsKeyOnly:nAllowsKeyOnly escapeKeysRecord:nEscapeKeysRecord];
 }
 
 -(BOOL) escapeKeysRecord {
     return [SRCell escapeKeysRecord];
+}
+
+-(void) setEscapeKeysRecord:(BOOL)nEscapeKeysRecord {
+    [SRCell setEscapeKeysRecord:nEscapeKeysRecord];
 }
 
 -(BOOL) canCaptureGlobalHotKeys {
