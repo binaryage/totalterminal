@@ -57,7 +57,7 @@
 
 -(id) transformedValue:(id)value {
     LOG(@"transformedValue %@", value);
-    return [NSString stringWithFormat:@"Screen %d", [value integerValue]];
+    return [NSString stringWithFormat:@"Screen %d", (int)[value integerValue]];
 }
 
 -(id) reverseTransformedValue:(id)value {

@@ -32,6 +32,7 @@
 		07CA8BD712B499F600A6D8BF /* Error.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CA8BD612B499F600A6D8BF /* Error.png */; };
 		26C7384F11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		D614F0B61607C5D70045572D /* AutoLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = D614F0B51607C5D70045572D /* AutoLogger.mm */; };
 		D62204AF1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */; };
 		D62A1D1C13E4B7F100221A33 /* Visor-Lion.terminal in Resources */ = {isa = PBXBuildFile; fileRef = D62A1D1A13E4B7F100221A33 /* Visor-Lion.terminal */; };
 		D62A1D1D13E4B7F100221A33 /* Visor-SnowLeaopard.terminal in Resources */ = {isa = PBXBuildFile; fileRef = D62A1D1B13E4B7F100221A33 /* Visor-SnowLeaopard.terminal */; };
@@ -168,6 +169,8 @@
 		8D5B49B6048680CD000E48DA /* TotalTerminal.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TotalTerminal.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		D614F0B41607C5D70045572D /* AutoLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoLogger.h; path = base/AutoLogger.h; sourceTree = "<group>"; };
+		D614F0B51607C5D70045572D /* AutoLogger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AutoLogger.mm; path = base/AutoLogger.mm; sourceTree = "<group>"; };
 		D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+TerminalColours.h"; sourceTree = "<group>"; };
 		D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+TerminalColours.mm"; sourceTree = "<group>"; };
 		D622F34F14F1AF8A00EF758A /* TTAppPrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAppPrefsController.h; sourceTree = "<group>"; };
@@ -546,6 +549,8 @@
 		D6E5F58A13E205100069D886 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				D614F0B41607C5D70045572D /* AutoLogger.h */,
+				D614F0B51607C5D70045572D /* AutoLogger.mm */,
 				D69D315B13E46F000013A750 /* ScreenUpdates.h */,
 				D69D315C13E46F000013A750 /* ScreenUpdates.mm */,
 				D6E5F58C13E205880069D886 /* Macros.h */,
@@ -809,6 +814,7 @@
 				D69D315A13E44CD50013A750 /* TotalTerminal+Menu.mm in Sources */,
 				D69D315D13E46F000013A750 /* ScreenUpdates.mm in Sources */,
 				D65192E014F013EB002B562B /* TotalTerminal+AutoSlide.mm in Sources */,
+				D614F0B61607C5D70045572D /* AutoLogger.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

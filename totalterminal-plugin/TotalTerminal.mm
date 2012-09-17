@@ -3,7 +3,7 @@
 @implementation TotalTerminal
 
 -(void) awakeFromNib {
-    LOG(@"awakeFromNib");
+    NSLOG(@"awakeFromNib");
     [self storePreferencesPaneSize];
 }
 

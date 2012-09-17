@@ -51,7 +51,7 @@
     if ([bundleIdentifier compare:@"com.apple.Terminal"]) {
         previouslyActiveAppPID_ = [[activeAppDict objectForKey:@"NSApplicationProcessIdentifier"] intValue];
     }
-    LOG(@"  remember previous app pid=%d", previouslyActiveAppPID_);
+    NSLOG(@"  remember previous app pid=%d", previouslyActiveAppPID_);
 }
 
 // this function is called periodically during open Visor session ([TotalTermina isHidden] is false)
@@ -67,7 +67,7 @@
         int newPID = [[activeAppDict objectForKey:@"NSApplicationProcessIdentifier"] intValue];
         if (newPID != previouslyActiveAppPID_) {
             previouslyActiveAppPID_ = newPID;
-            LOG(@"  new previous app pid=%d", previouslyActiveAppPID_);
+            NSLOG(@"  new previous app pid=%d", previouslyActiveAppPID_);
         }
     } else {
         if (window_ && !isKey_) {
@@ -75,7 +75,7 @@
             int newPID = 0;
             if (newPID != previouslyActiveAppPID_) {
                 previouslyActiveAppPID_ = newPID;
-                LOG(@"  reset previous app pid=%d", previouslyActiveAppPID_);
+                NSLOG(@"  reset previous app pid=%d", previouslyActiveAppPID_);
             }
         }
     }
