@@ -162,7 +162,7 @@
     [infoLine setDrawsBackground:NO];
 }
 
--(void) enahanceTerminalPreferencesWindow {
+-(void) enhanceTerminalPreferencesWindow {
     static bool alreadyEnhanced = NO;
 
     if (alreadyEnhanced) return;
@@ -181,7 +181,7 @@
             return;
         }
     } @catch (NSException* exception) {
-        ERROR(@"enahanceTerminalPreferencesWindow: Caught %@: %@", [exception name], [exception reason]);
+        ERROR(@"enhanceTerminalPreferencesWindow: Caught %@: %@", [exception name], [exception reason]);
         return;
     }
 
@@ -311,7 +311,7 @@
 
 -(void) updatePreferencesUI {
     AUTO_LOGGER();
-    [self enahanceTerminalPreferencesWindow];
+    [self enhanceTerminalPreferencesWindow];
     [self updateShouldShowTransparencyAlert];
     [self updateInfoLine];
 
