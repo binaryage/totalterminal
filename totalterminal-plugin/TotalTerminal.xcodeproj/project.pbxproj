@@ -876,7 +876,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG_MODE;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = "-fnested-functions";
 				OTHER_LDFLAGS = (

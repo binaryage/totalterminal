@@ -6,7 +6,6 @@
 #import "ScreenUpdates.h"
 
 #define PROJECT Core
-#define TAG "Core"
 
 // http://stackoverflow.com/questions/195975/how-to-make-a-char-string-from-a-c-macros-value
 // PROJECT macro holds current Feature name, in case of Cut&Paste plugin it is symbol CutAndPaste
@@ -38,14 +37,14 @@
 #define $(x) NSLocalizedStringWithDefaultValue(x, @ PROJECT_STR, [[PROJECT_CLASS class ] mainBundle], x, nil)
 #define $$(x) NSString stringWithFormat : $(x)
 
-#ifdef _DEBUG_MODE
+#if defined(DEBUG)
 # define ERROR(format, ...) NSBeep(), NSLog(format, ## __VA_ARGS__)
 #else
 # define ERROR(format, ...) NSLog(format, ## __VA_ARGS__)
 #endif
 #define INFO(format, ...) NSLog(format, ## __VA_ARGS__)
 
-#ifdef _DEBUG_MODE
+#if defined(DEBUG)
 # define DCHECK(condition) (((condition)) ? (void)0 : (NSBeep(), NSLog(@ "Check failed: %s (%s:%d) [%@ %s]", # condition, __FILE__, __LINE__, @ TAG, __PRETTY_FUNCTION__)))
 #else
 # define DCHECK(condition)

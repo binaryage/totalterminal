@@ -7,7 +7,7 @@
 @implementation TotalTerminal (Debug)
 
 +(bool) initDebugSubsystems {
-#ifdef _DEBUG_MODE
+#if defined(DEBUG)
     [self injectFScript];
 #endif
 }

@@ -62,7 +62,7 @@
         [updateItem release];
         [statusMenu_ insertItem:[NSMenuItem separatorItem] atIndex:5];
 
-#ifdef _DEBUG_MODE
+#if defined(DEBUG)
         NSMenuItem* crashItem = [[NSMenuItem alloc] initWithTitle:@"Crash me!" action:@selector(crashMe:) keyEquivalent:@""];
         [crashItem setTarget:self];
         [statusMenu_ addItem:crashItem];
@@ -117,7 +117,7 @@
     if ([menuItem action] == @selector(togglePinVisor:)) {
         return !!window_;
     }
-#ifdef _DEBUG_MODE
+#if defined(DEBUG)
     if ([menuItem action] == @selector(crashMe:)) {
         return YES;
     }

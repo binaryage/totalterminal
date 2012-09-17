@@ -19,7 +19,7 @@
 +(void) launchCrashWatcher {
     AUTO_LOGGER();
 
-#ifndef _DEBUG_MODE
+#if defined(DEBUG)
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalDoNotLaunchCrashWatcher"]) {
         NSString* path = [[NSBundle bundleForClass:[self class]] pathForResource:@"TotalTerminalCrashWatcher" ofType:@"app"];
         INFO(@"Launching TotalTerminalCrashWatcher from '%@'", path);
