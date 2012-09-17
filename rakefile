@@ -207,6 +207,13 @@ def release_version_from_filename(n) # /Users/darwin/code/totalterminal/payloads
     x*1000000 + y*1000 + z
 end
 
+def patch_gitmodules
+    patch(TMP_GIT_MODULES, [
+        ['git://github.com/binaryage', ROOT_DIR], 
+        ['.git', '']
+    ])
+end
+
 ###################################################################################################################
 
 desc "opens XCode project"
@@ -226,8 +233,8 @@ task :stage do
     puts "#{cmd_color('Initializing submodules ...')}"
     Dir.chdir(TMP_DIR) do
       `git reset --hard HEAD`
-      patch(TMP_GIT_MODULES, [['git://github.com/binaryage', ROOT_DIR], ['.git', '']])
-      `git submodule update --init`
+      patch_gitmodules
+      `git submodule update --init --recursive`
     end
 end
 
@@ -245,13 +252,14 @@ task :release do
         puts "#{cmd_color('Updating stage ...')}"
         Dir.chdir(TMP_DIR) do
             sys('git clean -fd')
-            sys('git fetch')
-            sys('git reset --hard origin/master')
-            patch(TMP_GIT_MODULES, [['git://github.com/binaryage', ROOT_DIR], ['.git', '']])
-            #
-            sys('git submodule sync')
-            sys('git submodule foreach "git reset --hard origin/master"')
-            sys('git submodule update')
+            sys('git reset --hard HEAD^') # use previous commit to make working tree resilient to amends
+            sys('git submodule foreach --recursive "git clean -fd"')
+            sys('git submodule foreach --recursive "git reset --hard HEAD"')
+            sys('git submodule update --recursive --checkout')
+            sys('git pull --ff-only')
+
+            patch_gitmodules
+            sys('git submodule update --recursive --checkout')
         end
 
         puts "#{cmd_color('Patching version info ...')}"
@@ -263,11 +271,13 @@ task :release do
         patch(OSAX_INFO_PLIST, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
         patch(CRASHWATCHER_INFO_PLIST, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
         
-        sys("rm -rf \"#{TMP_BIN_DIR}\"") unless ENV["noclean"]
-        sys("rm -rf ~/Library/Developer/Xcode/DerivedData/TotalTerminal-*") unless ENV["noclean"]
-        
-        puts "#{cmd_color('Building')} #{file_color(TMP_TOTALTERMINAL_DIR)}"
         Dir.chdir(TMP_DIR) do
+            unless ENV["noclean"] then
+              puts "#{cmd_color('Cleaning')} #{file_color(TMP_TOTALTERMINAL_DIR)}"
+              sys('xcodebuild -workspace TotalTerminal.xcworkspace -scheme "TotalTerminal Package" -configuration Release clean')
+            end
+
+            puts "#{cmd_color('Building')} #{file_color(TMP_TOTALTERMINAL_DIR)}"
             sys('xcodebuild -workspace TotalTerminal.xcworkspace -scheme "TotalTerminal Package" -configuration Release')
             die("build failed") unless $?==0
         end
