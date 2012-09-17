@@ -254,7 +254,7 @@
 }
 
 -(id) comboBox:(NSComboBox*)aComboBox objectValueForItemAtIndex:(NSInteger)index {
-    LOG(@"comboBox %@, objectValueForItemAtIndex %d", aComboBox, index);
+    LOG(@"comboBox %@, objectValueForItemAtIndex %d", aComboBox, (int)index);
     VisorScreenTransformer* transformer = [[VisorScreenTransformer alloc] init];
     id res = [transformer transformedValue:[NSNumber numberWithInteger:index]];
     [transformer release];

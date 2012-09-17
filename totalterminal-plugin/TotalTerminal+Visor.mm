@@ -985,7 +985,7 @@
         return;
     }
     NSUInteger flags = [event qsbModifierFlags];
-    NSLOG3(@"modifiersChangedWhileActive: %@ %08x %08x", event, flags, hotModifiers_);
+    NSLOG3(@"modifiersChangedWhileActive: %@ %08lx %08lx", event, (unsigned long)flags, (unsigned long)hotModifiers_);
     BOOL isGood = NO;
     if (!(hotModifiersState_ % 2)) {
         // This is key down cases
@@ -1001,7 +1001,7 @@
     } else {
         hotModifiersState_ += 1;
     }
-    NSLOG3(@"  => %d", hotModifiersState_);
+    NSLOG3(@"  => %ld", (unsigned long)hotModifiersState_);
     if (hotModifiersState_ >= 3) {
         // We've worked our way through the state machine to success!
         [self toggleVisor:self];
@@ -1024,7 +1024,7 @@
     if (!hotModifiers_ || [NSApp keyWindow]) return;
 
     NSUInteger flags = [event qsbModifierFlags];
-    NSLOG3(@"modifiersChangedWhileInactive: %@ %08x %08x", event, flags, hotModifiers_);
+    NSLOG3(@"modifiersChangedWhileInactive: %@ %08lx %08lx", event, (unsigned long)flags, (unsigned long)hotModifiers_);
     if (flags != hotModifiers_) return;
 
     const useconds_t oneMilliSecond = 10000;

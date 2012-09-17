@@ -107,7 +107,7 @@ bool testKeyCombo(KeyCombo combo, NSInteger code, NSUInteger flags) {
 -(void) shortcutRecorder:(SRRecorderControl*)aRecorder keyComboDidChange:(KeyCombo)newKeyCombo {
     if (preventShortcutUpdates_) return;
 
-    AUTO_LOGGERF(@"shortcutRecorder=%@ keyComboDidChange=%08x code=%d value=%@", aRecorder, newKeyCombo.flags, newKeyCombo.code, [aRecorder shortcut]);
+    AUTO_LOGGERF(@"shortcutRecorder=%@ keyComboDidChange=%08lx code=%ld value=%@", aRecorder, (unsigned long)newKeyCombo.flags, (unsigned long)newKeyCombo.code, [aRecorder shortcut]);
     [self updateShortcut:[aRecorder shortcut] withCombo:newKeyCombo];
 }
 
