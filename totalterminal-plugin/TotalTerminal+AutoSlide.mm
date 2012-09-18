@@ -19,16 +19,27 @@
         // magic flag is set only when doing CMD+TAB, but not during other types of activation as described in #50 and in https://github.com/binaryage/totalterminal/issues/48#issuecomment-8409132
         bool isCmdTabActivation = [event modifierFlags] & MAGIC_FLAG;
         if (isCmdTabActivation && [[TotalTerminal sharedInstance] window] && [[TotalTerminal sharedInstance] isHidden]) {
-            NSArray* windows = [[NSClassFromString (@"TTApplication")sharedApplication] windows];
-            int count = 0;
-            for (id window in windows) {
-                if ([[window className] isEqualToString:@"TTWindow"]) {
-                    count++;
+            BOOL doAutoSlide = YES;
+
+            BOOL autoSlideAlways = ![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalAutoSlideAlways"];
+            if (!autoSlideAlways) {
+                // perform auto slide only if Visor is the only Terminal window
+                doAutoSlide = NO;
+                NSArray* windows = [[NSClassFromString (@"TTApplication")sharedApplication] windows];
+                int count = 0;
+                for (id window in windows) {
+                    if ([[window className] isEqualToString:@"TTWindow"]) {
+                        count++;
+                    }
+                }
+                if (count == 1 && [[TotalTerminal sharedInstance] status]) {
+                    doAutoSlide = YES;
                 }
             }
-            if (count == 1) {
+            
+            if (doAutoSlide) {
                 // auto-slide only when visor is the only terminal window
-                NSLOG1(@"Showing visor because of CMD+TAB activation");
+                NSLOG1(@"Showing visor because of \"auto slide\" activation");
                 [[TotalTerminal sharedInstance] performSelector:@selector(showVisor:) withObject:nil afterDelay:0];
             }
         }
