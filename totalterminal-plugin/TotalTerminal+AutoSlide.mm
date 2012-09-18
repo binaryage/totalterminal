@@ -3,6 +3,8 @@
 #undef PROJECT
 #define PROJECT AutoSlide
 
+#define MAGIC_FLAG (1 << 4)
+
 @implementation NSApplication (TotalTerminal)
 
 -(void) SMETHOD (TTApplication, sendEvent):(NSEvent*)event {
@@ -12,7 +14,11 @@
     bool activationEvent = type == NSAppKitDefined && [event subtype] == NSApplicationActivatedEventType;
 
     if (activationEvent) {
-        if ([[TotalTerminal sharedInstance] window] && [[TotalTerminal sharedInstance] isHidden]) {
+        NSLOG1(@"activationEvent %@", event);
+
+        // magic flag is set only when doing CMD+TAB, but not during other types of activation as described in #50 and in https://github.com/binaryage/totalterminal/issues/48#issuecomment-8409132
+        bool isCmdTabActivation = [event modifierFlags] & MAGIC_FLAG;
+        if (isCmdTabActivation && [[TotalTerminal sharedInstance] window] && [[TotalTerminal sharedInstance] isHidden]) {
             NSArray* windows = [[NSClassFromString (@"TTApplication")sharedApplication] windows];
             int count = 0;
             for (id window in windows) {
