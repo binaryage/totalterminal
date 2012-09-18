@@ -17,7 +17,7 @@
     IBOutlet NSView* preferencesView;
     IBOutlet NSButton* createProfileButton_;
     GTMCarbonHotKey* hotKey_;
-    GTMCarbonHotKey* escapeHotKey;
+    GTMCarbonHotKey* escapeHotKey_;
     GTMCarbonHotKey* fullScreenKey_;
     NSUInteger hotModifiers_;
     NSUInteger hotModifiersState_;

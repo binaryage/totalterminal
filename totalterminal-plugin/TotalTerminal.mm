@@ -68,7 +68,7 @@
     originalPreferencesSize.width = 0;
     lastPosition_ = nil;
     hotKey_ = nil;
-    escapeHotKey = nil;
+    escapeHotKey_ = nil;
     fullScreenKey_ = nil;
     background_ = nil;
     statusItem_ = nil;
@@ -104,9 +104,6 @@
     [self initStatusMenu];
     [self updateCachedShortcuts];
     [self updateStatusMenu];
-    [self updateHotKeyRegistration];
-    [self updateEscapeHotKeyRegistration];
-    [self updateFullScreenHotKeyRegistration];
     [self startEventMonitoring];
 
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];

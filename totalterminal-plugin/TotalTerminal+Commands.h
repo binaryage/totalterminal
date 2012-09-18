@@ -8,6 +8,7 @@
 -(IBAction)updateMe:(id)sender;
 -(IBAction)uninstallMe:(id)sender;
 -(IBAction)closeTransparencyHelpPanel:(id)sender;
+-(IBAction)hideOnEscape:(id)sender;
 -(IBAction)fullScreenToggle:(id)sender;
 -(IBAction)showPrefs:(id)sender;
 -(IBAction)visitHomepage:(id)sender;

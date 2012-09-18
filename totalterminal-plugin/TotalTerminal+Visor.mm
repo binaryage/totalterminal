@@ -267,6 +267,7 @@
 }
 
 -(void) setWindow:(NSWindow*)inWindow {
+    AUTO_LOGGERF(@"window=%@", inWindow);
     NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
 
     [inWindow retain];
@@ -288,8 +289,16 @@
         [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window_];
         [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window_];
         [dnc addObserver:self selector:@selector(applicationDidChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
+
+        [self updateHotKeyRegistration];
+        [self updateEscapeHotKeyRegistration];
+        [self updateFullScreenHotKeyRegistration];
     } else {
         isHidden_ = YES;
+        // properly unregister hotkey registrations (issue #53)
+        [self unregisterEscapeHotKeyRegistration];
+        [self unregisterFullScreenHotKeyRegistration];
+        [self unregisterHotKeyRegistration];
     }
 }
 
@@ -713,11 +722,6 @@
     [window_ update];
 }
 
--(void) hideOnEscape {
-    AUTO_LOGGER();
-    [self hideVisor:NO];
-}
-
 -(void) hideVisor:(BOOL)fast {
     if (isHidden_) return;
 
@@ -864,15 +868,34 @@
     return isHidden_;
 }
 
--(void) updateHotKeyRegistration {
-    AUTO_LOGGER();
-    GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
+-(void) registerHotKeyRegistration:(KeyCombo)combo {
+    if (!hotKey_) {
+        AUTO_LOGGER();
+        GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
+        // setting hotModifiers_ means we're not looking for a double tap
+        hotKey_ = [dispatcher registerHotKey:combo.code
+                                   modifiers:combo.flags
+                                      target:self
+                                      action:@selector(toggleVisor:)
+                                    userInfo:nil
+                                 whenPressed:YES];
+    }
+}
 
+-(void) unregisterHotKeyRegistration {
     if (hotKey_) {
+        AUTO_LOGGER();
+        GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
         [dispatcher unregisterHotKey:hotKey_];
         hotKey_ = nil;
         hotModifiers_ = 0;
     }
+}
+
+-(void) updateHotKeyRegistration {
+    AUTO_LOGGER();
+    
+    [self unregisterHotKeyRegistration];
 
     DCHECK(statusMenu_);
     if (!statusMenu_) {
@@ -898,13 +921,7 @@
         }
     }
     if (combo.code != -1) {
-        // setting hotModifiers_ means we're not looking for a double tap
-        hotKey_ = [dispatcher registerHotKey:combo.code
-                                   modifiers:combo.flags
-                                      target:self
-                                      action:@selector(toggleVisor:)
-                                    userInfo:nil
-                                 whenPressed:YES];
+        [self registerHotKeyRegistration:combo];
 
         NSBundle* bundle = [NSBundle bundleForClass:[TotalTerminal class]];
         statusMenuItemKey = [GTMHotKeyTextFieldCell stringForKeycode:combo.code useGlyph:YES resourceBundle:bundle];
@@ -914,48 +931,68 @@
     }
 }
 
+- (void) registerEscapeHotKeyRegistration {
+    if (!escapeHotKey_) {
+        AUTO_LOGGER();
+        GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
+        escapeHotKey_ = [dispatcher registerHotKey:53 // ESC
+                                        modifiers:0
+                                           target:self
+                                            action:@selector(hideOnEscape:)
+                                         userInfo:nil
+                                      whenPressed:YES];
+    }
+}
+
+-(void) unregisterEscapeHotKeyRegistration {
+    if (escapeHotKey_) {
+        AUTO_LOGGER();
+        GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
+        [dispatcher unregisterHotKey:escapeHotKey_];
+        escapeHotKey_ = nil;
+    }
+}
+
 -(void) updateEscapeHotKeyRegistration {
     AUTO_LOGGER();
     BOOL hideOnEscape = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorHideOnEscape"];
 
     if (hideOnEscape && isKey_) {
-        if (!escapeHotKey) {
-            GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-            escapeHotKey = [dispatcher registerHotKey:53 // ESC
-                                            modifiers:0
-                                               target:self
-                                               action:@selector(hideOnEscape)
-                                             userInfo:nil
-                                          whenPressed:YES];
-        }
+        [self registerEscapeHotKeyRegistration];
     } else {
-        if (escapeHotKey) {
-            GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-            [dispatcher unregisterHotKey:escapeHotKey];
-            escapeHotKey = nil;
-        }
+        [self unregisterEscapeHotKeyRegistration];
+    }
+}
+
+- (void) registerFullScreenHotKeyRegistration {
+    if (!fullScreenKey_) {
+        AUTO_LOGGER();
+        // setting hotModifiers_ means we're not looking for a double tap
+        GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
+        fullScreenKey_ = [dispatcher registerHotKey:0x3 // F
+                                          modifiers:NSCommandKeyMask | NSAlternateKeyMask
+                                             target:self
+                                             action:@selector(fullScreenToggle:)
+                                           userInfo:nil
+                                        whenPressed:YES];
+    }
+}
+
+-(void) unregisterFullScreenHotKeyRegistration {
+    if (fullScreenKey_) {
+        AUTO_LOGGER();
+        GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
+        [dispatcher unregisterHotKey:fullScreenKey_];
+        fullScreenKey_ = nil;
     }
 }
 
 -(void) updateFullScreenHotKeyRegistration {
     AUTO_LOGGER();
     if (isKey_) {
-        if (!fullScreenKey_) {
-            // setting hotModifiers_ means we're not looking for a double tap
-            GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-            fullScreenKey_ = [dispatcher registerHotKey:0x3 // F
-                                              modifiers:NSCommandKeyMask | NSAlternateKeyMask
-                                                 target:self
-                                                 action:@selector(fullScreenToggle:)
-                                               userInfo:nil
-                                            whenPressed:YES];
-        }
+        [self registerFullScreenHotKeyRegistration];
     } else {
-        if (fullScreenKey_) {
-            GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-            [dispatcher unregisterHotKey:fullScreenKey_];
-            fullScreenKey_ = nil;
-        }
+        [self unregisterFullScreenHotKeyRegistration];
     }
 }
 

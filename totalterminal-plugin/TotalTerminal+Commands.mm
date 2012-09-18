@@ -95,6 +95,11 @@
     }
 }
 
+-(IBAction) hideOnEscape:(id)sender {
+    AUTO_LOGGER();
+    [self hideVisor:NO];
+}
+
 -(IBAction) fullScreenToggle:(id)sender {
     AUTO_LOGGERF(@"sender=%@", sender);
     if (!window_) return;
