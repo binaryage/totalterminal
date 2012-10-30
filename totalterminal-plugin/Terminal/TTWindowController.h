@@ -5,5 +5,6 @@
 -(void)displayWindowCloseSheet:(int)arg1;
 -(void)applyProfileToAllShellsInWindow:(id)arg1;
 -(TTTabController*)selectedTabController;
+-(NSUInteger)numberOfTabs;
 
 @end
