@@ -30,7 +30,7 @@
 
 -(NSUInteger) qsbModifierFlags {
     NSUInteger flags = ([self modifierFlags] & NSDeviceIndependentModifierFlagsMask);
-
+	
     // Ignore caps lock if it's set http://b/issue?id=637380
     if (flags & NSAlphaShiftKeyMask) {
         flags -= NSAlphaShiftKeyMask;                               // Ignore numeric lock if it's set http://b/issue?id=637380
@@ -42,6 +42,10 @@
 
 @end
 
+@interface TotalTerminal (VisorPrivate)
+-(void) applyVisorPositioning;
+@end
+
 @implementation VisorScreenTransformer
 
 +(Class) transformedValueClass {
@@ -51,7 +55,7 @@
 
 +(BOOL) allowsReverseTransformation {
     LOG(@"allowsReverseTransformation");
-
+	
     return YES;
 }
 
@@ -100,7 +104,7 @@
 
 -(id) SMETHOD (TTWindowController, getVisorProfileOrTheDefaultOne) {
     id visorProfile = [TotalTerminal getVisorProfile];
-
+	
     if (visorProfile) {
         return visorProfile;
     } else {
@@ -114,7 +118,7 @@
     id res = nil;
     TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
     BOOL isVisorWindow = [totalTerminal isVisorWindow:[self window]];
-
+	
     if (isVisorWindow) {
         LOG(@"  in visor window ... so apply visor profile");
         res = [self SMETHOD (TTWindowController, getVisorProfileOrTheDefaultOne)];
@@ -142,40 +146,69 @@
     if (profile) {
         arg1 = profile;
     }
-    return [self SMETHOD (TTWindowController, newTabWithProfile):arg1 command:arg2 runAsShell:arg3];
+	id tab = [self SMETHOD (TTWindowController, newTabWithProfile):arg1 command:arg2 runAsShell:arg3];
+	if (profile)
+		[[TotalTerminal sharedInstance] applyVisorPositioning];
+    return tab;
 }
 
 // LION: this is variant of the ^^^
 -(id) SMETHOD (TTWindowController, newTabWithProfile):(id)arg1 customFont:(id)arg2 command:(id)arg3 runAsShell:(BOOL)arg4 restorable:(BOOL)arg5 workingDirectory:(id)arg6 sessionClass:(id)arg7
-   restoreSession                                    :(id)arg8 {
-    id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
-
-    AUTO_LOGGERF(@"profile=%@", profile);
-    if (profile) {
-        arg1 = profile;
-    }
-    return [self SMETHOD (TTWindowController, newTabWithProfile):arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
+restoreSession                                    :(id)arg8 {
+	id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
+	
+	AUTO_LOGGERF(@"profile=%@", profile);
+	if (profile) {
+		arg1 = profile;
+	}
+	id tab = [self SMETHOD (TTWindowController, newTabWithProfile):arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
+	if (profile)
+		[[TotalTerminal sharedInstance] applyVisorPositioning];
+	return tab;
 }
 
 // Mountain Lion renaming since v304
 -(id) SMETHOD (TTWindowController, makeTabWithProfile):(id)arg1 {
     AUTO_LOGGER();
     id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
+	
     if (profile) {
         arg1 = profile;
     }
-    return [self SMETHOD (TTWindowController, makeTabWithProfile):arg1];
+	id tab = [self SMETHOD (TTWindowController, makeTabWithProfile):arg1];
+	if (profile)
+		[[TotalTerminal sharedInstance] applyVisorPositioning];
+	return tab;
 }
 
--(id) SMETHOD (TTWindowController, makeTabWithProfile):(id)arg1 customFont:(id)arg2 command:(id)arg3 runAsShell:(BOOL)arg4 restorable:(BOOL)arg5 workingDirectory:(id)arg6 sessionClass:(id)arg7
-   restoreSession                                     :(id)arg8 {
-    id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
-
+-(id) SMETHOD (TTWindowController, makeTabWithProfile):(id)arg1 customFont:(id)arg2 command:(id)arg3 runAsShell:(BOOL)arg4 restorable:(BOOL)arg5 workingDirectory:(id)arg6 sessionClass:(id)arg7 restoreSession:(id)arg8 {
+    
+	id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
+	
     AUTO_LOGGERF(@"profile=%@", profile);
-    if (profile) {
+    if (profile)
         arg1 = profile;
-    }
-    return [self SMETHOD (TTWindowController, makeTabWithProfile):arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
+	
+	id tab = [self SMETHOD (TTWindowController, makeTabWithProfile):arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
+	if ([(TTWindowController*)self numberOfTabs] > 1)
+		if (profile)
+			[[TotalTerminal sharedInstance] applyVisorPositioning];
+	return tab;
+}
+
+
+// The following TabView methods fill out support for making and closing tabs
+//
+-(void) SMETHOD (TTWindowController, tabView):(id)arg1 didCloseTabViewItem:(id)arg2 {
+	AUTO_LOGGER();
+	[self SMETHOD (TTWindowController, tabView):arg1 didCloseTabViewItem:arg2];
+	if ([(TTWindowController *)self numberOfTabs] == 1) {
+		TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
+		BOOL isVisorWindow = [totalTerminal isVisorWindow:[self window]];
+		if (isVisorWindow)
+			[totalTerminal applyVisorPositioning];
+	}
+	
 }
 
 @end
@@ -184,7 +217,7 @@
 
 -(void) SMETHOD (TTApplication, sendEvent):(NSEvent*)theEvent {
     NSUInteger type = [theEvent type];
-
+	
     if (type == NSFlagsChanged) {
         TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
         [totalTerminal modifiersChangedWhileActive:theEvent];
@@ -205,7 +238,7 @@
 
 @implementation NSWindow (TotalTerminal)
 
--(id) SMETHOD (TTWindow, initWithContentRect):(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+-(id) SMETHOD (TTWindow, initWithContentRect):(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
     AUTO_LOGGER();
     TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
     BOOL shouldBeVisorized = ![totalTerminal status];
@@ -222,25 +255,25 @@
 
 -(BOOL) SMETHOD (TTWindow, canBecomeKeyWindow) {
     BOOL canBecomeKeyWindow = YES;
-
+	
     TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
-
+	
     if ([[totalTerminal window] isEqual:self] && [totalTerminal isHidden]) {
         canBecomeKeyWindow = NO;
     }
-
+	
     return canBecomeKeyWindow;
 }
 
 -(BOOL) SMETHOD (TTWindow, canBecomeMainWindow) {
     BOOL canBecomeMainWindow = YES;
-
+	
     TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
-
+	
     if ([[totalTerminal window] isEqual:self] && [totalTerminal isHidden]) {
         canBecomeMainWindow = NO;
     }
-
+	
     return canBecomeMainWindow;
 }
 
@@ -269,19 +302,19 @@
 -(void) setWindow:(NSWindow*)inWindow {
     AUTO_LOGGERF(@"window=%@", inWindow);
     NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
-
+	
     [inWindow retain];
-
+	
     [dnc removeObserver:self name:NSWindowDidBecomeKeyNotification object:window_];
     [dnc removeObserver:self name:NSWindowDidResignKeyNotification object:window_];
     [dnc removeObserver:self name:NSWindowDidBecomeMainNotification object:window_];
     [dnc removeObserver:self name:NSWindowDidResignMainNotification object:window_];
     [dnc removeObserver:self name:NSWindowWillCloseNotification object:window_];
     [dnc removeObserver:self name:NSApplicationDidChangeScreenParametersNotification object:nil];
-
+	
     [window_ release];
     window_ = inWindow;
-
+	
     if (window_) {
         [dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:window_];
         [dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:window_];
@@ -289,7 +322,7 @@
         [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window_];
         [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window_];
         [dnc addObserver:self selector:@selector(applicationDidChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
-
+		
         [self updateHotKeyRegistration];
         [self updateEscapeHotKeyRegistration];
         [self updateFullScreenHotKeyRegistration];
@@ -311,7 +344,7 @@
     if (background_) {
         [self destroyBackground];
     }
-
+	
     background_ = [[[NSWindow class] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
     [background_ orderFront:nil];
     [background_ setLevel:NSMainMenuWindowLevel - 2];
@@ -321,17 +354,17 @@
     [background_ setReleasedWhenClosed:YES];
     [background_ setLevel:NSFloatingWindowLevel];
     [background_ setHasShadow:NO];
-
+	
     QCView* content = [[QCView alloc] init];
-
+	
     [content setEventForwardingMask:NSMouseMovedMask];
     [background_ setContentView:content];
     [content release];
     [background_ makeFirstResponder:content];
-
+	
     NSString* path = [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorBackgroundAnimationFile"];
     path = [path stringByStandardizingPath];
-
+	
     NSFileManager* fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:path]) {
         NSLog(@"animation does not exist: %@", path);
@@ -352,7 +385,7 @@
     if (!background_) {
         return;
     }
-
+	
     [background_ release];
     background_ = nil;
 }
@@ -363,13 +396,13 @@
     CGSWindow wid;
     CGSWindowTag tags[2];
     bool showOnEverySpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorOnEverySpace"];
-
+	
     wid = [win windowNumber];
     if (wid > 0) {
         cid = _CGSDefaultConnection();
         tags[0] = CGSTagSticky;
         tags[1] = (CGSWindowTag)0;
-
+		
         if (showOnEverySpace)
             CGSSetWindowTags(cid, wid, tags, 32);
         else
@@ -392,7 +425,7 @@
 
 -(float) getVisorProfileBackgroundAlpha {
     id bckColor = background_ ? [[[self class] getVisorProfile] valueForKey:@"BackgroundColor"] : nil;
-
+	
     return bckColor ? [bckColor alphaComponent] : 1.0;
 }
 
@@ -402,7 +435,7 @@
         return;
     }
     bool showOnEverySpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorOnEverySpace"];
-
+	
     if (showOnEverySpace) {
         [window_ setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorTransient | NSWindowCollectionBehaviorIgnoresCycle];
     } else {
@@ -428,18 +461,18 @@
     if (window_) {
         LOG(@"adoptTerminal called when old window existed");
     }
-
+	
     [self setWindow:win];
     [self updateVisorWindowLevel];
     [self updateVisorWindowSpacesSettings];
     [self applyVisorPositioning];
-
+	
     [self updateStatusMenu];
 }
 
 -(void) resetWindowPlacement {
     ScopedNSDisableScreenUpdatesWithDelay disabler(0, __FUNCTION__); // prevent ocasional flickering
-
+	
     [lastPosition_ release];
     lastPosition_ = nil;
     if (window_) {
@@ -461,7 +494,7 @@
 -(NSScreen*) screen {
     int screenIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"TotalTerminalVisorScreen"];
     NSArray* screens = [NSScreen screens];
-
+	
     if (screenIndex >= [screens count]) {
         screenIndex = 0;
     }
@@ -473,27 +506,27 @@
 
 -(NSRect) menubarFrame:(NSScreen*)screen {
     NSArray* screens = [NSScreen screens];
-
+	
     if (!screens) return NSZeroRect;
-
+	
     // menubar is the 0th screen (according to the NSScreen docs)
     NSScreen* menubarScreen = [screens objectAtIndex:0];
     if (screen != menubarScreen) {
         return NSZeroRect;
     }
-
+	
     NSRect frame = [menubarScreen frame];
-
+	
     // since the dock can only be on the bottom or the sides, calculate the difference
     // between the frame and the visibleFrame at the top
     NSRect visibleFrame = [menubarScreen visibleFrame];
     NSRect menubarFrame;
-
+	
     menubarFrame.origin.x = NSMinX(frame);
     menubarFrame.origin.y = NSMaxY(visibleFrame);
     menubarFrame.size.width = NSWidth(frame);
     menubarFrame.size.height = NSMaxY(frame) - NSMaxY(visibleFrame);
-
+	
     return menubarFrame;
 }
 
@@ -507,9 +540,9 @@
     // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
     NSRect menubar = [self menubarFrame:screen];
     int shift = menubar.size.height - 1; // -1px to hide bright horizontal line on the edge of chromeless terminal window
-
+	
     NSString* position = [self position];
-
+	
     if ([position hasPrefix:@"Top"]) {
         frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - round(offset * (NSHeight(frame) + shift));
     }
@@ -530,7 +563,7 @@
 
 -(void) initializeBackground {
     BOOL useBackground = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorUseBackgroundAnimation"];
-
+	
     if (useBackground) {
         [self createBackground];
     } else {
@@ -550,7 +583,7 @@
     safeFrame.size.width = 1000;
     safeFrame.size.height = 1000;
     [window_ setFrame:safeFrame display:NO];
-
+	
     // this is a better way of 10.5 path for Terminal on Snow Leopard
     // we may call returnToDefaultSize method on our window's view
     // no more resizing issues like described here: http://github.com/darwin/visor/issues/#issue/1
@@ -700,22 +733,22 @@
 -(void) showVisor:(BOOL)fast {
     AUTO_LOGGERF(@"fast=%d isHidden=%d", fast, isHidden_);
     if (!isHidden_) return;
-
+	
     [self updateStatusMenu];
     [self storePreviouslyActiveApp];
     [self applyVisorPositioning];
-
+	
     isHidden_ = false;
     [window_ makeKeyAndOrderFront:self];
     [window_ setHasShadow:YES];
     [NSApp activateIgnoringOtherApps:YES];
-
+	
     // window will become key eventually, this is important for updatePreviouslyActiveApp to work properly
     // becomeKey event may have delay and without this updatePreviouslyActiveApp could reset PID to 0
     // imagine: when timer fire imediately after showVisor and before becomeKey event
     // see: https://github.com/binaryage/totalterminal/issues/35
     isKey_ = true;
-
+	
     [window_ update];
     [self slideWindows:1 fast:fast];
     [window_ invalidateShadow];
@@ -724,7 +757,7 @@
 
 -(void) hideVisor:(BOOL)fast {
     if (isHidden_) return;
-
+	
     AUTO_LOGGER();
     isHidden_ = true;
     [self updateStatusMenu];
@@ -736,18 +769,18 @@
     if (background_) {
         [[background_ contentView] stopRendering];
     }
-
+	
     {
         // in case of Visor and classic Terminal.app window
         // this will prevent a brief window blinking before final focus gets restored
         ScopedNSDisableScreenUpdatesWithDelay disabler(0.1, __FUNCTION__);
-
+		
         BOOL hadKeyStatus = [window_ isKeyWindow];
-
+		
         // this is important to return focus some other classic Terminal window in case it was active prior Visor sliding down
         // => https://github.com/binaryage/totalterminal/issues/13 and http://getsatisfaction.com/binaryage/topics/return_focus_to_other_terminal_window
         [window_ orderOut:self];
-
+		
         // if visor window loses key status during open-session, do not transfer key status back to previous app
         // see https://github.com/binaryage/totalterminal/issues/26
         if (hadKeyStatus) {
@@ -759,19 +792,19 @@
 -(void) slideWindows:(BOOL)direction fast:(bool)fast {
     // true == down
     float bkgAlpha = [self getVisorAnimationBackgroundAlpha];
-
+	
     if (!fast) {
         BOOL doSlide = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorUseSlide"];
         BOOL doFade = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorUseFade"];
         float animSpeed = [[NSUserDefaults standardUserDefaults] floatForKey:@"TotalTerminalVisorAnimationSpeed"];
-
+		
         // HACK for Mountain Lion, fading crashes windowing server on my machine
         if (terminalVersion() >= FIRST_MOUNTAIN_LION_VERSION) {
             if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalDisableMountainLionFadingHack"]) {
                 doFade = false;
             }
         }
-
+		
         // animation loop
         if (doFade || doSlide) {
             if (!doSlide && direction) {
@@ -807,7 +840,7 @@
             }
         }
     }
-
+	
     // apply final slide and alpha states
     float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(1));
     [self placeWindow:window_ offset:offset];
@@ -896,23 +929,23 @@
     AUTO_LOGGER();
     
     [self unregisterHotKeyRegistration];
-
+	
     DCHECK(statusMenu_);
     if (!statusMenu_) {
         return; // safety net
     }
-
+	
     NSMenuItem* statusMenuItem = [statusMenu_ itemAtIndex:0];
     NSString* statusMenuItemKey = @"";
     uint statusMenuItemModifiers = 0;
     [statusMenuItem setKeyEquivalent:statusMenuItemKey];
     [statusMenuItem setKeyEquivalentModifierMask:statusMenuItemModifiers];
-
+	
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
-
+	
     KeyCombo combo = [self keyComboForShortcut:eToggleVisor];
     BOOL hotkey2Enabled = [ud boolForKey:@"TotalTerminalVisorHotKey2Enabled"];
-
+	
     if (hotkey2Enabled) {
         // set up double tap if appropriate
         hotModifiers_ = [ud integerForKey:@"TotalTerminalVisorHotKey2Mask"];
@@ -922,7 +955,7 @@
     }
     if (combo.code != -1) {
         [self registerHotKeyRegistration:combo];
-
+		
         NSBundle* bundle = [NSBundle bundleForClass:[TotalTerminal class]];
         statusMenuItemKey = [GTMHotKeyTextFieldCell stringForKeycode:combo.code useGlyph:YES resourceBundle:bundle];
         statusMenuItemModifiers = combo.flags;
@@ -936,11 +969,11 @@
         AUTO_LOGGER();
         GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
         escapeHotKey_ = [dispatcher registerHotKey:53 // ESC
-                                        modifiers:0
-                                           target:self
+										 modifiers:0
+											target:self
                                             action:@selector(hideOnEscape:)
-                                         userInfo:nil
-                                      whenPressed:YES];
+										  userInfo:nil
+									   whenPressed:YES];
     }
 }
 
@@ -956,7 +989,7 @@
 -(void) updateEscapeHotKeyRegistration {
     AUTO_LOGGER();
     BOOL hideOnEscape = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorHideOnEscape"];
-
+	
     if (hideOnEscape && isKey_) {
         [self registerEscapeHotKeyRegistration];
     } else {
@@ -1000,7 +1033,7 @@
 -(NSTimeInterval) doubleClickTime {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSTimeInterval doubleClickThreshold = [defaults doubleForKey:@"com.apple.mouse.doubleClickThreshold"];
-
+	
     // if we couldn't find the value in the user defaults, take a
     // conservative estimate
     if (doubleClickThreshold <= 0.0) {
@@ -1049,7 +1082,7 @@
 // method that is called when a key changes state and we are active
 -(void) keysChangedWhileActive:(NSEvent*)event {
     if (!hotModifiers_) return;
-
+	
     hotModifiersState_ = 0;
 }
 
@@ -1059,11 +1092,11 @@
     // and if we are in the process of activating, we want to ignore the hotkey
     // so we don't try to process it twice.
     if (!hotModifiers_ || [NSApp keyWindow]) return;
-
+	
     NSUInteger flags = [event qsbModifierFlags];
     NSLOG3(@"modifiersChangedWhileInactive: %@ %08lx %08lx", event, (unsigned long)flags, (unsigned long)hotModifiers_);
     if (flags != hotModifiers_) return;
-
+	
     const useconds_t oneMilliSecond = 10000;
     UInt16 modifierKeys[] = {
         0,
@@ -1096,7 +1129,7 @@
         usleep(oneMilliSecond);
     }
     if (!isGood) return;
-
+	
     isGood = NO;
     startDate = [NSDate timeIntervalSinceReferenceDate];
     while (([NSDate timeIntervalSinceReferenceDate] - startDate) < [self doubleClickTime]) {
@@ -1112,7 +1145,7 @@
         usleep(oneMilliSecond);
     }
     if (!isGood) return;
-
+	
     startDate = [NSDate timeIntervalSinceReferenceDate];
     while (([NSDate timeIntervalSinceReferenceDate] - startDate) < [self doubleClickTime]) {
         QSBKeyMap* currentKeyMap = [QSBKeyMap currentKeyMap];
@@ -1140,8 +1173,8 @@
 }
 
 static const EventTypeSpec kModifierEventTypeSpec[] = { {
-                                                            kEventClassKeyboard, kEventRawKeyModifiersChanged
-                                                        }
+	kEventClassKeyboard, kEventRawKeyModifiersChanged
+}
 };
 static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) / sizeof(EventTypeSpec);
 
@@ -1149,14 +1182,14 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 // appears to be no way to do this from straight Cocoa.
 -(void) startEventMonitoring {
     GTMCarbonEventMonitorHandler* handler = [GTMCarbonEventMonitorHandler sharedEventMonitorHandler];
-
+	
     [handler registerForEvents:kModifierEventTypeSpec count:kModifierEventTypeSpecSize];
     [handler setDelegate:self];
 }
 
 -(void) stopEventMonitoring {
     GTMCarbonEventMonitorHandler* handler = [GTMCarbonEventMonitorHandler sharedEventMonitorHandler];
-
+	
     [handler unregisterForEvents:kModifierEventTypeSpec count:kModifierEventTypeSpecSize];
     [handler setDelegate:nil];
 }
@@ -1165,7 +1198,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
                receivedEvent:(GTMCarbonEvent*)event
                      handler:(EventHandlerCallRef)handler {
     OSStatus status = eventNotHandledErr;
-
+	
     if (([event eventClass] == kEventClassKeyboard) &&
         ([event eventKind] == kEventRawKeyModifiersChanged)) {
         UInt32 modifiers;
@@ -1190,16 +1223,16 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 -(void) openVisor {
     // prevents showing misplaced visor window briefly
     ScopedNSDisableScreenUpdates disabler(__FUNCTION__);
-
+	
     id visorProfile = [TotalTerminal getVisorProfile];
     TTApplication* app = (TTApplication*)[NSClassFromString (@"TTApplication")sharedApplication];
-
+	
     if (terminalVersion() < FIRST_MOUNTAIN_LION_VERSION) {
         [app newWindowControllerWithProfile:visorProfile];
     } else {
         [app makeWindowControllerWithProfile:visorProfile]; // ah, Ben started following Cocoa naming conventions, good! :-)
     }
-
+	
     [self resetWindowPlacement];
     [self updatePreferencesUI];
     [self updateStatusMenu];
@@ -1218,17 +1251,18 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
         SWIZZLE(TTWindowController, makeTabWithProfile:);
         SWIZZLE(TTWindowController, makeTabWithProfile: customFont: command: runAsShell: restorable: workingDirectory: sessionClass: restoreSession:);
     }
-
+	SWIZZLE(TTWindowController, tabView:didCloseTabViewItem:);
+	
     SWIZZLE(TTWindowController, setCloseDialogExpected:);
     SWIZZLE(TTWindowController, window: willPositionSheet: usingRect:);
-
+	
     SWIZZLE(TTWindow, initWithContentRect: styleMask: backing: defer:);
     SWIZZLE(TTWindow, canBecomeKeyWindow);
     SWIZZLE(TTWindow, canBecomeMainWindow);
     SWIZZLE(TTWindow, performClose:);
-
+	
     SWIZZLE(TTApplication, sendEvent:);
-
+	
     LOG(@"Visor installed");
 }
 
