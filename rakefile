@@ -101,9 +101,9 @@ def generate_payload_for_pkg(tmp, pkg)
     sys("rm -rf \"#{tmp2}\"") if File.exist? tmp2
     sys("mkdir -p \"#{tmp2}\"")
     sys("cp \"#{pkg}\" \"#{tmp2}\"")
-    
+
     name = File.basename pkg
-    
+
     Dir.chdir(tmp2) do
         sys("xar -xf \"#{name}\"")
 
@@ -134,48 +134,48 @@ end
 
 def generate_payload(dmg, out)
     puts "Generating payload for: ".green + dmg.blue
-    
+
     volume = "/Volumes/TotalTerminal"
     tmp = File.join(TMP_DIR, "payloads", File.basename(dmg, ".dmg"))
     sys("rm -rf \"#{tmp}\"") if File.exist? tmp
     sys("mkdir -p \"#{tmp}\"")
-    
+
     puts dmg
     cmd = "hdiutil attach \"#{dmg}\" | grep Apple_partition_scheme"
     announce(cmd)
     res = `#{cmd}`
     puts res
     disk = res.split("\n")[0].split("\t")[0]
-    
+
     die("bad disk") unless disk =~ /\/dev/
-    
+
     sys("cp -r #{volume}/* \"#{tmp}\"")
-    
+
     tree1 = ""
     Dir.chdir(tmp) do
         tree1 = `tree --dirsfirst -apsugif`
     end
-    
+
     pkgs = []
     Dir.glob(File.join(tmp, "**/*.pkg")) do |pkg|
         pkgs << generate_payload_for_pkg(tmp, pkg)
     end
 
-    
+
     outdir = File.dirname out
     `mkdir -p #{outdir}` unless File.exist? outdir
     File.open(out, "w") do |f|
         f << "BASIC DMG LAYOUT\n"
         f << "================\n"
         f << tree1
-        
+
         pkgs.each do |pkg|
             f << pkg
         end
     end
-    
+
     puts "  -> ".green + out.blue
-    
+
     sys("hdiutil detach #{disk}")
 end
 
@@ -209,7 +209,7 @@ end
 
 def patch_gitmodules
     patch(TMP_GIT_MODULES, [
-        ['git://github.com/binaryage', ROOT_DIR], 
+        ['git://github.com/binaryage', ROOT_DIR],
         ['.git', '']
     ])
 end
@@ -217,12 +217,12 @@ end
 ###################################################################################################################
 
 desc "opens XCode project"
-task :open do 
+task :open do
   `open "#{XCODE_WORKSPACE}"`
 end
 
 desc "prepare stage"
-task :stage do 
+task :stage do
     puts "#{cmd_color('Cloning sources to stage ...')}"
     `rm -rf "#{TMP_DIR}"`
     `mkdir -p "#{TMP_ROOT}"`
@@ -241,13 +241,13 @@ end
 desc "prepares release build"
 task :release do
     unless File.exists?(TMP_DIR) then die('Doing it for first time? => rake stage') end
-    
+
     puts "#{cmd_color('Checking environment ...')}"
     dirty_repo_warning()
     version()
     revision()
     mkdir_p(RELEASE_DIR) unless File.exists? RELEASE_DIR
-  
+
     unless ENV["fast"] then
         puts "#{cmd_color('Updating stage ...')}"
         Dir.chdir(TMP_DIR) do
@@ -270,7 +270,7 @@ task :release do
         patch(OSAX_INFO_PLIST, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
         patch(OSAX_INFO_PLIST, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
         patch(CRASHWATCHER_INFO_PLIST, [['##VERSION##', $version], ['##REVISION##', $short_revision]])
-        
+
         Dir.chdir(TMP_DIR) do
             unless ENV["noclean"] then
               puts "#{cmd_color('Cleaning')} #{file_color(TMP_TOTALTERMINAL_DIR)}"
@@ -286,20 +286,20 @@ task :release do
             patch(File.join(framework, 'Resources', 'Info.plist'), [['##VERSION##', $version], ['##REVISION##', $short_revision]])
         end
   end
-  
+
   releasedmg = File.join(RELEASE_DIR, "TotalTerminal-#{$version}.dmg")
   sys("rm -rf \"#{releasedmg}\"") if File.exist? releasedmg
   die("build failed") unless $?==0
-  
+
   Dir.chdir(File.join(TMP_DIR, "totalterminal-installer")) do
       sys("rake build version=#{$version} products=\"../bin\" release=\"#{RELEASE_DIR}\"")
       die("installer build failed") unless $?==0
   end
-  
+
   size = File.size(releasedmg)
   sig = `ruby "sparkle/sign_update.rb" "#{releasedmg}" keys/dsa_priv.pem`.strip
   die("build failed") unless $?==0
-  
+
   snippet = "\
     <item>
         <title>Version #{$version}</title>
@@ -308,14 +308,14 @@ task :release do
         <enclosure url=\"#{PUBLISH_PREFIX_URL}/TotalTerminal-#{$version}.dmg\" sparkle:version=\"#{$version}\" length=\"#{size}\" type=\"application/octet-stream\" sparkle:dsaSignature=\"#{sig}\"/>
         <sparkle:minimumSystemVersion>10.6.0</sparkle:minimumSystemVersion>
     </item>"
-  
+
   puts snippet
   puts
   puts "Don't forget: ".red
   puts "  git tag -a v#{$version} -m \"Release #{$version}\"".green
   puts "  test sparkle updating on it via touch ~/.use-test-appcast, see totalterminal-plugin/TotalTerminal+Sparkle.mm"
   puts "#{PUBLISH_PREFIX_URL}/TotalTerminal-#{$version}.dmg".blue
-  
+
   # Dir.chdir(ROOT_DIR) do
   #     sys("mkdir -p ttdata")
   #     sys("mount -t smbfs //guest:@whale/Store/ttdata ttdata")
@@ -324,7 +324,7 @@ task :release do
   #     sys("rm -rf ttdata")
   # end
 end
-  
+
 desc "removes intermediate build files"
 task :clean do
   puts "#{cmd_color('Removing')} #{dir_color(TMP_DIR)}"
@@ -339,7 +339,7 @@ end
 
 desc "beautify sources using uncrustify => see uncrustify.cfg"
 task :beautify do
-    config = File.join(ROOT_DIR, 'uncrustify.cfg')
+    config = File.join(ROOT_DIR, 'configs', 'uncrustify.cfg')
     what = ENV["filter"] || "*"
     base = File.join(ROOT_DIR, "totalterminal-plugin")
     Dir.glob(File.join(base, "**/#{what}")) do |file|
@@ -366,13 +366,13 @@ desc "diff two most recent payloads"
 task :paydiff do
     res = `ls -1 "#{PAYLOADS_DIR}"/*.txt`
     res = res.split("\n")
-    
+
     res = res.sort do |a, b|
       va = release_version_from_filename a
       vb = release_version_from_filename b
       vb<=>va
     end
-    
+
     a = res[1]
     b = res[0]
     `ksdiff "#{a}" "#{b}"`
@@ -380,15 +380,15 @@ end
 
 desc "update tags in submodules v1.0+"
 task :retag do
-    tags = `git tag`.split("\n").reject {|x| x =~ /^v0/ }  # skip v0.x.x 
+    tags = `git tag`.split("\n").reject {|x| x =~ /^v0/ }  # skip v0.x.x
     puts "found #{tags.size} tags..."
-    
+
     retag_submodule(tags, "totalterminal-i18n")
     retag_submodule(tags, "totalterminal-installer")
     retag_submodule(tags, "totalterminal-osax")
     # NO! retag_submodule(tags, "crashwatcher") # crashwatcher is shared between TotalTerminal and TotalFinder
     # NO! retag_submodule(tags, "sparkle") # sparkle is shared between TotalTerminal and TotalFinder
-    
+
     `git push --tags`
 end
 
