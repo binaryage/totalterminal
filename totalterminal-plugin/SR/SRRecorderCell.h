@@ -29,50 +29,50 @@
 @class SRRecorderControl, SRValidator;
 
 enum SRRecorderStyle {
-    SRGradientBorderStyle = 0,
-    SRGreyStyle = 1
+  SRGradientBorderStyle = 0,
+  SRGreyStyle = 1
 };
 typedef enum SRRecorderStyle SRRecorderStyle;
 
 @interface SRRecorderCell : NSActionCell<NSCoding>
 {
-    NSGradient* recordingGradient;
-    NSString* autosaveName;
+  NSGradient* recordingGradient;
+  NSString* autosaveName;
 
-    BOOL isRecording;
-    BOOL mouseInsideTrackingArea;
-    BOOL mouseDown;
+  BOOL isRecording;
+  BOOL mouseInsideTrackingArea;
+  BOOL mouseDown;
 
-    SRRecorderStyle style;
+  SRRecorderStyle style;
 
-    BOOL isAnimating;
-    CGFloat transitionProgress;
-    BOOL isAnimatingNow;
-    BOOL isAnimatingTowardsRecording;
-    BOOL comboJustChanged;
+  BOOL isAnimating;
+  CGFloat transitionProgress;
+  BOOL isAnimatingNow;
+  BOOL isAnimatingTowardsRecording;
+  BOOL comboJustChanged;
 
-    NSTrackingRectTag removeTrackingRectTag;
-    NSTrackingRectTag snapbackTrackingRectTag;
+  NSTrackingRectTag removeTrackingRectTag;
+  NSTrackingRectTag snapbackTrackingRectTag;
 
-    KeyCombo keyCombo;
-    BOOL hasKeyChars;
-    NSString* keyChars;
-    NSString* keyCharsIgnoringModifiers;
+  KeyCombo keyCombo;
+  BOOL hasKeyChars;
+  NSString* keyChars;
+  NSString* keyCharsIgnoringModifiers;
 
-    NSUInteger allowedFlags;
-    NSUInteger requiredFlags;
-    NSUInteger recordingFlags;
+  NSUInteger allowedFlags;
+  NSUInteger requiredFlags;
+  NSUInteger recordingFlags;
 
-    BOOL allowsKeyOnly;
-    BOOL escapeKeysRecord;
+  BOOL allowsKeyOnly;
+  BOOL escapeKeysRecord;
 
-    NSSet* cancelCharacterSet;
+  NSSet* cancelCharacterSet;
 
-    SRValidator* validator;
+  SRValidator* validator;
 
-    IBOutlet id delegate;
-    BOOL globalHotKeys;
-    void* hotKeyModeToken;
+  IBOutlet id delegate;
+  BOOL globalHotKeys;
+  void* hotKeyModeToken;
 }
 
 -(void)resetTrackingRects;

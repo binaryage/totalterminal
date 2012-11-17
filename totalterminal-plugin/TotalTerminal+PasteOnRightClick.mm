@@ -6,11 +6,11 @@
 
 @implementation NSView (TotalTerminal)
 -(void) SMETHOD (TTView, rightMouseDown):(NSEvent*)theEvent {
-    bool pasteOnRightclick = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalPasteOnRightClick"];
+  bool pasteOnRightclick = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalPasteOnRightClick"];
 
-    if (pasteOnRightclick)
-        [(id) self performSelector:@selector(paste:) withObject:nil];
-    else [self SMETHOD (TTView, rightMouseDown):theEvent];
+  if (pasteOnRightclick)
+    [(id) self performSelector:@selector(paste:) withObject:nil];
+  else [self SMETHOD (TTView, rightMouseDown):theEvent];
 }
 
 @end
@@ -18,8 +18,8 @@
 @implementation TotalTerminal (PasteOnRightClick)
 
 +(void) loadPasteOnRightClick {
-    SWIZZLE(TTView, rightMouseDown:);
-    LOG(@"PasteOnRightClick installed");
+  SWIZZLE(TTView, rightMouseDown:);
+  LOG(@"PasteOnRightClick installed");
 }
 
 @end

@@ -66,11 +66,11 @@
 // This is the class that is sent to your notification selector as an
 // argument.
 @interface GTMKeyValueChangeNotification : NSObject<NSCopying> {
-    @private
-    NSString* keyPath_;
-    id object_;
-    id userInfo_;
-    NSDictionary* change_;
+  @private
+  NSString* keyPath_;
+  id object_;
+  id userInfo_;
+  NSDictionary* change_;
 }
 
 -(NSString*)keyPath;

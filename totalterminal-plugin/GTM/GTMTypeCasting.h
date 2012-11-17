@@ -43,25 +43,25 @@
 
 // Support functions for dealing with casting.
 GTM_INLINE id GTMDynamicCastSupport(Class cls, id object) {
-    _GTMDevAssert(cls, @ "Nil Class");
-    return [object isKindOfClass : cls] ? object : nil;
+  _GTMDevAssert(cls, @ "Nil Class");
+  return [object isKindOfClass : cls] ? object : nil;
 }
 
 GTM_INLINE id GTMStaticCastSupport(Class cls, id object) {
-    id value = nil;
+  id value = nil;
 
-    if (object) {
-        value = GTMDynamicCastSupport(cls, object);
-        _GTMDevAssert(value, @ "Could not cast %@ to class %@", object, cls);
-    }
-    return value;
+  if (object) {
+    value = GTMDynamicCastSupport(cls, object);
+    _GTMDevAssert(value, @ "Could not cast %@ to class %@", object, cls);
+  }
+  return value;
 }
 
 #ifndef GTM_STATIC_CAST
 # ifdef DEBUG
 #  define GTM_STATIC_CAST(type, object) \
-    GTMStaticCastSupport([type class ], \
-        object)
+  GTMStaticCastSupport([type class ], \
+    object)
 # else
 #  define GTM_STATIC_CAST(type, object) ((type*)(object))
 # endif
@@ -69,6 +69,6 @@ GTM_INLINE id GTMStaticCastSupport(Class cls, id object) {
 
 #ifndef GTM_DYNAMIC_CAST
 # define GTM_DYNAMIC_CAST(type, object) \
-    GTMDynamicCastSupport([type class ], \
-        object)
+  GTMDynamicCastSupport([type class ], \
+    object)
 #endif

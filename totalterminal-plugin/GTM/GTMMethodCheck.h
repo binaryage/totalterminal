@@ -70,15 +70,15 @@ __attribute__((constructor, visibility("hidden"))) void GTMMethodCheckMethodChec
 // look for GTMMethodCheckMethodChecker to enforce linkage of
 // GTMMethodCheck.m.
 # define GTM_METHOD_CHECK_INNER_INNER(class, method, line) \
-    + (void)xxGTMMethodCheckMethod ## class ## line { \
-        void (* addr)() = GTMMethodCheckMethodChecker; \
-        if (addr && ![class instancesRespondToSelector : @selector(method)] \
-            && ![class respondsToSelector : @selector(method)]) { \
-            fprintf(stderr, "%s:%d: error: We need method '%s' to be linked in for class '%s'\n", \
-                    __FILE__, line, # method, # class ); \
-            exit(EX_SOFTWARE); \
-        } \
-    }
+  + (void)xxGTMMethodCheckMethod ## class ## line { \
+    void (* addr)() = GTMMethodCheckMethodChecker; \
+    if (addr && ![class instancesRespondToSelector : @selector(method)] \
+        && ![class respondsToSelector : @selector(method)]) { \
+      fprintf(stderr, "%s:%d: error: We need method '%s' to be linked in for class '%s'\n", \
+          __FILE__, line, # method, # class ); \
+      exit(EX_SOFTWARE); \
+    } \
+  }
 
 #else // !DEBUG
 

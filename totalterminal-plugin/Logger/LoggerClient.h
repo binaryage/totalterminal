@@ -60,63 +60,63 @@
  * -----------------------------------------------------------------
  */
 enum {
-    kLoggerOption_LogToConsole = 0x01,
-    kLoggerOption_BufferLogsUntilConnection = 0x02,
-    kLoggerOption_BrowseBonjour = 0x04,
-    kLoggerOption_BrowseOnlyLocalDomain = 0x08,
-    kLoggerOption_UseSSL = 0x10
+  kLoggerOption_LogToConsole = 0x01,
+  kLoggerOption_BufferLogsUntilConnection = 0x02,
+  kLoggerOption_BrowseBonjour = 0x04,
+  kLoggerOption_BrowseOnlyLocalDomain = 0x08,
+  kLoggerOption_UseSSL = 0x10
 };
 
 #define LOGGER_DEFAULT_OPTIONS \
-    (kLoggerOption_BufferLogsUntilConnection | \
-     kLoggerOption_BrowseBonjour | \
-     kLoggerOption_BrowseOnlyLocalDomain | \
-     kLoggerOption_UseSSL)
+  (kLoggerOption_BufferLogsUntilConnection | \
+   kLoggerOption_BrowseBonjour | \
+   kLoggerOption_BrowseOnlyLocalDomain | \
+   kLoggerOption_UseSSL)
 
 /* -----------------------------------------------------------------
  * Structure defining a Logger
  * -----------------------------------------------------------------
  */
 typedef struct {
-    CFStringRef bufferFile;                                                     // If non-NULL, all buffering is done to the specified file instead of in-memory
-    CFStringRef host;                                                                   // Viewer host to connect to (instead of using Bonjour)
-    UInt32 port;                                                                        // port on the viewer host
+  CFStringRef bufferFile;                                                       // If non-NULL, all buffering is done to the specified file instead of in-memory
+  CFStringRef host;                                                                     // Viewer host to connect to (instead of using Bonjour)
+  UInt32 port;                                                                          // port on the viewer host
 
-    CFMutableArrayRef bonjourServiceBrowsers;                   // Active service browsers
-    CFMutableArrayRef bonjourServices;                                  // Services being tried
-    CFNetServiceBrowserRef bonjourDomainBrowser;        // Domain browser
+  CFMutableArrayRef bonjourServiceBrowsers;                     // Active service browsers
+  CFMutableArrayRef bonjourServices;                                    // Services being tried
+  CFNetServiceBrowserRef bonjourDomainBrowser;          // Domain browser
 
-    CFMutableArrayRef logQueue;                                                 // Message queue
-    pthread_mutex_t logQueueMutex;
-    pthread_cond_t logQueueEmpty;
+  CFMutableArrayRef logQueue;                                                   // Message queue
+  pthread_mutex_t logQueueMutex;
+  pthread_cond_t logQueueEmpty;
 
-    pthread_t workerThread;                                                     // The worker thread responsible for Bonjour resolution, connection and logs transmission
-    CFRunLoopSourceRef messagePushedSource;                     // A message source that fires on the worker thread when messages are available for send
-    CFRunLoopSourceRef bufferFileChangedSource;                 // A message source that fires on the worker thread when the buffer file configuration changes
+  pthread_t workerThread;                                                       // The worker thread responsible for Bonjour resolution, connection and logs transmission
+  CFRunLoopSourceRef messagePushedSource;                       // A message source that fires on the worker thread when messages are available for send
+  CFRunLoopSourceRef bufferFileChangedSource;                   // A message source that fires on the worker thread when the buffer file configuration changes
 
-    CFWriteStreamRef logStream;                                                 // The connected stream we're writing to
-    CFWriteStreamRef bufferWriteStream;                                 // If bufferFile not NULL and we're not connected, points to a stream for writing log data
-    CFReadStreamRef bufferReadStream;                                   // If bufferFile not NULL, points to a read stream that will be emptied prior to sending the rest of in-memory messages
+  CFWriteStreamRef logStream;                                                   // The connected stream we're writing to
+  CFWriteStreamRef bufferWriteStream;                                   // If bufferFile not NULL and we're not connected, points to a stream for writing log data
+  CFReadStreamRef bufferReadStream;                                     // If bufferFile not NULL, points to a read stream that will be emptied prior to sending the rest of in-memory messages
 
-    SCNetworkReachabilityRef reachability;                      // The reachability object we use to determine when the target host becomes reachable
-    CFRunLoopTimerRef checkHostTimer;                                   // A timer to regularly check connection to the defined host, along with reachability for added reliability
+  SCNetworkReachabilityRef reachability;                        // The reachability object we use to determine when the target host becomes reachable
+  CFRunLoopTimerRef checkHostTimer;                                     // A timer to regularly check connection to the defined host, along with reachability for added reliability
 
-    uint8_t* sendBuffer;                                                        // data waiting to be sent
-    NSUInteger sendBufferSize;
-    NSUInteger sendBufferUsed;                                                  // number of bytes of the send buffer currently in use
-    NSUInteger sendBufferOffset;                                        // offset in sendBuffer to start sending at
+  uint8_t* sendBuffer;                                                          // data waiting to be sent
+  NSUInteger sendBufferSize;
+  NSUInteger sendBufferUsed;                                                    // number of bytes of the send buffer currently in use
+  NSUInteger sendBufferOffset;                                          // offset in sendBuffer to start sending at
 
-    int32_t messageSeq;                                                                 // sequential message number (added to each message sent)
+  int32_t messageSeq;                                                                   // sequential message number (added to each message sent)
 
-    // settings
-    uint32_t options;                                                                   // Flags, see enum above
-    CFStringRef bonjourServiceType;                                     // leave NULL to use the default
-    CFStringRef bonjourServiceName;                                     // leave NULL to use the first one available
+  // settings
+  uint32_t options;                                                                     // Flags, see enum above
+  CFStringRef bonjourServiceType;                                       // leave NULL to use the default
+  CFStringRef bonjourServiceName;                                       // leave NULL to use the first one available
 
-    // internal state
-    BOOL connected;                                                                     // Set to YES once the write stream declares the connection open
-    volatile BOOL quit;                                                                 // Set to YES to terminate the logger worker thread's runloop
-    BOOL incompleteSendOfFirstItem;                                     // set to YES if we are sending the first item in the queue and it's bigger than what the buffer can hold
+  // internal state
+  BOOL connected;                                                                       // Set to YES once the write stream declares the connection open
+  volatile BOOL quit;                                                                   // Set to YES to terminate the logger worker thread's runloop
+  BOOL incompleteSendOfFirstItem;                                       // set to YES if we are sending the first item in the queue and it's bigger than what the buffer can hold
 } Logger;
 
 /* -----------------------------------------------------------------

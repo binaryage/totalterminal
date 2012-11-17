@@ -1,10 +1,10 @@
 #import "TotalTerminal.h"
 
 typedef enum  {
-    eUnknownShortcut = -1,
-    eToggleVisor = 0,
-    ePinVisor,
-    eShortcutsCount
+  eUnknownShortcut = -1,
+  eToggleVisor = 0,
+  ePinVisor,
+  eShortcutsCount
 } TShortcuts;
 
 NSDictionary* makeKeyModifiersDictionary(NSInteger code, NSUInteger flags);

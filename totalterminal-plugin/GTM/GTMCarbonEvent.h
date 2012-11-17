@@ -26,8 +26,8 @@
 
 // Objective C wrapper for a Carbon Event
 @interface GTMCarbonEvent : NSObject<NSCopying> {
-    @private
-    EventRef event_; // Event we are wrapping. STRONG
+  @private
+  EventRef event_;   // Event we are wrapping. STRONG
 }
 
 // Create an event of class |inClass| and kind |inKind|
@@ -186,16 +186,16 @@
 // so it would be GTM_PARAM_TEMPLATE_DECL2(QDRectangle, Rect) ). In most cases
 // you will just use GTM_PARAM_TEMPLATE_DECL/DEFN.
 #define GTM_PARAM_TEMPLATE_DECL2(paramName, paramType) \
-    - (void)set ## paramName ## ParameterNamed : (EventParamName) name data : (paramType*)data; \
-    -(BOOL)get ## paramName ## ParameterNamed : (EventParamName) name data : (paramType*)data;
+  - (void)set ## paramName ## ParameterNamed : (EventParamName) name data : (paramType*)data; \
+  -(BOOL)get ## paramName ## ParameterNamed : (EventParamName) name data : (paramType*)data;
 
 #define GTM_PARAM_TEMPLATE_DEFN2(paramName, paramType) \
-    - (void)set ## paramName ## ParameterNamed : (EventParamName) name data : (paramType*)data { \
-        [self setParameterNamed : name type : type ## paramName size : sizeof(paramType)data : data]; \
-    } \
-    -(BOOL)get ## paramName ## ParameterNamed : (EventParamName) name data : (paramType*)data { \
-        return [self getParameterNamed : name type : type ## paramName size : sizeof(paramType)data : data]; \
-    }
+  - (void)set ## paramName ## ParameterNamed : (EventParamName) name data : (paramType*)data { \
+    [self setParameterNamed : name type : type ## paramName size : sizeof(paramType)data : data]; \
+  } \
+  -(BOOL)get ## paramName ## ParameterNamed : (EventParamName) name data : (paramType*)data { \
+    return [self getParameterNamed : name type : type ## paramName size : sizeof(paramType)data : data]; \
+  }
 
 #define GTM_PARAM_TEMPLATE_DECL(paramType) GTM_PARAM_TEMPLATE_DECL2(paramType, paramType)
 #define GTM_PARAM_TEMPLATE_DEFN(paramType) GTM_PARAM_TEMPLATE_DEFN2(paramType, paramType)
@@ -228,14 +228,14 @@ GTM_EXTERN NSUInteger GTMCarbonToCocoaKeyModifiers(UInt32 inCarbonModifiers);
 // Subclasses are expected to override the eventTarget and
 // handleEvent:handler: methods to customize them.
 @interface GTMCarbonEventHandler : NSObject {
-    @private
-    // handler we are wrapping
-    // lazily created in the eventHandler method
-    EventHandlerRef eventHandler_;
-    __weak id delegate_; // Our delegate
-    // Does our delegate respond to the gtm_eventHandler:receivedEvent:handler:
-    // selector? Cached for performance reasons.
-    BOOL delegateRespondsToHandleEvent_;
+  @private
+  // handler we are wrapping
+  // lazily created in the eventHandler method
+  EventHandlerRef eventHandler_;
+  __weak id delegate_;   // Our delegate
+  // Does our delegate respond to the gtm_eventHandler:receivedEvent:handler:
+  // selector? Cached for performance reasons.
+  BOOL delegateRespondsToHandleEvent_;
 }
 
 // Registers the event handler to listen for |events|.
@@ -352,8 +352,8 @@ GTM_EXTERN const OSType kGTMCarbonFrameworkSignature;
 // there is only one of these per application. This way you can put
 // event handlers directly on the dispatcher if necessary.
 @interface GTMCarbonEventDispatcherHandler : GTMCarbonEventHandler {
-    @private
-    NSMutableArray* hotkeys_; // Collection of registered hotkeys
+  @private
+  NSMutableArray* hotkeys_;   // Collection of registered hotkeys
 }
 
 // Accessor to get the GTMCarbonEventDispatcherHandler singleton.
@@ -394,13 +394,13 @@ GTM_EXTERN const OSType kGTMCarbonFrameworkSignature;
 // Foundation storage class. We expecct selector to have this signature:
 // - (void)hitHotKey:(GTMCarbonHotKey *)key;
 @interface GTMCarbonHotKey : NSObject {
-    @private
-    EventHotKeyID id_; // EventHotKeyID for this hotkey.
-    EventHotKeyRef hotKeyRef_;
-    id target_; // Object we are going to call when the hotkey is hit
-    SEL selector_; // Selector we are going to call on target_
-    BOOL onKeyDown_; // Do we do it on key down or on key up?
-    id userInfo_;
+  @private
+  EventHotKeyID id_;   // EventHotKeyID for this hotkey.
+  EventHotKeyRef hotKeyRef_;
+  id target_;   // Object we are going to call when the hotkey is hit
+  SEL selector_;   // Selector we are going to call on target_
+  BOOL onKeyDown_;   // Do we do it on key down or on key up?
+  id userInfo_;
 }
 
 -(id)userInfo;

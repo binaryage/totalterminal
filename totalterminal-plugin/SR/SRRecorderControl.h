@@ -16,9 +16,9 @@
 
 @interface SRRecorderControl : NSControl
 {
-    IBOutlet id delegate;
-    NSString* shortcut;
-    NSInteger menuTag;
+  IBOutlet id delegate;
+  NSString* shortcut;
+  NSInteger menuTag;
 }
 
 #pragma mark *** Aesthetics ***

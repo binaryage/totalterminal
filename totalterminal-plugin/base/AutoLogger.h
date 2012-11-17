@@ -55,24 +55,24 @@ extern void IndentingFunctionLoggerF(const char* file, int line, const char* fn,
 
 class AutoFunctionIndenter {
 public:
-    AutoFunctionIndenter() {
-        NSMutableDictionary* ts = [[NSThread currentThread] threadDictionary];
-        NSNumber* indent = [ts objectForKey:@ "indent"];
+  AutoFunctionIndenter() {
+    NSMutableDictionary* ts = [[NSThread currentThread] threadDictionary];
+    NSNumber* indent = [ts objectForKey:@ "indent"];
 
-        if (!indent) {
-            indent = [NSNumber numberWithInt:0];
-        }
-        indent = [NSNumber numberWithInt:[indent intValue] + 1];
-        [ts setObject : indent forKey : @ "indent"];
+    if (!indent) {
+      indent = [NSNumber numberWithInt:0];
     }
+    indent = [NSNumber numberWithInt:[indent intValue] + 1];
+    [ts setObject : indent forKey : @ "indent"];
+  }
 
-    ~AutoFunctionIndenter() {
-        NSMutableDictionary* ts = [[NSThread currentThread] threadDictionary];
-        NSNumber* indent = [ts objectForKey:@ "indent"];
+  ~AutoFunctionIndenter() {
+    NSMutableDictionary* ts = [[NSThread currentThread] threadDictionary];
+    NSNumber* indent = [ts objectForKey:@ "indent"];
 
-        indent = [NSNumber numberWithInt:[indent intValue] - 1];
-        [ts setObject : indent forKey : @ "indent"];
-    }
+    indent = [NSNumber numberWithInt:[indent intValue] - 1];
+    [ts setObject : indent forKey : @ "indent"];
+  }
 };
 
 #  define AUTO_LOGGER() IndentingFunctionLoggerF(__FILE__, __LINE__, __PRETTY_FUNCTION__, @ TAG, @ ""); AutoFunctionIndenter autoFunctionIndent

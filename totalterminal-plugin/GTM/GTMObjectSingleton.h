@@ -34,25 +34,25 @@
 #if NS_BLOCKS_AVAILABLE
 
 # define GTMOBJECT_SINGLETON_BOILERPLATE(_object_name_, _shared_obj_name_) \
-    + (_object_name_*)_shared_obj_name_ { \
-        static _object_name_* obj; \
-        static dispatch_once_t onceToken; \
-        dispatch_once(&onceToken, ^ { \
-                    obj = [[self alloc] init]; \
-                } \
-                ); \
-        return obj; \
-    }
+  + (_object_name_*)_shared_obj_name_ { \
+    static _object_name_* obj; \
+    static dispatch_once_t onceToken; \
+    dispatch_once(&onceToken, ^ { \
+          obj = [[self alloc] init]; \
+        } \
+    ); \
+    return obj; \
+  }
 
 #else
 
 # define GTMOBJECT_SINGLETON_BOILERPLATE(_object_name_, _shared_obj_name_) \
-    + (_object_name_*)_shared_obj_name_ { \
-        static _object_name_* obj; \
-        if (obj == nil) { \
-            obj = [[self alloc] init]; \
-        } \
-        return obj; \
-    }
+  + (_object_name_*)_shared_obj_name_ { \
+    static _object_name_* obj; \
+    if (obj == nil) { \
+      obj = [[self alloc] init]; \
+    } \
+    return obj; \
+  }
 
 #endif  // NS_BLOCKS_AVAILABLE

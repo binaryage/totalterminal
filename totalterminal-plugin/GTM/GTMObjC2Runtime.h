@@ -75,17 +75,17 @@ OBJC_EXPORT BOOL sel_isEqual(SEL lhs, SEL rhs);
 // come up with a case personally where you wouldn't want to use the
 // barrier versions.
 GTM_INLINE bool OSAtomicCompareAndSwapPtrBarrier(void* predicate,
-        void* replacement,
-        void* volatile* theValue) {
+    void* replacement,
+    void* volatile* theValue) {
 #  if defined(__LP64__) && __LP64__
-    return OSAtomicCompareAndSwap64Barrier((int64_t)predicate,
-            (int64_t)replacement,
-            (int64_t*)theValue);
+  return OSAtomicCompareAndSwap64Barrier((int64_t)predicate,
+      (int64_t)replacement,
+      (int64_t*)theValue);
 
 #  else // defined(__LP64__) && __LP64__
-    return OSAtomicCompareAndSwap32Barrier((int32_t)predicate,
-            (int32_t)replacement,
-            (int32_t*)theValue);
+  return OSAtomicCompareAndSwap32Barrier((int32_t)predicate,
+      (int32_t)replacement,
+      (int32_t*)theValue);
 
 #  endif // defined(__LP64__) && __LP64__
 }
@@ -96,19 +96,19 @@ GTM_INLINE bool OSAtomicCompareAndSwapPtrBarrier(void* predicate,
 #if GTM_MACOS_SDK && (MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5)
 
 GTM_INLINE BOOL objc_atomicCompareAndSwapGlobalBarrier(id predicate,
-        id replacement,
-        volatile id* objectLocation) {
-    return OSAtomicCompareAndSwapPtrBarrier(predicate,
-            replacement,
-            (void* volatile*)objectLocation);
+    id replacement,
+    volatile id* objectLocation) {
+  return OSAtomicCompareAndSwapPtrBarrier(predicate,
+      replacement,
+      (void* volatile*)objectLocation);
 }
 
 GTM_INLINE BOOL objc_atomicCompareAndSwapInstanceVariableBarrier(id predicate,
-        id replacement,
-        volatile id* objectLocation) {
-    return OSAtomicCompareAndSwapPtrBarrier(predicate,
-            replacement,
-            (void* volatile*)objectLocation);
+    id replacement,
+    volatile id* objectLocation) {
+  return OSAtomicCompareAndSwapPtrBarrier(predicate,
+      replacement,
+      (void* volatile*)objectLocation);
 }
 
 #endif  // GTM_MACOS_SDK && (MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5)
