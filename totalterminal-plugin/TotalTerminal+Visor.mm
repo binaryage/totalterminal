@@ -130,66 +130,82 @@
 // this seems to be a good point to intercept new tab creation
 // responsible for opening all tabs in Visored window with Visor profile (regardless of "default profile" setting)
 -(id) SMETHOD (TTWindowController, newTabWithProfile):(id)arg1 {
-  AUTO_LOGGER();
-  id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
+  id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)]; // returns nil if not Visor-ed window
+  AUTO_LOGGERF(@"profile=%@", profile);
   if (profile) {
     arg1 = profile;
+    ScopedNSDisableScreenUpdatesWithDelay disabler(0, __FUNCTION__); // this is needed to prevent visual switch when calling resetVisorWindowSize followed by applyVisorPositioning
+    [[TotalTerminal sharedInstance] resetVisorWindowSize]; // see https://github.com/binaryage/totalterminal/issues/56
   }
-  return [self SMETHOD (TTWindowController, newTabWithProfile):arg1];
+  id tab = [self SMETHOD (TTWindowController, newTabWithProfile):arg1];
+  if (profile) {
+    [[TotalTerminal sharedInstance] applyVisorPositioning];
+  }
+  return tab;
 }
 
 // this is variant of the ^^^
 // this seems to be an alternative point to intercept new tab creation
 -(id) SMETHOD (TTWindowController, newTabWithProfile):(id)arg1 command:(id)arg2 runAsShell:(BOOL)arg3 {
-  AUTO_LOGGER();
-  id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
+  id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)]; // returns nil if not Visor-ed window
+  AUTO_LOGGERF(@"profile=%@", profile);
   if (profile) {
     arg1 = profile;
+    ScopedNSDisableScreenUpdatesWithDelay disabler(0, __FUNCTION__); // this is needed to prevent visual switch when calling resetVisorWindowSize followed by applyVisorPositioning
+    [[TotalTerminal sharedInstance] resetVisorWindowSize]; // see https://github.com/binaryage/totalterminal/issues/56
   }
   id tab = [self SMETHOD (TTWindowController, newTabWithProfile):arg1 command:arg2 runAsShell:arg3];
-  if (profile)
+  if (profile) {
     [[TotalTerminal sharedInstance] applyVisorPositioning];
+  }
   return tab;
 }
 
 // LION: this is variant of the ^^^
 -(id) SMETHOD (TTWindowController, newTabWithProfile):(id)arg1 customFont:(id)arg2 command:(id)arg3 runAsShell:(BOOL)arg4 restorable:(BOOL)arg5 workingDirectory:(id)arg6 sessionClass:(id)arg7
  restoreSession                                      :(id)arg8 {
-  id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
-
+  id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)]; // returns nil if not Visor-ed window
   AUTO_LOGGERF(@"profile=%@", profile);
   if (profile) {
     arg1 = profile;
+    ScopedNSDisableScreenUpdatesWithDelay disabler(0, __FUNCTION__); // this is needed to prevent visual switch when calling resetVisorWindowSize followed by applyVisorPositioning
+    [[TotalTerminal sharedInstance] resetVisorWindowSize]; // see https://github.com/binaryage/totalterminal/issues/56
   }
   id tab = [self SMETHOD (TTWindowController, newTabWithProfile):arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
-  if (profile)
+  if (profile) {
     [[TotalTerminal sharedInstance] applyVisorPositioning];
+  }
   return tab;
 }
 
 // Mountain Lion renaming since v304
 -(id) SMETHOD (TTWindowController, makeTabWithProfile):(id)arg1 {
-  AUTO_LOGGER();
-  id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
-
+  id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)]; // returns nil if not Visor-ed window
+  AUTO_LOGGERF(@"profile=%@", profile);
   if (profile) {
     arg1 = profile;
+    ScopedNSDisableScreenUpdatesWithDelay disabler(0, __FUNCTION__); // this is needed to prevent visual switch when calling resetVisorWindowSize followed by applyVisorPositioning
+    [[TotalTerminal sharedInstance] resetVisorWindowSize]; // see https://github.com/binaryage/totalterminal/issues/56
   }
   id tab = [self SMETHOD (TTWindowController, makeTabWithProfile):arg1];
-  if (profile)
+  if (profile) {
     [[TotalTerminal sharedInstance] applyVisorPositioning];
+  }
   return tab;
 }
 
 -(id) SMETHOD (TTWindowController,
                makeTabWithProfile):(id)arg1 customFont:(id)arg2 command:(id)arg3 runAsShell:(BOOL)arg4 restorable:(BOOL)arg5 workingDirectory:(id)arg6 sessionClass:(id)arg7 restoreSession:(id)arg8 {
-  id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)];
-
+  id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)]; // returns nil if not Visor-ed window
   AUTO_LOGGERF(@"profile=%@", profile);
-  if (profile)
+  if (profile) {
     arg1 = profile;
+    ScopedNSDisableScreenUpdatesWithDelay disabler(0, __FUNCTION__); // this is needed to prevent visual switch when calling resetVisorWindowSize followed by applyVisorPositioning
+    [[TotalTerminal sharedInstance] resetVisorWindowSize]; // see https://github.com/binaryage/totalterminal/issues/56
+  }
+  
   id tab = [self SMETHOD (TTWindowController, makeTabWithProfile):arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
-  if ([(TTWindowController*) self numberOfTabs] > 1) {
+  if ([(TTWindowController*) self numberOfTabs] > 1) { // why this test?
     if (profile) [[TotalTerminal sharedInstance] applyVisorPositioning];
   }
   return tab;
@@ -712,6 +728,7 @@
   }
   BOOL shouldForceFullScreenWindow = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorFullScreen"];
   if ([position isEqualToString:@"Full Screen"] || shouldForceFullScreenWindow) {
+    XLOG(@"FULL SCREEN forced=%@", shouldForceFullScreenWindow?@"true":@"false");
     NSRect frame = [window_ frame];
     frame.size.width = screenRect.size.width;
     frame.size.height = screenRect.size.height - shift;
