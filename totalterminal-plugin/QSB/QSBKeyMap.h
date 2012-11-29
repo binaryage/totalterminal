@@ -36,8 +36,8 @@
 // Wrapper around a standard carbon keymap. These are all virtual keycodes
 // several of which are defing in Events.h. This is an immutable object.
 @interface QSBKeyMap : NSObject<NSCopying> {
-    @private
-    KeyMapByteArray keyMap_;
+  @private
+  KeyMapByteArray keyMap_;
 }
 
 // Return an autoreleased keymap representing the current keys that are down

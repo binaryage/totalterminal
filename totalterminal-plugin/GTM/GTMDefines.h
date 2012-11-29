@@ -84,7 +84,7 @@
 #  define GTM_EXTERN extern "C"
 #  define GTM_EXTERN_C_BEGIN extern "C" {
 #  define GTM_EXTERN_C_END \
-    }
+  }
 # else
 #  define GTM_EXTERN extern
 #  define GTM_EXTERN_C_BEGIN
@@ -139,15 +139,15 @@
 // (NSAssert doesn't have a macro we can use that takes varargs)
 # if !defined(NS_BLOCK_ASSERTIONS)
 #  define _GTMDevAssert(condition, ...) \
-    do { \
-        if (!(condition)) { \
-            [[NSAssertionHandler currentHandler] \
+  do { \
+    if (!(condition)) { \
+      [[NSAssertionHandler currentHandler] \
 handleFailureInFunction:[NSString stringWithUTF8String : __PRETTY_FUNCTION__] \
-             file :[NSString stringWithUTF8String : __FILE__] \
-             lineNumber : __LINE__ \
-             description : __VA_ARGS__]; \
-        } \
-    } while (0)
+       file :[NSString stringWithUTF8String : __FILE__] \
+       lineNumber : __LINE__ \
+       description : __VA_ARGS__]; \
+    } \
+  } while (0)
 # else // !defined(NS_BLOCK_ASSERTIONS)
 #  define _GTMDevAssert(condition, ...) do { } while (0)
 # endif // !defined(NS_BLOCK_ASSERTIONS)
@@ -171,7 +171,7 @@ handleFailureInFunction:[NSString stringWithUTF8String : __PRETTY_FUNCTION__] \
 # define _GTMCompileAssertSymbolInner(line, msg) _GTMCOMPILEASSERT ## line ## __ ## msg
 # define _GTMCompileAssertSymbol(line, msg) _GTMCompileAssertSymbolInner(line, msg)
 # define _GTMCompileAssert(test, msg) \
-    typedef char _GTMCompileAssertSymbol (__LINE__, msg)[((test) ? 1 : -1)]
+  typedef char _GTMCompileAssertSymbol (__LINE__, msg)[((test) ? 1 : -1)]
 #endif // _GTMCompileAssert
 
 // ----------------------------------------------------------------------------
@@ -364,19 +364,19 @@ GTM_EXTERN void _GTMUnitTestDevLog(NSString* format, ...);
 # ifndef GTM_FOREACH_OBJECT
 #  if TARGET_OS_IPHONE || !(MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5)
 #   define GTM_FOREACH_ENUMEREE(element, enumeration) \
-    for (element in enumeration)
+  for (element in enumeration)
 #   define GTM_FOREACH_OBJECT(element, collection) \
-    for (element in collection)
+  for (element in collection)
 #   define GTM_FOREACH_KEY(element, collection) \
-    for (element in collection)
+  for (element in collection)
 #  else
 #   define GTM_FOREACH_ENUMEREE(element, enumeration) \
-    for (NSEnumerator * _ ## element ## _enum = enumeration; \
-         (element = [_ ## element ## _enum nextObject]) != nil;)
+  for (NSEnumerator * _ ## element ## _enum = enumeration; \
+       (element = [_ ## element ## _enum nextObject]) != nil;)
 #   define GTM_FOREACH_OBJECT(element, collection) \
-    GTM_FOREACH_ENUMEREE(element, [collection objectEnumerator])
+  GTM_FOREACH_ENUMEREE(element, [collection objectEnumerator])
 #   define GTM_FOREACH_KEY(element, collection) \
-    GTM_FOREACH_ENUMEREE(element, [collection keyEnumerator])
+  GTM_FOREACH_ENUMEREE(element, [collection keyEnumerator])
 #  endif
 # endif
 

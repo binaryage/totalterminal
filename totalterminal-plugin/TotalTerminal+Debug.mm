@@ -8,14 +8,14 @@
 
 +(bool) initDebugSubsystems {
 #if defined(DEBUG)
-    [self injectFScript];
+  [self injectFScript];
 #endif
 }
 
 +(void) injectFScript {
-    NSLOG(@"Injecting FScript ...");
-    [[NSBundle bundleWithPath:@"~/Library/Frameworks/FScript.framework"] load];
-    [NSClassFromString (@"FScriptMenuItem")insertInMainMenu];
+  NSLOG(@"Injecting FScript ...");
+  [[NSBundle bundleWithPath:@"~/Library/Frameworks/FScript.framework"] load];
+  [NSClassFromString (@"FScriptMenuItem")insertInMainMenu];
 }
 
 @end

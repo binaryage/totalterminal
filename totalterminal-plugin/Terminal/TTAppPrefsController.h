@@ -1,4 +1,4 @@
-@interface TTAppPrefsController : NSWindowController<NSWindowDelegate, NSPathControlDelegate> {}
+@interface TTAppPrefsController : NSWindowController<NSWindowDelegate, NSPathControlDelegate> { }
 
 +(TTAppPrefsController*)sharedPreferencesController;
 

@@ -14,7 +14,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface SRValidator : NSObject {
-    id delegate;
+  id delegate;
 }
 
 -(id)initWithDelegate:(id)theDelegate;

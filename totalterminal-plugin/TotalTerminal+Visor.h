@@ -16,6 +16,7 @@
 -(void)showVisor:(BOOL)fast;
 -(void)hideVisor:(BOOL)fast;
 -(void)adoptTerminal:(id)win;
+-(void)resetVisorWindowSize;
 
 -(void)startEventMonitoring;
 -(BOOL)isHidden;

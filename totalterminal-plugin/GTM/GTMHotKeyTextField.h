@@ -27,19 +27,19 @@
 #import "GTMDefines.h"
 
 @interface GTMHotKey : NSObject<NSCopying> {
-    @private
-    NSUInteger modifiers_;
-    NSUInteger keyCode_;
-    BOOL doubledModifier_;
+  @private
+  NSUInteger modifiers_;
+  NSUInteger keyCode_;
+  BOOL doubledModifier_;
 }
 
 +(id)hotKeyWithKeyCode:(NSUInteger) keyCode
              modifiers:(NSUInteger) modifiers
     useDoubledModifier:(BOOL)doubledModifier;
 
--(id) initWithKeyCode:(NSUInteger) keyCode
-            modifiers:(NSUInteger) modifiers
-   useDoubledModifier:(BOOL)doubledModifier;
+-(id)initWithKeyCode:(NSUInteger) keyCode
+           modifiers:(NSUInteger) modifiers
+  useDoubledModifier:(BOOL)doubledModifier;
 
 // Custom accessors (readonly, nonatomic)
 -(NSUInteger)modifiers;
@@ -63,8 +63,8 @@
 @end
 
 @interface GTMHotKeyTextFieldCell : NSTextFieldCell {
-    @private
-    GTMHotKey* hotKey_;
+  @private
+  GTMHotKey* hotKey_;
 }
 
 // Convert Cocoa modifier flags (-[NSEvent modifierFlags]) into a string for
@@ -103,8 +103,8 @@
 // See the GTMHotKeyTextField for instructions on using from the window
 // delegate.
 @interface GTMHotKeyFieldEditor : NSTextView {
-    @private
-    GTMHotKeyTextFieldCell* cell_;
+  @private
+  GTMHotKeyTextFieldCell* cell_;
 }
 
 // Get the shared field editor for all hot key fields

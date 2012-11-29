@@ -34,121 +34,121 @@
 
 @implementation QSBKeyMap
 +(id) currentKeyMap {
-    KeyMap keyMap;
+  KeyMap keyMap;
 
-    GetKeys(keyMap);
-    return [[[self alloc] initWithKeyMap:keyMap] autorelease];
+  GetKeys(keyMap);
+  return [[[self alloc] initWithKeyMap:keyMap] autorelease];
 }
 
 -(id) init {
-    return [super init];
+  return [super init];
 }
 
 -(id) initWithKeyMap:(KeyMap)keyMap {
-    if ((self = [super init])) {
-        memcpy(keyMap_, keyMap, sizeof(KeyMapByteArray));
-    }
-    return self;
+  if ((self = [super init])) {
+    memcpy(keyMap_, keyMap, sizeof(KeyMapByteArray));
+  }
+  return self;
 }
 
 -(id) initWithKeys:(const UInt16*)keys count:(NSUInteger)count {
-    if (!keys || !count) {
-        LOG(@"Did you really mean to call us with Keys being nil "
-                @"or count being 0?");
-        return [self init];
-    }
-    KeyMapByteArray array;
-    bzero(array, sizeof(array));
-    NSUInteger k;
-    for (k = 0; k < count; ++k) {
-        UInt16 i = keys[k] / 8;
-        UInt16 j = keys[k] % 8;
-        array[i] |= 1 << j;
-    }
-    return [self initWithKeyMap:*((KeyMap*)&array)];
+  if (!keys || !count) {
+    LOG(@"Did you really mean to call us with Keys being nil "
+        @"or count being 0?");
+    return [self init];
+  }
+  KeyMapByteArray array;
+  bzero(array, sizeof(array));
+  NSUInteger k;
+  for (k = 0; k < count; ++k) {
+    UInt16 i = keys[k] / 8;
+    UInt16 j = keys[k] % 8;
+    array[i] |= 1 << j;
+  }
+  return [self initWithKeyMap:*((KeyMap*)&array)];
 }
 
 -(id) copyWithZone:(NSZone*)zone {
-    return [[[self class] alloc] initWithKeyMap:*((KeyMap*)&keyMap_)];
+  return [[[self class] alloc] initWithKeyMap:*((KeyMap*)&keyMap_)];
 }
 
 -(NSUInteger) hash {
-    // I tried to design this hash so it hashed better on 64 bit than on 32
-    // bit. By keying it to the size of hash we can get a better value for our
-    // keymap.
-    NSUInteger hash = 0;
-    NSUInteger* keyMapHash = (NSUInteger*)keyMap_;
-    size_t i;
+  // I tried to design this hash so it hashed better on 64 bit than on 32
+  // bit. By keying it to the size of hash we can get a better value for our
+  // keymap.
+  NSUInteger hash = 0;
+  NSUInteger* keyMapHash = (NSUInteger*)keyMap_;
+  size_t i;
 
-    for (i = 0; i < sizeof(keyMap_) / sizeof(hash); ++i) {
-        hash += keyMapHash[i];
-    }
-    return hash;
+  for (i = 0; i < sizeof(keyMap_) / sizeof(hash); ++i) {
+    hash += keyMapHash[i];
+  }
+  return hash;
 }
 
 -(BOOL) isEqual:(id)keyMap {
-    BOOL isEqual = [keyMap isKindOfClass:[self class]];
+  BOOL isEqual = [keyMap isKindOfClass:[self class]];
 
-    if (isEqual) {
-        KeyMapByteArray array;
-        [keyMap getKeyMap:(KeyMap*)&array];
-        isEqual = memcmp(keyMap_, array, sizeof(KeyMapByteArray)) == 0;
-    }
-    return isEqual;
+  if (isEqual) {
+    KeyMapByteArray array;
+    [keyMap getKeyMap:(KeyMap*)&array];
+    isEqual = memcmp(keyMap_, array, sizeof(KeyMapByteArray)) == 0;
+  }
+  return isEqual;
 }
 
 -(NSString*) description {
-    NSMutableString* string = [NSMutableString string];
-    size_t i;
+  NSMutableString* string = [NSMutableString string];
+  size_t i;
 
-    for (i = 0; i < sizeof(keyMap_); i++) {
-        [string appendFormat:@" %02hhX", keyMap_[i]];
-    }
-    return string;
+  for (i = 0; i < sizeof(keyMap_); i++) {
+    [string appendFormat:@" %02hhX", keyMap_[i]];
+  }
+  return string;
 }
 
 -(QSBKeyMap*) keyMapByAddingKey:(UInt16)keyCode {
-    KeyMapByteArray array;
+  KeyMapByteArray array;
 
-    [self getKeyMap:(KeyMap*)&array];
+  [self getKeyMap:(KeyMap*)&array];
 
-    UInt16 i = keyCode / 8;
-    UInt16 j = keyCode % 8;
-    array[i] |= 1 << j;
-    return [[[[self class] alloc] initWithKeyMap:*((KeyMap*)&array)] autorelease];
+  UInt16 i = keyCode / 8;
+  UInt16 j = keyCode % 8;
+  array[i] |= 1 << j;
+  return [[[[self class] alloc] initWithKeyMap:*((KeyMap*)&array)] autorelease];
 }
 
 -(QSBKeyMap*) keyMapByInverting {
-    KeyMapByteArray array;
-    size_t i;
+  KeyMapByteArray array;
+  size_t i;
 
-    for (i = 0; i < sizeof(array); ++i) {
-        array[i] = ~keyMap_[i];
-    }
-    return [[[[self class] alloc] initWithKeyMap:*((KeyMap*)&array)] autorelease];
+  for (i = 0; i < sizeof(array); ++i) {
+    array[i] = ~keyMap_[i];
+  }
+  return [[[[self class] alloc] initWithKeyMap:*((KeyMap*)&array)] autorelease];
 }
 
 -(void) getKeyMap:(KeyMap*)keyMap {
-    if (keyMap) {
-        memcpy(*keyMap, keyMap_, sizeof(KeyMapByteArray));
-    } else {
-        LOG(@"You probably don't want to call getKeyMap with a NULL ptr");
-    }
+  if (keyMap) {
+    memcpy(*keyMap, keyMap_, sizeof(KeyMapByteArray));
+  } else {
+    LOG(@"You probably don't want to call getKeyMap with a NULL ptr");
+  }
 }
 
 -(BOOL) containsAnyKeyIn:(QSBKeyMap*)keyMap {
-    BOOL contains = NO;
-    KeyMapByteArray array;
+  BOOL contains = NO;
+  KeyMapByteArray array;
 
-    [keyMap getKeyMap:(KeyMap*)&array];
-    size_t i;
-    for (i = 0; i < sizeof(KeyMapByteArray); ++i) {
-        if (keyMap_[i] & array[i]) {
-            contains = YES;
-            break;
-        }
+  [keyMap getKeyMap:(KeyMap*)&array];
+  size_t i;
+  for (i = 0; i < sizeof(KeyMapByteArray); ++i) {
+    if (keyMap_[i] & array[i]) {
+      contains = YES;
+      break;
     }
-    return contains;
+  }
+  return contains;
 }
 
 @end
