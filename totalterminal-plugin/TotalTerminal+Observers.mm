@@ -74,7 +74,7 @@
     [self setupDockIcon];
   }
   if ([keyPath isEqualToString:@"values.TotalTerminalHideDockIcon"]) {
-		[self updateUIElement];
+    [self updateUIElement];
   }
   if ([keyPath isEqualToString:@"values.TotalTerminalVisorFullScreen"]) {
     [self resetWindowPlacement];

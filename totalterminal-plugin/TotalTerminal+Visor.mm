@@ -131,6 +131,7 @@
 // responsible for opening all tabs in Visored window with Visor profile (regardless of "default profile" setting)
 -(id) SMETHOD (TTWindowController, newTabWithProfile):(id)arg1 {
   id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)]; // returns nil if not Visor-ed window
+
   AUTO_LOGGERF(@"profile=%@", profile);
   if (profile) {
     arg1 = profile;
@@ -148,6 +149,7 @@
 // this seems to be an alternative point to intercept new tab creation
 -(id) SMETHOD (TTWindowController, newTabWithProfile):(id)arg1 command:(id)arg2 runAsShell:(BOOL)arg3 {
   id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)]; // returns nil if not Visor-ed window
+
   AUTO_LOGGERF(@"profile=%@", profile);
   if (profile) {
     arg1 = profile;
@@ -165,6 +167,7 @@
 -(id) SMETHOD (TTWindowController, newTabWithProfile):(id)arg1 customFont:(id)arg2 command:(id)arg3 runAsShell:(BOOL)arg4 restorable:(BOOL)arg5 workingDirectory:(id)arg6 sessionClass:(id)arg7
  restoreSession                                      :(id)arg8 {
   id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)]; // returns nil if not Visor-ed window
+
   AUTO_LOGGERF(@"profile=%@", profile);
   if (profile) {
     arg1 = profile;
@@ -181,6 +184,7 @@
 // Mountain Lion renaming since v304
 -(id) SMETHOD (TTWindowController, makeTabWithProfile):(id)arg1 {
   id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)]; // returns nil if not Visor-ed window
+
   AUTO_LOGGERF(@"profile=%@", profile);
   if (profile) {
     arg1 = profile;
@@ -197,13 +201,14 @@
 -(id) SMETHOD (TTWindowController,
                makeTabWithProfile):(id)arg1 customFont:(id)arg2 command:(id)arg3 runAsShell:(BOOL)arg4 restorable:(BOOL)arg5 workingDirectory:(id)arg6 sessionClass:(id)arg7 restoreSession:(id)arg8 {
   id profile = [self SMETHOD (TTWindowController, forceVisorProfileIfVisoredWindow)]; // returns nil if not Visor-ed window
+
   AUTO_LOGGERF(@"profile=%@", profile);
   if (profile) {
     arg1 = profile;
     ScopedNSDisableScreenUpdatesWithDelay disabler(0, __FUNCTION__); // this is needed to prevent visual switch when calling resetVisorWindowSize followed by applyVisorPositioning
     [[TotalTerminal sharedInstance] resetVisorWindowSize]; // see https://github.com/binaryage/totalterminal/issues/56
   }
-  
+
   id tab = [self SMETHOD (TTWindowController, makeTabWithProfile):arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
   if (profile) {
     [[TotalTerminal sharedInstance] applyVisorPositioning];
@@ -227,21 +232,21 @@
 @implementation NSObject (TotalTerminal)
 
 // Both [TTWindowController close/splitActivePane:] and [TTPane close/splitPressed:] call these methods
-- (void) SMETHOD (TTTabController, closePane):(id)arg1 {
+-(void) SMETHOD (TTTabController, closePane):(id)arg1 {
   AUTO_LOGGER();
-  [(TTTabController *)self SMETHOD(TTTabController, closePane):arg1];
-  TTWindowController *winc = [(TTTabController *)self windowController];
-  TotalTerminal *totalTerminal = [TotalTerminal sharedInstance];
+  [(TTTabController*) self SMETHOD(TTTabController, closePane):arg1];
+  TTWindowController* winc = [(TTTabController*) self windowController];
+  TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
   if ([totalTerminal isVisorWindow:[winc window]]) {
     [totalTerminal applyVisorPositioning];
   }
 }
 
-- (void) SMETHOD (TTTabController, splitPane):(id)arg1 {
+-(void) SMETHOD (TTTabController, splitPane):(id)arg1 {
   AUTO_LOGGER();
-  [(TTTabController *)self SMETHOD(TTTabController, splitPane):arg1];
-  TTWindowController *winc = [(TTTabController *)self windowController];
-  TotalTerminal *totalTerminal = [TotalTerminal sharedInstance];
+  [(TTTabController*) self SMETHOD(TTTabController, splitPane):arg1];
+  TTWindowController* winc = [(TTTabController*) self windowController];
+  TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
   if ([totalTerminal isVisorWindow:[winc window]]) {
     [totalTerminal applyVisorPositioning];
   }
@@ -752,7 +757,7 @@
   }
   BOOL shouldForceFullScreenWindow = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorFullScreen"];
   if ([position isEqualToString:@"Full Screen"] || shouldForceFullScreenWindow) {
-    XLOG(@"FULL SCREEN forced=%@", shouldForceFullScreenWindow?@"true":@"false");
+    XLOG(@"FULL SCREEN forced=%@", shouldForceFullScreenWindow ? @"true" : @"false");
     NSRect frame = [window_ frame];
     frame.size.width = screenRect.size.width;
     frame.size.height = screenRect.size.height - shift;
@@ -1289,7 +1294,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     SWIZZLE(TTWindowController, makeTabWithProfile: customFont: command: runAsShell: restorable: workingDirectory: sessionClass: restoreSession:);
   }
   SWIZZLE(TTWindowController, tabView: didCloseTabViewItem:);
-  
+
   SWIZZLE(TTTabController, closePane:);
   SWIZZLE(TTTabController, splitPane:);
 

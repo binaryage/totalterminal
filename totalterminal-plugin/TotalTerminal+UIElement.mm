@@ -1,26 +1,26 @@
 //
-//  TotalTerminal+UIElement.mm
-//  TotalTerminal
+// TotalTerminal+UIElement.mm
+// TotalTerminal
 //
-//  Created by Brian K Garrett on 11/30/12.
-//  Copyright (c) 2012 BinaryAge. All rights reserved.
+// Created by Brian K Garrett on 11/30/12.
+// Copyright (c) 2012 BinaryAge. All rights reserved.
 //
 
 #import "TotalTerminal+UIElement.h"
 
 @implementation TotalTerminal (UIElement)
 
--(BOOL)isUIElement
-{
-  return ([[NSRunningApplication currentApplication] activationPolicy] == NSApplicationActivationPolicyAccessory) ? YES:NO;
+-(BOOL) isUIElement {
+  return ([[NSRunningApplication currentApplication] activationPolicy] == NSApplicationActivationPolicyAccessory) ? YES : NO;
 }
 
--(void)updateUIElement
-{
+-(void) updateUIElement {
   BOOL hideDockIcon = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalHideDockIcon"];
   NSApplicationActivationPolicy policy = [[NSRunningApplication currentApplication] activationPolicy];
-  ProcessSerialNumber psn = { 0, kCurrentProcess };
-  
+  ProcessSerialNumber psn = {
+    0, kCurrentProcess
+  };
+
   if (policy == NSApplicationActivationPolicyRegular) {
     if (hideDockIcon) {
       TransformProcessType(&psn, kProcessTransformToUIElementApplication);

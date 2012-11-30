@@ -61,7 +61,7 @@
     [statusMenu_ insertItem:updateItem atIndex:4];
     [updateItem release];
     [statusMenu_ insertItem:[NSMenuItem separatorItem] atIndex:5];
-    NSMenuItem *hideDockItem = [[NSMenuItem alloc] initWithTitle:(@"Hide Dock Icon") action:@selector(toggleUIElement:) keyEquivalent:@""];
+    NSMenuItem* hideDockItem = [[NSMenuItem alloc] initWithTitle:(@"Hide Dock Icon") action:@selector(toggleUIElement:) keyEquivalent:@""];
     [hideDockItem setTag:6100];
     [hideDockItem setTarget:self];
     [statusMenu_ insertItem:hideDockItem atIndex:3];
@@ -96,8 +96,8 @@
         [showItem setTitle:(@"Open Visor")];
       }
     }
-    
-    NSMenuItem *hideDockItem = [statusMenu_ itemWithTag:6100];
+
+    NSMenuItem* hideDockItem = [statusMenu_ itemWithTag:6100];
     if (hideDockItem) {
       if ([self isUIElement]) {
         [hideDockItem setTitle:(@"Show Dock Icon")];
