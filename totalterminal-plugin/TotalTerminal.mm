@@ -99,6 +99,7 @@
   modifiersShift_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersShift"]];
 
   [self setupDockIcon];
+  [self updateUIElement];
 
   [self initializeBackground];
   [self initStatusMenu];

@@ -27,6 +27,7 @@
   [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorUseBackgroundAnimation" options:0 context:nil];
   [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorBackgroundAnimationOpacity" options:0 context:nil];
   [udc addObserver:self forKeyPath:@"values.TotalTerminalDontCustomizeDockIcon" options:0 context:nil];
+  [udc addObserver:self forKeyPath:@"values.TotalTerminalHideDockIcon" options:0 context:nil];
   [udc addObserver:self forKeyPath:@"values.TotalTerminalShortcuts" options:0 context:nil];
   [udc addObserver:self forKeyPath:@"values.TotalTerminalUsePreReleases" options:0 context:nil];
   [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorPinned" options:0 context:nil];
@@ -71,6 +72,9 @@
   }
   if ([keyPath isEqualToString:@"values.TotalTerminalDontCustomizeDockIcon"]) {
     [self setupDockIcon];
+  }
+  if ([keyPath isEqualToString:@"values.TotalTerminalHideDockIcon"]) {
+		[self updateUIElement];
   }
   if ([keyPath isEqualToString:@"values.TotalTerminalVisorFullScreen"]) {
     [self resetWindowPlacement];

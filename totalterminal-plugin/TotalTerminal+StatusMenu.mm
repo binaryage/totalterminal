@@ -61,6 +61,11 @@
     [statusMenu_ insertItem:updateItem atIndex:4];
     [updateItem release];
     [statusMenu_ insertItem:[NSMenuItem separatorItem] atIndex:5];
+    NSMenuItem *hideDockItem = [[NSMenuItem alloc] initWithTitle:(@"Hide Dock Icon") action:@selector(toggleUIElement:) keyEquivalent:@""];
+    [hideDockItem setTag:6100];
+    [hideDockItem setTarget:self];
+    [statusMenu_ insertItem:hideDockItem atIndex:3];
+    [hideDockItem release];
 
 #if defined(DEBUG)
     NSMenuItem* crashItem = [[NSMenuItem alloc] initWithTitle:@"Crash me!" action:@selector(crashMe:) keyEquivalent:@""];
@@ -91,6 +96,15 @@
         [showItem setTitle:(@"Open Visor")];
       }
     }
+    
+    NSMenuItem *hideDockItem = [statusMenu_ itemWithTag:6100];
+    if (hideDockItem) {
+      if ([self isUIElement]) {
+        [hideDockItem setTitle:(@"Show Dock Icon")];
+      } else {
+        [hideDockItem setTitle:(@"Hide Dock Icon")];
+      }
+    }
   }
 
   firstTime = false;
@@ -116,6 +130,9 @@
   }
   if ([menuItem action] == @selector(togglePinVisor:)) {
     return !!window_;
+  }
+  if ([menuItem action] == @selector(toggleUIElement:)) {
+    return YES;
   }
 #if defined(DEBUG)
   if ([menuItem action] == @selector(crashMe:)) {
