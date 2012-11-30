@@ -205,14 +205,13 @@
   }
   
   id tab = [self SMETHOD (TTWindowController, makeTabWithProfile):arg1 customFont:arg2 command:arg3 runAsShell:arg4 restorable:arg5 workingDirectory:arg6 sessionClass:arg7 restoreSession:arg8];
-  if ([(TTWindowController*) self numberOfTabs] > 1) { // why this test?
-    if (profile) [[TotalTerminal sharedInstance] applyVisorPositioning];
+  if (profile) {
+    [[TotalTerminal sharedInstance] applyVisorPositioning];
   }
   return tab;
 }
 
 // The following TabView methods fill out support for making and closing tabs
-//
 -(void) SMETHOD (TTWindowController, tabView):(id)arg1 didCloseTabViewItem:(id)arg2 {
   AUTO_LOGGER();
   [self SMETHOD (TTWindowController, tabView):arg1 didCloseTabViewItem:arg2];
@@ -223,19 +222,29 @@
   }
 }
 
+@end
 
-// The following TabView methods fill out support for making and closing tabs
-//
--(void) SMETHOD (TTWindowController, tabView):(id)arg1 didCloseTabViewItem:(id)arg2 {
-	AUTO_LOGGER();
-	[self SMETHOD (TTWindowController, tabView):arg1 didCloseTabViewItem:arg2];
-	if ([(TTWindowController *)self numberOfTabs] == 1) {
-		TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
-		BOOL isVisorWindow = [totalTerminal isVisorWindow:[self window]];
-		if (isVisorWindow)
-			[totalTerminal applyVisorPositioning];
-	}
-	
+@implementation NSObject (TotalTerminal)
+
+// Both [TTWindowController close/splitActivePane:] and [TTPane close/splitPressed:] call these methods
+- (void) SMETHOD (TTTabController, closePane):(id)arg1 {
+  AUTO_LOGGER();
+  [(TTTabController *)self SMETHOD(TTTabController, closePane):arg1];
+  TTWindowController *winc = [(TTTabController *)self windowController];
+  TotalTerminal *totalTerminal = [TotalTerminal sharedInstance];
+  if ([totalTerminal isVisorWindow:[winc window]]) {
+    [totalTerminal applyVisorPositioning];
+  }
+}
+
+- (void) SMETHOD (TTTabController, splitPane):(id)arg1 {
+  AUTO_LOGGER();
+  [(TTTabController *)self SMETHOD(TTTabController, splitPane):arg1];
+  TTWindowController *winc = [(TTTabController *)self windowController];
+  TotalTerminal *totalTerminal = [TotalTerminal sharedInstance];
+  if ([totalTerminal isVisorWindow:[winc window]]) {
+    [totalTerminal applyVisorPositioning];
+  }
 }
 
 @end
@@ -1280,6 +1289,9 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
     SWIZZLE(TTWindowController, makeTabWithProfile: customFont: command: runAsShell: restorable: workingDirectory: sessionClass: restoreSession:);
   }
   SWIZZLE(TTWindowController, tabView: didCloseTabViewItem:);
+  
+  SWIZZLE(TTTabController, closePane:);
+  SWIZZLE(TTTabController, splitPane:);
 
   SWIZZLE(TTWindowController, setCloseDialogExpected:);
   SWIZZLE(TTWindowController, window: willPositionSheet: usingRect:);
