@@ -117,9 +117,6 @@
   if ([menuItem action] == @selector(togglePinVisor:)) {
     return !!window_;
   }
-  if ([menuItem action] == @selector(toggleUIElement:)) {
-    return YES;
-  }
 #if defined(DEBUG)
   if ([menuItem action] == @selector(crashMe:)) {
     return YES;
