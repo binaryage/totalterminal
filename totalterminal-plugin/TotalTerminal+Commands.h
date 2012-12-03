@@ -16,5 +16,6 @@
 -(IBAction)exitMe:(id)sender;
 -(IBAction)crashMe:(id)sender;
 -(IBAction)createVisorProfile:(id)sender;
+-(IBAction)toggleUIElement:(id)sender;
 
 @end

@@ -58,6 +58,7 @@
 #import "TotalTerminal+Commands.h"
 #import "TotalTerminal+Helpers.h"
 #import "TotalTerminal+Dock.h"
+#import "TotalTerminal+UIElement.h"
 #import "TotalTerminal+Sparkle.h"
 #import "TotalTerminal+Shortcuts.h"
 #import "TotalTerminal+Menu.h"
