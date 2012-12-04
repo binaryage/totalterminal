@@ -120,6 +120,9 @@
   if (![ud objectForKey:@"TotalTerminalDontCustomizeDockIcon"]) {
     [ud setBool:NO forKey:@"TotalTerminalDontCustomizeDockIcon"];
   }
+  if (![ud objectForKey:@"TotalTerminalHideDockIcon"]) {
+    [ud setBool:NO forKey:@"TotalTerminalHideDockIcon"];
+  }
   if (![ud objectForKey:@"TotalTerminalUsePreReleases"]) {
     [ud setBool:NO forKey:@"TotalTerminalUsePreReleases"];
   }

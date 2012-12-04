@@ -195,4 +195,11 @@
   }
 }
 
+-(IBAction) toggleUIElement:(id)sender {
+  AUTO_LOGGERF(@"sender=%@", sender);
+  NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
+  BOOL val = [ud boolForKey:@"TotalTerminalHideDockIcon"];
+  [ud setBool:(val ? NO:YES) forKey:@"TotalTerminalHideDockIcon"];
+}
+
 @end
