@@ -98,7 +98,7 @@
   AUTO_LOGGERF(@"tab=%@", tab);
   TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];
   NSSize originalSize;
-  originalSize = (NSSize)[totalTerminal originalPreferencesSize];
+  originalSize = (NSSize)[totalTerminal _originalPreferencesSize];
   NSWindow* prefsWindow = [self window];
   NSRect frame = [prefsWindow contentRectForFrameRect:[prefsWindow frame]];
   if (originalSize.width == 0) {
@@ -107,7 +107,7 @@
   }
   if ([[tab identifier] isEqualToString:@"VisorPane"]) {
     NSRect viewItemFrame = [[[[self valueForKey:@"tabView"] tabViewItemAtIndex:0] view] frame];
-    NSSize visorPrefpanelSize = [totalTerminal prefPaneSize];
+    NSSize visorPrefpanelSize = [totalTerminal _prefPaneSize];
     // / frame.size.width += visorPrefpanelSize.width - viewItemFrame.size.width;
     frame.size.height += visorPrefpanelSize.height - viewItemFrame.size.height;
     frame.origin.y -= visorPrefpanelSize.height - viewItemFrame.size.height;
@@ -155,11 +155,11 @@
 }
 
 -(void) updateInfoLine {
-  LOG(@"updateInfoLine %@", infoLine);
-  [[infoLine mainFrame] loadHTMLString:
+  LOG(@"updateInfoLine %@", _infoLine);
+  [[_infoLine mainFrame] loadHTMLString:
    @"<style>html, body {margin:0; padding:0} html {font-family: 'Lucida Grande', arial; font-size: 10px; cursor: default; color: #999;} a, a:visited { color: #66f; } a:hover {color: #22f}</style><center><b>TotalTerminal ##VERSION##</b> by <a href=\"http://binaryage.com\">binaryage.com</a></center>"
                                baseURL:[NSURL URLWithString:@"http://totalterminal.binaryage.com"]];
-  [infoLine setDrawsBackground:NO];
+  [_infoLine setDrawsBackground:NO];
 }
 
 -(void) enhanceTerminalPreferencesWindow {
@@ -190,7 +190,7 @@
     return;
   }
 
-  NSTabView* sourceTabView = [[[settingsWindow contentView] subviews] objectAtIndex:0];
+  NSTabView* sourceTabView = [[[_settingsWindow contentView] subviews] objectAtIndex:0];
   if (!sourceTabView) {
     return;
   }
@@ -208,21 +208,21 @@
   alreadyEnhanced = YES;
 }
 
--(NSSize) originalPreferencesSize {
-  return originalPreferencesSize;
+-(NSSize) _originalPreferencesSize {
+  return _originalPreferencesSize;
 }
 
 -(void) setOriginalPreferencesSize:(NSSize)size {
-  originalPreferencesSize = size;
+  _originalPreferencesSize = size;
 }
 
--(NSSize) prefPaneSize {
-  return prefPaneSize;
+-(NSSize) _prefPaneSize {
+  return _prefPaneSize;
 }
 
 -(void) storePreferencesPaneSize {
   // Store size of Visor preferences panel as it was set in IB
-  NSView* contentView = [settingsWindow contentView];
+  NSView* contentView = [_settingsWindow contentView];
 
   if (!contentView) {
     return;     // safety net
@@ -245,7 +245,7 @@
     return;     // safety net
   }
 
-  prefPaneSize = [itemView frame].size;
+  _prefPaneSize = [itemView frame].size;
 }
 
 -(NSInteger) numberOfItemsInComboBox:(NSComboBox*)aComboBox {
@@ -262,7 +262,7 @@
 
 -(NSToolbarItem*) getVisorToolbarItem {
   LOG(@"getVisorToolbarItem");
-  NSToolbar* sourceToolbar = [settingsWindow toolbar];
+  NSToolbar* sourceToolbar = [_settingsWindow toolbar];
   NSToolbarItem* toolbarItem = [[sourceToolbar items] objectAtIndex:0];
   return toolbarItem;
 }
@@ -292,7 +292,7 @@
 
   if (!hotkeys) return;
 
-  preventShortcutUpdates_ = TRUE;
+  _preventShortcutUpdates = TRUE;
 
   NSArray* keys = [hotkeys allKeys];
   for (size_t i = 0; i < [keys count]; ++i) {
@@ -300,12 +300,12 @@
     NSDictionary* kd = [hotkeys objectForKey:keyName];
     KeyCombo combo = makeKeyComboFromDictionary(kd);
 
-    SRRecorderControl* recorder = (SRRecorderControl*)[preferencesView TotalTerminal_findSRRecorderFor:keyName];
+    SRRecorderControl* recorder = (SRRecorderControl*)[_preferencesView TotalTerminal_findSRRecorderFor:keyName];
     if (recorder) {
       [recorder setKeyCombo:combo];
     }
   }
-  preventShortcutUpdates_ = FALSE;
+  _preventShortcutUpdates = FALSE;
 }
 
 -(void) updatePreferencesUI {
@@ -316,24 +316,24 @@
 
   NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
 
-  NSImage* modifiersIcon = modifiersOption_;
+  NSImage* modifiersIcon = _modifiersOption;
   NSInteger mask = [ud integerForKey:@"TotalTerminalVisorHotKey2Mask"];
   if (mask == NSCommandKeyMask) {
-    modifiersIcon = modifiersCommand_;
+    modifiersIcon = _modifiersCommand;
   } else if (mask == NSControlKeyMask) {
-    modifiersIcon = modifiersControl_;
+    modifiersIcon = _modifiersControl;
   } else if (mask == NSShiftKeyMask) {
-    modifiersIcon = modifiersShift_;
+    modifiersIcon = _modifiersShift;
   }
-  [modifierIcon1_ setImage:modifiersIcon];
-  [modifierIcon1_ setNeedsDisplay:YES];
-  [modifierIcon2_ setImage:modifiersIcon];
-  [modifierIcon2_ setNeedsDisplay:YES];
+  [_modifierIcon1 setImage:modifiersIcon];
+  [_modifierIcon1 setNeedsDisplay:YES];
+  [_modifierIcon2 setImage:modifiersIcon];
+  [_modifierIcon2 setNeedsDisplay:YES];
 
   if ([TotalTerminal hasVisorProfile]) {
-    [createProfileButton_ setEnabled:NO];
+    [_createProfileButton setEnabled:NO];
   } else {
-    [createProfileButton_ setEnabled:YES];
+    [_createProfileButton setEnabled:YES];
   }
 
   [self updatePreferencesUIForHotkeys];
@@ -342,7 +342,7 @@
 -(void) inputSourceChanged {
   AUTO_LOGGER();
   [self updatePreferencesUI];
-  [preferencesView TotalTerminal_refreshSRRecorders];
+  [_preferencesView TotalTerminal_refreshSRRecorders];
 }
 
 @end

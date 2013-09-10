@@ -5,14 +5,14 @@
   BOOL hasOriginalIcon = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalDontCustomizeDockIcon"];
 
   if (!hasOriginalIcon) {
-    if (!isActiveAlternativeIcon_) {
-      isActiveAlternativeIcon_ = TRUE;
-      [NSApp setApplicationIconImage:alternativeDockIcon];
+    if (!_isActiveAlternativeIcon) {
+      _isActiveAlternativeIcon = TRUE;
+      [NSApp setApplicationIconImage:_alternativeDockIcon];
     }
   } else {
-    if (isActiveAlternativeIcon_) {
-      isActiveAlternativeIcon_ = FALSE;
-      [NSApp setApplicationIconImage:originalDockIcon];
+    if (_isActiveAlternativeIcon) {
+      _isActiveAlternativeIcon = FALSE;
+      [NSApp setApplicationIconImage:_originalDockIcon];
     }
   }
 }

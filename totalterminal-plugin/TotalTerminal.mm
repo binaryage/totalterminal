@@ -64,39 +64,39 @@
   self = [super init];
   if (!self) return self;
 
-  preventShortcutUpdates_ = FALSE;
-  originalPreferencesSize.width = 0;
-  lastPosition_ = nil;
-  hotKey_ = nil;
-  escapeHotKey_ = nil;
-  fullScreenKey_ = nil;
-  background_ = nil;
-  statusItem_ = nil;
+  _preventShortcutUpdates = FALSE;
+  _originalPreferencesSize.width = 0;
+  _lastPosition = nil;
+  _hotKey = nil;
+  _escapeHotKey = nil;
+  _fullScreenKey = nil;
+  _background = nil;
+  _statusItem = nil;
 
   [self refreshFeedURLInUpdater];
 
-  statusMenu_ = [[NSMenu alloc] initWithTitle:@"Status Menu"];
+  _statusMenu = [[NSMenu alloc] initWithTitle:@"Status Menu"];
 
   [self setWindow:nil];
 
-  activeIcon_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorActive"]];
-  inactiveIcon_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorInactive"]];
+  _activeIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorActive"]];
+  in_activeIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self classForCoder]] pathForImageResource:@"VisorInactive"]];
 
-  previouslyActiveAppPID_ = 0;
-  isHidden_ = true;
-  isMain_ = false;
-  isKey_ = false;
+  _previouslyActiveAppPID = 0;
+  _isHidden = true;
+  _isMain = false;
+  _isKey = false;
 
   [NSBundle loadNibNamed:@"TotalTerminal" owner:self];
 
-  isActiveAlternativeIcon_ = FALSE;
-  alternativeDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"TotalTerminal"]];
-  originalDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"Terminal"]];
+  _isActiveAlternativeIcon = FALSE;
+  _alternativeDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"TotalTerminal"]];
+  _originalDockIcon = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"Terminal"]];
 
-  modifiersOption_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersOption"]];
-  modifiersCommand_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersCommand"]];
-  modifiersControl_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersControl"]];
-  modifiersShift_ = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersShift"]];
+  _modifiersOption = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersOption"]];
+  _modifiersCommand = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersCommand"]];
+  _modifiersControl = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersControl"]];
+  _modifiersShift = [[NSImage alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForImageResource:@"ModifiersShift"]];
 
   [self setupDockIcon];
   [self updateUIElement];
@@ -117,7 +117,7 @@
 
   [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(inputSourceChanged) name:(NSString*)kTISNotifySelectedKeyboardInputSourceChanged object:nil];
 
-  universalTimer_ = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(universalTimerFired:) userInfo:nil repeats:YES];
+  _universalTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(universalTimerFired:) userInfo:nil repeats:YES];
 
   return self;
 }

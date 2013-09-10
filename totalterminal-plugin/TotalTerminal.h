@@ -4,42 +4,42 @@
 @class ModifierButtonImageView;
 
 @interface TotalTerminal : NSObject {
-  NSWindow* window_;   // the one visorized terminal window (may be nil)
-  IBOutlet NSWindow* colorsWindow_;
-  NSWindow* background_;   // background window for quartz animations (will be nil if not enabled in settings!)
-  NSStatusItem* statusItem_;
-  NSMenu* statusMenu_;
-  IBOutlet NSWindow* settingsWindow;
-  IBOutlet NSPanel* transparencyHelpPanel;
-  IBOutlet WebView* infoLine;   // bottom info line on Visor preferences pane
-  IBOutlet ModifierButtonImageView* modifierIcon1_;
-  IBOutlet ModifierButtonImageView* modifierIcon2_;
-  IBOutlet NSView* preferencesView;
-  IBOutlet NSButton* createProfileButton_;
-  GTMCarbonHotKey* hotKey_;
-  GTMCarbonHotKey* escapeHotKey_;
-  GTMCarbonHotKey* fullScreenKey_;
-  NSUInteger hotModifiers_;
-  NSUInteger hotModifiersState_;
-  NSTimeInterval lastHotModifiersEventCheckedTime_;
-  int previouslyActiveAppPID_;
-  BOOL isHidden_;
-  BOOL isMain_;
-  BOOL isKey_;
-  NSImage* activeIcon_;
-  NSImage* inactiveIcon_;
-  NSImage* modifiersOption_;
-  NSImage* modifiersControl_;
-  NSImage* modifiersCommand_;
-  NSImage* modifiersShift_;
-  NSString* lastPosition_;
-  NSSize originalPreferencesSize;
-  NSSize prefPaneSize;
-  BOOL isActiveAlternativeIcon_;
-  NSImage* originalDockIcon;
-  NSImage* alternativeDockIcon;
-  BOOL preventShortcutUpdates_;
-  NSTimer* universalTimer_;
+  NSWindow* _window;   // the one visorized terminal window (may be nil)
+  IBOutlet NSWindow* _colorsWindow;
+  NSWindow* _background;   // background window for quartz animations (will be nil if not enabled in settings!)
+  NSStatusItem* _statusItem;
+  NSMenu* _statusMenu;
+  IBOutlet NSWindow* _settingsWindow;
+  IBOutlet NSPanel* _transparencyHelpPanel;
+  IBOutlet WebView* _infoLine;   // bottom info line on Visor preferences pane
+  IBOutlet ModifierButtonImageView* _modifierIcon1;
+  IBOutlet ModifierButtonImageView* _modifierIcon2;
+  IBOutlet NSView* _preferencesView;
+  IBOutlet NSButton* _createProfileButton;
+  GTMCarbonHotKey* _hotKey;
+  GTMCarbonHotKey* _escapeHotKey;
+  GTMCarbonHotKey* _fullScreenKey;
+  NSUInteger _hotModifiers;
+  NSUInteger _hotModifiersState;
+  NSTimeInterval _lastHotModifiersEventCheckedTime;
+  int _previouslyActiveAppPID;
+  BOOL _isHidden;
+  BOOL _isMain;
+  BOOL _isKey;
+  NSImage* _activeIcon;
+  NSImage* in_activeIcon;
+  NSImage* _modifiersOption;
+  NSImage* _modifiersControl;
+  NSImage* _modifiersCommand;
+  NSImage* _modifiersShift;
+  NSString* _lastPosition;
+  NSSize _originalPreferencesSize;
+  NSSize _prefPaneSize;
+  BOOL _isActiveAlternativeIcon;
+  NSImage* _originalDockIcon;
+  NSImage* _alternativeDockIcon;
+  BOOL _preventShortcutUpdates;
+  NSTimer* _universalTimer;
 }
 
 +(TotalTerminal*)sharedInstance;

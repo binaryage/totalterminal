@@ -12,7 +12,7 @@
 -(IBAction) showTransparencyHelpPanel:(id)sender {
   AUTO_LOGGERF(@"sender=%@", sender);
   NSWindow* window = [[NSClassFromString (@"TTAppPrefsController")sharedPreferencesController] window];
-  [NSApp beginSheet:transparencyHelpPanel
+  [NSApp beginSheet:_transparencyHelpPanel
      modalForWindow:window
       modalDelegate:self
      didEndSelector:NULL
@@ -21,15 +21,15 @@
 
 -(IBAction) closeTransparencyHelpPanel:(id)sender {
   AUTO_LOGGERF(@"sender=%@", sender);
-  [transparencyHelpPanel orderOut:nil];
-  [NSApp endSheet:transparencyHelpPanel];
+  [_transparencyHelpPanel orderOut:nil];
+  [NSApp endSheet:_transparencyHelpPanel];
 }
 
 -(IBAction) uninstallMe:(id)sender {
   AUTO_LOGGERF(@"sender=%@", sender);
   NSAlert* alert = [[NSAlert alloc] init];
 
-  [alert setIcon:alternativeDockIcon];
+  [alert setIcon:_alternativeDockIcon];
   [alert addButtonWithTitle:(@"Uninstall")];
   [alert addButtonWithTitle:(@"Cancel")];
   [alert setMessageText:(@"Really want to uninstall TotalTerminal?")];
@@ -56,7 +56,7 @@
 
 -(IBAction) togglePinVisor:(id)sender {
   AUTO_LOGGERF(@"sender=%@", sender);
-  if (!window_) return;
+  if (!_window) return;
 
   NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
   BOOL val = [ud boolForKey:@"TotalTerminalVisorPinned"];
@@ -64,12 +64,12 @@
 }
 
 -(IBAction) toggleVisor:(id)sender {
-  AUTO_LOGGERF(@"sender=%@ isHidden=%d", sender, isHidden_);
-  if (!window_) {
-    isHidden_ = YES;
+  AUTO_LOGGERF(@"sender=%@ isHidden=%d", sender, _isHidden);
+  if (!_window) {
+    _isHidden = YES;
     [self openVisor];
   }
-  if (isHidden_) {
+  if (_isHidden) {
     [self showVisor:false];
   } else {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorPinned"]) {
@@ -78,7 +78,7 @@
         [NSApp activateIgnoringOtherApps:YES];
       }
       // imagine visor window + one classic terminal window, when classic window has key status, we want our visor window to steal key status first time the toggle is executed
-      bool isKey = [window_ isKeyWindow];
+      bool isKey = [_window isKeyWindow];
       if ([[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorForceHide"]) {
         // some users didn't like it, here is a workaround
         // https://github.com/binaryage/totalterminal/issues/21
@@ -87,7 +87,7 @@
       if (isKey) {
         [self hideVisor:false];
       } else {
-        [window_ makeKeyWindow];
+        [_window makeKeyWindow];
       }
     } else {
       [self hideVisor:false];
@@ -102,7 +102,7 @@
 
 -(IBAction) fullScreenToggle:(id)sender {
   AUTO_LOGGERF(@"sender=%@", sender);
-  if (!window_) return;
+  if (!_window) return;
 
   NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
   BOOL val = [ud boolForKey:@"TotalTerminalVisorFullScreen"];

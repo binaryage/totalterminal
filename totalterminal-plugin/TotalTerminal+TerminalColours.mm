@@ -164,10 +164,10 @@ static NSString* colourKeys[] = {
 }
 
 -(IBAction) orderFrontColourConfiguration:(id)sender {
-  if (!colorsWindow_) {
+  if (!_colorsWindow) {
     [NSBundle loadNibNamed:@"Configuration" owner:self];
   }
-  [NSApp beginSheet:colorsWindow_ modalForWindow:[sender window] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+  [NSApp beginSheet:_colorsWindow modalForWindow:[sender window] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
 }
 
 -(IBAction) orderOutConfiguration:(id)sender;

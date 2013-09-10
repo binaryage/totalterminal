@@ -339,35 +339,35 @@
 @implementation TotalTerminal (Visor)
 
 -(NSWindow*) window {
-  return window_;
+  return _window;
 }
 
 -(void) setWindow:(NSWindow*)inWindow {
   AUTO_LOGGERF(@"window=%@", inWindow);
   NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
 
-  [dnc removeObserver:self name:NSWindowDidBecomeKeyNotification object:window_];
-  [dnc removeObserver:self name:NSWindowDidResignKeyNotification object:window_];
-  [dnc removeObserver:self name:NSWindowDidBecomeMainNotification object:window_];
-  [dnc removeObserver:self name:NSWindowDidResignMainNotification object:window_];
-  [dnc removeObserver:self name:NSWindowWillCloseNotification object:window_];
+  [dnc removeObserver:self name:NSWindowDidBecomeKeyNotification object:_window];
+  [dnc removeObserver:self name:NSWindowDidResignKeyNotification object:_window];
+  [dnc removeObserver:self name:NSWindowDidBecomeMainNotification object:_window];
+  [dnc removeObserver:self name:NSWindowDidResignMainNotification object:_window];
+  [dnc removeObserver:self name:NSWindowWillCloseNotification object:_window];
   [dnc removeObserver:self name:NSApplicationDidChangeScreenParametersNotification object:nil];
 
-  window_ = inWindow;
+  _window = inWindow;
 
-  if (window_) {
-    [dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:window_];
-    [dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:window_];
-    [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:window_];
-    [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:window_];
-    [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:window_];
+  if (_window) {
+    [dnc addObserver:self selector:@selector(becomeKey:) name:NSWindowDidBecomeKeyNotification object:_window];
+    [dnc addObserver:self selector:@selector(resignKey:) name:NSWindowDidResignKeyNotification object:_window];
+    [dnc addObserver:self selector:@selector(becomeMain:) name:NSWindowDidBecomeMainNotification object:_window];
+    [dnc addObserver:self selector:@selector(resignMain:) name:NSWindowDidResignMainNotification object:_window];
+    [dnc addObserver:self selector:@selector(willClose:) name:NSWindowWillCloseNotification object:_window];
     [dnc addObserver:self selector:@selector(applicationDidChangeScreenScreenParameters:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
 
     [self updateHotKeyRegistration];
     [self updateEscapeHotKeyRegistration];
     [self updateFullScreenHotKeyRegistration];
   } else {
-    isHidden_ = YES;
+    _isHidden = YES;
     // properly unregister hotkey registrations (issue #53)
     [self unregisterEscapeHotKeyRegistration];
     [self unregisterFullScreenHotKeyRegistration];
@@ -377,29 +377,29 @@
 
 // this is called by TTAplication::sendEvent
 -(NSWindow*) background {
-  return background_;
+  return _background;
 }
 
 -(void) createBackground {
-  if (background_) {
+  if (_background) {
     [self destroyBackground];
   }
 
-  background_ = [[[NSWindow class] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-  [background_ orderFront:nil];
-  [background_ setLevel:NSMainMenuWindowLevel - 2];
-  [background_ setIgnoresMouseEvents:YES];
-  [background_ setOpaque:NO];
-  [background_ setHasShadow:NO];
-  [background_ setReleasedWhenClosed:YES];
-  [background_ setLevel:NSFloatingWindowLevel];
-  [background_ setHasShadow:NO];
+  _background = [[[NSWindow class] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+  [_background orderFront:nil];
+  [_background setLevel:NSMainMenuWindowLevel - 2];
+  [_background setIgnoresMouseEvents:YES];
+  [_background setOpaque:NO];
+  [_background setHasShadow:NO];
+  [_background setReleasedWhenClosed:YES];
+  [_background setLevel:NSFloatingWindowLevel];
+  [_background setHasShadow:NO];
 
   QCView* content = [[QCView alloc] init];
 
   [content setEventForwardingMask:NSMouseMovedMask];
-  [background_ setContentView:content];
-  [background_ makeFirstResponder:content];
+  [_background setContentView:content];
+  [_background makeFirstResponder:content];
 
   NSString* path = [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorBackgroundAnimationFile"];
   path = [path stringByStandardizingPath];
@@ -415,17 +415,17 @@
   [content loadCompositionFromFile:path];
   [content setMaxRenderingFrameRate:15.0];
   [self updateAnimationAlpha];
-  if (window_ && ![self isHidden]) {
-    [window_ orderFront:nil];
+  if (_window && ![self isHidden]) {
+    [_window orderFront:nil];
   }
 }
 
 -(void) destroyBackground {
-  if (!background_) {
+  if (!_background) {
     return;
   }
 
-  background_ = nil;
+  _background = nil;
 }
 
 // credit: http://tonyarnold.com/entries/fixing-an-annoying-expose-bug-with-nswindows/
@@ -455,48 +455,48 @@
 }
 
 -(void) updateAnimationAlpha {
-  if ((background_ != nil) && !isHidden_) {
+  if ((_background != nil) && !_isHidden) {
     float bkgAlpha = [self getVisorAnimationBackgroundAlpha];
-    [background_ setAlphaValue:bkgAlpha];
+    [_background setAlphaValue:bkgAlpha];
   }
 }
 
 -(float) getVisorProfileBackgroundAlpha {
-  id bckColor = background_ ? [[[self class] getVisorProfile] valueForKey:@"BackgroundColor"] : nil;
+  id bckColor = _background ? [[[self class] getVisorProfile] valueForKey:@"BackgroundColor"] : nil;
 
   return bckColor ? [bckColor alphaComponent] : 1.0;
 }
 
 -(void) updateVisorWindowSpacesSettings {
   AUTO_LOGGER();
-  if (!window_) {
+  if (!_window) {
     return;
   }
   bool showOnEverySpace = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorOnEverySpace"];
 
   if (showOnEverySpace) {
-    [window_ setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorTransient | NSWindowCollectionBehaviorIgnoresCycle];
+    [_window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorTransient | NSWindowCollectionBehaviorIgnoresCycle];
   } else {
-    [window_ setCollectionBehavior:NSWindowCollectionBehaviorDefault | NSWindowCollectionBehaviorTransient | NSWindowCollectionBehaviorIgnoresCycle];
+    [_window setCollectionBehavior:NSWindowCollectionBehaviorDefault | NSWindowCollectionBehaviorTransient | NSWindowCollectionBehaviorIgnoresCycle];
   }
 }
 
 -(void) updateVisorWindowLevel {
   AUTO_LOGGER();
-  if (!window_) {
+  if (!_window) {
     return;
   }
   // https://github.com/binaryage/totalterminal/issues/15
   if (![[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorWindowOnHighLevel"]) {
-    [window_ setLevel:NSFloatingWindowLevel];
+    [_window setLevel:NSFloatingWindowLevel];
   } else {
-    [window_ setLevel:NSMainMenuWindowLevel - 1];
+    [_window setLevel:NSMainMenuWindowLevel - 1];
   }
 }
 
 -(void) adoptTerminal:(id)win {
   LOG(@"adoptTerminal window=%@", win);
-  if (window_) {
+  if (_window) {
     LOG(@"adoptTerminal called when old window existed");
   }
 
@@ -511,13 +511,13 @@
 -(void) resetWindowPlacement {
   ScopedNSDisableScreenUpdatesWithDelay disabler(0, __FUNCTION__);   // prevent ocasional flickering
 
-  lastPosition_ = nil;
-  if (window_) {
+  _lastPosition = nil;
+  if (_window) {
     float offset = 1.0f;
-    if (isHidden_) {
+    if (_isHidden) {
       offset = 0.0f;
     }
-    LOG(@"resetWindowPlacement %@ %f", window_, offset);
+    LOG(@"resetWindowPlacement %@ %f", _window, offset);
     [self applyVisorPositioning];
   } else {
     LOG(@"resetWindowPlacement called for nil window");
@@ -593,8 +593,8 @@
     frame.origin.y = screenRect.origin.y - NSHeight(frame) + round(offset * NSHeight(frame));
   }
   [win setFrameOrigin:frame.origin];
-  if (background_) {
-    [background_ setFrame:[window_ frame] display:YES];
+  if (_background) {
+    [_background setFrame:[_window frame] display:YES];
   }
 }
 
@@ -619,12 +619,12 @@
   safeFrame.origin.y = 0;
   safeFrame.size.width = 1000;
   safeFrame.size.height = 1000;
-  [window_ setFrame:safeFrame display:NO];
+  [_window setFrame:safeFrame display:NO];
 
   // this is a better way of 10.5 path for Terminal on Snow Leopard
   // we may call returnToDefaultSize method on our window's view
   // no more resizing issues like described here: http://github.com/darwin/visor/issues/#issue/1
-  TTWindowController* controller = [window_ windowController];
+  TTWindowController* controller = [_window windowController];
   TTTabController* tabc = [controller selectedTabController];
   TTPane* pane = [tabc activePane];
   TTView* view = [pane view];
@@ -633,178 +633,178 @@
 
 -(void) applyVisorPositioning {
   AUTO_LOGGER();
-  if (!window_) {
+  if (!_window) {
     return;     // safety net
   }
   NSDisableScreenUpdates();
   NSScreen* screen = [self screen];
   NSRect screenRect = [screen frame];
   NSString* position = [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorPosition"];
-  if (![position isEqualToString:lastPosition_]) {
+  if (![position isEqualToString:_lastPosition]) {
     // note: cursor may jump during this operation, so do it only in rare cases when position changes
     // for more info see http://github.com/darwin/visor/issues#issue/27
     [self resetVisorWindowSize];
   }
-  lastPosition_ = position;
+  _lastPosition = position;
   // respect menubar area
   // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
   NSRect menubar = [self menubarFrame:screen];
   int shift = menubar.size.height - 1;   // -1px to hide bright horizontal line on the edge of chromeless terminal window
   if ([position isEqualToString:@"Top-Stretch"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.size.width = screenRect.size.width;
     frame.origin.x = screenRect.origin.x;
     frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - shift;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Top-Left"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x;
     frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - shift;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Top-Right"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
     frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - shift;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Top-Center"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x + (NSWidth(screenRect) - NSWidth(frame)) / 2;
     frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - shift;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Left-Stretch"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.size.height = screenRect.size.height - shift;
     frame.origin.x = screenRect.origin.x - NSWidth(frame);
     frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Left-Top"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x - NSWidth(frame);
     frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Left-Bottom"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x - NSWidth(frame);
     frame.origin.y = screenRect.origin.y;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Left-Center"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x - NSWidth(frame);
     frame.origin.y = screenRect.origin.y + (NSHeight(screenRect) - NSHeight(frame)) / 2;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Right-Stretch"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.size.height = screenRect.size.height - shift;
     frame.origin.x = screenRect.origin.x + NSWidth(screenRect);
     frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Right-Top"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x + NSWidth(screenRect);
     frame.origin.y = screenRect.origin.y + NSHeight(screenRect) - NSHeight(frame) - shift;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Right-Bottom"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x + NSWidth(screenRect);
     frame.origin.y = screenRect.origin.y;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Right-Center"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x + NSWidth(screenRect);
     frame.origin.y = screenRect.origin.y + (NSHeight(screenRect) - NSHeight(frame)) / 2;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Bottom-Stretch"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.size.width = screenRect.size.width;
     frame.origin.x = screenRect.origin.x;
     frame.origin.y = screenRect.origin.y - NSHeight(frame);
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Bottom-Left"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x;
     frame.origin.y = screenRect.origin.y - NSHeight(frame);
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Bottom-Right"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x + NSWidth(screenRect) - NSWidth(frame);
     frame.origin.y = screenRect.origin.y - NSHeight(frame);
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   if ([position isEqualToString:@"Bottom-Center"]) {
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.origin.x = screenRect.origin.x + (NSWidth(screenRect) - NSWidth(frame)) / 2;
     frame.origin.y = screenRect.origin.y - NSHeight(frame);
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
   BOOL shouldForceFullScreenWindow = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorFullScreen"];
   if ([position isEqualToString:@"Full Screen"] || shouldForceFullScreenWindow) {
     XLOG(@"FULL SCREEN forced=%@", shouldForceFullScreenWindow ? @"true" : @"false");
-    NSRect frame = [window_ frame];
+    NSRect frame = [_window frame];
     frame.size.width = screenRect.size.width;
     frame.size.height = screenRect.size.height - shift;
     frame.origin.x = screenRect.origin.x;
     frame.origin.y = screenRect.origin.y;
-    [window_ setFrame:frame display:YES];
+    [_window setFrame:frame display:YES];
   }
-  if (background_) {
-    [[background_ contentView] startRendering];
+  if (_background) {
+    [[_background contentView] startRendering];
   }
-  [self slideWindows:!isHidden_ fast:YES];
+  [self slideWindows:!_isHidden fast:YES];
   NSEnableScreenUpdates();
 }
 
 -(void) showVisor:(BOOL)fast {
-  AUTO_LOGGERF(@"fast=%d isHidden=%d", fast, isHidden_);
-  if (!isHidden_) return;
+  AUTO_LOGGERF(@"fast=%d isHidden=%d", fast, _isHidden);
+  if (!_isHidden) return;
 
   [self updateStatusMenu];
   [self storePreviouslyActiveApp];
   [self applyVisorPositioning];
 
-  isHidden_ = false;
-  [window_ makeKeyAndOrderFront:self];
-  [window_ setHasShadow:YES];
+  _isHidden = false;
+  [_window makeKeyAndOrderFront:self];
+  [_window setHasShadow:YES];
   [NSApp activateIgnoringOtherApps:YES];
 
   // window will become key eventually, this is important for updatePreviouslyActiveApp to work properly
   // becomeKey event may have delay and without this updatePreviouslyActiveApp could reset PID to 0
   // imagine: when timer fire imediately after showVisor and before becomeKey event
   // see: https://github.com/binaryage/totalterminal/issues/35
-  isKey_ = true;
+  _isKey = true;
 
-  [window_ update];
+  [_window update];
   [self slideWindows:1 fast:fast];
-  [window_ invalidateShadow];
-  [window_ update];
+  [_window invalidateShadow];
+  [_window update];
 }
 
 -(void) hideVisor:(BOOL)fast {
-  if (isHidden_) return;
+  if (_isHidden) return;
 
   AUTO_LOGGER();
-  isHidden_ = true;
+  _isHidden = true;
   [self updateStatusMenu];
-  [window_ update];
+  [_window update];
   [self slideWindows:0 fast:fast];
-  [window_ setHasShadow:NO];
-  [window_ invalidateShadow];
-  [window_ update];
-  if (background_) {
-    [[background_ contentView] stopRendering];
+  [_window setHasShadow:NO];
+  [_window invalidateShadow];
+  [_window update];
+  if (_background) {
+    [[_background contentView] stopRendering];
   }
 
   {
@@ -812,11 +812,11 @@
     // this will prevent a brief window blinking before final focus gets restored
     ScopedNSDisableScreenUpdatesWithDelay disabler(0.1, __FUNCTION__);
 
-    BOOL hadKeyStatus = [window_ isKeyWindow];
+    BOOL hadKeyStatus = [_window isKeyWindow];
 
     // this is important to return focus some other classic Terminal window in case it was active prior Visor sliding down
     // => https://github.com/binaryage/totalterminal/issues/13 and http://getsatisfaction.com/binaryage/topics/return_focus_to_other_terminal_window
-    [window_ orderOut:self];
+    [_window orderOut:self];
 
     // if visor window loses key status during open-session, do not transfer key status back to previous app
     // see https://github.com/binaryage/totalterminal/issues/26
@@ -847,15 +847,15 @@
       if (!doSlide && direction) {
         // setup final slide position in case of no sliding
         float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(1));
-        [self placeWindow:window_ offset:offset];
+        [self placeWindow:_window offset:offset];
       }
       if (!doFade && direction) {
         // setup final alpha state in case of no alpha
         float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
-        if (background_) {
-          [background_ setAlphaValue:alpha * bkgAlpha];
+        if (_background) {
+          [_background setAlphaValue:alpha * bkgAlpha];
         }
-        [window_ setAlphaValue:alpha];
+        [_window setAlphaValue:alpha];
       }
       NSTimeInterval t;
       NSDate* date = [NSDate date];
@@ -864,27 +864,27 @@
         float k = t / animSpeed;
         if (doSlide) {
           float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(k));
-          [self placeWindow:window_ offset:offset];
+          [self placeWindow:_window offset:offset];
         }
         if (doFade) {
           float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(k));
-          if (background_) {
-            [background_ setAlphaValue:alpha * bkgAlpha];
+          if (_background) {
+            [_background setAlphaValue:alpha * bkgAlpha];
           }
-          [window_ setAlphaValue:alpha];
+          [_window setAlphaValue:alpha];
         }
-        usleep(background_ ? 1000 : 5000);         // 1 or 5ms
+        usleep(_background ? 1000 : 5000);         // 1 or 5ms
       }
     }
   }
 
   // apply final slide and alpha states
   float offset = SLIDE_DIRECTION(direction, SLIDE_EASING(1));
-  [self placeWindow:window_ offset:offset];
+  [self placeWindow:_window offset:offset];
   float alpha = ALPHA_DIRECTION(direction, ALPHA_EASING(1));
-  [window_ setAlphaValue:alpha];
-  if (background_) {
-    [background_ setAlphaValue:alpha * bkgAlpha];
+  [_window setAlphaValue:alpha];
+  if (_background) {
+    [_background setAlphaValue:alpha * bkgAlpha];
   }
 }
 
@@ -893,33 +893,33 @@
 }
 
 -(void) resignKey:(id)sender {
-  LOG(@"resignKey %@ isMain=%d isKey=%d isHidden=%d isPinned=%d", sender, isMain_, isKey_, isHidden_, [self isPinned]);
-  isKey_ = false;
+  LOG(@"resignKey %@ isMain=%d isKey=%d isHidden=%d isPinned=%d", sender, _isMain, _isKey, _isHidden, [self isPinned]);
+  _isKey = false;
   [self updateEscapeHotKeyRegistration];
   [self updateFullScreenHotKeyRegistration];
-  if (!isMain_ && !isKey_ && !isHidden_ && ![self isPinned]) {
+  if (!_isMain && !_isKey && !_isHidden && ![self isPinned]) {
     [self hideVisor:false];
   }
 }
 
 -(void) resignMain:(id)sender {
-  LOG(@"resignMain %@ isMain=%d isKey=%d isHidden=%d isPinned=%d", sender, isMain_, isKey_, isHidden_, [self isPinned]);
-  isMain_ = false;
-  if (!isMain_ && !isKey_ && !isHidden_ && ![self isPinned]) {
+  LOG(@"resignMain %@ isMain=%d isKey=%d isHidden=%d isPinned=%d", sender, _isMain, _isKey, _isHidden, [self isPinned]);
+  _isMain = false;
+  if (!_isMain && !_isKey && !_isHidden && ![self isPinned]) {
     [self hideVisor:false];
   }
 }
 
 -(void) becomeKey:(id)sender {
   LOG(@"becomeKey %@", sender);
-  isKey_ = true;
+  _isKey = true;
   [self updateEscapeHotKeyRegistration];
   [self updateFullScreenHotKeyRegistration];
 }
 
 -(void) becomeMain:(id)sender {
   LOG(@"becomeMain %@", sender);
-  isMain_ = true;
+  _isMain = true;
 }
 
 -(void) applicationDidChangeScreenScreenParameters:(NSNotification*)notification {
@@ -935,15 +935,15 @@
 }
 
 -(BOOL) isHidden {
-  return isHidden_;
+  return _isHidden;
 }
 
 -(void) registerHotKeyRegistration:(KeyCombo)combo {
-  if (!hotKey_) {
+  if (!_hotKey) {
     AUTO_LOGGER();
     GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-    // setting hotModifiers_ means we're not looking for a double tap
-    hotKey_ = [dispatcher registerHotKey:combo.code
+    // setting _hotModifiers means we're not looking for a double tap
+    _hotKey = [dispatcher registerHotKey:combo.code
                                modifiers:combo.flags
                                   target:self
                                   action:@selector(toggleVisor:)
@@ -953,12 +953,12 @@
 }
 
 -(void) unregisterHotKeyRegistration {
-  if (hotKey_) {
+  if (_hotKey) {
     AUTO_LOGGER();
     GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-    [dispatcher unregisterHotKey:hotKey_];
-    hotKey_ = nil;
-    hotModifiers_ = 0;
+    [dispatcher unregisterHotKey:_hotKey];
+    _hotKey = nil;
+    _hotModifiers = 0;
   }
 }
 
@@ -967,12 +967,12 @@
 
   [self unregisterHotKeyRegistration];
 
-  DCHECK(statusMenu_);
-  if (!statusMenu_) {
+  DCHECK(_statusMenu);
+  if (!_statusMenu) {
     return;     // safety net
   }
 
-  NSMenuItem* statusMenuItem = [statusMenu_ itemAtIndex:0];
+  NSMenuItem* statusMenuItem = [_statusMenu itemAtIndex:0];
   NSString* statusMenuItemKey = @"";
   uint statusMenuItemModifiers = 0;
   [statusMenuItem setKeyEquivalent:statusMenuItemKey];
@@ -985,9 +985,9 @@
 
   if (hotkey2Enabled) {
     // set up double tap if appropriate
-    hotModifiers_ = [ud integerForKey:@"TotalTerminalVisorHotKey2Mask"];
-    if (!hotModifiers_) {
-      hotModifiers_ = NSAlternateKeyMask;
+    _hotModifiers = [ud integerForKey:@"TotalTerminalVisorHotKey2Mask"];
+    if (!_hotModifiers) {
+      _hotModifiers = NSAlternateKeyMask;
     }
   }
   if (combo.code != -1) {
@@ -1002,10 +1002,10 @@
 }
 
 -(void) registerEscapeHotKeyRegistration {
-  if (!escapeHotKey_) {
+  if (!_escapeHotKey) {
     AUTO_LOGGER();
     GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-    escapeHotKey_ = [dispatcher registerHotKey:53     // ESC
+    _escapeHotKey = [dispatcher registerHotKey:53     // ESC
                                      modifiers:0
                                         target:self
                                         action:@selector(hideOnEscape:)
@@ -1015,11 +1015,11 @@
 }
 
 -(void) unregisterEscapeHotKeyRegistration {
-  if (escapeHotKey_) {
+  if (_escapeHotKey) {
     AUTO_LOGGER();
     GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-    [dispatcher unregisterHotKey:escapeHotKey_];
-    escapeHotKey_ = nil;
+    [dispatcher unregisterHotKey:_escapeHotKey];
+    _escapeHotKey = nil;
   }
 }
 
@@ -1027,7 +1027,7 @@
   AUTO_LOGGER();
   BOOL hideOnEscape = [[NSUserDefaults standardUserDefaults] boolForKey:@"TotalTerminalVisorHideOnEscape"];
 
-  if (hideOnEscape && isKey_) {
+  if (hideOnEscape && _isKey) {
     [self registerEscapeHotKeyRegistration];
   } else {
     [self unregisterEscapeHotKeyRegistration];
@@ -1035,11 +1035,11 @@
 }
 
 -(void) registerFullScreenHotKeyRegistration {
-  if (!fullScreenKey_) {
+  if (!_fullScreenKey) {
     AUTO_LOGGER();
-    // setting hotModifiers_ means we're not looking for a double tap
+    // setting _hotModifiers means we're not looking for a double tap
     GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-    fullScreenKey_ = [dispatcher registerHotKey:0x3     // F
+    _fullScreenKey = [dispatcher registerHotKey:0x3     // F
                                       modifiers:NSCommandKeyMask | NSAlternateKeyMask
                                          target:self
                                          action:@selector(fullScreenToggle:)
@@ -1049,17 +1049,17 @@
 }
 
 -(void) unregisterFullScreenHotKeyRegistration {
-  if (fullScreenKey_) {
+  if (_fullScreenKey) {
     AUTO_LOGGER();
     GTMCarbonEventDispatcherHandler* dispatcher = [NSClassFromString (@"GTMCarbonEventDispatcherHandler")sharedEventDispatcherHandler];
-    [dispatcher unregisterHotKey:fullScreenKey_];
-    fullScreenKey_ = nil;
+    [dispatcher unregisterHotKey:_fullScreenKey];
+    _fullScreenKey = nil;
   }
 }
 
 -(void) updateFullScreenHotKeyRegistration {
   AUTO_LOGGER();
-  if (isKey_) {
+  if (_isKey) {
     [self registerFullScreenHotKeyRegistration];
   } else {
     [self unregisterFullScreenHotKeyRegistration];
@@ -1080,47 +1080,47 @@
 }
 
 -(void) modifiersChangedWhileActive:(NSEvent*)event {
-  // A statemachine that tracks our state via hotModifiersState_. Simple incrementing state.
-  if (!hotModifiers_) {
+  // A statemachine that tracks our state via _hotModifiersState. Simple incrementing state.
+  if (!_hotModifiers) {
     return;
   }
-  NSTimeInterval timeWindowToRespond = lastHotModifiersEventCheckedTime_ + [self doubleClickTime];
-  lastHotModifiersEventCheckedTime_ = [event timestamp];
-  if (hotModifiersState_ && (lastHotModifiersEventCheckedTime_ > timeWindowToRespond)) {
+  NSTimeInterval timeWindowToRespond = _lastHotModifiersEventCheckedTime + [self doubleClickTime];
+  _lastHotModifiersEventCheckedTime = [event timestamp];
+  if (_hotModifiersState && (_lastHotModifiersEventCheckedTime > timeWindowToRespond)) {
     // Timed out. Reset.
-    hotModifiersState_ = 0;
+    _hotModifiersState = 0;
     return;
   }
   NSUInteger flags = [event qsbModifierFlags];
-  NSLOG3(@"modifiersChangedWhileActive: %@ %08lx %08lx", event, (unsigned long)flags, (unsigned long)hotModifiers_);
+  NSLOG3(@"modifiersChangedWhileActive: %@ %08lx %08lx", event, (unsigned long)flags, (unsigned long)_hotModifiers);
   BOOL isGood = NO;
-  if (!(hotModifiersState_ % 2)) {
+  if (!(_hotModifiersState % 2)) {
     // This is key down cases
-    isGood = flags == hotModifiers_;
+    isGood = flags == _hotModifiers;
   } else {
     // This is key up cases
     isGood = flags == 0;
   }
   if (!isGood) {
     // reset
-    hotModifiersState_ = 0;
+    _hotModifiersState = 0;
     return;
   } else {
-    hotModifiersState_ += 1;
+    _hotModifiersState += 1;
   }
-  NSLOG3(@"  => %ld", (unsigned long)hotModifiersState_);
-  if (hotModifiersState_ >= 3) {
+  NSLOG3(@"  => %ld", (unsigned long)_hotModifiersState);
+  if (_hotModifiersState >= 3) {
     // We've worked our way through the state machine to success!
     [self toggleVisor:self];
-    hotModifiersState_ = 0;
+    _hotModifiersState = 0;
   }
 }
 
 // method that is called when a key changes state and we are active
 -(void) keysChangedWhileActive:(NSEvent*)event {
-  if (!hotModifiers_) return;
+  if (!_hotModifiers) return;
 
-  hotModifiersState_ = 0;
+  _hotModifiersState = 0;
 }
 
 // method that is called when the modifier keys are hit and we are inactive
@@ -1128,11 +1128,11 @@
   // If we aren't activated by hotmodifiers, we don't want to be here
   // and if we are in the process of activating, we want to ignore the hotkey
   // so we don't try to process it twice.
-  if (!hotModifiers_ || [NSApp keyWindow]) return;
+  if (!_hotModifiers || [NSApp keyWindow]) return;
 
   NSUInteger flags = [event qsbModifierFlags];
-  NSLOG3(@"modifiersChangedWhileInactive: %@ %08lx %08lx", event, (unsigned long)flags, (unsigned long)hotModifiers_);
-  if (flags != hotModifiers_) return;
+  NSLOG3(@"modifiersChangedWhileInactive: %@ %08lx %08lx", event, (unsigned long)flags, (unsigned long)_hotModifiers);
+  if (flags != _hotModifiers) return;
 
   const useconds_t oneMilliSecond = 10000;
   UInt16 modifierKeys[] = {
@@ -1141,11 +1141,11 @@
     kVK_CapsLock,
     kVK_RightShift,
   };
-  if (hotModifiers_ == NSControlKeyMask) {
+  if (_hotModifiers == NSControlKeyMask) {
     modifierKeys[0] = kVK_Control;
-  } else if (hotModifiers_ == NSAlternateKeyMask) {
+  } else if (_hotModifiers == NSAlternateKeyMask) {
     modifierKeys[0] = kVK_Option;
-  } else if (hotModifiers_ == NSCommandKeyMask) {
+  } else if (_hotModifiers == NSCommandKeyMask) {
     modifierKeys[0] = kVK_Command;
   }
   QSBKeyMap* hotMap = [[QSBKeyMap alloc] initWithKeys:modifierKeys count:1];
@@ -1202,11 +1202,11 @@
 }
 
 -(BOOL) status {
-  return !!window_;
+  return !!_window;
 }
 
 -(BOOL) isVisorWindow:(id)win {
-  return window_ == win;
+  return _window == win;
 }
 
 static const EventTypeSpec kModifierEventTypeSpec[] = { {

@@ -3,7 +3,7 @@
 @implementation TotalTerminal (StatusMenu)
 
 -(void) initStatusMenu {
-  DCHECK(!statusItem_);
+  DCHECK(!_statusItem);
 
   AUTO_LOGGER();
   [self updateStatusMenu];
@@ -11,23 +11,23 @@
 
 -(void) activateStatusMenu {
   AUTO_LOGGER();
-  if (statusItem_) return;
+  if (_statusItem) return;
 
   NSStatusBar* bar = [NSStatusBar systemStatusBar];
-  statusItem_ = [bar statusItemWithLength:NSVariableStatusItemLength];
+  _statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
 
-  [statusItem_ setHighlightMode:YES];
-  [statusItem_ setTarget:self];
+  [_statusItem setHighlightMode:YES];
+  [_statusItem setTarget:self];
 
-  [statusItem_ setMenu:statusMenu_];
+  [_statusItem setMenu:_statusMenu];
   [self updateStatusMenu];
 }
 
 -(void) deactivateStatusMenu {
   AUTO_LOGGER();
-  if (!statusItem_) return;
+  if (!_statusItem) return;
 
-  statusItem_ = nil;
+  _statusItem = nil;
 }
 
 -(void) updateStatusMenu {
@@ -37,48 +37,48 @@
     NSMenuItem* item;
     item = [[NSMenuItem alloc] initWithTitle:(@"Show Visor") action:@selector(toggleVisor:) keyEquivalent:@""];
     [item setTarget:self];
-    [statusMenu_ addItem:item];
-    [statusMenu_ addItem:[NSMenuItem separatorItem]];
+    [_statusMenu addItem:item];
+    [_statusMenu addItem:[NSMenuItem separatorItem]];
     item = [[NSMenuItem alloc] initWithTitle:(@"TotalTerminal Preferences…") action:@selector(showPrefs:) keyEquivalent:@""];
     [item setTarget:self];
-    [statusMenu_ addItem:item];
-    [statusMenu_ addItem:[NSMenuItem separatorItem]];
+    [_statusMenu addItem:item];
+    [_statusMenu addItem:[NSMenuItem separatorItem]];
     item = [[NSMenuItem alloc] initWithTitle:(@"Visit Homepage…") action:@selector(visitHomepage:) keyEquivalent:@""];
     [item setTarget:self];
-    [statusMenu_ addItem:item];
+    [_statusMenu addItem:item];
 
     NSMenuItem* uninstallItem = [[NSMenuItem alloc] initWithTitle:(@"Uninstall TotalTerminal") action:@selector(uninstallMe:) keyEquivalent:@""];
     [uninstallItem setTarget:self];
-    [statusMenu_ insertItem:uninstallItem atIndex:4];
+    [_statusMenu insertItem:uninstallItem atIndex:4];
     NSMenuItem* updateItem = [[NSMenuItem alloc] initWithTitle:(@"Check for Updates") action:@selector(updateMe:) keyEquivalent:@""];
     [updateItem setTarget:self];
-    [statusMenu_ insertItem:updateItem atIndex:4];
-    [statusMenu_ insertItem:[NSMenuItem separatorItem] atIndex:5];
+    [_statusMenu insertItem:updateItem atIndex:4];
+    [_statusMenu insertItem:[NSMenuItem separatorItem] atIndex:5];
 
 #if defined(DEBUG)
     NSMenuItem* crashItem = [[NSMenuItem alloc] initWithTitle:@"Crash me!" action:@selector(crashMe:) keyEquivalent:@""];
     [crashItem setTarget:self];
-    [statusMenu_ addItem:crashItem];
+    [_statusMenu addItem:crashItem];
     NSMenuItem* exitItem = [[NSMenuItem alloc] initWithTitle:@"Exit" action:@selector(exitMe:) keyEquivalent:@""];
     [exitItem setTarget:self];
-    [statusMenu_ addItem:exitItem];
+    [_statusMenu addItem:exitItem];
 #endif
   }
 
   // update first menu item
-  if (statusItem_) {
-    NSMenuItem* showItem = [statusMenu_ itemAtIndex:0];
+  if (_statusItem) {
+    NSMenuItem* showItem = [_statusMenu itemAtIndex:0];
     if (showItem) {
       BOOL status = [self status];
       if (status) {
-        [statusItem_ setImage:activeIcon_];
-        if (isHidden_) {
+        [_statusItem setImage:_activeIcon];
+        if (_isHidden) {
           [showItem setTitle:(@"Show Visor")];
         } else {
           [showItem setTitle:(@"Hide Visor")];
         }
       } else {
-        [statusItem_ setImage:inactiveIcon_];
+        [_statusItem setImage:in_activeIcon];
         [showItem setTitle:(@"Open Visor")];
       }
     }
@@ -106,7 +106,7 @@
     return YES;
   }
   if ([menuItem action] == @selector(togglePinVisor:)) {
-    return !!window_;
+    return !!_window;
   }
 #if defined(DEBUG)
   if ([menuItem action] == @selector(crashMe:)) {

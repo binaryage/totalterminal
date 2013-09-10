@@ -46,12 +46,12 @@
 
   // TODO: use frontmostApplication in 10.7+
   NSDictionary* activeAppDict = [[NSWorkspace sharedWorkspace] activeApplication];
-  previouslyActiveAppPID_ = 0;
+  _previouslyActiveAppPID = 0;
   NSString* bundleIdentifier = [activeAppDict objectForKey:@"NSApplicationBundleIdentifier"];
   if ([bundleIdentifier compare:@"com.apple.Terminal"]) {
-    previouslyActiveAppPID_ = [[activeAppDict objectForKey:@"NSApplicationProcessIdentifier"] intValue];
+    _previouslyActiveAppPID = [[activeAppDict objectForKey:@"NSApplicationProcessIdentifier"] intValue];
   }
-  NSLOG(@"  remember previous app pid=%d", previouslyActiveAppPID_);
+  NSLOG(@"  remember previous app pid=%d", _previouslyActiveAppPID);
 }
 
 // this function is called periodically during open Visor session ([TotalTermina isHidden] is false)
@@ -65,33 +65,33 @@
 
   if ([bundleIdentifier compare:@"com.apple.Terminal"]) {
     int newPID = [[activeAppDict objectForKey:@"NSApplicationProcessIdentifier"] intValue];
-    if (newPID != previouslyActiveAppPID_) {
-      previouslyActiveAppPID_ = newPID;
-      NSLOG(@"  new previous app pid=%d", previouslyActiveAppPID_);
+    if (newPID != _previouslyActiveAppPID) {
+      _previouslyActiveAppPID = newPID;
+      NSLOG(@"  new previous app pid=%d", _previouslyActiveAppPID);
     }
   } else {
-    if (window_ && !isKey_) {
+    if (_window && !_isKey) {
       // some other terminal window has key focus => reset
       int newPID = 0;
-      if (newPID != previouslyActiveAppPID_) {
-        previouslyActiveAppPID_ = newPID;
-        NSLOG(@"  reset previous app pid=%d", previouslyActiveAppPID_);
+      if (newPID != _previouslyActiveAppPID) {
+        _previouslyActiveAppPID = newPID;
+        NSLOG(@"  reset previous app pid=%d", _previouslyActiveAppPID);
       }
     }
   }
 }
 
 -(void) restorePreviouslyActiveApp {
-  AUTO_LOGGERF(@"pid=%d", previouslyActiveAppPID_);
-  if (!previouslyActiveAppPID_) {
+  AUTO_LOGGERF(@"pid=%d", _previouslyActiveAppPID);
+  if (!_previouslyActiveAppPID) {
     // no previous app recorded
     return;
   }
 
-  id app = [NSRunningApplication runningApplicationWithProcessIdentifier:previouslyActiveAppPID_];
+  id app = [NSRunningApplication runningApplicationWithProcessIdentifier:_previouslyActiveAppPID];
   LOG(@"  ... activating %@", app);
   [app activateWithOptions:0];
-  previouslyActiveAppPID_ = 0;
+  _previouslyActiveAppPID = 0;
 }
 
 @end
