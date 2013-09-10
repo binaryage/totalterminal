@@ -1,8 +1,8 @@
-#import "TTAppPrefsController.h"
-#import "TTApplication.h"
-#import "TTProfileManager.h"
-#import "TTProfile.h"
-#import "TTWindowController.h"
+#import <terminal/TTAppPrefsController.h>
+#import <terminal/TTApplication.h>
+#import <terminal/TTProfileManager.h>
+#import <terminal/TTProfile.h>
+#import <terminal/TTWindowController.h>
 
 #import "TotalTerminal+Commands.h"
 #import "Updater.h"

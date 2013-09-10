@@ -4,7 +4,7 @@
 #define PROJECT TerminalColours
 #import "TotalTerminal+TerminalColours.h"
 
-#import "TTAppPrefsController.h"
+#import <terminal/TTAppPrefsController.h>
 
 static NSString* colourKeys[] = {
   @"noColour",

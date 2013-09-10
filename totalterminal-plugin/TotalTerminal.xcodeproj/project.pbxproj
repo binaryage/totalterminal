@@ -33,6 +33,7 @@
 		26C7384F11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		D341347817DF8D9600B2A1FD /* LoggerClientDebugImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = D341347717DF8D9600B2A1FD /* LoggerClientDebugImplementation.m */; };
+		D341349C17DF906500B2A1FD /* headers in Resources */ = {isa = PBXBuildFile; fileRef = D341349B17DF906500B2A1FD /* headers */; };
 		D37060FD1668AF2C00E99968 /* TotalTerminal+UIElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = D37060FC1668AF2C00E99968 /* TotalTerminal+UIElement.mm */; };
 		D614F0B61607C5D70045572D /* AutoLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = D614F0B51607C5D70045572D /* AutoLogger.mm */; };
 		D62204AF1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */; };
@@ -173,22 +174,13 @@
 		D341347517DF8D9600B2A1FD /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerClient.h; path = Logger/LoggerClient.h; sourceTree = "<group>"; };
 		D341347617DF8D9600B2A1FD /* LoggerClientDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerClientDebug.h; path = Logger/LoggerClientDebug.h; sourceTree = "<group>"; };
 		D341347717DF8D9600B2A1FD /* LoggerClientDebugImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerClientDebugImplementation.m; path = Logger/LoggerClientDebugImplementation.m; sourceTree = "<group>"; };
-		D35290C917DF4E19002E3CDC /* TTWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWindow.h; sourceTree = "<group>"; };
+		D341349B17DF906500B2A1FD /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = ../headers; sourceTree = "<group>"; };
 		D37060FB1668AF2C00E99968 /* TotalTerminal+UIElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+UIElement.h"; sourceTree = "<group>"; };
 		D37060FC1668AF2C00E99968 /* TotalTerminal+UIElement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+UIElement.mm"; sourceTree = "<group>"; };
 		D614F0B41607C5D70045572D /* AutoLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoLogger.h; path = base/AutoLogger.h; sourceTree = "<group>"; };
 		D614F0B51607C5D70045572D /* AutoLogger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AutoLogger.mm; path = base/AutoLogger.mm; sourceTree = "<group>"; };
 		D62204AD1051CC3700FAEA30 /* TotalTerminal+TerminalColours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+TerminalColours.h"; sourceTree = "<group>"; };
 		D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+TerminalColours.mm"; sourceTree = "<group>"; };
-		D622F34F14F1AF8A00EF758A /* TTAppPrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAppPrefsController.h; sourceTree = "<group>"; };
-		D622F35014F1AFBC00EF758A /* TTProfileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTProfileManager.h; sourceTree = "<group>"; };
-		D622F35114F1B03900EF758A /* TTWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWindowController.h; sourceTree = "<group>"; };
-		D622F35414F1B16600EF758A /* TTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; };
-		D622F35514F1B35300EF758A /* TTTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTabController.h; sourceTree = "<group>"; };
-		D622F35614F1B36F00EF758A /* TTPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPane.h; sourceTree = "<group>"; };
-		D622F35714F1B38A00EF758A /* TTAccessibleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAccessibleView.h; sourceTree = "<group>"; };
-		D622F35814F1B4AC00EF758A /* TTProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTProfile.h; sourceTree = "<group>"; };
-		D622F35914F1B61E00EF758A /* TTView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTView.h; sourceTree = "<group>"; };
 		D62A1D1A13E4B7F100221A33 /* Visor-Lion.terminal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Visor-Lion.terminal"; path = "../totalterminal-i18n/plugin/Visor-Lion.terminal"; sourceTree = "<group>"; };
 		D62A1D1B13E4B7F100221A33 /* Visor-SnowLeaopard.terminal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Visor-SnowLeaopard.terminal"; path = "../totalterminal-i18n/plugin/Visor-SnowLeaopard.terminal"; sourceTree = "<group>"; };
 		D65192DE14F013EA002B562B /* TotalTerminal+AutoSlide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+AutoSlide.h"; sourceTree = "<group>"; };
@@ -355,7 +347,7 @@
 		08FB77AFFE84173DC02AAC07 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D622F34E14F1AF8A00EF758A /* Terminal */,
+				D341349B17DF906500B2A1FD /* headers */,
 				D6AF5A8013E2FB1B00C44014 /* ShortcutRecorder */,
 				D6AF5A7B13E2FB0400C44014 /* Logger */,
 				D6E5F58B13E205470069D886 /* lib */,
@@ -441,23 +433,6 @@
 				D6FB34420F3844D80067F941 /* TotalTerminalShared.pch */,
 			);
 			name = "Other Sources";
-			sourceTree = "<group>";
-		};
-		D622F34E14F1AF8A00EF758A /* Terminal */ = {
-			isa = PBXGroup;
-			children = (
-				D622F34F14F1AF8A00EF758A /* TTAppPrefsController.h */,
-				D622F35014F1AFBC00EF758A /* TTProfileManager.h */,
-				D35290C917DF4E19002E3CDC /* TTWindow.h */,
-				D622F35114F1B03900EF758A /* TTWindowController.h */,
-				D622F35414F1B16600EF758A /* TTApplication.h */,
-				D622F35514F1B35300EF758A /* TTTabController.h */,
-				D622F35614F1B36F00EF758A /* TTPane.h */,
-				D622F35714F1B38A00EF758A /* TTAccessibleView.h */,
-				D622F35814F1B4AC00EF758A /* TTProfile.h */,
-				D622F35914F1B61E00EF758A /* TTView.h */,
-			);
-			path = Terminal;
 			sourceTree = "<group>";
 		};
 		D66A08DC13E7467B0030CD39 /* Tools */ = {
@@ -708,6 +683,7 @@
 				D6757D5E13D6AD0800F2FB8D /* ChangeThemeBackgroundColor.png in Resources */,
 				D6757D6413D6B29300F2FB8D /* Terminal.icns in Resources */,
 				D6AF5ABD13E35F9B00C44014 /* ModifiersCommand.png in Resources */,
+				D341349C17DF906500B2A1FD /* headers in Resources */,
 				D6AF5ABE13E35F9B00C44014 /* ModifiersControl.png in Resources */,
 				D6AF5ABF13E35F9B00C44014 /* ModifiersOption.png in Resources */,
 				D6AF5AC013E35F9B00C44014 /* ModifiersShift.png in Resources */,
@@ -867,6 +843,7 @@
 				PRODUCT_NAME = TotalTerminal;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../headers";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -887,6 +864,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = TotalTerminal;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../headers";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;

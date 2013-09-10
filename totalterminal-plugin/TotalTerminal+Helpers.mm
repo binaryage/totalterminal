@@ -1,4 +1,4 @@
-#import "TTProfileManager.h"
+#import <terminal/TTProfileManager.h>
 
 #import "TotalTerminal+Helpers.h"
 

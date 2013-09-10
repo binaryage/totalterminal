@@ -1,4 +1,4 @@
-#import "TTAppPrefsController.h"
+#import <terminal/TTAppPrefsController.h>
 
 #import "GTMHotKeyTextField.h"
 #import "SRRecorderControl.h"

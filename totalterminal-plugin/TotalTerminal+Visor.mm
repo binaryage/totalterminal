@@ -1,12 +1,12 @@
 #import <Quartz/Quartz.h>
 
-#import "TTWindowController.h"
-#import "TTWindow.h"
-#import "TTProfileManager.h"
-#import "TTTabController.h"
-#import "TTPane.h"
-#import "TTView.h"
-#import "TTApplication.h"
+#import <terminal/TTWindowController.h>
+#import <terminal/TTWindow.h>
+#import <terminal/TTProfileManager.h>
+#import <terminal/TTTabController.h>
+#import <terminal/TTPane.h>
+#import <terminal/TTView.h>
+#import <terminal/TTApplication.h>
 
 #import "CGSPrivate.h"
 #import "QSBKeyMap.h"
