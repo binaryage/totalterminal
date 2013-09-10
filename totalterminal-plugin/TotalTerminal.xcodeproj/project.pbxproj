@@ -32,6 +32,7 @@
 		07CA8BD712B499F600A6D8BF /* Error.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CA8BD612B499F600A6D8BF /* Error.png */; };
 		26C7384F11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm in Sources */ = {isa = PBXBuildFile; fileRef = 26C7384E11045EBF00E5058E /* TotalTerminal+PasteOnRightClick.mm */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		D341347817DF8D9600B2A1FD /* LoggerClientDebugImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = D341347717DF8D9600B2A1FD /* LoggerClientDebugImplementation.m */; };
 		D37060FD1668AF2C00E99968 /* TotalTerminal+UIElement.mm in Sources */ = {isa = PBXBuildFile; fileRef = D37060FC1668AF2C00E99968 /* TotalTerminal+UIElement.mm */; };
 		D614F0B61607C5D70045572D /* AutoLogger.mm in Sources */ = {isa = PBXBuildFile; fileRef = D614F0B51607C5D70045572D /* AutoLogger.mm */; };
 		D62204AF1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm in Sources */ = {isa = PBXBuildFile; fileRef = D62204AE1051CC3700FAEA30 /* TotalTerminal+TerminalColours.mm */; };
@@ -52,7 +53,6 @@
 		D68AA7020F371C810094AA92 /* TotalTerminal.mm in Sources */ = {isa = PBXBuildFile; fileRef = D68AA7010F371C810094AA92 /* TotalTerminal.mm */; };
 		D69D315A13E44CD50013A750 /* TotalTerminal+Menu.mm in Sources */ = {isa = PBXBuildFile; fileRef = D69D315913E44CD50013A750 /* TotalTerminal+Menu.mm */; };
 		D69D315D13E46F000013A750 /* ScreenUpdates.mm in Sources */ = {isa = PBXBuildFile; fileRef = D69D315C13E46F000013A750 /* ScreenUpdates.mm */; };
-		D6AF5A7F13E2FB1200C44014 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A7D13E2FB1200C44014 /* LoggerClient.m */; };
 		D6AF5A8B13E2FB2C00C44014 /* SRCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A8213E2FB2C00C44014 /* SRCommon.m */; };
 		D6AF5A8C13E2FB2C00C44014 /* SRKeyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A8413E2FB2C00C44014 /* SRKeyCodeTransformer.m */; };
 		D6AF5A8D13E2FB2C00C44014 /* SRRecorderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6AF5A8613E2FB2C00C44014 /* SRRecorderCell.m */; };
@@ -170,6 +170,9 @@
 		8D5B49B6048680CD000E48DA /* TotalTerminal.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TotalTerminal.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		D341347517DF8D9600B2A1FD /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerClient.h; path = Logger/LoggerClient.h; sourceTree = "<group>"; };
+		D341347617DF8D9600B2A1FD /* LoggerClientDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerClientDebug.h; path = Logger/LoggerClientDebug.h; sourceTree = "<group>"; };
+		D341347717DF8D9600B2A1FD /* LoggerClientDebugImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerClientDebugImplementation.m; path = Logger/LoggerClientDebugImplementation.m; sourceTree = "<group>"; };
 		D35290C917DF4E19002E3CDC /* TTWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWindow.h; sourceTree = "<group>"; };
 		D37060FB1668AF2C00E99968 /* TotalTerminal+UIElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+UIElement.h"; sourceTree = "<group>"; };
 		D37060FC1668AF2C00E99968 /* TotalTerminal+UIElement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+UIElement.mm"; sourceTree = "<group>"; };
@@ -206,9 +209,6 @@
 		D69D315913E44CD50013A750 /* TotalTerminal+Menu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+Menu.mm"; sourceTree = "<group>"; };
 		D69D315B13E46F000013A750 /* ScreenUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScreenUpdates.h; path = base/ScreenUpdates.h; sourceTree = "<group>"; };
 		D69D315C13E46F000013A750 /* ScreenUpdates.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ScreenUpdates.mm; path = base/ScreenUpdates.mm; sourceTree = "<group>"; };
-		D6AF5A7C13E2FB1200C44014 /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerClient.h; path = Logger/LoggerClient.h; sourceTree = "<group>"; };
-		D6AF5A7D13E2FB1200C44014 /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoggerClient.m; path = Logger/LoggerClient.m; sourceTree = "<group>"; };
-		D6AF5A7E13E2FB1200C44014 /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoggerCommon.h; path = Logger/LoggerCommon.h; sourceTree = "<group>"; };
 		D6AF5A8113E2FB2C00C44014 /* SRCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRCommon.h; path = SR/SRCommon.h; sourceTree = "<group>"; };
 		D6AF5A8213E2FB2C00C44014 /* SRCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRCommon.m; path = SR/SRCommon.m; sourceTree = "<group>"; };
 		D6AF5A8313E2FB2C00C44014 /* SRKeyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRKeyCodeTransformer.h; path = SR/SRKeyCodeTransformer.h; sourceTree = "<group>"; };
@@ -479,9 +479,9 @@
 		D6AF5A7B13E2FB0400C44014 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				D6AF5A7C13E2FB1200C44014 /* LoggerClient.h */,
-				D6AF5A7D13E2FB1200C44014 /* LoggerClient.m */,
-				D6AF5A7E13E2FB1200C44014 /* LoggerCommon.h */,
+				D341347517DF8D9600B2A1FD /* LoggerClient.h */,
+				D341347617DF8D9600B2A1FD /* LoggerClientDebug.h */,
+				D341347717DF8D9600B2A1FD /* LoggerClientDebugImplementation.m */,
 			);
 			name = Logger;
 			sourceTree = "<group>";
@@ -800,9 +800,9 @@
 				D6E5F58913E204E20069D886 /* QSBKeyMap.m in Sources */,
 				D6E5F59113E205880069D886 /* Updater.m in Sources */,
 				D6E5F59213E205880069D886 /* Versions.m in Sources */,
+				D341347817DF8D9600B2A1FD /* LoggerClientDebugImplementation.m in Sources */,
 				D6E5F59613E205AB0069D886 /* JRSwizzle.m in Sources */,
 				D6E5F59A13E2087D0069D886 /* GTMMethodCheck.m in Sources */,
-				D6AF5A7F13E2FB1200C44014 /* LoggerClient.m in Sources */,
 				D6AF5A8B13E2FB2C00C44014 /* SRCommon.m in Sources */,
 				D6AF5A8C13E2FB2C00C44014 /* SRKeyCodeTransformer.m in Sources */,
 				D6AF5A8D13E2FB2C00C44014 /* SRRecorderCell.m in Sources */,

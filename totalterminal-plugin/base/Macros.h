@@ -2,7 +2,7 @@
 #define MACROS_H
 
 #import "JRSwizzle.h"
-#import "LoggerClient.h"
+#import "LoggerClientDebug.h"
 #import "ScreenUpdates.h"
 
 #define PROJECT Core
