@@ -37,7 +37,7 @@
   KeyMap keyMap;
 
   GetKeys(keyMap);
-  return [[[self alloc] initWithKeyMap:keyMap] autorelease];
+  return [[self alloc] initWithKeyMap:keyMap];
 }
 
 -(id) init {
@@ -115,7 +115,7 @@
   UInt16 i = keyCode / 8;
   UInt16 j = keyCode % 8;
   array[i] |= 1 << j;
-  return [[[[self class] alloc] initWithKeyMap:*((KeyMap*)&array)] autorelease];
+  return [[[self class] alloc] initWithKeyMap:*((KeyMap*)&array)];
 }
 
 -(QSBKeyMap*) keyMapByInverting {
@@ -125,7 +125,7 @@
   for (i = 0; i < sizeof(array); ++i) {
     array[i] = ~keyMap_[i];
   }
-  return [[[[self class] alloc] initWithKeyMap:*((KeyMap*)&array)] autorelease];
+  return [[[self class] alloc] initWithKeyMap:*((KeyMap*)&array)];
 }
 
 -(void) getKeyMap:(KeyMap*)keyMap {

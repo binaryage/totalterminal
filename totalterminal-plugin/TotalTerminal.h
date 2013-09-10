@@ -46,7 +46,7 @@
 
 -(void)updateShouldShowTransparencyAlert;
 
-@property (readonly, nonatomic) NSNumber* shouldShowTransparencyAlert;
+@property (weak, readonly, nonatomic) NSNumber* shouldShowTransparencyAlert;
 
 @end
 

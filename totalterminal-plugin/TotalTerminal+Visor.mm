@@ -1,6 +1,7 @@
 #import <Quartz/Quartz.h>
 
 #import "TTWindowController.h"
+#import "TTWindow.h"
 #import "TTProfileManager.h"
 #import "TTTabController.h"
 #import "TTPane.h"
@@ -287,11 +288,12 @@
     aStyle = NSBorderlessWindowMask;
     bufferingType = NSBackingStoreBuffered;
   }
-  self = [self SMETHOD (TTWindow, initWithContentRect):contentRect styleMask:aStyle backing:bufferingType defer:flag];
+  TTWindow* window = [self SMETHOD (TTWindow, initWithContentRect):contentRect styleMask:aStyle backing:bufferingType defer:flag];
+
   if (shouldBeVisorized) {
-    [totalTerminal adoptTerminal:self];
+    [totalTerminal adoptTerminal:window];
   }
-  return self;
+  return window;
 }
 
 -(BOOL) SMETHOD (TTWindow, canBecomeKeyWindow) {
@@ -344,8 +346,6 @@
   AUTO_LOGGERF(@"window=%@", inWindow);
   NSNotificationCenter* dnc = [NSNotificationCenter defaultCenter];
 
-  [inWindow retain];
-
   [dnc removeObserver:self name:NSWindowDidBecomeKeyNotification object:window_];
   [dnc removeObserver:self name:NSWindowDidResignKeyNotification object:window_];
   [dnc removeObserver:self name:NSWindowDidBecomeMainNotification object:window_];
@@ -353,7 +353,6 @@
   [dnc removeObserver:self name:NSWindowWillCloseNotification object:window_];
   [dnc removeObserver:self name:NSApplicationDidChangeScreenParametersNotification object:nil];
 
-  [window_ release];
   window_ = inWindow;
 
   if (window_) {
@@ -400,7 +399,6 @@
 
   [content setEventForwardingMask:NSMouseMovedMask];
   [background_ setContentView:content];
-  [content release];
   [background_ makeFirstResponder:content];
 
   NSString* path = [[NSUserDefaults standardUserDefaults] stringForKey:@"TotalTerminalVisorBackgroundAnimationFile"];
@@ -427,7 +425,6 @@
     return;
   }
 
-  [background_ release];
   background_ = nil;
 }
 
@@ -514,7 +511,6 @@
 -(void) resetWindowPlacement {
   ScopedNSDisableScreenUpdatesWithDelay disabler(0, __FUNCTION__);   // prevent ocasional flickering
 
-  [lastPosition_ release];
   lastPosition_ = nil;
   if (window_) {
     float offset = 1.0f;
@@ -649,8 +645,7 @@
     // for more info see http://github.com/darwin/visor/issues#issue/27
     [self resetVisorWindowSize];
   }
-  [lastPosition_ release];
-  lastPosition_ = [position retain];
+  lastPosition_ = position;
   // respect menubar area
   // see http://code.google.com/p/blacktree-visor/issues/detail?id=19
   NSRect menubar = [self menubarFrame:screen];
@@ -1153,8 +1148,8 @@
   } else if (hotModifiers_ == NSCommandKeyMask) {
     modifierKeys[0] = kVK_Command;
   }
-  QSBKeyMap* hotMap = [[[QSBKeyMap alloc] initWithKeys:modifierKeys count:1] autorelease];
-  QSBKeyMap* invertedHotMap = [[[QSBKeyMap alloc] initWithKeys:modifierKeys count:sizeof(modifierKeys) / sizeof(UInt16)] autorelease];
+  QSBKeyMap* hotMap = [[QSBKeyMap alloc] initWithKeys:modifierKeys count:1];
+  QSBKeyMap* invertedHotMap = [[QSBKeyMap alloc] initWithKeys:modifierKeys count:sizeof(modifierKeys) / sizeof(UInt16)];
   invertedHotMap = [invertedHotMap keyMapByInverting];
   NSTimeInterval startDate = [NSDate timeIntervalSinceReferenceDate];
   BOOL isGood = NO;

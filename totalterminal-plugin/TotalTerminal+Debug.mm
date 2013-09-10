@@ -6,7 +6,7 @@
 
 @implementation TotalTerminal (Debug)
 
-+(bool) initDebugSubsystems {
++(void) initDebugSubsystems {
 #if defined(DEBUG)
   [self injectFScript];
 #endif

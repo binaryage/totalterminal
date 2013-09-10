@@ -118,7 +118,7 @@ static NSString* colourKeys[] = {
     if ([self colourForKey:colourKey]) [plist setObject:[NSArchiver archivedDataWithRootObject:[self colourForKey:colourKey]] forKey:colourKey];
   }
 
-  return [plist autorelease];
+  return plist;
 }
 
 @end
@@ -143,7 +143,6 @@ static NSString* colourKeys[] = {
   [configureButton setAction:@selector(orderFrontColourConfiguration:)];
   [configureButton setFrameOrigin:NSMakePoint(233, 128)];
   [textPrefsView addSubview:configureButton];
-  [configureButton release];
 }
 
 @end

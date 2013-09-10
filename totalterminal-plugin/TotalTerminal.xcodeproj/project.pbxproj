@@ -75,16 +75,16 @@
 		D6AF5ABE13E35F9B00C44014 /* ModifiersControl.png in Resources */ = {isa = PBXBuildFile; fileRef = D6AF5ABA13E35F9B00C44014 /* ModifiersControl.png */; };
 		D6AF5ABF13E35F9B00C44014 /* ModifiersOption.png in Resources */ = {isa = PBXBuildFile; fileRef = D6AF5ABB13E35F9B00C44014 /* ModifiersOption.png */; };
 		D6AF5AC013E35F9B00C44014 /* ModifiersShift.png in Resources */ = {isa = PBXBuildFile; fileRef = D6AF5ABC13E35F9B00C44014 /* ModifiersShift.png */; };
-		D6E5F58113E204730069D886 /* GTMCarbonEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57413E204730069D886 /* GTMCarbonEvent.m */; };
-		D6E5F58213E204730069D886 /* GTMHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57913E204730069D886 /* GTMHotKeyTextField.m */; };
-		D6E5F58313E204730069D886 /* GTMNSObject+KeyValueObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57B13E204730069D886 /* GTMNSObject+KeyValueObserving.m */; };
-		D6E5F58413E204730069D886 /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57D13E204730069D886 /* GTMObjC2Runtime.m */; };
-		D6E5F58513E204730069D886 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F58013E204730069D886 /* GTMSystemVersion.m */; };
+		D6E5F58113E204730069D886 /* GTMCarbonEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57413E204730069D886 /* GTMCarbonEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D6E5F58213E204730069D886 /* GTMHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57913E204730069D886 /* GTMHotKeyTextField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D6E5F58313E204730069D886 /* GTMNSObject+KeyValueObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57B13E204730069D886 /* GTMNSObject+KeyValueObserving.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D6E5F58413E204730069D886 /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F57D13E204730069D886 /* GTMObjC2Runtime.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D6E5F58513E204730069D886 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F58013E204730069D886 /* GTMSystemVersion.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D6E5F58913E204E20069D886 /* QSBKeyMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F58813E204E20069D886 /* QSBKeyMap.m */; };
 		D6E5F59113E205880069D886 /* Updater.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F58E13E205880069D886 /* Updater.m */; };
 		D6E5F59213E205880069D886 /* Versions.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F59013E205880069D886 /* Versions.m */; };
 		D6E5F59613E205AB0069D886 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F59513E205AB0069D886 /* JRSwizzle.m */; };
-		D6E5F59A13E2087D0069D886 /* GTMMethodCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F59813E2087D0069D886 /* GTMMethodCheck.m */; };
+		D6E5F59A13E2087D0069D886 /* GTMMethodCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5F59813E2087D0069D886 /* GTMMethodCheck.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D6F5F1EA10521A9B0047CFF8 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6F5F1E910521A9B0047CFF8 /* Configuration.xib */; };
 		D6FB33E90F3843E20067F941 /* TotalTerminal.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FB33E80F3843E20067F941 /* TotalTerminal.xib */; };
 		D6FCDC691002BA42000FDA45 /* TotalTerminal+CopyOnSelect.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6FCDC681002BA42000FDA45 /* TotalTerminal+CopyOnSelect.mm */; };
@@ -170,6 +170,7 @@
 		8D5B49B6048680CD000E48DA /* TotalTerminal.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TotalTerminal.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		D35290C917DF4E19002E3CDC /* TTWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWindow.h; sourceTree = "<group>"; };
 		D37060FB1668AF2C00E99968 /* TotalTerminal+UIElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TotalTerminal+UIElement.h"; sourceTree = "<group>"; };
 		D37060FC1668AF2C00E99968 /* TotalTerminal+UIElement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "TotalTerminal+UIElement.mm"; sourceTree = "<group>"; };
 		D614F0B41607C5D70045572D /* AutoLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoLogger.h; path = base/AutoLogger.h; sourceTree = "<group>"; };
@@ -447,6 +448,7 @@
 			children = (
 				D622F34F14F1AF8A00EF758A /* TTAppPrefsController.h */,
 				D622F35014F1AFBC00EF758A /* TTProfileManager.h */,
+				D35290C917DF4E19002E3CDC /* TTWindow.h */,
 				D622F35114F1B03900EF758A /* TTWindowController.h */,
 				D622F35414F1B16600EF758A /* TTApplication.h */,
 				D622F35514F1B35300EF758A /* TTTabController.h */,
@@ -851,6 +853,8 @@
 		1DEB913B08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -859,7 +863,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TotalTerminalShared.pch;
 				INFOPLIST_FILE = Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = TotalTerminal;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -868,6 +874,8 @@
 		1DEB913C08733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -876,7 +884,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TotalTerminalShared.pch;
 				INFOPLIST_FILE = Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = TotalTerminal;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;

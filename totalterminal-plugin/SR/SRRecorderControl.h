@@ -72,7 +72,7 @@
 -(NSDictionary*)objectValue;
 -(void)setObjectValue:(NSDictionary*)shortcut;
 
-@property (retain) NSString* shortcut;
+@property (strong) NSString* shortcut;
 @property NSInteger menuTag;
 
 @end

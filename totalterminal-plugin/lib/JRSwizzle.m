@@ -121,7 +121,7 @@
 
 +(BOOL) TotalTerminal_jr_swizzleClassMethod:(SEL)origSel_ withClassMethod:(SEL)altSel_ error:(NSError**)error_ {
   // pass metaclass to -_jr_swizzleInClass so that a class method get swizzled (and not an instance method)
-  return [self TotalTerminal_jr_swizzleInClass:[self class]->isa method:origSel_ withMethod:altSel_ error:error_];
+  return [self TotalTerminal_jr_swizzleInClass:object_getClass([self class]) method:origSel_ withMethod:altSel_ error:error_];
 }
 
 @end

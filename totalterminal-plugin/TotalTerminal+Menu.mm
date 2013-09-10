@@ -115,7 +115,6 @@
           [menuItem setTag:4101];
           [menuItem setTarget:self];
           [windowMenu insertItem:menuItem atIndex:menuIndex + 2];
-          [menuItem release];
         }
       }
     }

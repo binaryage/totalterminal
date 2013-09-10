@@ -15,7 +15,6 @@
 
   NSStatusBar* bar = [NSStatusBar systemStatusBar];
   statusItem_ = [bar statusItemWithLength:NSVariableStatusItemLength];
-  [statusItem_ retain];
 
   [statusItem_ setHighlightMode:YES];
   [statusItem_ setTarget:self];
@@ -28,7 +27,6 @@
   AUTO_LOGGER();
   if (!statusItem_) return;
 
-  [statusItem_ release];
   statusItem_ = nil;
 }
 
@@ -40,37 +38,30 @@
     item = [[NSMenuItem alloc] initWithTitle:(@"Show Visor") action:@selector(toggleVisor:) keyEquivalent:@""];
     [item setTarget:self];
     [statusMenu_ addItem:item];
-    [item release];
     [statusMenu_ addItem:[NSMenuItem separatorItem]];
     item = [[NSMenuItem alloc] initWithTitle:(@"TotalTerminal Preferences…") action:@selector(showPrefs:) keyEquivalent:@""];
     [item setTarget:self];
     [statusMenu_ addItem:item];
-    [item release];
     [statusMenu_ addItem:[NSMenuItem separatorItem]];
     item = [[NSMenuItem alloc] initWithTitle:(@"Visit Homepage…") action:@selector(visitHomepage:) keyEquivalent:@""];
     [item setTarget:self];
     [statusMenu_ addItem:item];
-    [item release];
 
     NSMenuItem* uninstallItem = [[NSMenuItem alloc] initWithTitle:(@"Uninstall TotalTerminal") action:@selector(uninstallMe:) keyEquivalent:@""];
     [uninstallItem setTarget:self];
     [statusMenu_ insertItem:uninstallItem atIndex:4];
-    [uninstallItem release];
     NSMenuItem* updateItem = [[NSMenuItem alloc] initWithTitle:(@"Check for Updates") action:@selector(updateMe:) keyEquivalent:@""];
     [updateItem setTarget:self];
     [statusMenu_ insertItem:updateItem atIndex:4];
-    [updateItem release];
     [statusMenu_ insertItem:[NSMenuItem separatorItem] atIndex:5];
 
 #if defined(DEBUG)
     NSMenuItem* crashItem = [[NSMenuItem alloc] initWithTitle:@"Crash me!" action:@selector(crashMe:) keyEquivalent:@""];
     [crashItem setTarget:self];
     [statusMenu_ addItem:crashItem];
-    [crashItem release];
     NSMenuItem* exitItem = [[NSMenuItem alloc] initWithTitle:@"Exit" action:@selector(exitMe:) keyEquivalent:@""];
     [exitItem setTarget:self];
     [statusMenu_ addItem:exitItem];
-    [exitItem release];
 #endif
   }
 

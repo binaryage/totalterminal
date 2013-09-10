@@ -30,7 +30,6 @@ void NSEnableScreenUpdatesx(const char* fn) {
 
 -(void) fire {
   NSEnableScreenUpdatesx(fn_);
-  [self release];
 }
 
 @end

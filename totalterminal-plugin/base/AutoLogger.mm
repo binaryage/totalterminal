@@ -15,7 +15,6 @@ void IndentingLoggerF(const char* filename, int lineNumber, const char* function
   }
 
   LogMessageF(filename, lineNumber, functionName, domain, level, @ "%*s%@", [indent intValue] * 3, "", print);
-  [print release];
 }
 
 void IndentingFunctionLoggerF(const char* file, int line, const char* fn, NSString* tag, NSString* format, ...) {

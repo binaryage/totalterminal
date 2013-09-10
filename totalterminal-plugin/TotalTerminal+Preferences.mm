@@ -257,7 +257,6 @@
   LOG(@"comboBox %@, objectValueForItemAtIndex %d", aComboBox, (int)index);
   VisorScreenTransformer* transformer = [[VisorScreenTransformer alloc] init];
   id res = [transformer transformedValue:[NSNumber numberWithInteger:index]];
-  [transformer release];
   return res;
 }
 

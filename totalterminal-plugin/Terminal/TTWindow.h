@@ -1,0 +1,3 @@
+@interface TTWindow : NSWindow
+
+@end

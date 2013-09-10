@@ -27,7 +27,7 @@
 
 -(IBAction) uninstallMe:(id)sender {
   AUTO_LOGGERF(@"sender=%@", sender);
-  NSAlert* alert = [[[NSAlert alloc] init] autorelease];
+  NSAlert* alert = [[NSAlert alloc] init];
 
   [alert setIcon:alternativeDockIcon];
   [alert addButtonWithTitle:(@"Uninstall")];
@@ -176,15 +176,12 @@
   plist = [NSPropertyListSerialization propertyListFromData:plistData mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
   if (!plist) {
     LOG(@"Error reading plist from file '%s', error = '%s'", [path UTF8String], [error UTF8String]);
-    [error release];
-    [visorProfile release];
     return;
   }
   [visorProfile setPropertyListRepresentation:plist];
 
   // set profile into manager
   [profileManager setProfile:visorProfile forName:@"Visor"];
-  [visorProfile release];
 
   // apply visor profile to the opening window
   TotalTerminal* totalTerminal = [TotalTerminal sharedInstance];

@@ -35,7 +35,7 @@
   [udc addObserver:self forKeyPath:@"values.TotalTerminalVisorWindowOnHighLevel" options:0 context:nil];
 
   // ----------
-  [[[self class] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:@"UpdateBackground"];
+  [[[self class] getVisorProfile] addObserver:self forKeyPath:@"BackgroundColor" options:0 context:(__bridge void*)@"UpdateBackground"];
 }
 
 -(void) observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context {
@@ -93,7 +93,7 @@
   }
   if ([keyPath isEqualToString:@"BackgroundColor"]) {
     if (context) {
-      NSString* name = (NSString*)context;
+      NSString* name = (__bridge NSString*)context;
       if ([name isEqualToString:@"UpdateBackground"]) {
         [self initializeBackground];
         [self updateShouldShowTransparencyAlert];
